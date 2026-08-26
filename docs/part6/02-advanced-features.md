@@ -26,7 +26,9 @@ This pattern generalizes beyond finance: any iterative solver — Newton's metho
 
 ## 12.2 Higher-order Derivatives
 
-Chapter 8's `backward()` populates `.grad` tensors, but those `.grad` tensors are themselves ordinary `Tensor`s — nothing stops one from calling `backward()` again with a gradient tensor as the new "loss," producing a second derivative. This is exactly how the framework computes a Hessian-vector product without materializing the full Hessian:
+A first derivative answers "how does the output change as the input changes"; a second derivative answers the next natural question — "how does *that rate of change itself* change." Take `g(x) = x³` at `x = 2`: `g(2) = 8`. The first derivative is `g'(x) = 3x²`, so `g'(2) = 3×4 = 12` — the function is currently increasing at a rate of 12 units of output per unit of input. The second derivative is `g''(x) = 6x`, so `g''(2) = 12` as well (a coincidence of this particular function, not a general rule) — meaning that rate of increase is itself growing by 12 for every unit `x` moves. Verify `g'(2)=12` with a finite difference the way [Chapter 8.2](../part4/02-gradient-computation-engine.md#82-gradient-accumulation-strategies) did: `g(2.001) = 8.012006...`, `g(1.999) = 7.988006...`, slope `≈ (8.012006 - 7.988006)/0.002 = 12.0`. ✓.
+
+Chapter 8's `backward()` populates `.grad` tensors, but those `.grad` tensors are themselves ordinary `Tensor`s — nothing stops one from calling `backward()` again with a gradient tensor as the new "loss," producing exactly this second derivative. For a function of several variables, the full grid of second derivatives is called the **Hessian**; a **Hessian-vector product** (`H @ v`) gets one useful slice of it — here, with a single variable `x` and `v=1`, `H @ v` reduces to plain `g''(2) = 12` — without ever building the full grid:
 
 ```mojo
 fn hessian_vector_product(mut graph: ComputationGraph, loss: Tensor, params: List[Tensor], v: Tensor) -> Tensor:

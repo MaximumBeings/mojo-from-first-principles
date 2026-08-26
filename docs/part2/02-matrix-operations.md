@@ -123,7 +123,23 @@ Matrix B: Identity matrix
 
 ## 4.2 Transpose Operations
 
-Transpose (`output[j][i] = input[i][j]`) is a pure data-movement operation — no arithmetic, so its cost is entirely about memory access pattern. Reading a row of `input` sequentially while writing scattered elements into `output` columns is exactly the access pattern SIMD loads/stores and the SoA layout from Part 0.3 are meant to make cheap:
+Transpose (`output[j][i] = input[i][j]`) is a pure data-movement operation — no arithmetic at all, so its cost is entirely about memory access pattern rather than compute. Worked on a small, asymmetric example so rows and columns can't be confused: a 2×3 matrix
+
+```
+      1  2  3
+A =
+      4  5  6
+```
+
+transposes to the 3×2 matrix formed by turning A's rows into columns:
+
+```
+       1  4
+Aᵀ =   2  5
+       3  6
+```
+
+Read off `A[0,2]=3` and check it lands at `Aᵀ[2,0]=3` — it does, because transposing simply swaps which index is "row" and which is "column" for every element, without changing a single value. Reading a row of `input` sequentially while writing scattered elements into `output` columns is exactly the access pattern SIMD loads/stores and the SoA layout from Part 0.3 are meant to make cheap:
 
 ```mojo
 fn matrix_transpose_simd[simd_width: Int](input: Matrix, output: Matrix):
@@ -143,10 +159,27 @@ Verification checks `input[i][j] == transposed[j][i]` over a submatrix — this 
 
 ## 4.3 Reshaping and View Operations
 
-Reshape is free when the tensor is contiguous: it doesn't touch a single byte of data, only the `TensorShape` and `TensorStrides` metadata built in [1.1](../part1/01-core-tensor-structure.md) and [1.2](../part1/02-memory-layout-design.md#part-121-stride-calculation-system). A `[2, 6]` tensor reshaping to `[3, 4]` is valid precisely because both shapes have the same total element count (12) and the underlying memory is one contiguous C-order run — the reshape just recomputes strides for the new shape and returns a `TensorView` sharing the original `RefCountedBuffer` from [Chapter 2](../part1/06-memory-management-system.md#21-reference-counting-implementation). Reshaping a *non-contiguous* view (for example, one already produced by a transpose) requires a copy, since there's no stride pattern that reproduces the requested shape's row-major layout over scattered memory — the framework detects this via the same contiguity check used in `TensorView.is_contiguous()` and falls back to `matrix_transpose_simd`-style data movement automatically.
+Reshape is free when the tensor is contiguous: it doesn't touch a single byte of data, only the `TensorShape` and `TensorStrides` metadata built in [1.1](../part1/01-core-tensor-structure.md) and [1.2](../part1/02-memory-layout-design.md#part-121-stride-calculation-system). Take the twelve values `[0,1,2,...,11]` sitting in one contiguous run of memory. Viewed as `[2, 6]` (row-major, Part 0.3), that memory reads as
+
+```
+0  1  2  3  4  5
+6  7  8  9 10 11
+```
+
+Reshaping to `[3, 4]` re-slices the *exact same twelve bytes* into a different grid, with no data movement at all:
+
+```
+ 0  1  2  3
+ 4  5  6  7
+ 8  9 10 11
+```
+
+Both are valid readings of one flat sequence, `0` through `11`, because `2×6 = 3×4 = 12` and the underlying memory is one contiguous C-order run — the reshape just recomputes strides for the new shape (row stride `6` becomes row stride `4`) and returns a `TensorView` sharing the original `RefCountedBuffer` from [Chapter 2](../part1/06-memory-management-system.md#21-reference-counting-implementation). Reshaping a *non-contiguous* view (for example, one already produced by a transpose) requires a genuine copy instead: `Aᵀ` from Section 4.2 above is laid out in memory as `[1,4,2,5,3,6]`, and there is no stride pattern that re-slices *that* order into `[3,4]`'s expected row-major reading of `0..11` — the framework detects this via the same contiguity check used in `TensorView.is_contiguous()` and falls back to `matrix_transpose_simd`-style data movement automatically.
 
 ## 4.4 Advanced Linear Algebra
 
-The specialized tensor types from [1.3.4](../part1/04-specialized-tensor-types.md) exist specifically to make advanced linear algebra cheap: multiplying by a `DiagonalTensor` is O(n) instead of O(n²) because the framework dispatches on tensor *kind*, not just shape, and multiplying an `IdentityTensor` by anything returns the other operand unchanged in O(1) — which is exactly the verification trick Section 4.1 used above. Triangular tensors from the same section back forward/backward substitution, the standard way to solve `Ax = b` without an explicit, numerically unstable matrix inverse — a technique Part 7's bond-pricing chapter leans on when solving for a discount curve that reprices a whole set of instruments simultaneously.
+The specialized tensor types from [1.3.4](../part1/04-specialized-tensor-types.md) exist specifically to make advanced linear algebra cheap, and the saving is easiest to see by counting multiplications by hand. A general `3×3` matrix times a `3×3` matrix is 27 scalar multiplications (Section 4.1's triple loop: 3 output rows × 3 output columns × 3 terms summed per entry). Now make the second matrix diagonal — say `D = diag(2, 5, 10)`, meaning `2, 5, 10` on the diagonal and `0` everywhere else. Multiplying any matrix `A` by `D` just scales `A`'s columns: column `0` of the result is column `0` of `A` times `2`, column `1` is column `1` of `A` times `5`, column `2` is column `2` of `A` times `10` — 9 multiplications total (one per entry of `A`, since each entry is scaled by exactly one diagonal value), not 27. A `DiagonalTensor` dispatches to this column-scaling code instead of the general matmul path because the framework tracks tensor *kind*, not just shape — the 3× saving here becomes an `n`-times saving (`O(n)` instead of `O(n²)` multiplications) as the matrix grows. Push the same idea to its limit with the identity matrix — `diag(1, 1, 1)` — and every scale factor is `1`, so multiplying by it returns the other operand completely unchanged, in `O(1)`: exactly the verification trick Section 4.1 used to check that `A @ I = A`.
+
+Triangular tensors from the same section back forward/backward substitution, the standard way to solve `Ax = b` without an explicit, numerically unstable matrix inverse — a technique Part 7's bond-pricing chapter leans on when solving for a discount curve that reprices a whole set of instruments simultaneously.
 
 Chapter 5 turns to the operations that collapse a tensor's dimensions instead of preserving them: sums, means, norms, and the reductions every loss function ultimately produces a scalar through.

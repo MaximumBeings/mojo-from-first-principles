@@ -36,7 +36,7 @@ fn generic_elementwise_kernel(
         output[idx] = input[idx] * Float32(2.0)
 ```
 
-The launch configuration is the other half of "CUDA-style": pick a block size (256 is a common default — large enough to hide memory latency, small enough that many blocks fit per streaming multiprocessor), then compute how many blocks cover the whole tensor:
+The launch configuration is the other half of "CUDA-style": pick a block size (256 is a common default — large enough to hide memory latency, small enough that many blocks fit per streaming multiprocessor), then compute how many blocks cover the whole tensor. Work it out for a tensor of exactly `1,000,000` elements: `num_blocks = (1,000,000 + 255) // 256 = 1,000,255 // 256 = 3907` (integer division truncates). Those 3907 blocks of 256 threads each launch `3907 × 256 = 1,000,192` threads in total — 192 more than the tensor actually has. The last block, block `3906`, covers global indices `999,936` through `1,000,191`; of its 256 threads, only the first 64 satisfy `idx < size` and do real work, and the bounds check (`if idx < size`) is what stops the remaining 192 threads in that one block from writing past the end of the buffer. This "round up, then let the bounds check absorb the remainder" pattern is why every kernel in this book pairs `(size + N - 1) // N` block counts with an `if idx < size` guard inside the kernel body — the ceiling division without the guard would corrupt memory; the guard without the ceiling division would silently skip the tail elements.
 
 ```mojo
 fn launch_elementwise(ctx: DeviceContext, output: UnsafePointer[Scalar[DType.float32]],

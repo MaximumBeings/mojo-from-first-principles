@@ -1,10 +1,23 @@
 # Chapter 6: Graph Node Architecture
 
-Parts 1 and 2 built tensors and the operations on them, but every operation so far has been a dead end — call `elementwise_mul_kernel`, get a result, and the framework immediately forgets how that result was produced. Reverse-mode automatic differentiation needs the opposite: it needs to replay every operation *backward*, so each `Tensor` that requires gradients has to grow a record of what created it. That record is the computational graph, and this chapter is where the tensor library from Parts 1–2 becomes an autograd framework.
+## Why a graph, and not just a function call?
+
+Suppose you write the expression `w = x*y + x` in Mojo, with `x = 3.0` and `y = 4.0`. Running it forward is trivial:
+
+```
+z = x * y = 3.0 * 4.0 = 12.0
+w = z + x = 12.0 + 3.0 = 15.0
+```
+
+Now ask a different question: *if `x` nudges up by a tiny amount, how much does `w` move?* You could answer this by hand, with ordinary calculus: `w = xy + x`, so `∂w/∂x = y + 1 = 4 + 1 = 5`. But notice what you needed to answer that question — you needed to remember that `w` was built from `z`, that `z` was built from `x` and `y` by multiplication, and that `x` also feeds into `w` a *second* time, directly, through the addition. The moment Mojo finishes computing `15.0`, none of that history is still around — `w` is just a `Float32`, indistinguishable from a `Float32` that arrived from anywhere else.
+
+This is the entire problem Part 3 exists to solve. **A computational graph is nothing more than that missing history, kept around on purpose.** Every time an operation runs, instead of only producing a value, it also records a small note: "I am a multiply, my inputs were `x` and `y`, and I produced `12.0`." Chapter 7 will show that once every operation leaves a note like this, the chain rule can be applied *mechanically* to the whole chain of notes — no human has to sit down and work out `∂w/∂x = y + 1` symbolically ever again. This chapter builds the note itself (`GraphNode`), the mechanism that writes one during every forward computation, and the ordering rule that says which notes to read first when the time comes to walk backward.
+
+Keep the numbers above in your head — `x=3, y=4, z=12, w=15` — because every section below builds the graph these two operations actually produce, one field at a time.
 
 ## 6.1 Function Registration System
 
-Every differentiable operation registers a forward implementation and the corresponding backward (gradient) implementation together, as a pair, so the graph can never end up with a forward op it doesn't know how to differentiate:
+An operation can only be part of a graph if the framework knows two things about it: how to run it forward, and how to turn an "upstream sensitivity" into sensitivities for each of its inputs. Neither is optional — an op with only a forward implementation can compute `w`, but can never explain how `w` depends on `x`. The framework enforces this by requiring every operation to implement both halves of one trait, registered together, so a graph can never end up holding a forward computation it doesn't know how to differentiate:
 
 ```mojo
 trait Differentiable:
@@ -24,11 +37,11 @@ struct OpRegistry:
         return self._ops[name]
 ```
 
-`elementwise_mul_kernel` from [Chapter 3](../part2/01-element-wise-operations.md#32-multiplication-and-division) is the `forward` half of a `MulOp`; its `backward` returns `[grad_output * b, grad_output * a]` — the two local-derivative rules derived in that chapter, applied to the tensor now flowing backward through the graph instead of a hand-computed scalar.
+For the running example, two ops need to exist in the registry before `w = x*y + x` can even be recorded: a `MulOp` and an `AddOp`. Their `forward` methods are exactly the arithmetic already shown (`z = x*y`, `w = z+x`); their `backward` methods are what Chapter 7 derives in detail, but the *shape* of the answer is worth previewing now, because it explains why `backward` needs the arguments it has. For `MulOp`, knowing only the upstream sensitivity isn't enough — you also need to know what the *other* input was: the sensitivity of `z=x*y` to `x` is literally the value of `y` (`4.0`), and the sensitivity to `y` is the value of `x` (`3.0`). That's why `backward` receives `inputs`, not just `grad_output` — the local derivative of a multiply is the *other operand*, and there is no way to know that without seeing both inputs.
 
 ## 6.2 Gradient Function Traits
 
-Each node in the graph stores exactly enough to run its op's `backward` later: the op itself, references to its input tensors (kept alive by the `RefCountedBuffer` sharing from [Chapter 2](../part1/06-memory-management-system.md#21-reference-counting-implementation)), and the output it produced.
+Once an op is registered, each time it actually *runs* inside a graph-tracked computation, the framework needs somewhere to keep the specific inputs and output from that one call — not the op's code (there's only one `MulOp`), but this particular invocation of it, on these particular tensors. That's a `GraphNode`:
 
 ```mojo
 struct GraphNode:
@@ -46,11 +59,31 @@ struct GraphNode:
         self.grad = Tensor.zeros(output.shape)
 ```
 
-The one field worth pausing on is `requires_grad`. A tensor loaded from a data file (Section 1.3.3) or a fixed hyperparameter never needs a graph node at all — building one would waste memory and, worse, keep the whole upstream subgraph alive for no reason. The framework checks `requires_grad` before recording, so constant inputs are invisible to the graph exactly the way `torch.no_grad()` or JAX's `stop_gradient` behave.
+Running the example through this struct by hand, the multiply produces exactly one `GraphNode`:
+
+```
+GraphNode #0:
+  op_name = "mul"
+  inputs  = [x = 3.0, y = 4.0]
+  output  = z = 12.0
+  grad    = 0.0   (not yet known -- filled in during backward, Chapter 8)
+```
+
+and the addition produces a second one, whose `inputs` list contains `z` — the *tensor* that node #0 produced, not a copy of the number `12.0`:
+
+```
+GraphNode #1:
+  op_name = "add"
+  inputs  = [z = 12.0, x = 3.0]
+  output  = w = 15.0
+  grad    = 0.0
+```
+
+The field worth pausing on is `requires_grad`. If `y` had instead been a fixed hyperparameter — read from a config file, never meant to be trained — building a `GraphNode` for it would be pure waste: memory spent, and a chain of history kept alive for a gradient nobody will ever ask for. The framework checks `requires_grad` on every input before recording anything, so a constant is invisible to the graph the same way `torch.no_grad()` or JAX's `stop_gradient` make a value invisible in those frameworks.
 
 ## 6.3 Graph Construction During Forward Pass
 
-The graph is built implicitly, one node per operation, as the forward pass executes — there's no separate "trace" step:
+There is no separate "build the graph" step in this framework — the graph is a side effect of running the forward pass once, normally:
 
 ```mojo
 struct ComputationGraph:
@@ -72,13 +105,31 @@ struct ComputationGraph:
 fn mul(mut graph: ComputationGraph, a: Tensor, b: Tensor) -> Tensor:
     var result = elementwise_mul(a, b)              # Chapter 3's kernel
     return graph.record("mul", List[Tensor](a, b), result)
+
+fn add(mut graph: ComputationGraph, a: Tensor, b: Tensor) -> Tensor:
+    var result = elementwise_add(a, b)
+    return graph.record("add", List[Tensor](a, b), result)
 ```
 
-Writing `c = mul(graph, a, b)` therefore does two things in one call: it computes `c` numerically (exactly as Chapter 3 defined), and it appends a `GraphNode` recording "`c` came from multiplying `a` and `b`" — which is all the information backward needs, applied one node at a time.
+Evaluating `w = add(graph, mul(graph, x, y), x)` with `x=3.0, y=4.0` now does two things simultaneously, exactly the way running the arithmetic by hand did: it produces the number `15.0`, and it leaves `graph.nodes` holding precisely the two `GraphNode`s written out in Section 6.2, in the order they were computed:
+
+```
+graph.nodes[0] = GraphNode("mul", inputs=[x,y], output=z=12.0)
+graph.nodes[1] = GraphNode("add", inputs=[z,x], output=w=15.0)
+```
+
+That list is the entire "history" this chapter opened by saying was normally thrown away. Nothing about it is symbolic or abstract — it is a literal, numeric trace of the computation that just ran.
 
 ## 6.4 Topological Sorting Implementation
 
-Backward must visit nodes in the reverse of the order their outputs were needed as inputs elsewhere — a node can't run backward until every node that consumed its output already has. Because `nodes` is appended to in forward-execution order, and every node's inputs were necessarily computed (and therefore appended) before it, the list is *already* topologically sorted forward-to-back. Running the list in reverse is a valid reverse-topological order with no separate sort pass required:
+Backward must undo the computation in the opposite order it was built: you cannot ask "how sensitive is `w` to `z`" until you know `w` exists, and `w`'s node was necessarily appended to `graph.nodes` *after* `z`'s node, because `z` had to be computed first to be used as an input. That single fact — every node's inputs were computed, and therefore appended, strictly before it — means the list is already sorted in a valid forward order, and reversing it is a valid order for backward with no separate sorting algorithm required:
+
+```
+Forward order (how graph.nodes was built):   [ mul(x,y)→z,  add(z,x)→w ]
+Reverse order (the order backward will use): [ add(z,x)→w,  mul(x,y)→z ]
+```
+
+Read that reversed list as a to-do list for Chapter 8: first, figure out how sensitive the final `w` is to `z` and to `x` through the addition; only afterward, once `z`'s sensitivity is known, ask how sensitive `z` is to `x` and `y` through the multiplication. Trying to do it in the other order would mean asking "how does `z` affect `x` and `y`" before you even know how much `z` itself matters to the answer — which is not yet a meaningful question.
 
 ```mojo
 fn topological_backward_order(graph: ComputationGraph) -> List[Int]:
@@ -92,6 +143,4 @@ fn topological_backward_order(graph: ComputationGraph) -> List[Int]:
     return order
 ```
 
-This is the one place where recording the graph *as* the forward pass runs (rather than building an abstract graph up front, the way a static-graph framework does) pays for itself directly: order is free, because Mojo's own sequential execution already produced it.
-
-With graph construction and traversal order settled, Part 4 fills in what actually happens at each node during that reverse walk: the chain rule, gradient accumulation, and the reverse-mode AD engine itself.
+For the running example, `topological_backward_order` returns `[1, 0]` — node 1 (`add`) first, node 0 (`mul`) second. Chapter 7 derives what each node does with the sensitivity it's handed; Chapter 8 walks this exact list, `[1, 0]`, and produces the numbers `x.grad = 5.0` and `y.grad = 3.0` that opened this chapter as something you'd otherwise have to work out by hand.

@@ -154,7 +154,17 @@ Difference: 4.0566187919921504e-07
 
 ## 13.3 Portfolio Optimization
 
-`portfolio_weight[i] = present_value[i] / total_portfolio_value` turns individual bond prices into portfolio weights with one more elementwise-divide kernel; portfolio duration — the risk metric a desk actually manages against — is the weight-duration inner product, which is a multiply followed by the same sum-reduction used to total portfolio value in Section 13.1:
+Before the GPU kernel, work a 3-bond portfolio by hand — small enough to check every step, large enough to show what "duration" actually means. Say the portfolio holds three zero-coupon bonds, already priced by Section 13.1's kernel:
+
+| Bond | Present Value | Time to Maturity (duration) |
+|---|---|---|
+| A | \$400 | 2 years |
+| B | \$350 | 5 years |
+| C | \$250 | 10 years |
+
+Total portfolio value: `400 + 350 + 250 = 1000`. Each bond's **weight** is its share of that total: `w_A = 400/1000 = 0.40`, `w_B = 350/1000 = 0.35`, `w_C = 250/1000 = 0.25` — and these three weights sum to `1.0`, as portfolio weights always must. **Portfolio duration** is the weighted average of the individual durations: `0.40×2 + 0.35×5 + 0.25×10 = 0.8 + 1.75 + 2.5 = 5.05` years. Read that number the way a trading desk does: `duration ≈ 5.05` means a 1% parallel rise in interest rates should reduce this portfolio's value by roughly 5.05%, or about \$50.50 on the \$1000 book — bond C, despite being the *smallest* position, contributes the *most* to that risk (`2.5` of the `5.05` total), because its 10-year maturity makes it far more rate-sensitive per dollar than bonds A or B.
+
+`portfolio_weight[i] = present_value[i] / total_portfolio_value` turns individual bond prices into portfolio weights with one more elementwise-divide kernel — exactly the `0.40, 0.35, 0.25` computed above, at any scale; portfolio duration is the weight-duration inner product from the same table, computed as a multiply followed by the same sum-reduction used to total portfolio value in Section 13.1:
 
 ```mojo
 fn compute_portfolio_duration_kernel(
@@ -173,7 +183,9 @@ Because this whole pipeline — price, weight, weighted duration, total — is b
 
 ## 13.4 Monte Carlo Simulations with Gradients
 
-Monte Carlo pricing values a path-dependent instrument by averaging its discounted payoff across many simulated price paths — an expectation approximated by a large sample mean, which is exactly `tensor_mean` from [Chapter 5.1](../part2/03-reduction-operations.md#51-sum-and-mean-reductions) applied to a payoff computed per path:
+Monte Carlo pricing answers a question closed-form formulas often can't: "what is this option worth, on average, across every way the future might unfold?" Simulate a handful of terminal stock prices by hand to see the mechanism before trusting a GPU to do it a million times over. Suppose a stock starting at \$100 is simulated forward and five independent paths happen to land at terminal prices `[95, 102, 108, 130, 90]`, and you're pricing a **call option** with strike `K=100` — a contract that pays `max(S_T - K, 0)`, the amount by which the stock finished *above* the strike, or nothing if it finished below. Payoffs: `max(95-100,0)=0`, `max(102-100,0)=2`, `max(108-100,0)=8`, `max(130-100,0)=30`, `max(90-100,0)=0`. Average payoff: `(0+2+8+30+0)/5 = 40/5 = 8`. Discounting that \$8 average back to today at, say, a 3% risk-free rate over one year (`e^(-0.03×1) ≈ 0.9704`) gives an option price of `8 × 0.9704 ≈ 7.76`. Every one of the paths that finished below the strike contributed a hard `0`, not a negative number — the option's whole value comes from the upside paths, which is exactly why option payoffs are asymmetric and why averaging over many simulated paths, rather than one "expected" path, is necessary to price them correctly.
+
+This is an expectation approximated by a sample mean over many more than five paths, which is exactly `tensor_mean` from [Chapter 5.1](../part2/03-reduction-operations.md#51-sum-and-mean-reductions) applied to a payoff computed per path:
 
 ```mojo
 fn simulate_gbm_paths(

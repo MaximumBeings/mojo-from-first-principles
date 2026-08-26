@@ -1,10 +1,12 @@
 # Chapter 2: Memory Management System
 
-Chapter 1 gave every tensor its own `UnsafePointer` allocation, freed deterministically in `__del__`. That's correct for a single owner, but the autograd engine we start building in Part 3 needs the *same* underlying buffer visible from multiple places at once — a tensor and the view a slicing operation returned from it, or a tensor and the node in the computational graph that holds a reference to it for the backward pass. This chapter builds the reference-counting, pooled-allocation, and RAII machinery that makes shared ownership safe without giving up the manual-memory performance from Chapter 1.
+Chapter 1 gave every tensor its own `UnsafePointer` allocation, freed deterministically in `__del__` — correct for a single owner, but too rigid for what's coming. Part 3's computational graph needs the *same* underlying buffer visible from two places at once: a tensor and the graph node that holds a reference to it for the backward pass. This chapter builds the reference-counting, pooled-allocation, and RAII machinery that makes shared ownership safe without giving up the manual-memory performance Chapter 1 established.
 
 ## 2.1 Reference Counting Implementation
 
-A naive shared pointer needs an atomic counter, a pointer to the payload, and `__copyinit__`/`__del__` hooks that increment and decrement it. Mojo's ownership model lets us express this as a small wrapper struct rather than reaching for a garbage collector:
+Picture three lines of code: `var t = Tensor.zeros([4])` creates a buffer with one owner. `var v = t.view()` (Section 1.2.2) is meant to look at the *same* memory, not a copy of it — so now there are two things pointing at one buffer. If `t` goes out of scope first, do you free the memory out from under `v`? If neither ever explicitly says "I'm done," does the memory leak forever? Reference counting answers both questions with one small integer: keep a shared counter alongside the buffer, increment it every time something starts sharing the buffer, decrement it every time something stops, and only free the memory when the counter reaches zero.
+
+Trace it with actual counts. `t = Tensor.zeros([4])` allocates the buffer and sets the counter to `1`. `v = t.view()` copies the *pointer* (not the data) and bumps the counter to `2`. Suppose `v` then goes out of scope: the counter drops to `1`, but the buffer survives, because `t` still needs it. Only when `t` *also* goes out of scope does the counter reach `0`, and the buffer is actually freed. At no point in that sequence does either `t` or `v` need to know whether the other one is still alive — the counter carries that information for both of them.
 
 ```mojo
 from memory import UnsafePointer
@@ -23,7 +25,7 @@ struct RefCountedBuffer[T: AnyType]:
     fn __init__(out self, count: Int):
         self.count = count
         self._refcount = UnsafePointer[Int].alloc(1)
-        self._refcount[0] = 1
+        self._refcount[0] = 1                          # t = Tensor.zeros([4]): refcount starts at 1
         self._data = UnsafePointer[T].alloc(count)
 
     fn __copyinit__(out self, existing: Self):
@@ -31,11 +33,11 @@ struct RefCountedBuffer[T: AnyType]:
         self._data = existing._data
         self._refcount = existing._refcount
         self.count = existing.count
-        self._refcount[0] += 1
+        self._refcount[0] += 1                          # v = t.view(): refcount becomes 2
 
     fn __del__(owned self):
-        self._refcount[0] -= 1
-        if self._refcount[0] == 0:
+        self._refcount[0] -= 1                          # v goes out of scope: refcount becomes 1
+        if self._refcount[0] == 0:                       # t later goes out of scope: refcount becomes 0
             self._data.free()
             self._refcount.free()
 
@@ -43,11 +45,13 @@ struct RefCountedBuffer[T: AnyType]:
         return self._refcount[0]
 ```
 
-The tensor view infrastructure from [1.2.2](02-memory-layout-design.md) is the direct consumer: a `TensorView` copies the parent's `RefCountedBuffer`, not its data, so `parent.refcount()` correctly reports 2 while any view is alive and the underlying allocation only frees once every view *and* the owning tensor have gone out of scope.
+The tensor view infrastructure from [1.2.2](02-memory-layout-design.md#part-122-view-and-slicing-infrastructure) is the direct consumer: a `TensorView` copies the parent's `RefCountedBuffer`, not its data, so `parent.refcount()` correctly reports `2` while any view is alive, exactly as traced above, and the underlying allocation only frees once every view *and* the owning tensor have gone out of scope.
 
 ## 2.2 Arena-based Memory Allocation
 
-Reference counting adds an atomic-like decrement on every tensor destructor, which is measurable overhead in a tight training loop that allocates thousands of small intermediate tensors per step. An arena sidesteps that: allocate one large slab up front, hand out bump-pointer offsets into it, and free the *entire* slab in one call at the end of a forward/backward pass.
+Reference counting adds a decrement-and-check on every single tensor destructor — cheap in isolation, but a training step in [Chapter 11](../part6/01-neural-network-layers.md) allocates *thousands* of small intermediate tensors (one `Z` and one `A` per layer, per batch), and that overhead adds up. An arena sidesteps it with a much simpler idea: allocate one large slab once, and hand out offsets into it with nothing more than addition — no bookkeeping per allocation, and no individual frees at all, just one bulk reset at the end.
+
+Work through actual byte offsets. Say the arena is freshly reset (`_offset = 0`), and the first request is for `100` `Float32`s — `100 × 4 = 400` bytes. Before handing that memory out, the offset is rounded up to the nearest 64-byte boundary (`(0 + 63) & ~63 = 0`, already aligned), the caller gets a pointer at offset `0`, and `_offset` advances to `400`. The next request, for `50` more `Float32`s (`200` bytes), first re-aligns: `(400 + 63) & ~63 = 448` — so `48` bytes are quietly skipped to keep the next allocation on a 64-byte (cache-line and SIMD-friendly) boundary — and the new allocation runs from byte `448` to byte `648`, leaving `_offset = 648`. No allocation in this sequence was ever individually freed; when the training step finishes, one call to `reset()` sets `_offset` back to `0` and every one of those allocations is invalidated at once.
 
 ```mojo
 struct Arena:
@@ -88,11 +92,13 @@ struct Arena:
         return self._offset
 ```
 
-Used per training step: `arena.reset()` at the top of `forward()`, allocate every intermediate activation from `arena.alloc[Float32](...)`, and never call an individual free until the arena itself is dropped at the end of training. This is the same allocation strategy production frameworks like PyTorch's caching allocator and JAX's donation-based buffer reuse converge on for the same reason — allocator churn, not compute, dominates small-tensor workloads.
+Used per training step: `arena.reset()` at the top of `forward()`, allocate every intermediate activation from `arena.alloc[Float32](...)` (exactly the `100`-then-`50`-element sequence traced above), and never call an individual free until the arena itself is dropped at the end of training. This is the same allocation strategy production frameworks like PyTorch's caching allocator and JAX's donation-based buffer reuse converge on for the same reason — allocator churn, not compute, dominates small-tensor workloads.
 
 ## 2.3 GPU Memory Management
 
-GPU allocations are one to three orders of magnitude more expensive to issue than a `malloc`, and a naive framework that calls `ctx.enqueue_function`-adjacent device allocation on every forward pass will spend more time in the driver than in kernels. The fix is a device-side free list keyed by size class, sitting on top of the `DeviceContext` abstraction introduced in [Part 0.4](../part0/04-gpu-programming-introduction.md):
+GPU allocations are one to three orders of magnitude more expensive to issue than a CPU `malloc`, because each one round-trips through the device driver. A framework that naively allocates fresh device memory on every forward pass will spend more wall-clock time talking to the driver than running kernels — so instead, keep a pool of already-allocated buffers, grouped by size, and hand the *same* buffer back out the next time something asks for that exact size.
+
+Trace three training steps by hand. Step 1 requests a `256`-element buffer: the pool's free list for size `256` is empty, so it allocates fresh (`bytes_allocated += 1024`) and hands it out. At the end of the step, the buffer is released back to the pool (not freed) — the free list for size `256` now holds one entry. Step 2 requests another `256`-element buffer: this time the free list isn't empty, so the pool pops that exact buffer and reuses it (`bytes_reused += 1024`) instead of asking the driver for new memory. Step 3, same story: another reuse. After three steps, `bytes_allocated = 1024` and `bytes_reused = 2048`, so `hit_rate() = 2048 / (1024+2048) = 0.667` — climbing toward `1.0` as training continues, since the same activation shapes recur every iteration.
 
 ```mojo
 from gpu.host import DeviceContext
@@ -131,19 +137,17 @@ struct GPUMemoryPool:
         return Float64(self.bytes_reused) / Float64(total) if total > 0 else 0.0
 ```
 
-In steady-state training, `hit_rate()` should climb toward 1.0 within the first few steps, since the same activation shapes recur every iteration.
-
 ## 2.4 RAII Patterns and Automatic Cleanup
 
-Every allocator in this chapter follows the same rule Chapter 1's `Tensor` established: acquisition happens in `__init__`, release happens in `__del__`, and there is no code path that can leak a resource because Mojo's ownership tracker will not compile a use of a value after it has been consumed. Concretely, for a scoped resource like the GPU memory pool above, the idiomatic pattern is:
+Every allocator in this chapter follows the same rule Chapter 1's `Tensor` established: acquisition happens in `__init__`, release happens in `__del__`, and there is no code path that can leak a resource because Mojo's ownership tracker will not compile a use of a value after it has been consumed. Concretely, for the pool traced in Section 2.3:
 
 ```mojo
 fn training_step(mut pool: GPUMemoryPool, batch: Tensor):
     var activations = pool.acquire(batch.shape.size())
     # ... forward + backward pass using `activations` ...
     pool.release(activations, batch.shape.size())
-    # `activations` is not read again after this line — Mojo's
+    # `activations` is not read again after this line -- Mojo's
     # lifetime checker rejects any attempt to do so.
 ```
 
-Combined with `Arena` for the per-step scratch space and `RefCountedBuffer` for values that outlive a single step (the graph's saved tensors for backward), Part 1 now has a complete memory story: deterministic single ownership from Chapter 1, shared ownership where the graph needs it, bump allocation where per-step churn dominates, and a device-side pool where the allocation itself (not the memory) is the expensive resource. Part 2 builds the tensor operations on top of this foundation.
+Combined with `Arena` for the per-step scratch space and `RefCountedBuffer` for values that outlive a single step (the graph's saved tensors for backward), Part 1 now has a complete memory story: deterministic single ownership from Chapter 1, shared ownership where the graph needs it (traced numerically in 2.1), bump allocation where per-step churn dominates (traced numerically in 2.2), and a device-side pool where the allocation itself, not the memory, is the expensive resource (traced numerically in 2.3). Part 2 builds the tensor operations on top of this foundation.
