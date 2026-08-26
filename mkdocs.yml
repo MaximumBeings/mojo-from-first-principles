@@ -1,0 +1,98 @@
+site_name: Mojo From First Principles
+site_description: Building a GPU-Native Automatic Differentiation Framework in Mojo, One Layer at a Time
+site_author: Oluwaseyi Awoga
+copyright: Copyright &copy; 2026 Oluwaseyi Awoga
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    logo: material/lambda
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+  - footnotes
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - "Part 0 — Mojo Foundations":
+      - "0.1 Variables and Types": part0/01-variables-and-types.md
+      - "0.2 Struct Design Patterns": part0/02-struct-design-patterns.md
+      - "0.3 Memory Layout Strategies": part0/03-memory-layout-strategies.md
+      - "0.4 GPU Programming Introduction": part0/04-gpu-programming-introduction.md
+      - "0.5 SIMD and Vectorization": part0/05-simd-and-vectorization.md
+  - "Part 1 — Core Tensor Infrastructure":
+      - "1.1 Core Tensor Structure": part1/01-core-tensor-structure.md
+      - "1.2 Memory Layout Design": part1/02-memory-layout-design.md
+      - "1.3 Tensor Creation Functions": part1/03-tensor-creation-functions.md
+      - "1.3.4 Specialized Tensor Types": part1/04-specialized-tensor-types.md
+      - "1.4 Device Abstraction Layer": part1/05-device-abstraction-layer.md
+      - "2. Memory Management System": part1/06-memory-management-system.md
+  - "Part 2 — Basic Tensor Operations":
+      - "3. Element-wise Operations": part2/01-element-wise-operations.md
+      - "4. Matrix Operations": part2/02-matrix-operations.md
+      - "5. Reduction Operations": part2/03-reduction-operations.md
+  - "Part 3 — Computational Graph Foundation":
+      - "6. Graph Node Architecture": part3/01-graph-node-architecture.md
+  - "Part 4 — Automatic Differentiation Engine":
+      - "7. Backward Function Implementation": part4/01-backward-function-implementation.md
+      - "8. Gradient Computation Engine": part4/02-gradient-computation-engine.md
+  - "Part 5 — GPU Acceleration and Performance":
+      - "9. GPU Kernel Implementation": part5/01-gpu-kernel-implementation.md
+      - "10. Performance Optimization Techniques": part5/02-performance-optimization.md
+  - "Part 6 — Neural Network Building Blocks":
+      - "11. Neural Network Layers": part6/01-neural-network-layers.md
+      - "12. Advanced Features": part6/02-advanced-features.md
+  - "Part 7 — Financial Computing Applications":
+      - "13. Quantitative Finance Examples": part7/01-quantitative-finance-examples.md
+  - Appendix:
+      - "A. Installation & Setup": appendix/installation-setup.md
+      - "B. Practice Quiz": appendix/practice-quiz.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/maximumbeings
