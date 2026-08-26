@@ -1,76 +1,54 @@
 # Appendix A: Installation & Environment Setup
 
-The full walkthrough — launching a GPU instance, installing Pixi and Mojo, running your first kernel, and troubleshooting — lives on the [Getting Started](../getting-started.md) page. This appendix collects the two alternate provisioning scripts used to prepare this book's examples, for reference.
+The main [Getting Started](../getting-started.md) page establishes a local Mojo 1.0.0 environment. This appendix adds a reproducible Linux GPU path and makes each verification checkpoint explicit.
 
-## A.1 Lambda Cloud, minimal (workshop-style)
+## A.1 Provision a Linux GPU host
+
+Choose Ubuntu 22.04 or later and a supported accelerator. Persistent storage is worth configuring before installation because cloud GPU root disks are often ephemeral.
 
 ```bash
-# SECTION A -- On your Lambda GPU instance (Ubuntu 22.04 + Lambda Stack)
-sudo apt update && sudo apt install -y \
-    curl git unzip build-essential libpython3-dev python3-pip pkg-config
-
-curl -fsSL https://pixi.sh/install.sh | sh
-export PATH="$HOME/.pixi/bin:$PATH"
-echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-
-# SECTION B -- Mojo environment via Modular + Conda-Forge channels
-pixi init quickstart \
-  -c https://conda.modular.com/max-nightly/ \
-  -c conda-forge \
-  && cd quickstart
-
-pixi add max
-pixi run mojo --version
-
-echo 'def main(): print("Hello, Mojo!")' > hello.mojo
-pixi run mojo hello.mojo
-
-# Confirm CUDA
+sudo apt update
+sudo apt install -y curl git build-essential python3 python3-venv
 nvidia-smi
-nvcc --version
 ```
 
-This flow uses Pixi's native support for custom Conda channels and Modular's `max-nightly` channel directly — no `pixi login` step required.
+**Manual worked example.** The package commands prepare the host; they do not prove the GPU works. `nvidia-smi` must separately show a supported model and driver. Record both values so a later launch failure can be compared against the Mojo compatibility table.
 
-## A.2 Lambda Cloud, full workshop / hackathon flow
+## A.2 Install the pinned compiler
 
-For a from-scratch instance including launch and lifecycle notes:
+Use an isolated environment and pin the release used to edit this book.
 
 ```bash
-# 1. Launch at https://cloud.lambdalabs.com
-#    GPU: A10 (24GB), Quadro RTX 6000, or A100
-#    Image: Ubuntu 22.04 + Lambda Stack
-#    Storage: attach a persistent filesystem (>= 100GB) if you want data to survive termination
-
-# 2. SSH in
-chmod 400 your_key.pem
-ssh -i your_key.pem ubuntu@<INSTANCE_PUBLIC_IP>
-
-# 3. System packages + Pixi (same as A.1 Section A/B above)
-
-# 4. Verify GPU + CUDA
-nvidia-smi
-nvcc --version
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv venv .venv
+source .venv/bin/activate
+uv pip install "mojo==1.0.0"
+mojo --version
 ```
 
-!!! danger "Ephemeral by default"
-    Without an attached filesystem, a Lambda instance's storage is destroyed on termination with no recovery. There is no "Stop" — only **Restart** (reboots, keeps data while the instance still exists) and **Terminate** (deletes the instance *and* its ephemeral storage). Back up before terminating:
-    ```bash
-    tar -czvf backup.tar.gz ~/quickstart/
-    scp -i your_key.pem ubuntu@<INSTANCE_PUBLIC_IP>:~/backup.tar.gz .
-    ```
-    Keep `mojoproject.toml`, source, and data under version control, and for repeatable setups, turn this script into `setup_mojo.sh` and run it on instance launch.
+**Manual worked example.** The expected last line starts with `Mojo 1.0.0`. The environment is reproducible because the package version is explicit; omitting the pin lets a future release change parser or library behavior.
 
-## A.3 Quick reference: running this book's examples
+## A.3 Run and build
+
+Interpretation and ahead-of-time building should agree on the same deterministic smoke test.
 
 ```bash
-# Any .mojo file in this book runs the same way:
-pixi run mojo <filename>.mojo
-
-# Build a standalone executable:
-pixi run mojo build <filename>.mojo -o <output_name>
-./<output_name>
+mojo hello.mojo
+mojo build hello.mojo -o hello
+./hello
 ```
 
-See [Getting Started](../getting-started.md) for the expected-output benchmarks across T4 / A10 / RTX 3080 / A100, and the troubleshooting table for common `pixi`/`mojo` errors.
+**Manual worked example.** For the `x*y+x` smoke test in Getting Started, both runs print 15. A mismatch means the two commands are resolving different environments or artifacts; fix that before benchmarking.
+
+## A.4 Preserve cloud work
+
+Treat an unattached instance disk as disposable. Commit source and environment metadata, then copy any uncommitted results before termination.
+
+```bash
+git add .
+git commit -m "Save Mojo 1.0 work"
+tar -czf mojo-work.tar.gz .
+scp mojo-work.tar.gz <local-destination>
+```
+
+**Manual worked example.** `git status` should be clean after the commit. The archive provides a second recovery path; list it with `tar -tzf mojo-work.tar.gz` and confirm that source and environment files are present before terminating the instance.

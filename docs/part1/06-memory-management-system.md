@@ -1,153 +1,78 @@
 # Chapter 2: Memory Management System
 
-Chapter 1 gave every tensor its own `UnsafePointer` allocation, freed deterministically in `__del__` — correct for a single owner, but too rigid for what's coming. Part 3's computational graph needs the *same* underlying buffer visible from two places at once: a tensor and the graph node that holds a reference to it for the backward pass. This chapter builds the reference-counting, pooled-allocation, and RAII machinery that makes shared ownership safe without giving up the manual-memory performance Chapter 1 established.
+Memory management is an ownership design problem before it is an allocator problem. Mojo 1.0 provides safe owning pointers, reference-counted pointers, layout-aware allocations, and runtime-owned device buffers. Choose the highest-level owner that fits the lifetime, and expose raw pointers only inside a narrow implementation boundary.
 
-## 2.1 Reference Counting Implementation
+## 2.1 Shared views use `ArcPointer`
 
-Picture three lines of code: `var t = Tensor.zeros([4])` creates a buffer with one owner. `var v = t.view()` (Section 1.2.2) is meant to look at the *same* memory, not a copy of it — so now there are two things pointing at one buffer. If `t` goes out of scope first, do you free the memory out from under `v`? If neither ever explicitly says "I'm done," does the memory leak forever? Reference counting answers both questions with one small integer: keep a shared counter alongside the buffer, increment it every time something starts sharing the buffer, decrement it every time something stops, and only free the memory when the counter reaches zero.
-
-Trace it with actual counts. `t = Tensor.zeros([4])` allocates the buffer and sets the counter to `1`. `v = t.view()` copies the *pointer* (not the data) and bumps the counter to `2`. Suppose `v` then goes out of scope: the counter drops to `1`, but the buffer survives, because `t` still needs it. Only when `t` *also* goes out of scope does the counter reach `0`, and the buffer is actually freed. At no point in that sequence does either `t` or `v` need to know whether the other one is still alive — the counter carries that information for both of them.
+Tensor views need shared lifetime, not duplicated storage. `ArcPointer` owns one heap value, increments its atomic count when copied, and destroys the value when the last owner disappears.
 
 ```mojo
-from memory import UnsafePointer
+from std.memory import ArcPointer
 
-struct RefCountedBuffer[T: AnyType]:
-    """A manually reference-counted heap buffer.
+struct SharedStorage(ImplicitlyCopyable):
+    var data: ArcPointer[List[Float32]]
 
-    Layout: a single allocation holds an Int refcount header
-    immediately followed by `count` elements of T, so incrementing
-    or decrementing the count touches no extra cache line.
-    """
-    var _data: UnsafePointer[T]
-    var _refcount: UnsafePointer[Int]
-    var count: Int
+    def __init__(out self, var values: List[Float32]):
+        self.data = ArcPointer(values^)
 
-    fn __init__(out self, count: Int):
-        self.count = count
-        self._refcount = UnsafePointer[Int].alloc(1)
-        self._refcount[0] = 1                          # t = Tensor.zeros([4]): refcount starts at 1
-        self._data = UnsafePointer[T].alloc(count)
-
-    fn __copyinit__(out self, existing: Self):
-        # Shallow copy: share the buffer, bump the count.
-        self._data = existing._data
-        self._refcount = existing._refcount
-        self.count = existing.count
-        self._refcount[0] += 1                          # v = t.view(): refcount becomes 2
-
-    fn __del__(owned self):
-        self._refcount[0] -= 1                          # v goes out of scope: refcount becomes 1
-        if self._refcount[0] == 0:                       # t later goes out of scope: refcount becomes 0
-            self._data.free()
-            self._refcount.free()
-
-    fn refcount(self) -> Int:
-        return self._refcount[0]
+    def __init__(out self, *, copy: Self):
+        self.data = copy.data
 ```
 
-The tensor view infrastructure from [1.2.2](02-memory-layout-design.md#part-122-view-and-slicing-infrastructure) is the direct consumer: a `TensorView` copies the parent's `RefCountedBuffer`, not its data, so `parent.refcount()` correctly reports `2` while any view is alive, exactly as traced above, and the underlying allocation only frees once every view *and* the owning tensor have gone out of scope.
+**Manual worked example.** Create storage for `[10,20,30]`, then copy the `SharedStorage` into two views. There is still one three-element list, now reached by three `ArcPointer` owners. Destroying one view decrements the count but preserves the list; destroying the final owner releases it.
 
-## 2.2 Arena-based Memory Allocation
+## 2.2 Arenas serve short, batch lifetimes
 
-Reference counting adds a decrement-and-check on every single tensor destructor — cheap in isolation, but a training step in [Chapter 11](../part6/01-neural-network-layers.md) allocates *thousands* of small intermediate tensors (one `Z` and one `A` per layer, per batch), and that overhead adds up. An arena sidesteps it with a much simpler idea: allocate one large slab once, and hand out offsets into it with nothing more than addition — no bookkeeping per allocation, and no individual frees at all, just one bulk reset at the end.
-
-Work through actual byte offsets. Say the arena is freshly reset (`_offset = 0`), and the first request is for `100` `Float32`s — `100 × 4 = 400` bytes. Before handing that memory out, the offset is rounded up to the nearest 64-byte boundary (`(0 + 63) & ~63 = 0`, already aligned), the caller gets a pointer at offset `0`, and `_offset` advances to `400`. The next request, for `50` more `Float32`s (`200` bytes), first re-aligns: `(400 + 63) & ~63 = 448` — so `48` bytes are quietly skipped to keep the next allocation on a 64-byte (cache-line and SIMD-friendly) boundary — and the new allocation runs from byte `448` to byte `648`, leaving `_offset = 648`. No allocation in this sequence was ever individually freed; when the training step finishes, one call to `reset()` sets `_offset` back to `0` and every one of those allocations is invalidated at once.
+An arena is valuable when many graph nodes die together. It allocates from chunks and resets a cursor in constant time, but values with destructors still need correct destruction. Use it for trivially destructible metadata or track destructor work explicitly.
 
 ```mojo
-struct Arena:
-    """Bump-pointer allocator over one large backing buffer.
+@fieldwise_init
+struct ArenaCursor(Copyable, Movable):
+    var capacity: Int
+    var used: Int
 
-    Individual allocations are never freed; the whole arena resets
-    (or is dropped) once, at graph-teardown time. This turns O(n)
-    tensor-destructor calls during a training step into O(1).
-    """
-    var _base: UnsafePointer[UInt8]
-    var _capacity: Int
-    var _offset: Int
+    def reserve(mut self, count: Int) raises -> Int:
+        if count < 0 or self.used + count > self.capacity:
+            raise Error("arena exhausted")
+        var start = self.used
+        self.used += count
+        return start
 
-    fn __init__(out self, capacity_bytes: Int):
-        self._base = UnsafePointer[UInt8].alloc(capacity_bytes)
-        self._capacity = capacity_bytes
-        self._offset = 0
-
-    fn __del__(owned self):
-        self._base.free()
-
-    fn alloc[T: AnyType](mut self, count: Int) -> UnsafePointer[T]:
-        var bytes_needed = count * sizeof[T]()
-        # 64-byte alignment keeps every allocation SIMD- and
-        # cache-line-friendly (see Part 0.3 on AoS vs SoA layouts).
-        var aligned_offset = (self._offset + 63) & ~63
-        debug_assert(aligned_offset + bytes_needed <= self._capacity,
-                     "Arena exhausted")
-        var ptr = (self._base + aligned_offset).bitcast[T]()
-        self._offset = aligned_offset + bytes_needed
-        return ptr
-
-    fn reset(mut self):
-        """O(1) reclaim of every allocation made since the last reset."""
-        self._offset = 0
-
-    fn bytes_used(self) -> Int:
-        return self._offset
+    def reset(mut self):
+        self.used = 0
 ```
 
-Used per training step: `arena.reset()` at the top of `forward()`, allocate every intermediate activation from `arena.alloc[Float32](...)` (exactly the `100`-then-`50`-element sequence traced above), and never call an individual free until the arena itself is dropped at the end of training. This is the same allocation strategy production frameworks like PyTorch's caching allocator and JAX's donation-based buffer reuse converge on for the same reason — allocator churn, not compute, dominates small-tensor workloads.
+**Manual worked example.** With capacity 16, reservations of 5 and 3 return offsets 0 and 5 and leave `used=8`. Reset changes only the cursor to 0, so the next reservation reuses offset 0. It must happen only after every consumer of the old eight slots has finished.
 
-## 2.3 GPU Memory Management
+## 2.3 GPU buffers belong to their context
 
-GPU allocations are one to three orders of magnitude more expensive to issue than a CPU `malloc`, because each one round-trips through the device driver. A framework that naively allocates fresh device memory on every forward pass will spend more wall-clock time talking to the driver than running kernels — so instead, keep a pool of already-allocated buffers, grouped by size, and hand the *same* buffer back out the next time something asks for that exact size.
-
-Trace three training steps by hand. Step 1 requests a `256`-element buffer: the pool's free list for size `256` is empty, so it allocates fresh (`bytes_allocated += 1024`) and hands it out. At the end of the step, the buffer is released back to the pool (not freed) — the free list for size `256` now holds one entry. Step 2 requests another `256`-element buffer: this time the free list isn't empty, so the pool pops that exact buffer and reuses it (`bytes_reused += 1024`) instead of asking the driver for new memory. Step 3, same story: another reuse. After three steps, `bytes_allocated = 1024` and `bytes_reused = 2048`, so `hit_rate() = 2048 / (1024+2048) = 0.667` — climbing toward `1.0` as training continues, since the same activation shapes recur every iteration.
+Use `DeviceContext.enqueue_create_buffer` rather than allocating host memory and relabeling its pointer. The context knows the accelerator, address space, stream, and destruction path.
 
 ```mojo
-from gpu.host import DeviceContext
-from memory import UnsafePointer
-from collections import Dict, List
+from std.gpu.host import DeviceContext
 
-struct GPUMemoryPool:
-    """Size-classed free list of device buffers, so repeated
-    same-shape tensor allocations (very common across training
-    steps) reuse memory instead of round-tripping the driver."""
-    var ctx: DeviceContext
-    var _free_lists: Dict[Int, List[UnsafePointer[Scalar[DType.float32]]]]
-    var bytes_allocated: Int
-    var bytes_reused: Int
-
-    fn __init__(out self, owned ctx: DeviceContext):
-        self.ctx = ctx^
-        self._free_lists = Dict[Int, List[UnsafePointer[Scalar[DType.float32]]]]()
-        self.bytes_allocated = 0
-        self.bytes_reused = 0
-
-    fn acquire(mut self, count: Int) -> UnsafePointer[Scalar[DType.float32]]:
-        if count in self._free_lists and len(self._free_lists[count]) > 0:
-            self.bytes_reused += count * 4
-            return self._free_lists[count].pop()
-        self.bytes_allocated += count * 4
-        return UnsafePointer[Scalar[DType.float32]].alloc(count)
-
-    fn release(mut self, ptr: UnsafePointer[Scalar[DType.float32]], count: Int):
-        if count not in self._free_lists:
-            self._free_lists[count] = List[UnsafePointer[Scalar[DType.float32]]]()
-        self._free_lists[count].append(ptr)
-
-    fn hit_rate(self) -> Float64:
-        var total = self.bytes_allocated + self.bytes_reused
-        return Float64(self.bytes_reused) / Float64(total) if total > 0 else 0.0
+def allocate_grad_buffer(ctx: DeviceContext, elements: Int):
+    return ctx.enqueue_create_buffer[DType.float32](elements)
 ```
 
-## 2.4 RAII Patterns and Automatic Cleanup
+**Manual worked example.** A gradient tensor with 1,024 Float32 elements requests 4,096 payload bytes on the selected device. The returned owner is queued on the context; a host read requires a device-to-host copy and synchronization, not direct pointer indexing.
 
-Every allocator in this chapter follows the same rule Chapter 1's `Tensor` established: acquisition happens in `__init__`, release happens in `__del__`, and there is no code path that can leak a resource because Mojo's ownership tracker will not compile a use of a value after it has been consumed. Concretely, for the pool traced in Section 2.3:
+## 2.4 Raw allocation is the narrow fallback
+
+When a custom data structure truly needs uninitialized contiguous storage, Mojo 1.0's layout-aware allocator keeps size and alignment attached to the allocation. Initialize each element before reading and deallocate the owning handle exactly once.
 
 ```mojo
-fn training_step(mut pool: GPUMemoryPool, batch: Tensor):
-    var activations = pool.acquire(batch.shape.size())
-    # ... forward + backward pass using `activations` ...
-    pool.release(activations, batch.shape.size())
-    # `activations` is not read again after this line -- Mojo's
-    # lifetime checker rejects any attempt to do so.
+from std.memory.alloc import alloc, dealloc, Layout
+
+def raw_four_ints():
+    var allocation = alloc(Layout[Int32](count=4))
+    var ptr = allocation.unsafe_ptr()
+    for i in range(4):
+        (ptr + i).init_pointee_move(Int32(i * 10))
+    print(ptr[0], ptr[1], ptr[2], ptr[3])
+    dealloc(allocation^)
 ```
 
-Combined with `Arena` for the per-step scratch space and `RefCountedBuffer` for values that outlive a single step (the graph's saved tensors for backward), Part 1 now has a complete memory story: deterministic single ownership from Chapter 1, shared ownership where the graph needs it (traced numerically in 2.1), bump allocation where per-step churn dominates (traced numerically in 2.2), and a device-side pool where the allocation itself, not the memory, is the expensive resource (traced numerically in 2.3). Part 2 builds the tensor operations on top of this foundation.
+**Manual worked example.** The four initialized values are 0, 10, 20, and 30, so the print is deterministic. The allocation owns 16 payload bytes plus alignment metadata. Transferring it with `^` into `dealloc` prevents a second deallocation through the same owner.
+
+The resulting policy is simple: `List` for ordinary owned tensor data, `ArcPointer` for shared views, arenas for graph-wide batch lifetimes, `DeviceBuffer` for accelerator memory, and raw layout allocations only for measured low-level needs.

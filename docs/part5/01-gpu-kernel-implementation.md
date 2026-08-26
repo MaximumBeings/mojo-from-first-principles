@@ -1,129 +1,93 @@
 # Chapter 9: GPU Kernel Implementation
 
-Part 0.4 introduced the GPU execution model in the abstract — grids, blocks, threads, and the memory hierarchy. Part 5 puts real workloads on it: the CUDA-style kernels that back every tensor operation from Part 2, written to actually earn the speedup the hardware promises rather than merely compile for it.
+GPU acceleration is not “run the CPU loop somewhere else.” A host allocates device buffers and launches a grid; thousands of device threads each compute a global index and own a small slice of the work. The examples in this chapter target Mojo 1.0's portable `std.gpu` API rather than CUDA-only names or an approximate wrapper.
 
-## 9.1 CUDA-style Kernel Design
+## 9.1 One thread, one element
 
-The thread hierarchy from Part 0.4 maps directly onto every kernel in this framework: a **grid** of **blocks**, each block a fixed number of **threads**, and every thread computing exactly one output element (or a small tile of them, in the more advanced kernels below).
+The safest first kernel maps one global thread index to one output element and guards the tail. Mojo 1.0 forbids host-sized `Int` and `UInt` as GPU kernel arguments, so lengths crossing the host/device boundary use a fixed-width integer.
 
 ```mojo
-# GPU Programming Concepts, concretely:
-#   Grid:   collection of thread blocks
-#   Block:  collection of threads (up to 1024)
-#   Thread: one execution unit
-#
-#   Global memory:  large, slow, visible to every thread
-#   Shared memory:  fast, scoped to one block
-#   Local memory:   private per-thread
-#
-#   Kernel: the function that runs on the GPU
-#   Host:   the CPU code that launches it
-#   Device: the GPU executing it
+from std.gpu import global_idx
 
-from gpu.host import DeviceContext
-from gpu.id import block_dim, block_idx, thread_idx
-from memory import UnsafePointer
-
-fn generic_elementwise_kernel(
-    output: UnsafePointer[Scalar[DType.float32]],
-    input: UnsafePointer[Scalar[DType.float32]],
-    size: Int,
+def scale_kernel(
+    output: UnsafePointer[Float32],
+    input: UnsafePointer[Float32],
+    scale: Float32,
+    size: Int32,
 ):
-    """The template every Chapter 3 kernel follows: compute a global
-    thread index, bounds-check it, do one unit of work."""
-    var idx = Int(block_idx.x * block_dim.x + thread_idx.x)
-    if idx < size:
-        output[idx] = input[idx] * Float32(2.0)
+    var i = Int(global_idx.x)
+    if i < Int(size):
+        output[i] = input[i] * scale
 ```
 
-The launch configuration is the other half of "CUDA-style": pick a block size (256 is a common default — large enough to hide memory latency, small enough that many blocks fit per streaming multiprocessor), then compute how many blocks cover the whole tensor. Work it out for a tensor of exactly `1,000,000` elements: `num_blocks = (1,000,000 + 255) // 256 = 1,000,255 // 256 = 3907` (integer division truncates). Those 3907 blocks of 256 threads each launch `3907 × 256 = 1,000,192` threads in total — 192 more than the tensor actually has. The last block, block `3906`, covers global indices `999,936` through `1,000,191`; of its 256 threads, only the first 64 satisfy `idx < size` and do real work, and the bounds check (`if idx < size`) is what stops the remaining 192 threads in that one block from writing past the end of the buffer. This "round up, then let the bounds check absorb the remainder" pattern is why every kernel in this book pairs `(size + N - 1) // N` block counts with an `if idx < size` guard inside the kernel body — the ceiling division without the guard would corrupt memory; the guard without the ceiling division would silently skip the tail elements.
+**Manual worked example.** For five inputs `[1,2,3,4,5]`, scale 2, and a block of eight threads, global indices 0–4 write `[2,4,6,8,10]`. Threads 5–7 fail `i<5` and write nothing. Without the guard, those three threads would access memory past the allocation.
+
+## 9.2 Launch geometry covers the tail
+
+The host uses `DeviceContext`, allocates a `DeviceBuffer`, and launches with the current single-function form `enqueue_function[kernel]`. Ceiling division chooses enough blocks to cover every element.
 
 ```mojo
-fn launch_elementwise(ctx: DeviceContext, output: UnsafePointer[Scalar[DType.float32]],
-                       input: UnsafePointer[Scalar[DType.float32]], size: Int) raises:
-    alias THREADS_PER_BLOCK = 256
-    var num_blocks = (size + THREADS_PER_BLOCK - 1) // THREADS_PER_BLOCK
-    ctx.enqueue_function[generic_elementwise_kernel](
-        output, input, size,
-        grid_dim=(num_blocks, 1, 1),
-        block_dim=(THREADS_PER_BLOCK, 1, 1),
+from std.gpu.host import DeviceContext
+
+def launch_scale(ctx: DeviceContext, output, input, scale: Float32, size: Int32) raises:
+    comptime block_size = 256
+    var grid_size = (Int(size) + block_size - 1) // block_size
+    ctx.enqueue_function[scale_kernel](
+        output, input, scale, size,
+        grid_dim=grid_size,
+        block_dim=block_size,
     )
-    ctx.synchronize()
 ```
 
-## 9.2 Memory Coalescing Optimization
+**Manual worked example.** With `size=1,000` and `block_size=256`, `(1000+255)//256=4` blocks launch 1,024 threads. The first 1,000 process data and the last 24 take the guarded exit. Three blocks would launch only 768 threads and leave 232 outputs untouched.
 
-A warp of GPU threads reading 32 consecutive `Float32`s in one transaction is dramatically faster than the same warp reading 32 scattered addresses — this is memory coalescing, and it is the single biggest reason Part 1's tensor layout decisions (Struct-of-Arrays over Array-of-Structs, from Part 0.3) matter for performance rather than just style.
+## 9.3 Coalescing is a layout property
+
+Adjacent threads should access adjacent addresses. A structure-of-arrays layout makes thread `i` and thread `i+1` read neighboring rates, whereas an array of bond structs inserts the other fields between those reads.
 
 ```mojo
-# Array of Structs (AoS) -- poor coalescing
-#   Memory: [face,maturity,rate,spread][face,maturity,rate,spread]...
-#   A kernel reading every bond's `rate` jumps 4 fields between reads.
-#
-# Struct of Arrays (SoA) -- optimal coalescing
-#   Memory: face:[f0,f1,f2,...]  maturity:[m0,m1,m2,...]  rate:[r0,r1,...]
-#   A kernel reading every bond's `rate` reads one contiguous array.
+from std.gpu import global_idx
 
-fn compute_from_soa_kernel(
-    output: UnsafePointer[Scalar[DType.float32]],
-    rate: UnsafePointer[Scalar[DType.float32]],      # contiguous: coalesced read
-    spread: UnsafePointer[Scalar[DType.float32]],    # contiguous: coalesced read
-    num_items: Int,
+def discount_kernel(
+    present_value: UnsafePointer[Float32],
+    face: UnsafePointer[Float32],
+    rate: UnsafePointer[Float32],
+    years: UnsafePointer[Float32],
+    size: Int32,
 ):
-    var idx = Int(block_idx.x * block_dim.x + thread_idx.x)
-    if idx < num_items:
-        output[idx] = rate[idx] + spread[idx]
+    var i = Int(global_idx.x)
+    if i < Int(size):
+        present_value[i] = face[i] * exp(-rate[i] * years[i])
 ```
 
-This is not a hypothetical: it's the exact struct that prices a bond portfolio in [Part 7](../part7/01-quantitative-finance-examples.md), where switching from an AoS `Bond` struct to `ZeroCouponBondSystemSoA` is measured directly by comparing memory stride — 32 bytes between the same field in adjacent AoS records versus 4 bytes in SoA, an 8× reduction:
+**Manual worked example.** Threads 0–3 read `rate[0]` through `rate[3]`, four consecutive `Float32` values occupying 16 consecutive bytes. For faces `[100,100]`, rates `[0.05,0.06]`, and years `[1,2]`, the writes are `100e^-0.05≈95.1229` and `100e^-0.12≈88.6920`.
 
-```
-Memory layout comparison:
-  AoS stride between same attributes: 32 bytes
-  SoA stride between adjacent elements: 4 bytes
-  Coalescing improvement: ~8x better
-```
+## 9.4 Shared memory and barriers require block-wide reasoning
 
-## 9.3 Shared Memory Utilization
-
-Global memory bandwidth is the bottleneck for most of the kernels above, but any kernel where multiple threads *reuse* the same input values — a 2D convolution being the clearest example — benefits from staging that input into a block's shared memory once, rather than every thread re-reading it from global memory:
+Shared memory is useful when threads in one block reuse a tile. Every participating thread writes its element, all threads reach `barrier()`, and only then may any thread consume neighbors' elements. Mojo's higher-level `TileTensor` is preferred for production tiling because it carries layout information and composes with device buffers; raw shared-memory code is reserved for kernels whose access pattern cannot be expressed clearly at the tile level.
 
 ```mojo
-@gpu_kernel
-fn mojo_conv2d_kernel(
-    input: DTypePointer[DType.float32], input_h: Int, input_w: Int,
-    kernel: DTypePointer[DType.float32], kernel_h: Int, kernel_w: Int,
-    output: DTypePointer[DType.float32], output_h: Int, output_w: Int,
-):
-    var out_row = block_idx().y * block_dim().y + thread_idx().y
-    var out_col = block_idx().x * block_dim().x + thread_idx().x
-    if out_row >= output_h or out_col >= output_w:
-        return
+from std.gpu.sync import barrier
 
-    var sum: Float32 = 0.0
-    for k_r in range(kernel_h):
-        for k_c in range(kernel_w):
-            var in_row = out_row + k_r
-            var in_col = out_col + k_c
-            sum += input[in_row * input_w + in_col] * kernel[k_r * kernel_w + k_c]
-    output[out_row * output_w + out_col] = sum
+def two_phase_block_step(mut tile, local_i: Int, value: Float32) -> Float32:
+    tile[local_i] = value
+    barrier()
+    return tile[local_i] + tile[local_i + 1]
 ```
 
-As written, neighboring output threads redundantly re-read overlapping input patches straight from global memory — a `3×3` kernel means each input element is read up to 9 times. The shared-memory version each block cooperatively loads once — every thread copies one element of its block's input tile (plus a kernel-sized halo of neighbors) into a `__shared__`-equivalent buffer, synchronizes, then every thread's convolution reads exclusively from that fast on-chip memory instead of re-hitting global memory nine times over.
+**Manual worked example.** Suppose four threads write `[2,4,6,8]` into a tile and threads 0–2 then add a right neighbor. After the barrier their results are `[2+4,4+6,6+8]=[6,10,14]`. Without the barrier, thread 0 could read slot 1 before thread 1 writes 4, making the result schedule-dependent. A real kernel must also ensure the final thread does not read past the tile.
 
-Padding the input before convolving (rather than shrinking the output, as the unpadded kernel above does) trades a small amount of extra memory for output that matches the input's spatial size — the standard "same" convolution used throughout Part 6's neural network layers:
+## 9.5 Warp primitives are an optimization, not a starting point
+
+Warp shuffles and reductions can remove shared-memory traffic, but warp size and supported primitives vary by accelerator. Establish correctness with a portable block reduction, benchmark it, and specialize only the measured bottleneck behind a tested dispatch path.
 
 ```mojo
-fn mojo_conv2d_padded(input: GPUTensor, kernel: GPUTensor, padding: Int) -> GPUTensor:
-    # Pad input on all sides by `padding` zeros, then run the same
-    # kernel loop as above against the padded buffer -- output_h/w
-    # now equal input_h/w instead of shrinking by (kernel_size - 1).
-    var padded = pad_tensor(input, padding)
-    return mojo_conv2d_basic(padded, kernel)
+def reduction_round(mut values: List[Float32], active: Int):
+    var half = active // 2
+    for i in range(half):
+        values[i] += values[i + half]
 ```
 
-## 9.4 Warp-level Primitives
+**Manual worked example.** Start with `[1,2,3,4,5,6,7,8]`. The first round adds opposite halves and leaves `[6,8,10,12]`; the next leaves `[16,20]`; the final leaves `[36]`. Since `1+2+...+8=36`, the tree is correct before any warp-specific rewrite is attempted.
 
-The reduction kernels from [Chapter 5](../part2/03-reduction-operations.md) are written generically over thread count, but on real hardware the last few rounds of a tree reduction — once the active thread count drops to 32 or fewer — execute within a single warp, where every thread runs in lockstep. Warp-level shuffle instructions let those final rounds exchange values directly between registers instead of round-tripping through shared or global memory, collapsing the last `log2(32) = 5` reduction rounds into a handful of register-to-register operations. The framework's `sum_reduce_kernel` is written the portable way (through memory, at every level) specifically so it's correct on any GPU generation; a warp-shuffle specialization is the natural next optimization once profiling (Chapter 10) shows the reduction tail is actually a bottleneck.
-
-Chapter 10 turns from kernel *design* to kernel *measurement* — SIMD vectorization on the CPU side, loop fusion, compile-time specialization, and the benchmarking harness used to tell whether any of these optimizations actually helped.
+The production sequence is now explicit: prove the scalar result, map work to guarded global indices, use graph-owned device buffers, verify host/device copies, then optimize layout, tiling, and warp communication in that order.

@@ -1,125 +1,74 @@
 # Chapter 5: Reduction Operations
 
-Every loss function in Part 6 ends the same way: a tensor of per-example errors collapses into a single scalar. Reductions are how that collapse happens — a reduction takes many values and combines them into fewer, usually one, using an operation like sum, max, or average. This is the one class of operation in this book where a naive parallel implementation is *wrong*, not just slow: summing floats in a different order changes the result (floating-point addition isn't perfectly associative), and letting a thousand threads all write to the same output simultaneously without a real reduction algorithm is a race condition, not an optimization.
+A reduction combines many values into fewer values. Order now matters for floating-point arithmetic, so the reference algorithm states its initial value, empty-input policy, and numerical method explicitly.
 
-## 5.1 Sum and Mean Reductions
+## 5.1 Sum and mean
 
-The safe pattern is *tree reduction*: pair up elements and combine each pair, then pair up the results and combine again, halving the array's length each round until one value remains. Work it by hand on `[1, 4, 9, 16]`. Round 1 pairs `(1,4)` and `(9,16)`, giving `[5, 25]`. Round 2 pairs `(5,25)`, giving `[30]`. Three additions total, same as a straight-line loop — but every pair *within* a round is independent, so a GPU can do all of round 1's additions simultaneously, then all of round 2's:
-
-```
-Round 0: [ 1,  4,  9, 16]
-           \  /    \  /
-Round 1: [  5   ,   25  ]
-             \       /
-Round 2: [     30      ]
-```
+Compensated summation tracks low-order bits lost when a small value is added to a much larger running total. Mean divides only after a non-empty sum.
 
 ```mojo
-fn sum_reduce_kernel(
-    output: UnsafePointer[Scalar[DType.float32]],
-    input: UnsafePointer[Scalar[DType.float32]],
-    size: Int,
-):
-    """One round of pairwise reduction: size elements -> ceil(size/2)."""
-    var tid = Int(thread_idx.x)
-    if tid * 2 + 1 < size:
-        output[tid] = input[tid * 2] + input[tid * 2 + 1]
-    elif tid * 2 < size:
-        output[tid] = input[tid * 2]      # odd leftover, pass through
-    else:
-        output[tid] = Float32(0.0)
-
-fn tensor_sum(input: UnsafePointer[Scalar[DType.float32]], size: Int) -> Float32:
-    """Repeated halving until a single scalar remains."""
-    var current = input
-    var current_size = size
-    var scratch = UnsafePointer[Scalar[DType.float32]].alloc(size)
-    while current_size > 1:
-        var next_size = (current_size + 1) // 2
-        # launch sum_reduce_kernel with current_size threads, writing into scratch
-        current = scratch
-        current_size = next_size
-    var result = current[0]
-    scratch.free()
-    return result
-
-fn tensor_mean(input: UnsafePointer[Scalar[DType.float32]], size: Int) -> Float32:
-    return tensor_sum(input, size) / Float32(size)
+def compensated_sum(values: List[Float64]) -> Float64:
+    var total = 0.0
+    var correction = 0.0
+    for value in values:
+        var adjusted = value - correction
+        var next = total + adjusted
+        correction = (next - total) - adjusted
+        total = next
+    return total
 ```
 
-`tensor_sum([1,4,9,16], 4)` returns `30`, matching the hand trace exactly; `tensor_mean` divides that by the count, `30 / 4 = 7.5`. This is the identical reduction structure already used to total a bond portfolio's present value in [Part 7's `sum_reduce_kernel`](../part7/01-quantitative-finance-examples.md#step-1-computing-bond-prices) — the same primitive that sums squared errors for a loss function sums discounted cash flows for a bond book, one pairwise round at a time.
+**Manual worked example.** `[1,4,9,16]` accumulates to 30, and mean is `30/4=7.5`. The correction is zero for these exact integers; it becomes useful when magnitudes differ sharply.
 
-## 5.2 Min/Max Operations
+## 5.2 Min, max, and argmax
 
-Min/max reductions use the identical tree pattern with the combine step swapped from addition to a comparison. Trace `[3, 7, 2, 9]` for max: round 1 compares `(3,7)→7` and `(2,9)→9`; round 2 compares `(7,9)→9`. The answer, `9`, is unsurprising — what matters is that the reduction also needs to remember *which position* produced it, `index 3`, because `d(max(x))/dx_i` is `1` for the winning index and `0` everywhere else, and the backward pass needs to know which single index gets that `1`.
+Initialize from the first element rather than an arbitrary sentinel, and reject empty input. A tie policy should be deterministic; this version keeps the first maximum.
 
 ```mojo
-fn max_reduce_kernel(
-    output_val: UnsafePointer[Scalar[DType.float32]],
-    output_idx: UnsafePointer[Int],
-    input: UnsafePointer[Scalar[DType.float32]],
-    in_idx: UnsafePointer[Int],
-    size: Int,
-):
-    var tid = Int(thread_idx.x)
-    if tid * 2 + 1 < size:
-        var left = input[tid * 2]
-        var right = input[tid * 2 + 1]
-        if left >= right:
-            output_val[tid] = left
-            output_idx[tid] = in_idx[tid * 2]
-        else:
-            output_val[tid] = right
-            output_idx[tid] = in_idx[tid * 2 + 1]
-    elif tid * 2 < size:
-        output_val[tid] = input[tid * 2]
-        output_idx[tid] = in_idx[tid * 2]
+def argmax(values: List[Float32]) raises -> Int:
+    if len(values) == 0:
+        raise Error("argmax of empty input")
+    var best = 0
+    for i in range(1, len(values)):
+        if values[i] > values[best]:
+            best = i
+    return best
 ```
 
-The `argmax` this produces (`index 3` in the trace above) feeds directly into classification metrics — [Chapter 11.4](../part6/01-neural-network-layers.md#114-optimizer-framework)'s `PerformanceMetrics` compares the argmax of a two-unit output layer against the true label exactly this way — and into the sparse gradient the backward pass scatters back through only the winning path.
+**Manual worked example.** For `[3,9,9,2]`, index 1 becomes best when 9 exceeds 3. Index 2 ties but does not exceed it, so the result remains the first maximum, index 1.
 
-## 5.3 Norm Calculations
+## 5.3 Norms and gradient clipping
 
-The L2 norm collapses a vector into a single measure of its size: sum the squares of every entry, then take one square root. Worked on `[3, 4]`: squares are `[9, 16]`, sum is `25`, square root is `5` — the familiar 3-4-5 triangle, and a useful sanity check that `l2_norm` is implemented correctly before trusting it on real gradients.
+The L2 norm is the square root of the sum of squares. Global norm clipping scales every gradient by the same factor only when the norm exceeds the limit.
 
 ```mojo
-fn l2_norm(input: UnsafePointer[Scalar[DType.float32]], size: Int) -> Float32:
-    var squared = UnsafePointer[Scalar[DType.float32]].alloc(size)
-    for i in range(size):
-        squared[i] = input[i] * input[i]
-    var sum_sq = tensor_sum(squared, size)
-    squared.free()
-    return sqrt(sum_sq)
-
-fn clip_grad_norm(mut grad: UnsafePointer[Scalar[DType.float32]], size: Int, max_norm: Float32):
-    var norm = l2_norm(grad, size)
-    if norm > max_norm:
-        var scale = max_norm / norm
-        for i in range(size):
-            grad[i] *= scale
+def clip_scale(norm: Float32, maximum: Float32) raises -> Float32:
+    if maximum <= 0:
+        raise Error("maximum norm must be positive")
+    return maximum / norm if norm > maximum else 1
 ```
 
-The norm shows up twice in this book under different names. As a loss, it's the regression error itself. As **gradient-norm clipping**, it protects a training step: if a gradient vector's norm is `5.0` (the `[3,4]` example above) and `max_norm = 2.0`, `clip_grad_norm` computes `scale = 2.0 / 5.0 = 0.4` and rescales every entry — `[3, 4] → [1.2, 1.6]`, whose norm is now exactly `2.0` — preventing one unusually large gradient from taking an enormous, destabilizing optimizer step.
+**Manual worked example.** Gradient `[3,4]` has norm `sqrt(9+16)=5`. With maximum 2.5, scale is `2.5/5=0.5`, giving `[1.5,2]` whose norm is 2.5. With maximum 10, scale remains 1.
 
-## 5.4 Statistical Functions
+## 5.4 Variance with Welford's algorithm
 
-Variance and standard deviation are sum-and-mean built twice — once for the mean, once for the mean of squared deviations from it — which is why they're placed last in this chapter rather than derived independently. Work through `[2, 4, 4, 4, 5, 5, 7, 9]`, the textbook example precisely because its answer is a round number. Mean: `(2+4+4+4+5+5+7+9)/8 = 40/8 = 5`. Squared deviations from that mean: `[9, 1, 1, 1, 0, 0, 4, 16]`. Mean of *those*: `32/8 = 4` — the variance. Standard deviation is `√4 = 2`.
+One-pass `mean(x²)-mean(x)²` can lose precision when values are large and tightly clustered. Welford updates mean and squared deviations stably in one pass.
 
 ```mojo
-fn tensor_variance(input: UnsafePointer[Scalar[DType.float32]], size: Int) -> Float32:
-    var mean = tensor_mean(input, size)
-    var sq_dev = UnsafePointer[Scalar[DType.float32]].alloc(size)
-    for i in range(size):
-        var d = input[i] - mean
-        sq_dev[i] = d * d
-    var variance = tensor_mean(sq_dev, size)
-    sq_dev.free()
-    return variance
-
-fn tensor_std(input: UnsafePointer[Scalar[DType.float32]], size: Int) -> Float32:
-    return sqrt(tensor_variance(input, size))
+def population_variance(values: List[Float64]) raises -> Float64:
+    if len(values) == 0:
+        raise Error("variance of empty input")
+    var mean = 0.0
+    var m2 = 0.0
+    var count = 0
+    for value in values:
+        count += 1
+        var delta = value - mean
+        mean += delta / Float64(count)
+        m2 += delta * (value - mean)
+    return m2 / Float64(count)
 ```
 
-`tensor_variance` on the worked array returns `4.0`, and `tensor_std` returns `2.0`, matching the hand calculation exactly. Batch normalization layers in [Chapter 11](../part6/01-neural-network-layers.md) call exactly this pair, per-feature, to normalize activations before every hidden layer — subtracting the mean and dividing by the standard deviation is what keeps a network's internal activations from drifting to extreme values as training progresses — and Part 7's risk analytics call the same pair across a bond portfolio's yields to size a Value-at-Risk estimate.
+**Manual worked example.** For `[1,2,3]`, the mean becomes 1, then 1.5, then 2. The accumulated `m2` becomes 0, 0.5, then 2. Population variance is `2/3≈0.6667`; standard deviation is `sqrt(2/3)≈0.8165`.
 
-With reductions in place, Part 2's tensor operations are complete: element-wise, matrix, and reduction operations cover every arithmetic primitive the rest of the book composes. Part 3 turns to *recording* those compositions as a graph, so the framework knows how to run them backward.
+GPU tree reductions must reproduce these policies, allowing only the floating-point differences justified by their changed summation order.

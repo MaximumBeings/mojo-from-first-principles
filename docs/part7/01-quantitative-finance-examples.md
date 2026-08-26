@@ -1,220 +1,107 @@
 # Chapter 13: Quantitative Finance Examples
 
-Part 7 is where this framework earns its "Financial Computing Ready" design principle from the book's introduction. Every primitive is reused as-is: the Struct-of-Arrays layout from Part 0.3 prices a whole bond portfolio in parallel, the reduction kernels from Chapter 5 aggregate it into portfolio-level risk, the custom-function framework from Chapter 12 differentiates through a numerical solver, and the GPU kernel design from Part 5 is what makes doing this for thousands of instruments at once practical.
+Financial examples are useful because units, signs, and independent formulas make errors visible. The calculations here are educational validation cases, not investment advice or production valuation models; real desks add calendars, day-count conventions, curves, settlement, credit events, and model governance.
 
-## 13.1 Bond Pricing with Automatic Differentiation
+## 13.1 Zero-coupon pricing and DV01
 
-A zero-coupon bond pays a single fixed amount at maturity and nothing before it, so its price is one discounting formula: `PV = FaceValue · e^(-yield · time)`. Pricing a portfolio of them is an embarrassingly parallel problem — every bond's price is independent of every other bond's — which makes it the cleanest possible demonstration of the SoA-plus-GPU-kernel pattern from Chapters 9 and 2:
-
-```mojo
-struct ZeroCouponBondSystemSoA:
-    """SoA layout (Chapter 9.2): one contiguous array per field,
-    not one struct per bond -- coalesced reads across the whole portfolio."""
-    var face_value: UnsafePointer[Scalar[DType.float32]]
-    var time_to_maturity: UnsafePointer[Scalar[DType.float32]]
-    var risk_free_rate: UnsafePointer[Scalar[DType.float32]]
-    var credit_spread: UnsafePointer[Scalar[DType.float32]]
-    var present_value: UnsafePointer[Scalar[DType.float32]]
-    var yield_to_maturity: UnsafePointer[Scalar[DType.float32]]
-    var duration: UnsafePointer[Scalar[DType.float32]]
-    var portfolio_weight: UnsafePointer[Scalar[DType.float32]]
-    var num_bonds: Int
-```
-
-### Step 1: Computing Bond Prices
+Under continuous compounding, a zero-coupon bond price is `P=F·exp(-yT)`. Its yield derivative is `dP/dy=-T·P`. A positive DV01 is conventionally the approximate price loss for a one-basis-point yield rise: `DV01=-dP/dy×10⁻⁴=T·P×10⁻⁴`.
 
 ```mojo
-fn compute_bond_prices_kernel(
-    present_value: UnsafePointer[Scalar[DType.float32]],
-    yield_to_maturity: UnsafePointer[Scalar[DType.float32]],
-    duration: UnsafePointer[Scalar[DType.float32]],
-    face_value: UnsafePointer[Scalar[DType.float32]],
-    time_to_maturity: UnsafePointer[Scalar[DType.float32]],
-    risk_free_rate: UnsafePointer[Scalar[DType.float32]],
-    credit_spread: UnsafePointer[Scalar[DType.float32]],
-    num_bonds: Int,
-):
-    var idx = Int(block_idx.x * block_dim.x + thread_idx.x)
-    if idx < num_bonds:
-        var total_yield = risk_free_rate[idx] + credit_spread[idx]
-        yield_to_maturity[idx] = total_yield
-        # Continuous compounding: PV = FV * e^(-r*t)
-        present_value[idx] = face_value[idx] * exp(-total_yield * time_to_maturity[idx])
-        # A zero-coupon bond's Macaulay duration equals its time to maturity exactly --
-        # there's only one cash flow, so it's also the *only* cash flow's weighted time.
-        duration[idx] = time_to_maturity[idx]
+@fieldwise_init
+struct ZeroCouponResult(Copyable, Movable):
+    var price: Float64
+    var dprice_dyield: Float64
+    var dv01: Float64
+
+def price_zero(face: Float64, annual_yield: Float64, years: Float64) -> ZeroCouponResult:
+    var price = face * exp(-annual_yield * years)
+    var derivative = -years * price
+    return ZeroCouponResult(price, derivative, -derivative * 1e-4)
 ```
 
-Aggregating 1,024 bonds into a total portfolio value is the tree-reduction pattern from [Chapter 5.1](../part2/03-reduction-operations.md#51-sum-and-mean-reductions), applied to `present_value` instead of a loss:
+**Manual worked example.** For face 100, yield 5%, and maturity 2 years, `P=100e^-0.1≈90.48374`. Derivative is `-2×90.48374≈-180.96748` dollars per unit yield, so DV01 is `180.96748×0.0001≈$0.01810`. A one-basis-point rise should lower price by about 1.81 cents.
+
+## 13.2 Z-spread via a bracketed solver
+
+A z-spread adds one constant spread to each discount rate so discounted cash flows match market price. Bisection is slower than Newton's method but preserves a bracket and cannot diverge when the objective is continuous and changes sign.
 
 ```mojo
-var num_blocks = (NUM_BONDS + THREADS_PER_BLOCK - 1) // THREADS_PER_BLOCK
-ctx.enqueue_function[compute_bond_prices_kernel](...)
-ctx.synchronize()
+def two_year_price(spread: Float64) -> Float64:
+    var discount = 1.03 + spread
+    return 4 / discount + 104 / (discount * discount)
 
-ctx.enqueue_function[sum_reduce_kernel](partial_sums, bond_system.present_value, NUM_BONDS, ...)
-var total_portfolio_value = tensor_sum(partial_sums, reduction_threads)
-```
-
-### Expected Output
-
-```
-=== STRUCT OF ARRAYS (SoA) ZERO COUPON BOND SYSTEM ===
-Number of bonds: 1024
-Threads per block: 64
-
-=== MEMORY LAYOUT COMPARISON ===
-Struct of Arrays (SoA) - This implementation:
-  Memory: face:[f0,f1,f2...] maturity:[m0,m1,m2...] ...
-  Access: Coalesced, optimal bandwidth
-
-=== COMPUTING BOND PRICES ===
-Total Portfolio Value: $ 847213.5
-
-=== FINANCIAL ANALYSIS ===
-Portfolio Analytics:
-  Weighted Average Yield: 3.51 %
-  Weighted Average Maturity: 14.87 years
-  Portfolio Duration: 14.87 years
-  Interest Rate Risk: 1% rate increase -> ~14.87 % price decline
-```
-
-Because every gradient rule in this book flows through registered ops (Chapter 7), `present_value`'s gradient with respect to `risk_free_rate` — the bond's **DV01**, its dollar sensitivity to a one-basis-point rate move — falls straight out of `backward()` with no separate finite-difference calculation: `d(PV)/d(yield) = -time_to_maturity * PV`, the derivative of the exponential discount factor, exactly the `ExpOp.backward` rule from [Chapter 7.2](../part4/01-backward-function-implementation.md#72-element-wise-operation-gradients) applied to a financial input instead of a neural-network activation.
-
-## 13.2 Credit Spread and Risk Analytics
-
-A *risky* bond (one with default risk) needs an extra yield above the risk-free curve to compensate a buyer for that risk — the **Z-spread**. Unlike the zero-coupon case, a coupon-paying bond's price is a sum of discounted cash flows with no closed form for the spread that reprices it to a given market price, so this is solved numerically:
-
-```mojo
-alias ISSUE_PRICE = 98.0
-alias RISK_FREE_RATE = 0.03
-alias COUPON_RATE = 0.03
-alias NOTIONAL = 100.0
-alias TOTAL_PAYMENTS = 8     # 2 years, quarterly
-
-fn calculate_bond_price(spread: Float64) -> Float64:
-    """Market Price = sum_{n=1..N} CF_n / (1 + (r+s)/m)^(n)"""
-    var discounted_value = Float64(0.0)
-    var payments_per_year = Float64(4.0)
-    for x in range(1, TOTAL_PAYMENTS + 1):
-        var coupon_payment = (3.0 / 12.0) * COUPON_RATE * NOTIONAL
-        var discount_factor = power(1.0 + (RISK_FREE_RATE + spread) / payments_per_year, Float64(x))
-        discounted_value += coupon_payment / discount_factor
-    var final_discount_factor = power(1.0 + (RISK_FREE_RATE + spread) / payments_per_year, Float64(TOTAL_PAYMENTS))
-    discounted_value += NOTIONAL / final_discount_factor
-    return discounted_value
-
-fn objective_function(spread: Float64) -> Float64:
-    return calculate_bond_price(spread) - ISSUE_PRICE
-
-fn bisection_method(a: Float64, b: Float64, tolerance: Float64) -> Float64:
-    var left = a; var right = b; var iterations = 0
-    while abs(right - left) > tolerance and iterations < 100:
-        var mid = (left + right) / 2.0
-        if abs(objective_function(mid)) < tolerance:
-            return mid
-        elif objective_function(mid) * objective_function(left) < 0:
-            right = mid
+def solve_spread(market: Float64, mut left: Float64, mut right: Float64) raises -> Float64:
+    var f_left = two_year_price(left) - market
+    if f_left * (two_year_price(right) - market) > 0:
+        raise Error("spread root is not bracketed")
+    for _ in range(80):
+        var middle = (left + right) / 2
+        var f_middle = two_year_price(middle) - market
+        if f_left * f_middle <= 0:
+            right = middle
         else:
-            left = mid
-        iterations += 1
-    return (left + right) / 2.0
+            left = middle
+            f_left = f_middle
+    return (left + right) / 2
 ```
 
-### Expected Output
+**Manual worked example.** A 2-year annual 4% coupon bond pays 4 after year 1 and 104 after year 2. At market price 98 and base rate 3%, bisection solves `4/(1.03+s)+104/(1.03+s)²=98`, giving `s≈0.0207678`, or 207.68 basis points. Substitution returns 98 to rounding.
 
-```
-=== Z-SPREAD CALCULATION FOR RISKY BONDS ===
-Bond Parameters:
-Issue Price: 98.0
-Maturity: 2 years
-Risk-free rate: 0.03
-Coupon rate: 0.03
-Notional: 100.0
-Total payments: 8
+## 13.3 The implicit derivative of a calibrated spread
 
-Market Price with Zero Spread: 99.99999999999996
-
-Solving for z-spread using bisection method...
-
-=== RESULTS ===
-The zSpread on a Risky Bond is:
-0.010460522770881654
-
-The Yield To Maturity on the Bond:
-0.04046052277088165
-
-=== VERIFICATION ===
-Target market price: 98.0
-Calculated price with optimal spread: 98.00000040566188
-Difference: 4.0566187919921504e-07
-```
-
-104.6 basis points of z-spread over the risk-free curve is this bond's compensation for credit risk — the framework's autodiff makes this differentiable, not just solvable: `ZSpreadSolve.backward` from [Chapter 12.1](../part6/02-advanced-features.md#121-custom-autograd-functions) turns `d(spread)/d(market_price)` into an ordinary gradient the optimizer in Chapter 11 can use, which is what "Greeks via automatic differentiation" means in practice — sensitivities that would otherwise need a separate closed-form derivation for every new instrument type instead come for free from the same backward pass that trains a neural network.
-
-## 13.3 Portfolio Optimization
-
-Before the GPU kernel, work a 3-bond portfolio by hand — small enough to check every step, large enough to show what "duration" actually means. Say the portfolio holds three zero-coupon bonds, already priced by Section 13.1's kernel:
-
-| Bond | Present Value | Time to Maturity (duration) |
-|---|---|---|
-| A | \$400 | 2 years |
-| B | \$350 | 5 years |
-| C | \$250 | 10 years |
-
-Total portfolio value: `400 + 350 + 250 = 1000`. Each bond's **weight** is its share of that total: `w_A = 400/1000 = 0.40`, `w_B = 350/1000 = 0.35`, `w_C = 250/1000 = 0.25` — and these three weights sum to `1.0`, as portfolio weights always must. **Portfolio duration** is the weighted average of the individual durations: `0.40×2 + 0.35×5 + 0.25×10 = 0.8 + 1.75 + 2.5 = 5.05` years. Read that number the way a trading desk does: `duration ≈ 5.05` means a 1% parallel rise in interest rates should reduce this portfolio's value by roughly 5.05%, or about \$50.50 on the \$1000 book — bond C, despite being the *smallest* position, contributes the *most* to that risk (`2.5` of the `5.05` total), because its 10-year maturity makes it far more rate-sensitive per dollar than bonds A or B.
-
-`portfolio_weight[i] = present_value[i] / total_portfolio_value` turns individual bond prices into portfolio weights with one more elementwise-divide kernel — exactly the `0.40, 0.35, 0.25` computed above, at any scale; portfolio duration is the weight-duration inner product from the same table, computed as a multiply followed by the same sum-reduction used to total portfolio value in Section 13.1:
+If `f(s,P)=model_price(s)-P=0`, then `ds/dP=1/(d model_price/ds)`. The derivative is negative: a higher observed price implies a lower spread.
 
 ```mojo
-fn compute_portfolio_duration_kernel(
-    output: UnsafePointer[Scalar[DType.float32]],
-    duration: UnsafePointer[Scalar[DType.float32]],
-    portfolio_weight: UnsafePointer[Scalar[DType.float32]],
-    num_bonds: Int,
-):
-    var idx = Int(block_idx.x * block_dim.x + thread_idx.x)
-    if idx < num_bonds:
-        output[idx] = duration[idx] * portfolio_weight[idx]   # weighted contribution
-# followed by sum_reduce_kernel over `output` -> portfolio duration
+def spread_price_sensitivity(spread: Float64) -> Float64:
+    var discount = 1.03 + spread
+    var dmodel_dspread = -4 / (discount * discount) - 208 / (discount * discount * discount)
+    return 1 / dmodel_dspread
 ```
 
-Because this whole pipeline — price, weight, weighted duration, total — is built from registered, differentiable ops, `backward()` from a target portfolio duration produces the gradient of that duration with respect to every bond's face value, directly usable by a rebalancing optimizer deciding how much of each bond to hold to hit a duration target, without deriving the sensitivity by hand for each new candidate portfolio.
+**Manual worked example.** At `s≈0.0207678`, `dmodel/ds≈-182.90745`, so `ds/dP≈-0.00546725` spread units per dollar. A one-cent higher price therefore lowers calibrated spread by about `0.00005467`, or 0.547 basis points.
 
-## 13.4 Monte Carlo Simulations with Gradients
+## 13.4 Portfolio duration is value-weighted
 
-Monte Carlo pricing answers a question closed-form formulas often can't: "what is this option worth, on average, across every way the future might unfold?" Simulate a handful of terminal stock prices by hand to see the mechanism before trusting a GPU to do it a million times over. Suppose a stock starting at \$100 is simulated forward and five independent paths happen to land at terminal prices `[95, 102, 108, 130, 90]`, and you're pricing a **call option** with strike `K=100` — a contract that pays `max(S_T - K, 0)`, the amount by which the stock finished *above* the strike, or nothing if it finished below. Payoffs: `max(95-100,0)=0`, `max(102-100,0)=2`, `max(108-100,0)=8`, `max(130-100,0)=30`, `max(90-100,0)=0`. Average payoff: `(0+2+8+30+0)/5 = 40/5 = 8`. Discounting that \$8 average back to today at, say, a 3% risk-free rate over one year (`e^(-0.03×1) ≈ 0.9704`) gives an option price of `8 × 0.9704 ≈ 7.76`. Every one of the paths that finished below the strike contributed a hard `0`, not a negative number — the option's whole value comes from the upside paths, which is exactly why option payoffs are asymmetric and why averaging over many simulated paths, rather than one "expected" path, is necessary to price them correctly.
-
-This is an expectation approximated by a sample mean over many more than five paths, which is exactly `tensor_mean` from [Chapter 5.1](../part2/03-reduction-operations.md#51-sum-and-mean-reductions) applied to a payoff computed per path:
+For small parallel yield shifts, portfolio modified duration is the market-value-weighted average of component durations. Weights must sum to one and should be derived from current values, not face amounts.
 
 ```mojo
-fn simulate_gbm_paths(
-    paths: UnsafePointer[Scalar[DType.float32]],   # [num_paths] terminal prices
-    s0: Float32, mu: Float32, sigma: Float32, dt: Float32, num_steps: Int,
-    num_paths: Int, seed_base: Int,
-):
-    """Geometric Brownian motion: S_{t+1} = S_t * exp((mu - sigma^2/2)*dt + sigma*sqrt(dt)*Z)."""
-    var idx = Int(block_idx.x * block_dim.x + thread_idx.x)
-    if idx < num_paths:
-        var s = s0
-        for step in range(num_steps):
-            var z = sample_standard_normal(seed_base + idx * num_steps + step)  # Box-Muller, Chapter 11.1
-            s *= exp((mu - sigma * sigma / Float32(2.0)) * dt + sigma * sqrt(dt) * z)
-        paths[idx] = s
-
-fn monte_carlo_option_price(
-    terminal_prices: UnsafePointer[Scalar[DType.float32]], strike: Float32,
-    risk_free_rate: Float32, maturity: Float32, num_paths: Int,
-) -> Float32:
-    var payoffs = UnsafePointer[Scalar[DType.float32]].alloc(num_paths)
-    for i in range(num_paths):
-        var payoff = terminal_prices[i] - strike
-        payoffs[i] = payoff if payoff > Float32(0.0) else Float32(0.0)   # call option payoff
-    var mean_payoff = tensor_mean(payoffs, num_paths)
-    payoffs.free()
-    return mean_payoff * exp(-risk_free_rate * maturity)   # discount back to present value
+def weighted_duration(values: List[Float64], durations: List[Float64]) raises -> Float64:
+    if len(values) != len(durations) or len(values) == 0:
+        raise Error("duration inputs are empty or mismatched")
+    var total = compensated_sum(values)
+    var result = 0.0
+    for i in range(len(values)):
+        result += values[i] / total * durations[i]
+    return result
 ```
 
-Run this simulation as a node the graph records rather than a one-off calculation, and `backward()` from the resulting option price differentiates straight through the discounting, the payoff, and the simulated paths themselves — producing Delta (`d(price)/d(s0)`), Vega (`d(price)/d(sigma)`), and Rho (`d(price)/d(risk_free_rate)`) as ordinary gradients from the same reverse pass built in Part 4, rather than the finite-difference "bump and reprice" every one of those sensitivities traditionally requires — re-running the entire simulation once per Greek. This is the payoff, in the most literal sense, of building the pricing model on top of an autograd framework instead of alongside one: every sensitivity a desk needs is one `backward()` call away.
+**Manual worked example.** Values `[400,350,250]` sum to 1,000, so weights are `[0.40,0.35,0.25]`. Durations `[2,5,10]` give `0.4×2+0.35×5+0.25×10=0.8+1.75+2.5=5.05` years. A 1% rise predicts an approximate 5.05%, or $50.50, loss on the $1,000 portfolio.
 
-That closes the book's arc: Part 0 taught the language, Parts 1–4 built a tensor and autograd engine, Part 5 made it fast, Part 6 proved it on a neural network, and Part 7 has now proven the same machinery on the domain the framework was designed for from its very first design principle — financial computing, where "differentiable" and "auditable" have to mean the same thing.
+## 13.5 Monte Carlo price, uncertainty, and pathwise Delta
+
+A Monte Carlo estimate is incomplete without sampling uncertainty. For a European call under geometric Brownian motion, use discounted payoffs for price and the pathwise derivative `1(ST>K)·ST/S0` for Delta. Production implementations use reproducible counter-based random streams, antithetic pairs, and often control variates.
+
+```mojo
+def call_payoff(terminal: Float64, strike: Float64) -> Float64:
+    return max(terminal - strike, 0)
+
+def call_pathwise_delta(terminal: Float64, spot: Float64, strike: Float64) -> Float64:
+    return terminal / spot if terminal > strike else 0
+```
+
+**Manual worked example.** With terminal prices `[95,102,108,130,90]`, strike 100, and spot 100, payoffs are `[0,2,8,30,0]`, mean 8. At 3% for one year, price is `8e^-0.03≈7.7636`. Delta samples are `[0,1.02,1.08,1.30,0]`; their discounted mean is `0.68e^-0.03≈0.6601`.
+
+## 13.6 Report a confidence interval
+
+For independent payoff samples, estimated standard error is sample standard deviation divided by the square root of path count. A rough 95% interval is estimate ±1.96 standard errors; variance reduction changes the variance estimator and must be reflected in the report.
+
+```mojo
+def confidence_half_width(sample_std: Float64, paths: Int) raises -> Float64:
+    if paths < 2:
+        raise Error("at least two paths are required")
+    return 1.96 * sample_std / sqrt(Float64(paths))
+```
+
+**Manual worked example.** If discounted payoff standard deviation is 12 and 10,000 paths are independent, standard error is `12/sqrt(10000)=0.12`; the 95% half-width is `1.96×0.12≈0.2352`. Report a price of 7.76 as roughly `[7.53,8.00]`, not as false machine precision.
+
+The same discipline closes the book: derive the scalar quantity, verify it with concrete numbers and units, express its derivative, then scale the computation across tensors and GPUs without changing the contract.
