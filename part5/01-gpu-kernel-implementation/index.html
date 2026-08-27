@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-9-gpu-kernel-implementation" class="md-skip">
+        <a href="#chapter-18-gpu-kernel-implementation-kernels-that-earn-what-chapter-4-promised" class="md-skip">
           Skip to content
         </a>
       
@@ -1409,10 +1409,271 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#91-one-thread-one-element" class="md-nav__link">
+  <a href="#181-cuda-style-kernel-design-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.1 One thread, one element
+        18.1 CUDA-Style Kernel Design [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.1 CUDA-Style Kernel Design [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1811-a-million-elements-traced-to-the-exact-wasted-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.1.1 — A million elements, traced to the exact wasted thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1812-a-different-size-and-block-width-to-check-the-pattern-generalizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.1.2 — A different size and block width, to check the pattern generalizes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#182-memory-coalescing-optimization-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.2 Memory Coalescing Optimization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.2 Memory Coalescing Optimization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1821-counting-actual-transactions-aos-vs-soa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.2.1 — Counting actual transactions, AoS vs. SoA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#183-shared-memory-utilization-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.3 Shared Memory Utilization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.3 Shared Memory Utilization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1831-the-naive-kernels-redundant-reads-counted-exactly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.3.1 — The naive kernel's redundant reads, counted exactly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1832-the-same-computation-staged-through-shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.3.2 — The same computation, staged through shared memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1833-padding-trades-output-size-for-border-zeros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.3.3 — Padding trades output size for border zeros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#184-warp-level-primitives-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.4 Warp-level Primitives [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.4 Warp-level Primitives [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1841-an-8-lane-warp-reduced-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.4.1 — An 8-lane warp, reduced by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#185-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1420,10 +1681,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#92-launch-geometry-covers-the-tail" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.2 Launch geometry covers the tail
+        Self-Check Questions
       
     </span>
   </a>
@@ -1431,10 +1692,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#93-coalescing-is-a-layout-property" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.3 Coalescing is a layout property
+        Where We Go Next
       
     </span>
   </a>
@@ -1442,21 +1703,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#94-shared-memory-and-barriers-require-block-wide-reasoning" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.4 Shared memory and barriers require block-wide reasoning
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#95-warp-primitives-are-an-optimization-not-a-starting-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.5 Warp primitives are an optimization, not a starting point
+        Worked Solutions
       
     </span>
   </a>
@@ -1851,10 +2101,271 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#91-one-thread-one-element" class="md-nav__link">
+  <a href="#181-cuda-style-kernel-design-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.1 One thread, one element
+        18.1 CUDA-Style Kernel Design [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.1 CUDA-Style Kernel Design [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1811-a-million-elements-traced-to-the-exact-wasted-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.1.1 — A million elements, traced to the exact wasted thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1812-a-different-size-and-block-width-to-check-the-pattern-generalizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.1.2 — A different size and block width, to check the pattern generalizes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#182-memory-coalescing-optimization-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.2 Memory Coalescing Optimization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.2 Memory Coalescing Optimization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1821-counting-actual-transactions-aos-vs-soa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.2.1 — Counting actual transactions, AoS vs. SoA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#183-shared-memory-utilization-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.3 Shared Memory Utilization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.3 Shared Memory Utilization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1831-the-naive-kernels-redundant-reads-counted-exactly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.3.1 — The naive kernel's redundant reads, counted exactly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1832-the-same-computation-staged-through-shared-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.3.2 — The same computation, staged through shared memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1833-padding-trades-output-size-for-border-zeros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.3.3 — Padding trades output size for border zeros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#184-warp-level-primitives-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.4 Warp-level Primitives [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.4 Warp-level Primitives [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1841-an-8-lane-warp-reduced-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 18.4.1 — An 8-lane warp, reduced by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#185-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1862,10 +2373,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#92-launch-geometry-covers-the-tail" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.2 Launch geometry covers the tail
+        Self-Check Questions
       
     </span>
   </a>
@@ -1873,10 +2384,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#93-coalescing-is-a-layout-property" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.3 Coalescing is a layout property
+        Where We Go Next
       
     </span>
   </a>
@@ -1884,21 +2395,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#94-shared-memory-and-barriers-require-block-wide-reasoning" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.4 Shared memory and barriers require block-wide reasoning
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#95-warp-primitives-are-an-optimization-not-a-starting-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9.5 Warp primitives are an optimization, not a starting point
+        Worked Solutions
       
     </span>
   </a>
@@ -1922,72 +2422,433 @@
 
 
 
-<h1 id="chapter-9-gpu-kernel-implementation">Chapter 9: GPU Kernel Implementation<a class="headerlink" href="#chapter-9-gpu-kernel-implementation" title="Permanent link">&para;</a></h1>
-<p>GPU acceleration is not “run the CPU loop somewhere else.” A host allocates device buffers and launches a grid; thousands of device threads each compute a global index and own a small slice of the work. The examples in this chapter target Mojo 1.0's portable <code>std.gpu</code> API rather than CUDA-only names or an approximate wrapper.</p>
-<h2 id="91-one-thread-one-element">9.1 One thread, one element<a class="headerlink" href="#91-one-thread-one-element" title="Permanent link">&para;</a></h2>
-<p>The safest first kernel maps one global thread index to one output element and guards the tail. Mojo 1.0 forbids host-sized <code>Int</code> and <code>UInt</code> as GPU kernel arguments, so lengths crossing the host/device boundary use a fixed-width integer.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">global_idx</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">scale_kernel</span><span class="p">(</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">scale</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int32</span><span class="p">,</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">):</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">global_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scale</span>
+<h1 id="chapter-18-gpu-kernel-implementation-kernels-that-earn-what-chapter-4-promised">Chapter 18: GPU Kernel Implementation — Kernels That Earn What Chapter 4 Promised<a class="headerlink" href="#chapter-18-gpu-kernel-implementation-kernels-that-earn-what-chapter-4-promised" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Chapter 4 built the model: a thread's identity is two numbers, memory has three scopes, and a warp either reads together or pays for reading separately. This chapter is what happens when that model meets a kernel with a job to actually finish quickly — the launch math that doesn't waste a thread, the layout that doesn't waste a transaction, the on-chip memory that doesn't make ten threads pay for the same value ten times over, and the one instruction that skips memory altogether for the last few steps of a reduction."</p>
+</blockquote>
+<p><strong>What you will understand by the end of this chapter:</strong></p>
+<ul>
+<li>How to compute a real launch configuration by ceiling division — block count, total threads launched, and exactly how many of them are wasted — and why the in-kernel bounds check isn't defensive boilerplate but the other half of a single design decision, traced on a tensor of a million elements</li>
+<li>Memory coalescing translated from Chapter 4's abstract warp argument into a concrete win on a real struct: reading one field across many bond records, counted in actual transactions and actual bandwidth utilization, for both the Array-of-Structs and Struct-of-Arrays layouts</li>
+<li>Why a naive convolution kernel reads most of its input many times over, counted exactly rather than asserted, and how staging one block's input tile into shared memory — with more threads doing the loading than will ever compute an output — removes that redundancy entirely</li>
+<li>Why padding the input (rather than shrinking the output) is what a "same"-shaped convolution actually requires, traced by hand at a border position and an interior position of the same small example</li>
+<li>Warp-level shuffle instructions as the natural endpoint of a tree reduction once the active thread count drops to one warp — and the one precondition (every lane in the warp must participate) that this chapter's own Section 18.1 bounds-check pattern can silently violate</li>
+</ul>
+<p><strong>What you need to know first:</strong></p>
+<ul>
+<li>Chapter 4 in full: the thread hierarchy and global-index formula (4.1), the host/device split (4.2), the three memory scopes (4.3), and memory coalescing's warp-transaction argument (4.4). This chapter takes each of those ideas into real launch configurations and real kernel code.</li>
+<li>Chapter 3 (Struct-of-Arrays vs Array-of-Structs) — Section 18.2 reuses its argument directly on a financial data struct.</li>
+<li>Chapter 14.1 (<code>tensor_sum</code>'s tree reduction) — Section 18.4 is precisely the optimization that shortens the last few rounds of that same reduction.</li>
+<li>Chapter 13.1 (matrix multiplication's index-summation form) — useful background for how shared-memory tiling generalizes past convolution to any operation where neighboring threads reread the same input.</li>
+</ul>
+<h2 id="181-cuda-style-kernel-design-foundational">18.1 CUDA-Style Kernel Design <code>[FOUNDATIONAL]</code><a class="headerlink" href="#181-cuda-style-kernel-design-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>A moving company only sends out crews in fixed sizes — say, four movers to a truck — never a lone mover, no matter how small the job. If a job needs eleven boxes moved, the company can't send "two and three quarters" crews; it sends three full crews, twelve movers, and the twelfth mover simply has nothing to do when they arrive. The company's actual obligation isn't to send exactly the right number of movers — it's to send <em>enough</em> crews to cover the job, and to make sure the extra mover on the last truck knows to stand aside rather than grab a box that was never there. A GPU kernel launch works exactly the same way: threads only come in fixed-size blocks, so covering <code>N</code> elements almost never divides evenly, and the kernel itself has to be the one that tells the leftover threads to stand aside.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>Every kernel in this book follows the same two-part template Chapter 4 introduced in the abstract: compute a thread's global index, then guard it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.host</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">DeviceContext</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.id</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">block_dim</span><span class="p">,</span><span class="w"> </span><span class="n">block_idx</span><span class="p">,</span><span class="w"> </span><span class="n">thread_idx</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">memory</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">UnsafePointer</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">fn</span><span class="w"> </span><span class="nf">generic_elementwise_kernel</span><span class="p">(</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">):</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;The template every kernel in this book follows: compute a global</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="s2">    thread index, bounds-check it, do one unit of work.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For five inputs <code>[1,2,3,4,5]</code>, scale 2, and a block of eight threads, global indices 0–4 write <code>[2,4,6,8,10]</code>. Threads 5–7 fail <code>i&lt;5</code> and write nothing. Without the guard, those three threads would access memory past the allocation.</p>
-<h2 id="92-launch-geometry-covers-the-tail">9.2 Launch geometry covers the tail<a class="headerlink" href="#92-launch-geometry-covers-the-tail" title="Permanent link">&para;</a></h2>
-<p>The host uses <code>DeviceContext</code>, allocates a <code>DeviceBuffer</code>, and launches with the current single-function form <code>enqueue_function[kernel]</code>. Ceiling division chooses enough blocks to cover every element.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu.host</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">DeviceContext</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">launch_scale</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int32</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">block_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">grid_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Int</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">block_size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">block_size</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">scale_kernel</span><span class="p">](</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="n">grid_dim</span><span class="o">=</span><span class="n">grid_size</span><span class="p">,</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="n">block_dim</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p">)</span>
+<p>The launch configuration is the other half of the decision, and it's made entirely on the host, before a single thread runs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">launch_elementwise</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">                       </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">alias</span><span class="w"> </span><span class="nv">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">num_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">generic_elementwise_kernel</span><span class="p">](</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="n">grid_dim</span><span class="o">=</span><span class="p">(</span><span class="n">num_blocks</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="n">block_dim</span><span class="o">=</span><span class="p">(</span><span class="n">THREADS_PER_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> With <code>size=1,000</code> and <code>block_size=256</code>, <code>(1000+255)//256=4</code> blocks launch 1,024 threads. The first 1,000 process data and the last 24 take the guarded exit. Three blocks would launch only 768 threads and leave 232 outputs untouched.</p>
-<h2 id="93-coalescing-is-a-layout-property">9.3 Coalescing is a layout property<a class="headerlink" href="#93-coalescing-is-a-layout-property" title="Permanent link">&para;</a></h2>
-<p>Adjacent threads should access adjacent addresses. A structure-of-arrays layout makes thread <code>i</code> and thread <code>i+1</code> read neighboring rates, whereas an array of bond structs inserts the other fields between those reads.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">global_idx</span>
+<p><code>num_blocks = (size + THREADS_PER_BLOCK - 1) // THREADS_PER_BLOCK</code> is <em>ceiling</em> division computed with integer arithmetic — the <code>+ THREADS_PER_BLOCK - 1</code> before the floor-dividing <code>//</code> is what rounds up instead of down. Rounding up guarantees every element gets covered by some block; the <code>if idx &lt; size</code> guard back in the kernel is what stops the inevitable overshoot from writing past the end of the buffer. Neither piece is optional, and each protects against a different failure:</p>
+<table>
+<thead>
+<tr>
+<th>Ceiling division</th>
+<th>Bounds check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No (<code>size // N</code>)</td>
+<td>No</td>
+<td>Tail elements past the last full block are never processed at all</td>
+</tr>
+<tr>
+<td>No (<code>size // N</code>)</td>
+<td>Yes</td>
+<td>Still misses the tail — a guard can't rescue elements whose block was never launched</td>
+</tr>
+<tr>
+<td>Yes (<code>(size+N-1)//N</code>)</td>
+<td>No</td>
+<td>Overshoot threads write past the buffer's end — memory corruption</td>
+</tr>
+<tr>
+<td>Yes (<code>(size+N-1)//N</code>)</td>
+<td>Yes</td>
+<td>Full coverage, no corruption — the pattern every kernel in this book uses</td>
+</tr>
+</tbody>
+</table>
+<h3 id="worked-example-1811-a-million-elements-traced-to-the-exact-wasted-thread">Worked Example 18.1.1 — A million elements, traced to the exact wasted thread<a class="headerlink" href="#worked-example-1811-a-million-elements-traced-to-the-exact-wasted-thread" title="Permanent link">&para;</a></h3>
+<p>For a tensor of exactly <code>1,000,000</code> elements at <code>THREADS_PER_BLOCK = 256</code>: <code>num_blocks = (1,000,000 + 255) // 256 = 1,000,255 // 256 = 3907</code> (integer division truncates the remainder). Those <code>3907</code> blocks launch <code>3907 × 256 = 1,000,192</code> threads in total — <code>192</code> more than the tensor has elements. The last block, block <code>3906</code>, covers global indices <code>999,936</code> through <code>1,000,191</code>; of its <code>256</code> threads, only the first <code>64</code> satisfy <code>idx &lt; 1,000,000</code> and do real work — indices <code>999,936</code> through <code>999,999</code>. The remaining <code>192</code> threads in that one block, and only that one block, are the ones the bounds check exists to stop.</p>
+<h3 id="worked-example-1812-a-different-size-and-block-width-to-check-the-pattern-generalizes">Worked Example 18.1.2 — A different size and block width, to check the pattern generalizes<a class="headerlink" href="#worked-example-1812-a-different-size-and-block-width-to-check-the-pattern-generalizes" title="Permanent link">&para;</a></h3>
+<p>Same formula, different numbers: <code>size = 10,000</code>, <code>THREADS_PER_BLOCK = 128</code>. <code>num_blocks = (10,000 + 127) // 128 = 10,127 // 128 = 79</code>. Total threads launched: <code>79 × 128 = 10,112</code> — <code>112</code> wasted. The last block is block <code>78</code>, covering global indices <code>78 × 128 = 9,984</code> through <code>10,111</code>. Valid indices are <code>9,984</code> through <code>9,999</code> — exactly <code>16</code> active threads in that block, and the remaining <code>128 - 16 = 112</code> idle threads account for the entire wasted count computed above. As in the million-element case, every wasted thread lives in exactly one block — the last one — never scattered across the launch.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[COMMON TRAP]  Removing &quot;wasteful&quot; rounding by shrinking block count
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">discount_kernel</span><span class="p">(</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">present_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">face</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">rate</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">years</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int32</span><span class="p">,</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">):</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">global_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="n">present_value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">face</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">rate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">years</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>It is tempting to compute num_blocks = size // THREADS_PER_BLOCK
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>instead -- after all, why launch a block that is mostly idle? The
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>answer is in the table above: floor division doesn&#39;t shrink the idle
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>thread count, it deletes real work. For size=10,000 and
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>THREADS_PER_BLOCK=128, size // 128 = 78 (not 79) -- exactly one block
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>short. Elements 9,984 through 9,999, the sixteen elements this
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>chapter&#39;s own worked example just traced as &quot;active,&quot; would never be
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>covered by any launched block at all, and no bounds check inside the
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>kernel can process an index that no thread was ever assigned. The
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>&quot;wasted&quot; threads on the last block are not a bug to engineer away --
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>they are the cost of guaranteeing full coverage with fixed-size
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>blocks, paid once per launch, and the bounds check is what makes that
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>cost safe to pay.
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Threads 0–3 read <code>rate[0]</code> through <code>rate[3]</code>, four consecutive <code>Float32</code> values occupying 16 consecutive bytes. For faces <code>[100,100]</code>, rates <code>[0.05,0.06]</code>, and years <code>[1,2]</code>, the writes are <code>100e^-0.05≈95.1229</code> and <code>100e^-0.12≈88.6920</code>.</p>
-<h2 id="94-shared-memory-and-barriers-require-block-wide-reasoning">9.4 Shared memory and barriers require block-wide reasoning<a class="headerlink" href="#94-shared-memory-and-barriers-require-block-wide-reasoning" title="Permanent link">&para;</a></h2>
-<p>Shared memory is useful when threads in one block reuse a tile. Every participating thread writes its element, all threads reach <code>barrier()</code>, and only then may any thread consume neighbors' elements. Mojo's higher-level <code>TileTensor</code> is preferred for production tiling because it carries layout information and composes with device buffers; raw shared-memory code is reserved for kernels whose access pattern cannot be expressed clearly at the tile level.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu.sync</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">barrier</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">two_phase_block_step</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tile</span><span class="p">,</span><span class="w"> </span><span class="n">local_i</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">tile</span><span class="p">[</span><span class="n">local_i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">barrier</span><span class="p">()</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tile</span><span class="p">[</span><span class="n">local_i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tile</span><span class="p">[</span><span class="n">local_i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<h2 id="182-memory-coalescing-optimization-foundational">18.2 Memory Coalescing Optimization <code>[FOUNDATIONAL]</code><a class="headerlink" href="#182-memory-coalescing-optimization-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>A records clerk is asked to look up one field — say, the interest rate — for four different customer files. If all four rates happen to be written on one shared summary sheet, one glance retrieves all four. If instead each rate is buried on page three of four separate, fully-detailed customer folders, the clerk pays for four separate trips to the filing cabinet to retrieve the exact same four numbers. Struct-of-Arrays is the summary sheet; Array-of-Structs is the stack of folders — and a GPU warp reading a field across many records is exactly this clerk, dozens of times over, every single kernel launch.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Array of Structs (AoS) -- poor coalescing</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">#   Memory: [face,maturity,rate,spread,...][face,maturity,rate,spread,...]...</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1">#   A kernel reading every bond&#39;s `rate` jumps past every OTHER field between reads.</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">#</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Struct of Arrays (SoA) -- optimal coalescing</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">#   Memory: face:[f0,f1,f2,...]  maturity:[m0,m1,...]  rate:[r0,r1,...]</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1">#   A kernel reading every bond&#39;s `rate` reads one contiguous array.</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_from_soa_kernel</span><span class="p">(</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">rate</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w">      </span><span class="c1"># contiguous: coalesced read</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w">    </span><span class="c1"># contiguous: coalesced read</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">num_items</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">):</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_items</span><span class="p">:</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rate</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Suppose four threads write <code>[2,4,6,8]</code> into a tile and threads 0–2 then add a right neighbor. After the barrier their results are <code>[2+4,4+6,6+8]=[6,10,14]</code>. Without the barrier, thread 0 could read slot 1 before thread 1 writes 4, making the result schedule-dependent. A real kernel must also ensure the final thread does not read past the tile.</p>
-<h2 id="95-warp-primitives-are-an-optimization-not-a-starting-point">9.5 Warp primitives are an optimization, not a starting point<a class="headerlink" href="#95-warp-primitives-are-an-optimization-not-a-starting-point" title="Permanent link">&para;</a></h2>
-<p>Warp shuffles and reductions can remove shared-memory traffic, but warp size and supported primitives vary by accelerator. Establish correctness with a portable block reduction, benchmark it, and specialize only the measured bottleneck behind a tested dispatch path.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reduction_round</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span><span class="w"> </span><span class="n">active</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">half</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">half</span><span class="p">):</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">half</span><span class="p">]</span>
+<p>This is not a hypothetical: it is the exact struct that prices a bond portfolio in Part 7, where the SoA <code>ZeroCouponBondSystemSoA</code> holds eight <code>Float32</code> fields (<code>face_value</code>, <code>time_to_maturity</code>, <code>risk_free_rate</code>, <code>credit_spread</code>, <code>present_value</code>, <code>yield_to_maturity</code>, <code>duration</code>, <code>portfolio_weight</code>) as eight separate contiguous arrays instead of one interleaved struct per bond. An Array-of-Structs record holding those same eight fields is <code>8 × 4 = 32</code> bytes wide; the stride between the <em>same</em> field in two adjacent AoS records is that entire <code>32</code>-byte record, while the stride between adjacent elements of one SoA array is just <code>4</code> bytes — an <code>8×</code> difference, not a rough estimate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Memory layout comparison:
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  AoS stride between same field, adjacent records: 32 bytes
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  SoA stride between adjacent elements, one field:  4 bytes
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  Coalescing improvement:                          8x better
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Start with <code>[1,2,3,4,5,6,7,8]</code>. The first round adds opposite halves and leaves <code>[6,8,10,12]</code>; the next leaves <code>[16,20]</code>; the final leaves <code>[36]</code>. Since <code>1+2+...+8=36</code>, the tree is correct before any warp-specific rewrite is attempted.</p>
-<p>The production sequence is now explicit: prove the scalar result, map work to guarded global indices, use graph-owned device buffers, verify host/device copies, then optimize layout, tiling, and warp communication in that order.</p>
+<h3 id="worked-example-1821-counting-actual-transactions-aos-vs-soa">Worked Example 18.2.1 — Counting actual transactions, AoS vs. SoA<a class="headerlink" href="#worked-example-1821-counting-actual-transactions-aos-vs-soa" title="Permanent link">&para;</a></h3>
+<p>Scale a 32-thread warp down to <code>4</code> threads (the same scaling trick Chapter 4.4 used), and treat every <code>16</code> contiguous bytes (<code>4</code> <code>Float32</code>s) as one memory transaction. Four threads read <code>risk_free_rate</code> for bond records <code>0</code> through <code>3</code>.</p>
+<p><strong>SoA</strong>: <code>risk_free_rate[0], risk_free_rate[1], risk_free_rate[2], risk_free_rate[3]</code> sit contiguously at float-indices <code>0, 1, 2, 3</code> — all inside the same <code>16</code>-byte chunk.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>transactions needed = 1
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>bytes moved         = 16
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>bytes used           = 16
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>utilization         = 100%
+</code></pre></div>
+<p><strong>AoS</strong>, with the field order above (<code>risk_free_rate</code> is the third of eight fields, float-index <code>2</code> within each <code>8</code>-float record): record <code>0</code>'s <code>risk_free_rate</code> is at float-index <code>2</code>, record <code>1</code>'s is at <code>8 + 2 = 10</code>, record <code>2</code>'s is at <code>16 + 2 = 18</code>, record <code>3</code>'s is at <code>24 + 2 = 26</code>. Dividing each by <code>4</code> to find its <code>16</code>-byte chunk: <code>2 → chunk 0</code>, <code>10 → chunk 2</code>, <code>18 → chunk 4</code>, <code>26 → chunk 6</code> — four distinct chunks, one per thread.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>transactions needed = 4
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>bytes moved         = 4 x 16 = 64
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>bytes used           = 4 x 4  = 16
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>utilization         = 16/64 = 25%
+</code></pre></div>
+<p>Four threads, four numbers, identical useful data — <code>1</code> transaction against <code>4</code>, precisely the structural shape of Chapter 4.4's own strided-access case, just instantiated on a real eight-field financial record instead of an abstract array.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>[COMMON TRAP]  Assuming SoA collapses every field access into one transaction
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>SoA guarantees that reading ONE field across many records is coalesced
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>-- it says nothing about how many transactions a kernel that needs
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>SEVERAL fields per thread will issue. compute_bond_prices_kernel
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>(Part 7) reads risk_free_rate, credit_spread, face_value, and
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>time_to_maturity for every bond it prices -- four separate SoA arrays,
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>so four separate (individually coalesced) transactions per warp, not
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>one. SoA turns each of those four reads from a scattered, 32-byte-
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>stride mess into a single clean transaction; it does not, and cannot,
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>merge four logically different fields into one physical read.
+</code></pre></div>
+<h2 id="183-shared-memory-utilization-foundational">18.3 Shared Memory Utilization <code>[FOUNDATIONAL]</code><a class="headerlink" href="#183-shared-memory-utilization-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>Picture four apprentices in one workshop bay, each assigned to finish one tile of a mosaic, where every tile needs paint from a shared can sitting on a shelf across the room. If each apprentice fetches their own paint every time they need a dab, the same can gets carried across the room far more times than necessary — especially since neighboring tiles need overlapping colors. A foreman who instead sends a <em>few</em> apprentices to bring the whole can to the workbench once, share it there, and only then start painting saves every trip after the first. Shared memory is that workbench: on-chip, visible to every thread in one block, and loaded exactly once per block instead of once per thread.</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<p>The naive convolution kernel each thread runs independently, re-reading global memory for every multiply:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nd">@gpu_kernel</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mojo_conv2d_kernel</span><span class="p">(</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">input_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">input_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">kernel</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">kernel_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">output_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">):</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_h</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">        </span><span class="k">return</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">k_r</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_h</span><span class="p">):</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">k_c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_w</span><span class="p">):</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">in_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_r</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">in_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">            </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">in_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in_col</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel</span><span class="p">[</span><span class="n">k_r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span><span class="p">]</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">out_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">out_col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">sum</span>
+</code></pre></div>
+<p>Neighboring output threads' input windows overlap heavily — a <code>3×3</code> kernel means most interior input positions are read by up to nine different output threads, all pulling from global memory independently. The shared-memory fix stages the block's <em>entire</em> input footprint into on-chip memory once, using <em>more</em> threads than the block will ever use to compute outputs, because the extra input rows and columns at the tile's edges (the "halo") still need loading even though no thread centered there will ever own an output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">alias</span><span class="w"> </span><span class="nv">TILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="w">                          </span><span class="c1"># output elements per block, per side</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">alias</span><span class="w"> </span><span class="nv">KERNEL_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">                    </span><span class="c1"># this kernel&#39;s fixed kernel width/height</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">alias</span><span class="w"> </span><span class="nv">SHARED_DIM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">KERNEL_SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="c1"># input footprint one tile of outputs needs</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nd">@gpu_kernel</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mojo_conv2d_tiled_kernel</span><span class="p">(</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">input_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">input_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="n">kernel</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">kernel_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">output_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">):</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">tile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stack_allocation</span><span class="p">[</span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="p">,</span><span class="w"> </span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">address_space</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddressSpace</span><span class="o">.</span><span class="n">SHARED</span><span class="p">]()</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="c1"># Every thread in the (oversized) block loads exactly one tile cell --</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="c1"># including the threads that will never compute an output.</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">in_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">in_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">in_row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">input_h</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">in_col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">input_w</span><span class="p">:</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">        </span><span class="n">tile</span><span class="p">[</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">in_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in_col</span><span class="p">]</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">        </span><span class="n">tile</span><span class="p">[</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">    </span><span class="n">barrier</span><span class="p">()</span><span class="w">   </span><span class="c1"># every thread in the block must finish writing before ANY thread reads</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w">    </span><span class="c1"># Only the TILE x TILE &quot;interior&quot; threads own an output element --</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">    </span><span class="c1"># the rest existed purely to help fill the tile&#39;s halo.</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">TILE</span><span class="p">:</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">        </span><span class="k">return</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_h</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">        </span><span class="k">return</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">k_r</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_h</span><span class="p">):</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">k_c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_w</span><span class="p">):</span>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w">            </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">tile</span><span class="p">[(</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_r</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span><span class="p">)]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel</span><span class="p">[</span><span class="n">k_r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span><span class="p">]</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">out_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">out_col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">sum</span>
+</code></pre></div>
+<p>Every value this kernel needs is read from global memory exactly once, by whichever thread happens to own that tile position during the load phase; every subsequent read, during the actual convolution loop, comes from <code>tile</code> — on-chip, block-scoped, and (per Chapter 4.3) dramatically faster than global memory.</p>
+<h3 id="worked-example-1831-the-naive-kernels-redundant-reads-counted-exactly">Worked Example 18.3.1 — The naive kernel's redundant reads, counted exactly<a class="headerlink" href="#worked-example-1831-the-naive-kernels-redundant-reads-counted-exactly" title="Permanent link">&para;</a></h3>
+<p>Reuse a small, complete example: a <code>4×4</code> input filled sequentially and a <code>3×3</code> kernel of alternating <code>1</code>s and <code>0</code>s, the exact values used in the author's own convolution reference notes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Input (4x4):            Kernel (3x3):
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a> 1  2  3  4               1 0 1
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a> 5  6  7  8               0 1 0
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a> 9 10 11 12               1 0 1
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>13 14 15 16
+</code></pre></div>
+<p>With no padding, output is <code>2×2</code>: <code>output(0,0)</code> sums over input rows <code>0</code>-<code>2</code>, cols <code>0</code>-<code>2</code>: <code>1·1 + 2·0 + 3·1 + 5·0 + 6·1 + 7·0 + 9·1 + 10·0 + 11·1 = 1+3+6+9+11 = 30</code>. The same arithmetic on the other three windows gives <code>output(0,1)=35</code>, <code>output(1,0)=50</code>, <code>output(1,1)=55</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>output = 30  35
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>         50  55
+</code></pre></div>
+<p>Now count how many of the naive kernel's four output threads read each input cell. Interior cells <code>(1,1)</code>, <code>(1,2)</code>, <code>(2,1)</code>, <code>(2,2)</code> are each read by all four output threads — <code>4</code> times each; edge cells are read twice; corner cells once. Summing every cell's read count gives <code>36</code> total global-memory reads for <code>16</code> unique input values — exactly <code>4</code> outputs <code>× 9</code> kernel taps each, confirming the count independently. A larger image pushes interior cells toward the full <code>kernel_h × kernel_w = 9</code> reads this <code>4×4</code> example is too small to reach on its own, but the mechanism is identical at any size.</p>
+<h3 id="worked-example-1832-the-same-computation-staged-through-shared-memory">Worked Example 18.3.2 — The same computation, staged through shared memory<a class="headerlink" href="#worked-example-1832-the-same-computation-staged-through-shared-memory" title="Permanent link">&para;</a></h3>
+<p>For this small example, one block (<code>TILE=2</code>, <code>KERNEL_SIZE=3</code>, so <code>SHARED_DIM = 2+3-1 = 4</code>) covers the <em>entire</em> <code>4×4</code> input in a single tile. <code>SHARED_DIM × SHARED_DIM = 16</code> threads launch; each loads exactly one input cell into <code>tile</code>, so all <code>16</code> unique values are read from global memory exactly once, in total, for the whole block — not <code>36</code> times. After <code>barrier()</code>, only the <code>TILE × TILE = 4</code> threads with <code>thread_idx().y &lt; 2</code> and <code>thread_idx().x &lt; 2</code> proceed to compute an output, each reading its <code>3×3</code> window entirely from the now-fully-populated <code>tile</code> buffer. The four output values recovered are identical — <code>30, 35, 50, 55</code> — because <code>tile</code> holds exactly the same numbers the naive kernel read directly from <code>input</code>; only the number of <em>global</em> memory transactions changed, from <code>36</code> down to <code>16</code>.</p>
+<h3 id="worked-example-1833-padding-trades-output-size-for-border-zeros">Worked Example 18.3.3 — Padding trades output size for border zeros<a class="headerlink" href="#worked-example-1833-padding-trades-output-size-for-border-zeros" title="Permanent link">&para;</a></h3>
+<p>Padding by <code>1</code> on every side turns this same <code>4×4</code> input into an effective <code>6×6</code> buffer with a zero border, producing a <code>4×4 + 2·1 - 3 + 1 = 4×4</code> output — matching the input's own size, the "same"-convolution behavior Part 6's neural network layers rely on. At the top-right corner, <code>output(0,3)</code>: the kernel's window would need columns <code>2</code> through <code>4</code>, but column <code>4</code> doesn't exist, so that tap contributes <code>0</code>. Working through the remaining eight taps: <code>3·0 + 4·1 + 0·0</code> (row <code>0</code>, entirely off the top so contributing <code>0</code> regardless) <code>+ 7·1 + 8·0 + 0·0 = 4 + 7 = 11</code>. Compare this to an <em>interior</em> padded position: <code>output(1,1)</code>'s window, once the padding offset is accounted for, lands on exactly input rows <code>0</code>-<code>2</code> and columns <code>0</code>-<code>2</code> — the same window the unpadded <code>output(0,0)</code> used — so <code>output(1,1)</code> with padding equals <code>30</code>, the unpadded chapter's own first answer, shifted into a new position by the padding amount rather than recomputed from different numbers.</p>
+<h2 id="184-warp-level-primitives-foundational">18.4 Warp-level Primitives <code>[FOUNDATIONAL]</code><a class="headerlink" href="#184-warp-level-primitives-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>A relay team's first several handoffs happen across the length of a stadium, baton carried by runners who can't see each other. But the last few exchanges, once the race narrows to the final few runners bunched together at the finish line, don't need the stadium's length at all — the runners are close enough to pass the baton hand to hand, no track required. A GPU's tree reduction is the same shape: the first several rounds genuinely need shared or global memory to exchange partial sums across widely separated threads, but the final rounds, once the number of live threads drops to one warp (<code>32</code>), are all happening among threads close enough to exchange values directly through registers.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<p>The reduction kernels from Chapter 14.1 are written generically over thread count — correct on any GPU generation, at the cost of routing every round's exchange through memory, even the last few rounds where only a handful of threads are still participating. Warp-level shuffle instructions let those final rounds skip memory entirely:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.warp</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">shuffle_down</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">alias</span><span class="w"> </span><span class="nv">WARP_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="k">fn</span><span class="w"> </span><span class="nf">warp_reduce_sum</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Collapses the last WARP_SIZE elements of a tree reduction into</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="s2">    log2(WARP_SIZE) register-to-register exchanges -- no shared or</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="s2">    global memory involved for any of these rounds.&quot;&quot;&quot;</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WARP_SIZE</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span><span class="n">v</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">shuffle_down</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">)</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">        </span><span class="n">offset</span><span class="w"> </span><span class="o">//=</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">v</span>
+</code></pre></div>
+<p><code>shuffle_down(v, offset)</code> reads the value a <em>different</em> lane in the same warp is holding in its own register — specifically, the lane <code>offset</code> positions ahead — without either lane ever writing to memory. Halving <code>offset</code> each round is exactly the tree-reduction pattern Chapter 14.1 already uses, just operating on registers instead of a shared array: <code>log2(32) = 5</code> rounds fully reduce a warp, versus <code>5</code> rounds of shared-memory reads, writes, and <code>barrier()</code> calls the portable version pays for.</p>
+<h3 id="worked-example-1841-an-8-lane-warp-reduced-by-hand">Worked Example 18.4.1 — An 8-lane warp, reduced by hand<a class="headerlink" href="#worked-example-1841-an-8-lane-warp-reduced-by-hand" title="Permanent link">&para;</a></h3>
+<p>Scale a 32-lane warp down to <code>8</code> lanes (the same scaling convention Chapter 4.4 used for 32-wide warps), holding values <code>[1, 2, 3, 4, 5, 6, 7, 8]</code> (sum <code>= 36</code>). <code>log2(8) = 3</code> rounds:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>lane:    0    1    2    3    4    5    6    7
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>value:   1    2    3    4    5    6    7    8
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>round 1 (offset=4): lane_i += shuffle_down(lane_i, 4), for i=0..3
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>value:   6    8   10   12    .    .    .    .
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>round 2 (offset=2): lane_i += shuffle_down(lane_i, 2), for i=0..1
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>value:  16   20    .    .    .    .    .    .
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>round 3 (offset=1): lane_0 += shuffle_down(lane_0, 1)
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>value:  36    .    .    .    .    .    .    .
+</code></pre></div>
+<p>Lane <code>0</code> ends up holding <code>36</code> — the full sum — after exactly <code>3</code> register-to-register exchanges and zero memory operations, matching <code>log2(8)=3</code> exactly the way a real <code>32</code>-lane warp resolves in <code>log2(32)=5</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>[COMMON TRAP]  Section 18.1&#39;s bounds check meets Section 18.4&#39;s shuffle
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>shuffle_down requires every lane it names to actually be executing --
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>it reads a value from another lane&#39;s live register, not from some
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>persistent buffer. Section 18.1 established that a kernel&#39;s bounds
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>check (`if idx &lt; size: return`) is exactly the mechanism that keeps an
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>overshoot launch safe. Combine the two carelessly and the bounds check
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>becomes the bug: if the last block in a launch has some lanes with
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>idx &lt; size and others with idx &gt;= size, and the idx &gt;= size lanes
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>return early -- BEFORE the warp reaches a shuffle_down call the
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>remaining lanes still need to execute -- those returned lanes are no
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>longer live participants in the warp, and shuffling with them reads
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>undefined register content instead of the zero or identity value the
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>reduction needs. The fix is to let every lane in the warp reach the
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>shuffle (padding inactive lanes&#39; local value with the reduction&#39;s
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>identity element -- 0 for a sum -- instead of returning early), not to
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>skip the bounds check that Section 18.1 established is otherwise
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>required.
+</code></pre></div>
+<h2 id="185-reference-implementations">18.5 Reference Implementations<a class="headerlink" href="#185-reference-implementations" title="Permanent link">&para;</a></h2>
+<p>None of this chapter's Mojo has been compiled or run — consistent with the rest of this book's newly-composed material, it is presented as source, not as a captured session. The one exception to "purely newly-composed" is Worked Examples 18.3.1 through 18.3.3: their <code>4×4</code> input and <code>3×3</code> kernel values are drawn directly from a real Mojo GPU convolution reference the author had on hand, though that reference's own code uses an older, incompatible Mojo dialect (<code>let</code>, <code>inout self</code>, a built-in <code>Tensor[DType.float32](rows, cols)</code> constructor) that doesn't match this book's <code>UnsafePointer</code>-based structs — so the numbers are real and independently reverified above, but the Mojo code presented is written fresh, in this book's own established idiom, rather than copied from that source. What follows is every kernel this chapter derived, assembled in one place:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.host</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">DeviceContext</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.id</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">block_dim</span><span class="p">,</span><span class="w"> </span><span class="n">block_idx</span><span class="p">,</span><span class="w"> </span><span class="n">thread_idx</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.warp</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">shuffle_down</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">memory</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">UnsafePointer</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># ---- 18.1: launch configuration ----</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="k">fn</span><span class="w"> </span><span class="nf">generic_elementwise_kernel</span><span class="p">(</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="p">):</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="k">fn</span><span class="w"> </span><span class="nf">launch_elementwise</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">                       </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">    </span><span class="k">alias</span><span class="w"> </span><span class="nv">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">num_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">generic_elementwise_kernel</span><span class="p">](</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">        </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="w">        </span><span class="n">grid_dim</span><span class="o">=</span><span class="p">(</span><span class="n">num_blocks</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">        </span><span class="n">block_dim</span><span class="o">=</span><span class="p">(</span><span class="n">THREADS_PER_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">    </span><span class="p">)</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="c1"># ---- 18.2: memory coalescing ----</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_from_soa_kernel</span><span class="p">(</span>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="w">    </span><span class="n">rate</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a><span class="w">    </span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a><span class="w">    </span><span class="n">num_items</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="p">):</span>
+<a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-15-38" name="__codelineno-15-38" href="#__codelineno-15-38"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_items</span><span class="p">:</span>
+<a id="__codelineno-15-39" name="__codelineno-15-39" href="#__codelineno-15-39"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rate</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<a id="__codelineno-15-40" name="__codelineno-15-40" href="#__codelineno-15-40"></a>
+<a id="__codelineno-15-41" name="__codelineno-15-41" href="#__codelineno-15-41"></a>
+<a id="__codelineno-15-42" name="__codelineno-15-42" href="#__codelineno-15-42"></a><span class="c1"># ---- 18.3: shared memory tiling ----</span>
+<a id="__codelineno-15-43" name="__codelineno-15-43" href="#__codelineno-15-43"></a>
+<a id="__codelineno-15-44" name="__codelineno-15-44" href="#__codelineno-15-44"></a><span class="nd">@gpu_kernel</span>
+<a id="__codelineno-15-45" name="__codelineno-15-45" href="#__codelineno-15-45"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mojo_conv2d_kernel</span><span class="p">(</span>
+<a id="__codelineno-15-46" name="__codelineno-15-46" href="#__codelineno-15-46"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">input_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">input_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-47" name="__codelineno-15-47" href="#__codelineno-15-47"></a><span class="w">    </span><span class="n">kernel</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">kernel_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-48" name="__codelineno-15-48" href="#__codelineno-15-48"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">output_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-49" name="__codelineno-15-49" href="#__codelineno-15-49"></a><span class="p">):</span>
+<a id="__codelineno-15-50" name="__codelineno-15-50" href="#__codelineno-15-50"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-15-51" name="__codelineno-15-51" href="#__codelineno-15-51"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-15-52" name="__codelineno-15-52" href="#__codelineno-15-52"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_h</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span>
+<a id="__codelineno-15-53" name="__codelineno-15-53" href="#__codelineno-15-53"></a><span class="w">        </span><span class="k">return</span>
+<a id="__codelineno-15-54" name="__codelineno-15-54" href="#__codelineno-15-54"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-15-55" name="__codelineno-15-55" href="#__codelineno-15-55"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">k_r</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_h</span><span class="p">):</span>
+<a id="__codelineno-15-56" name="__codelineno-15-56" href="#__codelineno-15-56"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">k_c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_w</span><span class="p">):</span>
+<a id="__codelineno-15-57" name="__codelineno-15-57" href="#__codelineno-15-57"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">in_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_r</span>
+<a id="__codelineno-15-58" name="__codelineno-15-58" href="#__codelineno-15-58"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">in_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span>
+<a id="__codelineno-15-59" name="__codelineno-15-59" href="#__codelineno-15-59"></a><span class="w">            </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">in_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in_col</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel</span><span class="p">[</span><span class="n">k_r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span><span class="p">]</span>
+<a id="__codelineno-15-60" name="__codelineno-15-60" href="#__codelineno-15-60"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">out_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">out_col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">sum</span>
+<a id="__codelineno-15-61" name="__codelineno-15-61" href="#__codelineno-15-61"></a>
+<a id="__codelineno-15-62" name="__codelineno-15-62" href="#__codelineno-15-62"></a><span class="k">alias</span><span class="w"> </span><span class="nv">TILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span>
+<a id="__codelineno-15-63" name="__codelineno-15-63" href="#__codelineno-15-63"></a><span class="k">alias</span><span class="w"> </span><span class="nv">KERNEL_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<a id="__codelineno-15-64" name="__codelineno-15-64" href="#__codelineno-15-64"></a><span class="k">alias</span><span class="w"> </span><span class="nv">SHARED_DIM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">KERNEL_SIZE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-15-65" name="__codelineno-15-65" href="#__codelineno-15-65"></a>
+<a id="__codelineno-15-66" name="__codelineno-15-66" href="#__codelineno-15-66"></a><span class="nd">@gpu_kernel</span>
+<a id="__codelineno-15-67" name="__codelineno-15-67" href="#__codelineno-15-67"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mojo_conv2d_tiled_kernel</span><span class="p">(</span>
+<a id="__codelineno-15-68" name="__codelineno-15-68" href="#__codelineno-15-68"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">input_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">input_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-69" name="__codelineno-15-69" href="#__codelineno-15-69"></a><span class="w">    </span><span class="n">kernel</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">kernel_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-70" name="__codelineno-15-70" href="#__codelineno-15-70"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">output_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-15-71" name="__codelineno-15-71" href="#__codelineno-15-71"></a><span class="p">):</span>
+<a id="__codelineno-15-72" name="__codelineno-15-72" href="#__codelineno-15-72"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">tile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stack_allocation</span><span class="p">[</span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="p">,</span><span class="w"> </span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">address_space</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddressSpace</span><span class="o">.</span><span class="n">SHARED</span><span class="p">]()</span>
+<a id="__codelineno-15-73" name="__codelineno-15-73" href="#__codelineno-15-73"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">in_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-15-74" name="__codelineno-15-74" href="#__codelineno-15-74"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">in_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-15-75" name="__codelineno-15-75" href="#__codelineno-15-75"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">in_row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">input_h</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">in_col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">input_w</span><span class="p">:</span>
+<a id="__codelineno-15-76" name="__codelineno-15-76" href="#__codelineno-15-76"></a><span class="w">        </span><span class="n">tile</span><span class="p">[</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">in_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in_col</span><span class="p">]</span>
+<a id="__codelineno-15-77" name="__codelineno-15-77" href="#__codelineno-15-77"></a><span class="w">    </span><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-15-78" name="__codelineno-15-78" href="#__codelineno-15-78"></a><span class="w">        </span><span class="n">tile</span><span class="p">[</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-15-79" name="__codelineno-15-79" href="#__codelineno-15-79"></a><span class="w">    </span><span class="n">barrier</span><span class="p">()</span>
+<a id="__codelineno-15-80" name="__codelineno-15-80" href="#__codelineno-15-80"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">TILE</span><span class="p">:</span>
+<a id="__codelineno-15-81" name="__codelineno-15-81" href="#__codelineno-15-81"></a><span class="w">        </span><span class="k">return</span>
+<a id="__codelineno-15-82" name="__codelineno-15-82" href="#__codelineno-15-82"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-15-83" name="__codelineno-15-83" href="#__codelineno-15-83"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TILE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-15-84" name="__codelineno-15-84" href="#__codelineno-15-84"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_h</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span>
+<a id="__codelineno-15-85" name="__codelineno-15-85" href="#__codelineno-15-85"></a><span class="w">        </span><span class="k">return</span>
+<a id="__codelineno-15-86" name="__codelineno-15-86" href="#__codelineno-15-86"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-15-87" name="__codelineno-15-87" href="#__codelineno-15-87"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">k_r</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_h</span><span class="p">):</span>
+<a id="__codelineno-15-88" name="__codelineno-15-88" href="#__codelineno-15-88"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">k_c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_w</span><span class="p">):</span>
+<a id="__codelineno-15-89" name="__codelineno-15-89" href="#__codelineno-15-89"></a><span class="w">            </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">tile</span><span class="p">[(</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_r</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SHARED_DIM</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span><span class="p">)]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel</span><span class="p">[</span><span class="n">k_r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span><span class="p">]</span>
+<a id="__codelineno-15-90" name="__codelineno-15-90" href="#__codelineno-15-90"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">out_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">out_col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">sum</span>
+<a id="__codelineno-15-91" name="__codelineno-15-91" href="#__codelineno-15-91"></a>
+<a id="__codelineno-15-92" name="__codelineno-15-92" href="#__codelineno-15-92"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mojo_conv2d_padded</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">GPUTensor</span><span class="p">,</span><span class="w"> </span><span class="n">kernel</span><span class="p">:</span><span class="w"> </span><span class="n">GPUTensor</span><span class="p">,</span><span class="w"> </span><span class="n">padding</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">GPUTensor</span><span class="p">:</span>
+<a id="__codelineno-15-93" name="__codelineno-15-93" href="#__codelineno-15-93"></a><span class="w">    </span><span class="c1"># Pad input on all sides by `padding` zeros, then run the tiled kernel</span>
+<a id="__codelineno-15-94" name="__codelineno-15-94" href="#__codelineno-15-94"></a><span class="w">    </span><span class="c1"># above against the padded buffer -- output_h/w now equal input_h/w</span>
+<a id="__codelineno-15-95" name="__codelineno-15-95" href="#__codelineno-15-95"></a><span class="w">    </span><span class="c1"># instead of shrinking by (kernel_size - 1).</span>
+<a id="__codelineno-15-96" name="__codelineno-15-96" href="#__codelineno-15-96"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pad_tensor</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">padding</span><span class="p">)</span>
+<a id="__codelineno-15-97" name="__codelineno-15-97" href="#__codelineno-15-97"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mojo_conv2d_tiled</span><span class="p">(</span><span class="n">padded</span><span class="p">,</span><span class="w"> </span><span class="n">kernel</span><span class="p">)</span>
+<a id="__codelineno-15-98" name="__codelineno-15-98" href="#__codelineno-15-98"></a>
+<a id="__codelineno-15-99" name="__codelineno-15-99" href="#__codelineno-15-99"></a>
+<a id="__codelineno-15-100" name="__codelineno-15-100" href="#__codelineno-15-100"></a><span class="c1"># ---- 18.4: warp-level reduction ----</span>
+<a id="__codelineno-15-101" name="__codelineno-15-101" href="#__codelineno-15-101"></a>
+<a id="__codelineno-15-102" name="__codelineno-15-102" href="#__codelineno-15-102"></a><span class="k">alias</span><span class="w"> </span><span class="nv">WARP_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span>
+<a id="__codelineno-15-103" name="__codelineno-15-103" href="#__codelineno-15-103"></a>
+<a id="__codelineno-15-104" name="__codelineno-15-104" href="#__codelineno-15-104"></a><span class="k">fn</span><span class="w"> </span><span class="nf">warp_reduce_sum</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-15-105" name="__codelineno-15-105" href="#__codelineno-15-105"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<a id="__codelineno-15-106" name="__codelineno-15-106" href="#__codelineno-15-106"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WARP_SIZE</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-15-107" name="__codelineno-15-107" href="#__codelineno-15-107"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-15-108" name="__codelineno-15-108" href="#__codelineno-15-108"></a><span class="w">        </span><span class="n">v</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">shuffle_down</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">)</span>
+<a id="__codelineno-15-109" name="__codelineno-15-109" href="#__codelineno-15-109"></a><span class="w">        </span><span class="n">offset</span><span class="w"> </span><span class="o">//=</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-15-110" name="__codelineno-15-110" href="#__codelineno-15-110"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">v</span>
+</code></pre></div>
+<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
+<p>There is no captured run to reproduce here — see the note above on why. Worked Examples 18.1.1 through 18.4.1 remain the source of truth for what each kernel computes on real numbers; this section is an index into them, assembled in one place the way a real project would actually organize the file, not a substitute for the worked-by-hand arithmetic above.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>A kernel launch's block count is ceiling division, not floor division — <code>(size + N - 1) // N</code> — and the reason is asymmetric: rounding down silently drops real elements no bounds check can rescue, while rounding up and pairing it with <code>if idx &lt; size</code> inside the kernel wastes a bounded, known number of idle threads (<code>192</code> for this chapter's million-element example, <code>112</code> for its ten-thousand-element one) in exchange for guaranteed full coverage. Memory coalescing is Chapter 4.4's warp-bandwidth argument made concrete on a real eight-field financial record: reading one field across four bond records costs one transaction in Struct-of-Arrays layout and four in Array-of-Structs, a <code>4×</code> penalty on this chapter's scaled-down example that becomes the same <code>8×</code> byte-stride penalty Part 7's real portfolio pricing measures directly — though SoA only fixes <em>this</em>, not a kernel that genuinely needs several different fields per thread. A naive convolution kernel reads most of its input several times over — <code>36</code> total reads for <code>16</code> unique values in this chapter's own <code>4×4</code> example — purely because neighboring output threads' windows overlap; staging the block's entire input footprint into shared memory once, using more threads to load than will ever compute an output, cuts that down to exactly one global read per unique value, with a <code>barrier()</code> between the loading phase and the computing phase standing between "correct" and "a race condition." Padding trades a shrinking output for a fixed-size one by surrounding the input with zeros rather than narrowing the valid window, verified here at both a border position (<code>11</code>) and an interior one that exactly reproduces the unpadded chapter's own first answer (<code>30</code>), just shifted. Finally, warp-level shuffle instructions collapse the last <code>log2(32)=5</code> rounds of any tree reduction into register-to-register exchanges with no memory traffic at all — but they require every lane in the warp to still be executing, which makes Section 18.1's own bounds-check pattern, applied carelessly to a kernel that also uses shuffles, the exact mechanism that can break one.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>For <code>size = 5,000</code> and <code>THREADS_PER_BLOCK = 512</code>, compute <code>num_blocks</code>, the total number of threads launched, the number wasted, and how many threads in the last block are actually active.</li>
+<li>A warp-scaled group of <code>4</code> threads reads the <code>duration</code> field (the seventh of the eight <code>ZeroCouponBondSystemSoA</code> fields, float-index <code>6</code> within each <code>8</code>-float AoS record) for bond records <code>0</code> through <code>3</code>, using the same <code>16</code>-byte/<code>4</code>-float chunk convention as Worked Example 18.2.1. How many transactions does the AoS layout need, and what is its bus utilization?</li>
+<li>A kernel loads its shared-memory tile and then begins its convolution loop immediately, without calling <code>barrier()</code> first. Some threads finish their load-and-compute before other threads in the same block have even finished loading. What specific kind of wrong value can this produce, and which threads are affected?</li>
+<li>Using this chapter's <code>4×4</code> input and <code>3×3</code> kernel with <code>padding=1</code>, compute the padded output value at the top-right corner, <code>output(0,3)</code>.</li>
+<li>A warp-level reduction kernel has <code>4</code> of its <code>32</code> lanes return early, before the <code>shuffle_down</code> calls, because a bounds check found <code>idx &gt;= size</code> for those four threads. Why is this a problem, and which earlier section of this same chapter introduced the pattern now causing it?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>Chapter 19 (<code>part5/02-performance-optimization.md</code>) turns from kernel <em>design</em> to kernel <em>measurement</em>: SIMD vectorization on the CPU side, loop fusion, compile-time specialization, and the benchmarking harness used to tell whether any of this chapter's optimizations — ceiling-division launches, SoA layouts, shared-memory tiling, warp shuffles — actually helped, rather than simply looking like they should have.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> <code>num_blocks = (5,000 + 511) // 512 = 5,511 // 512 = 10</code>. Total threads launched: <code>10 × 512 = 5,120</code>. Wasted: <code>5,120 - 5,000 = 120</code>. The last block is block <code>9</code>, covering global indices <code>9 × 512 = 4,608</code> through <code>5,119</code>. Valid indices are <code>4,608</code> through <code>4,999</code> — <code>392</code> active threads — leaving <code>512 - 392 = 120</code> idle threads in that one block, exactly matching the wasted count computed from the totals.</p>
+<p><strong>2.</strong> Record <code>0</code>'s <code>duration</code> sits at float-index <code>0×8+6=6</code>; record <code>1</code>'s at <code>8+6=14</code>; record <code>2</code>'s at <code>16+6=22</code>; record <code>3</code>'s at <code>24+6=30</code>. Dividing by <code>4</code> to find each <code>16</code>-byte chunk: <code>6→chunk 1</code>, <code>14→chunk 3</code>, <code>22→chunk 5</code>, <code>30→chunk 7</code> — four distinct chunks, so <code>4</code> transactions are needed. Bytes moved: <code>4×16=64</code>; bytes used: <code>4×4=16</code>; utilization: <code>16/64=25%</code> — structurally identical to Worked Example 18.2.1's <code>risk_free_rate</code> case, confirming the AoS penalty isn't specific to any one field.</p>
+<p><strong>3.</strong> This produces a race condition: a thread that reaches the convolution loop before every thread assigned to load a value it needs has actually written that value reads whatever garbage or stale data happened to already be sitting in that shared-memory slot, not the input value that thread was supposed to load. The affected threads are unpredictable and can vary from run to run — specifically, any thread whose <code>3×3</code> window includes a tile cell that a <em>slower</em> sibling thread (one still mid-load, or not yet scheduled) hasn't written yet. <code>barrier()</code> exists precisely to rule this out, by making every thread in the block wait until all of them have finished the load phase before any of them is allowed to start reading.</p>
+<p><strong>4.</strong> <code>output(0,3)</code>'s window needs input columns <code>2</code> through <code>4</code> and rows <code>-1</code> through <code>1</code>. Row <code>-1</code> is entirely padding and contributes <code>0</code> regardless of kernel weights. For row <code>0</code>: <code>input[0,2]=3</code> × kernel <code>[1][0]=0</code> → <code>0</code>; <code>input[0,3]=4</code> × kernel <code>[1][1]=1</code> → <code>4</code>; column <code>4</code> is padding × kernel <code>[1][2]=0</code> → <code>0</code>. For row <code>1</code>: <code>input[1,2]=7</code> × kernel <code>[2][0]=1</code> → <code>7</code>; <code>input[1,3]=8</code> × kernel <code>[2][1]=0</code> → <code>0</code>; column <code>4</code> padding × kernel <code>[2][2]=1</code> → <code>0</code>. Total: <code>4 + 7 = 11</code>.</p>
+<p><strong>5.</strong> <code>shuffle_down</code> reads a value from another lane's live register in the same warp — it has no defined result when the lane it's reading from has already exited the kernel. The four early-returning lanes are no longer executing at all by the time the remaining lanes reach <code>shuffle_down</code>, so any exchange involving them reads undefined content instead of a meaningful partial sum, silently corrupting the reduction. The pattern responsible is Section 18.1's own bounds-check idiom (<code>if idx &lt; size: return</code> or its early-exit variants) — entirely correct and necessary on its own, as Section 18.1 established, but unsafe to combine with a later warp shuffle unless every lane is guaranteed to still reach the shuffle call, typically by substituting the reduction's identity value (<code>0</code> for a sum) for out-of-range lanes instead of letting them return early.</p>
 
 
 
