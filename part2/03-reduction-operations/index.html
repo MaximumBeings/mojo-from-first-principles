@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-5-reduction-operations" class="md-skip">
+        <a href="#chapter-14-reduction-operations-collapsing-many-values-into-one" class="md-skip">
           Skip to content
         </a>
       
@@ -1120,10 +1120,243 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#51-sum-and-mean" class="md-nav__link">
+  <a href="#141-sum-and-mean-reductions-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.1 Sum and mean
+        14.1 Sum and Mean Reductions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1 Sum and Mean Reductions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1411-tree-reduction-on-1-4-9-16-round-by-round" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.1.1 — Tree reduction on [1, 4, 9, 16], round by round
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1412-an-odd-length-array-across-three-rounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.1.2 — An odd-length array across three rounds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142-minmax-operations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 Min/Max Operations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.2 Min/Max Operations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1421-tracking-both-the-value-and-its-origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.2.1 — Tracking both the value and its origin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1422-an-odd-length-and-the-branch-that-goes-silent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.2.2 — An odd length, and the branch that goes silent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#143-norm-calculations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 Norm Calculations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3 Norm Calculations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1431-the-3-4-5-triangle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.3.1 — The 3-4-5 triangle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1432-clipping-a-gradient-back-to-a-safe-magnitude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.3.2 — Clipping a gradient back to a safe magnitude
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#144-statistical-functions-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 Statistical Functions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.4 Statistical Functions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1441-variance-and-standard-deviation-on-eight-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.4.1 — Variance and standard deviation on eight values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1131,10 +1364,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#52-min-max-and-argmax" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.2 Min, max, and argmax
+        Self-Check Questions
       
     </span>
   </a>
@@ -1142,10 +1375,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#53-norms-and-gradient-clipping" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.3 Norms and gradient clipping
+        Where We Go Next
       
     </span>
   </a>
@@ -1153,10 +1386,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#54-variance-with-welfords-algorithm" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.4 Variance with Welford's algorithm
+        Worked Solutions
       
     </span>
   </a>
@@ -1840,10 +2073,243 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#51-sum-and-mean" class="md-nav__link">
+  <a href="#141-sum-and-mean-reductions-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.1 Sum and mean
+        14.1 Sum and Mean Reductions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1 Sum and Mean Reductions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1411-tree-reduction-on-1-4-9-16-round-by-round" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.1.1 — Tree reduction on [1, 4, 9, 16], round by round
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1412-an-odd-length-array-across-three-rounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.1.2 — An odd-length array across three rounds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142-minmax-operations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 Min/Max Operations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.2 Min/Max Operations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1421-tracking-both-the-value-and-its-origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.2.1 — Tracking both the value and its origin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1422-an-odd-length-and-the-branch-that-goes-silent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.2.2 — An odd length, and the branch that goes silent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#143-norm-calculations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 Norm Calculations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3 Norm Calculations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1431-the-3-4-5-triangle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.3.1 — The 3-4-5 triangle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1432-clipping-a-gradient-back-to-a-safe-magnitude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.3.2 — Clipping a gradient back to a safe magnitude
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#144-statistical-functions-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 Statistical Functions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14.4 Statistical Functions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1441-variance-and-standard-deviation-on-eight-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 14.4.1 — Variance and standard deviation on eight values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1851,10 +2317,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#52-min-max-and-argmax" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.2 Min, max, and argmax
+        Self-Check Questions
       
     </span>
   </a>
@@ -1862,10 +2328,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#53-norms-and-gradient-clipping" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.3 Norms and gradient clipping
+        Where We Go Next
       
     </span>
   </a>
@@ -1873,10 +2339,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#54-variance-with-welfords-algorithm" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5.4 Variance with Welford's algorithm
+        Worked Solutions
       
     </span>
   </a>
@@ -1900,58 +2366,216 @@
 
 
 
-<h1 id="chapter-5-reduction-operations">Chapter 5: Reduction Operations<a class="headerlink" href="#chapter-5-reduction-operations" title="Permanent link">&para;</a></h1>
-<p>A reduction combines many values into fewer values. Order now matters for floating-point arithmetic, so the reference algorithm states its initial value, empty-input policy, and numerical method explicitly.</p>
-<h2 id="51-sum-and-mean">5.1 Sum and mean<a class="headerlink" href="#51-sum-and-mean" title="Permanent link">&para;</a></h2>
-<p>Compensated summation tracks low-order bits lost when a small value is added to a much larger running total. Mean divides only after a non-empty sum.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">compensated_sum</span><span class="p">(</span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Float64</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">correction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">values</span><span class="p">:</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">adjusted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">correction</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">adjusted</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="n">correction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">next</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">total</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">adjusted</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">next</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">total</span>
+<h1 id="chapter-14-reduction-operations-collapsing-many-values-into-one">Chapter 14: Reduction Operations — Collapsing Many Values Into One<a class="headerlink" href="#chapter-14-reduction-operations-collapsing-many-values-into-one" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Every loss function in this book ends the same way: a tensor of per-example errors collapses into a single scalar a training loop can actually act on. Every operation before this chapter preserved shape — the same number of positions went in as came out. A reduction is the first place that stops being true on purpose, and it's also the first place where doing it the parallel-obvious way — every thread adds its value into one shared accumulator — is a race condition, not an optimization."</p>
+</blockquote>
+<p><strong>What you will understand by the end of this chapter:</strong></p>
+<ul>
+<li>The tree-reduction pattern — pair, combine, halve, repeat — traced by hand on <code>[1, 4, 9, 16]</code> round by round until one value remains, and why every pair <em>within</em> a round is independent while rounds themselves must run in strict sequence</li>
+<li>Why <code>max_reduce_kernel</code> carries an index buffer alongside its value buffer, and how that surviving index becomes the one position the backward pass's gradient flows through, with every other position receiving exactly zero</li>
+<li>The L2 norm as sum-of-squares-then-square-root, and gradient-norm clipping as the one place in this book where a norm's <em>value</em> changes what happens next rather than just measuring something</li>
+<li>Variance and standard deviation as sum-and-mean applied twice — once for the mean itself, once for the mean of squared deviations from it — traced on a full eight-value dataset down to an exact variance of <code>4</code> and standard deviation of <code>2</code></li>
+<li>Why <code>tensor_sum</code>'s own per-round kernel launch is written as a comment rather than working code, and what that means for trusting the <code>30</code> this chapter's own text says it returns</li>
+</ul>
+<p><strong>What you need to know first:</strong></p>
+<ul>
+<li>Chapter 4 and Chapter 12 (kernel launch mechanics and the one-thread-per-position pattern — <code>sum_reduce_kernel</code> and <code>max_reduce_kernel</code> both modify that pattern so that one thread now reads <em>two</em> input positions and writes one output position, instead of one-to-one)</li>
+<li>Chapter 11.2 and 11.3 (the allocate-then-free discipline <code>tensor_sum</code>'s scratch buffer and <code>l2_norm</code>'s squared-values buffer both follow — allocate once up front, free exactly once at the end, the same shape as the arena and pool patterns those sections built)</li>
+<li>Chapter 5 (why floating-point addition isn't perfectly associative — the fact this chapter's whole tree-reduction discipline exists to make parallel-safe, rather than just fast)</li>
+</ul>
+<p><a id="51-sum-and-mean-reductions"></a></p>
+<h2 id="141-sum-and-mean-reductions-foundational">14.1 Sum and Mean Reductions <code>[FOUNDATIONAL]</code><a class="headerlink" href="#141-sum-and-mean-reductions-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>A straight-line loop that adds every element into one running total is easy to write and easy to get wrong in parallel: if a thousand GPU threads all try to add into that same total simultaneously, most of those additions are lost — two threads reading the current total, both adding their own value, and both writing back overwrite each other, so only one addition out of every colliding pair actually survives. <strong>Tree reduction</strong> avoids this by never letting two threads touch the same memory at the same time: pair up elements and combine each pair, then pair up <em>those</em> results and combine again, halving the array's length each round until one value remains. Every combine within a single round reads and writes entirely disjoint memory, so a round's worth of pairs really can run at once — the discipline is only that one round has to finish completely before the next round starts, since round <code>N+1</code>'s inputs are round <code>N</code>'s outputs.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">sum_reduce_kernel</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">):</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;One round of pairwise reduction: size elements -&gt; ceil(size/2).&quot;&quot;&quot;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">elif</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w">      </span><span class="c1"># odd leftover, pass through</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">fn</span><span class="w"> </span><span class="nf">tensor_sum</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Repeated halving until a single scalar remains.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">current_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">scratch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">current_size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">next_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">current_size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">        </span><span class="c1"># launch sum_reduce_kernel with current_size threads, writing into scratch</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scratch</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">        </span><span class="n">current_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next_size</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="n">scratch</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="k">fn</span><span class="w"> </span><span class="nf">tensor_mean</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tensor_sum</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> <code>[1,4,9,16]</code> accumulates to 30, and mean is <code>30/4=7.5</code>. The correction is zero for these exact integers; it becomes useful when magnitudes differ sharply.</p>
-<h2 id="52-min-max-and-argmax">5.2 Min, max, and argmax<a class="headerlink" href="#52-min-max-and-argmax" title="Permanent link">&para;</a></h2>
-<p>Initialize from the first element rather than an arbitrary sentinel, and reject empty input. A tie policy should be deterministic; this version keeps the first maximum.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">argmax</span><span class="p">(</span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Float32</span><span class="p">])</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Int</span><span class="p">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;argmax of empty input&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">best</span><span class="p">]:</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">best</span>
+<p><code>sum_reduce_kernel</code> is one round: thread <code>tid</code> combines input positions <code>2·tid</code> and <code>2·tid+1</code>, unless <code>2·tid</code> is the very last element of an odd-length input, in which case it passes that lone value through unchanged (the <code>elif</code> branch) — an explicit <code>else</code> branch even zero-fills any thread that has no work at all, so every output position this round writes gets a defined value, never leftover memory from a previous round.</p>
+<h3 id="worked-example-1411-tree-reduction-on-1-4-9-16-round-by-round">Worked Example 14.1.1 — Tree reduction on <code>[1, 4, 9, 16]</code>, round by round<a class="headerlink" href="#worked-example-1411-tree-reduction-on-1-4-9-16-round-by-round" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Round 0: [ 1,  4,  9, 16]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>           \  /    \  /
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Round 1: [  5   ,   25  ]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>             \       /
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Round 2: [     30      ]
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For <code>[3,9,9,2]</code>, index 1 becomes best when 9 exceeds 3. Index 2 ties but does not exceed it, so the result remains the first maximum, index 1.</p>
-<h2 id="53-norms-and-gradient-clipping">5.3 Norms and gradient clipping<a class="headerlink" href="#53-norms-and-gradient-clipping" title="Permanent link">&para;</a></h2>
-<p>The L2 norm is the square root of the sum of squares. Global norm clipping scales every gradient by the same factor only when the norm exceeds the limit.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">clip_scale</span><span class="p">(</span><span class="n">norm</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">maximum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">maximum</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;maximum norm must be positive&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">maximum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">maximum</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">1</span>
+<p>Round <code>1</code> pairs <code>(1,4)→5</code> and <code>(9,16)→25</code>. Round <code>2</code> pairs <code>(5,25)→30</code>. Three additions total — the same count a straight-line loop would perform — but the two additions inside round <code>1</code> are fully independent (thread <code>0</code> touches only <code>input[0]</code> and <code>input[1]</code>; thread <code>1</code> touches only <code>input[2]</code> and <code>input[3]</code>), so a GPU can run both at once, then run round <code>2</code>'s single addition once both of round <code>1</code>'s results exist. <code>tensor_mean</code> divides the final sum by the count: <code>30 / 4 = 7.5</code>.</p>
+<h3 id="worked-example-1412-an-odd-length-array-across-three-rounds">Worked Example 14.1.2 — An odd-length array across three rounds<a class="headerlink" href="#worked-example-1412-an-odd-length-array-across-three-rounds" title="Permanent link">&para;</a></h3>
+<p><code>[2, 6, 3, 8, 5]</code> (five elements, forcing the odd-leftover branch). Round <code>0</code>: <code>next_size = (5+1)//2 = 3</code>. Thread <code>0</code>: <code>2+6=8</code>. Thread <code>1</code>: <code>3+8=11</code>. Thread <code>2</code>: <code>tid*2=4</code>, which is <code>&lt; 5</code> but <code>tid*2+1=5</code> is not — the leftover branch fires, passing <code>input[4]=5</code> straight through. Round <code>0</code> output: <code>[8, 11, 5]</code>.</p>
+<p>Round <code>1</code>: <code>current_size=3</code>, <code>next_size=(3+1)//2=2</code>. Thread <code>0</code>: <code>8+11=19</code>. Thread <code>1</code>: <code>tid*2=2 &lt; 3</code> but <code>tid*2+1=3</code> is not — leftover branch again, passing <code>5</code> straight through. Round <code>1</code> output: <code>[19, 5]</code>.</p>
+<p>Round <code>2</code>: <code>current_size=2</code>, <code>next_size=1</code>. Thread <code>0</code>: <code>19+5=24</code>. Final result: <code>24</code> — matching a direct sum of the original five values, <code>2+6+3+8+5=24</code>, exactly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[COMMON TRAP]  tensor_sum&#39;s own kernel launch is a comment, not code
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Read the while loop in tensor_sum literally: each iteration computes
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>next_size, then the very next line is a comment --
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>&quot;# launch sum_reduce_kernel with current_size threads, writing into
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>scratch&quot; -- describing what should happen, not code that makes it
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>happen. No enqueue_function call, no synchronize, nothing writes a
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>single value into scratch at any point. The very next line, `current =
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>scratch`, executes unconditionally regardless, and scratch was
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>allocated with UnsafePointer.alloc(size) -- which reserves memory
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>without zeroing or initializing it. Taken completely literally, this
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>function&#39;s `while` loop only ever reassigns two local variables; by the
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>time it exits, `current` points at scratch, and `scratch` still holds
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>whatever bytes happened to already be in that memory, not a reduced
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>sum. `result = current[0]` would then return uninitialized garbage, not
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>`30`.
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>The `30` this chapter&#39;s own text reports for tensor_sum([1,4,9,16], 4)
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>describes what sum_reduce_kernel&#39;s per-round logic actually computes
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>when it IS launched each round -- verified independently in Worked
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>Examples 14.1.1 and 14.1.2 above by tracing that kernel&#39;s logic by
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>hand -- not what the driver shown here literally does as written. The
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>launch-and-synchronize plumbing between rounds is elided from this
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>chapter&#39;s source material the same way a textbook might write &quot;insert
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>appropriate boilerplate here&quot;; the algorithm being described is real
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>and correct, but this specific function body, read as executable Mojo,
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>is not a complete implementation of it.
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Gradient <code>[3,4]</code> has norm <code>sqrt(9+16)=5</code>. With maximum 2.5, scale is <code>2.5/5=0.5</code>, giving <code>[1.5,2]</code> whose norm is 2.5. With maximum 10, scale remains 1.</p>
-<h2 id="54-variance-with-welfords-algorithm">5.4 Variance with Welford's algorithm<a class="headerlink" href="#54-variance-with-welfords-algorithm" title="Permanent link">&para;</a></h2>
-<p>One-pass <code>mean(x²)-mean(x)²</code> can lose precision when values are large and tightly clustered. Welford updates mean and squared deviations stably in one pass.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">population_variance</span><span class="p">(</span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Float64</span><span class="p">])</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;variance of empty input&quot;</span><span class="p">)</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">m2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">values</span><span class="p">:</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mean</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="n">mean</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="n">m2</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">m2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+<p>Reduction is also the identical primitive Part 7's bond-pricing chapter uses to total a portfolio's present value — the same "sum a buffer of floats via pairwise halving" operation that sums squared errors for a loss function also sums discounted cash flows for a bond book, one pairwise round at a time.</p>
+<p><a id="52-minmax-operations"></a></p>
+<h2 id="142-minmax-operations-foundational">14.2 Min/Max Operations <code>[FOUNDATIONAL]</code><a class="headerlink" href="#142-minmax-operations-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>Min and max reductions run the identical tree pattern Section 14.1 established, with the combine step swapped from addition to a comparison — but a comparison-based reduction needs to remember more than the winning <em>value</em>, because the backward pass needs to know exactly which input position produced it. <code>d(max(x))/dx_i</code> is <code>1</code> for the single index that held the maximum and <code>0</code> everywhere else — a gradient that flows through exactly one position, not a share distributed across all of them the way sum's gradient does.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">max_reduce_kernel</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">output_val</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">output_idx</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Int</span><span class="p">],</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">in_idx</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Int</span><span class="p">],</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">):</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">right</span><span class="p">:</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">            </span><span class="n">output_val</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">            </span><span class="n">output_idx</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_idx</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">            </span><span class="n">output_val</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">            </span><span class="n">output_idx</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_idx</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="k">elif</span><span class="w"> </span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">        </span><span class="n">output_val</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="n">output_idx</span><span class="p">[</span><span class="n">tid</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_idx</span><span class="p">[</span><span class="n">tid</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For <code>[1,2,3]</code>, the mean becomes 1, then 1.5, then 2. The accumulated <code>m2</code> becomes 0, 0.5, then 2. Population variance is <code>2/3≈0.6667</code>; standard deviation is <code>sqrt(2/3)≈0.8165</code>.</p>
-<p>GPU tree reductions must reproduce these policies, allowing only the floating-point differences justified by their changed summation order.</p>
+<p>Every round now carries two parallel buffers instead of one: <code>output_val</code>/<code>input</code> hold the running maximum, and <code>output_idx</code>/<code>in_idx</code> hold <em>which original position</em> that value came from — seeded, on the very first round, with <code>in_idx[i] = i</code> for every <code>i</code>, and thereafter simply forwarding whichever index won each comparison.</p>
+<h3 id="worked-example-1421-tracking-both-the-value-and-its-origin">Worked Example 14.2.1 — Tracking both the value and its origin<a class="headerlink" href="#worked-example-1421-tracking-both-the-value-and-its-origin" title="Permanent link">&para;</a></h3>
+<p><code>[3, 7, 2, 9]</code>, with <code>in_idx = [0, 1, 2, 3]</code> seeding the first round. Round <code>1</code>: thread <code>0</code> compares <code>left=3</code> (<code>in_idx[0]=0</code>) against <code>right=7</code> (<code>in_idx[1]=1</code>) — <code>7 ≥ 3</code> is false the other way, so <code>right</code> wins: <code>output_val[0]=7</code>, <code>output_idx[0]=1</code>. Thread <code>1</code> compares <code>left=2</code> (<code>in_idx[2]=2</code>) against <code>right=9</code> (<code>in_idx[3]=3</code>) — <code>9</code> wins: <code>output_val[1]=9</code>, <code>output_idx[1]=3</code>. Round <code>1</code> output: values <code>[7, 9]</code>, indices <code>[1, 3]</code>. Round <code>2</code>: thread <code>0</code> compares <code>7</code> (index <code>1</code>) against <code>9</code> (index <code>3</code>) — <code>9</code> wins again: final value <code>9</code>, final index <code>3</code>. The maximum, <code>9</code>, and the position it came from, index <code>3</code> in the <em>original</em> array, survive together through every round — exactly the pair a later <code>argmax</code>-based backward pass needs, since it has to route a gradient back to index <code>3</code> specifically and nowhere else.</p>
+<h3 id="worked-example-1422-an-odd-length-and-the-branch-that-goes-silent">Worked Example 14.2.2 — An odd length, and the branch that goes silent<a class="headerlink" href="#worked-example-1422-an-odd-length-and-the-branch-that-goes-silent" title="Permanent link">&para;</a></h3>
+<p><code>[5, 2, 9, 1, 7]</code> with <code>in_idx = [0,1,2,3,4]</code>. Round <code>0</code>, <code>next_size = 3</code>: thread <code>0</code> compares <code>5</code> vs <code>2</code> → <code>5</code> wins, index <code>0</code>. Thread <code>1</code> compares <code>9</code> vs <code>1</code> → <code>9</code> wins, index <code>2</code>. Thread <code>2</code>: <code>tid*2=4 &lt; 5</code> but <code>tid*2+1=5</code> is not — the <code>elif</code> fires, passing <code>input[4]=7</code> and <code>in_idx[4]=4</code> straight through unchanged. Round <code>0</code> output: values <code>[5, 9, 7]</code>, indices <code>[0, 2, 4]</code>. Round <code>1</code>, <code>next_size=2</code>: thread <code>0</code> compares <code>5</code> vs <code>9</code> → <code>9</code> wins, index <code>2</code>. Thread <code>1</code>: <code>tid*2=2 &lt; 3</code> but <code>tid*2+1=3</code> is not — leftover branch, passing <code>7</code>/index <code>4</code> through. Round <code>1</code> output: values <code>[9, 7]</code>, indices <code>[2, 4]</code>. Round <code>2</code>: thread <code>0</code> compares <code>9</code> vs <code>7</code> → <code>9</code> wins, final index <code>2</code>. The maximum is <code>9</code>, at original position <code>2</code> — matching a direct scan of <code>[5, 2, 9, 1, 7]</code> by eye.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[COMMON TRAP]  No else branch means unwritten, not zero-filled
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Compare max_reduce_kernel&#39;s structure to sum_reduce_kernel&#39;s directly:
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>sum_reduce_kernel has three branches -- pair, leftover, and an explicit
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>`else: output[tid] = Float32(0.0)` that zero-fills any thread with no
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>real work. max_reduce_kernel has only the first two. A thread whose
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>`tid` satisfies neither `tid*2+1 &lt; size` nor `tid*2 &lt; size` -- which
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>happens whenever a round is launched with more threads than
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>`ceil(size/2)` actually calls for -- writes nothing to output_val[tid]
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>or output_idx[tid] at all. Nothing crashes, because the buffer memory
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>still exists; the position simply keeps whatever value was already
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>sitting there, silently, whether that&#39;s a stale result left over from
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>a previous round&#39;s reuse of the same buffer or uninitialized memory on
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>the very first round. A caller who assumes max_reduce_kernel&#39;s output
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>buffer is fully, freshly written every round -- the way
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>sum_reduce_kernel&#39;s explicit else branch guarantees -- can end up
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>folding a leftover value from round N-2 into round N&#39;s comparison,
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>silently, with no signal that anything went wrong.
+</code></pre></div>
+<p>The <code>argmax</code> this produces feeds directly into classification metrics — the neural-network-layers chapter's performance-tracking code compares the argmax of a two-unit output layer against the true label exactly this way — and into the sparse gradient a later backward pass scatters back through only the winning path, leaving every other position's gradient at exactly zero.</p>
+<h2 id="143-norm-calculations-foundational">14.3 Norm Calculations <code>[FOUNDATIONAL]</code><a class="headerlink" href="#143-norm-calculations-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>The L2 norm collapses an entire vector into one number measuring its overall size — useful both as a loss function in its own right (regression error is often exactly this) and as a safety valve during training: if a single gradient vector grows unexpectedly large, rescaling it by its own norm can shrink it back to a sane magnitude before it ever reaches an optimizer step.</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">l2_norm</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">squared</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="n">squared</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">sum_sq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_sum</span><span class="p">(</span><span class="n">squared</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">squared</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">sum_sq</span><span class="p">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">fn</span><span class="w"> </span><span class="nf">clip_grad_norm</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">grad</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">max_norm</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">):</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">norm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l2_norm</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">max_norm</span><span class="p">:</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max_norm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">norm</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">            </span><span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">scale</span>
+</code></pre></div>
+<p><code>l2_norm</code> squares every entry into a scratch buffer, reduces that buffer with <code>tensor_sum</code> (inheriting the same launch caveat flagged in Section 14.1's <code>[COMMON TRAP]</code> — the algorithm is correct, the driver as literally shown isn't complete), and takes one square root of the total. <code>clip_grad_norm</code> only ever <em>shrinks</em> a gradient, never grows one: when the norm already fits under <code>max_norm</code>, the function does nothing at all.</p>
+<h3 id="worked-example-1431-the-3-4-5-triangle">Worked Example 14.3.1 — The 3-4-5 triangle<a class="headerlink" href="#worked-example-1431-the-3-4-5-triangle" title="Permanent link">&para;</a></h3>
+<p><code>[3, 4]</code>: squares are <code>[9, 16]</code>, sum is <code>25</code>, square root is <code>5</code> — the familiar 3-4-5 right triangle, and a useful sanity check that <code>l2_norm</code> is wired correctly before trusting it on a real, high-dimensional gradient vector.</p>
+<h3 id="worked-example-1432-clipping-a-gradient-back-to-a-safe-magnitude">Worked Example 14.3.2 — Clipping a gradient back to a safe magnitude<a class="headerlink" href="#worked-example-1432-clipping-a-gradient-back-to-a-safe-magnitude" title="Permanent link">&para;</a></h3>
+<p>Take that same <code>[3, 4]</code> vector as a gradient with <code>max_norm = 2.0</code>. <code>l2_norm</code> returns <code>5.0</code>, which exceeds <code>2.0</code>, so clipping fires: <code>scale = 2.0 / 5.0 = 0.4</code>. Rescaling every entry: <code>[3 × 0.4, 4 × 0.4] = [1.2, 1.6]</code>. Checking the result's own norm confirms the clip worked exactly as intended: <code>√(1.2² + 1.6²) = √(1.44 + 2.56) = √4.0 = 2.0</code> — landing precisely on <code>max_norm</code>, not merely under it, because clipping always rescales to <em>exactly</em> the limit rather than to some smaller, arbitrary value. Without this safety valve, one unusually large gradient — from a numerically unstable loss spike, for instance — could otherwise take a single, enormous, destabilizing optimizer step.</p>
+<h2 id="144-statistical-functions-foundational">14.4 Statistical Functions <code>[FOUNDATIONAL]</code><a class="headerlink" href="#144-statistical-functions-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Variance and standard deviation are sum-and-mean applied twice in sequence — first to find the mean itself, then again to find the mean of how far every value strays from that mean, squared. Placing this section last in the chapter is deliberate: there is no new reduction primitive here, only Sections 14.1's <code>tensor_sum</code>/<code>tensor_mean</code> reused twice over.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">tensor_variance</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_mean</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">sq_dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mean</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="n">sq_dev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">d</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">variance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_mean</span><span class="p">(</span><span class="n">sq_dev</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">sq_dev</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">variance</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">fn</span><span class="w"> </span><span class="nf">tensor_std</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">tensor_variance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">))</span>
+</code></pre></div>
+<p>This is the numerically safer of the two common variance formulas: computing the mean first and then the mean of <em>actual</em> squared deviations from it, rather than the single-pass shortcut <code>mean(x²) − mean(x)²</code>, which can lose precision to catastrophic cancellation when two large, nearly-equal numbers are subtracted. <code>tensor_variance</code> pays for that safety with a second full pass over the data (and a second scratch buffer), which is a fine trade for a quantity computed once at the end of an epoch, not once per training step.</p>
+<h3 id="worked-example-1441-variance-and-standard-deviation-on-eight-values">Worked Example 14.4.1 — Variance and standard deviation on eight values<a class="headerlink" href="#worked-example-1441-variance-and-standard-deviation-on-eight-values" title="Permanent link">&para;</a></h3>
+<p><code>[2, 4, 4, 4, 5, 5, 7, 9]</code> — a textbook example precisely because its answer comes out round. Mean: <code>(2+4+4+4+5+5+7+9)/8 = 40/8 = 5</code>. Squared deviations from that mean: <code>(2-5)²=9</code>, <code>(4-5)²=1</code> (three times), <code>(5-5)²=0</code> (twice), <code>(7-5)²=4</code>, <code>(9-5)²=16</code> — giving <code>[9, 1, 1, 1, 0, 0, 4, 16]</code>. Mean of those: <code>(9+1+1+1+0+0+4+16)/8 = 32/8 = 4</code> — the variance. Standard deviation is <code>√4 = 2</code>, matching what <code>tensor_variance</code> and <code>tensor_std</code> return on this exact input.</p>
+<p>Batch normalization layers in the neural-network-layers chapter call exactly this pair, per-feature, to normalize activations before every hidden layer — subtracting the mean and dividing by the standard deviation is what keeps a network's internal activations from drifting to extreme values as training progresses — and Part 7's risk analytics call the same pair across a bond portfolio's yields to size a Value-at-Risk estimate.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>Every reduction in this chapter shares the same tree shape Section 14.1 established: pair up values, combine each pair, halve the array, repeat until one value remains — a discipline that exists because letting many threads write into one shared accumulator is a race condition, and because floating-point addition isn't perfectly associative, so <em>how</em> values get combined can change the answer, not just how fast it arrives. <code>sum_reduce_kernel</code>'s per-round logic is correct and was independently traced by hand on both an even-length array (<code>[1,4,9,16] → 30</code>) and an odd-length one (<code>[2,6,3,8,5] → 24</code>, across three full rounds) — but <code>tensor_sum</code>'s own driver never actually calls it, leaving its per-round kernel launch as a comment rather than working code, a gap this chapter flagged explicitly rather than pretending the <code>30</code> it reports came from running the code exactly as shown. <code>max_reduce_kernel</code> extends the same pattern with a parallel index buffer, so the position of the maximum survives every round alongside its value — precisely what a sparse backward pass needs to route a gradient through one winning index and zero everywhere else — though unlike <code>sum_reduce_kernel</code>, it has no <code>else</code> branch, so an over-launched round leaves some output positions silently unwritten rather than zero-filled. The L2 norm reduces a vector to one measure of size via sum-of-squares-then-square-root, checked against the exact 3-4-5 triangle, and gradient-norm clipping uses that same norm to rescale an overlarge gradient down to precisely <code>max_norm</code>, never below it. Variance and standard deviation close the chapter by reusing sum-and-mean twice over — once for the mean, once for the mean of squared deviations from it — the numerically safer two-pass approach, verified end to end on an eight-value dataset down to an exact variance of <code>4</code> and standard deviation of <code>2</code>.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Trace <code>sum_reduce_kernel</code> over <code>[10, 20, 30, 40, 50]</code> (five elements) round by round the way Worked Example 14.1.2 traced <code>[2,6,3,8,5]</code>, and report the final sum along with a direct check against adding all five values.</li>
+<li>Trace <code>max_reduce_kernel</code> over <code>[4, 12, 7, 12, 3]</code> (note the tie at value <code>12</code>) with <code>in_idx = [0,1,2,3,4]</code>. Which original index does the final result report, and why does the <code>left &gt;= right</code> comparison (rather than a strict <code>&gt;</code>) determine the answer in the case of a tie?</li>
+<li>A gradient vector <code>[6, 8]</code> is passed to <code>clip_grad_norm</code> with <code>max_norm = 3.0</code>. What does <code>l2_norm</code> return, what is <code>scale</code>, and what is the clipped vector? Verify the clipped vector's own norm equals <code>max_norm</code> exactly.</li>
+<li>Compute the variance and standard deviation of <code>[1, 1, 1, 1, 5, 5, 5, 5]</code> by hand, following the same two-pass method Worked Example 14.4.1 used (mean first, then mean of squared deviations from it).</li>
+<li><code>tensor_sum</code>'s <code>while</code> loop is read by a colleague who assumes it performs a real GPU launch every iteration, since the comment describes one. What specifically would they need to check in the actual compiled/linked implementation to confirm whether <code>scratch</code> is genuinely being populated each round, versus retaining whatever <code>UnsafePointer.alloc(size)</code> happened to return?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>Chapter 15 (<code>part3/01-graph-node-architecture.md</code>) turns to <em>recording</em> the compositions this chapter and the two before it made possible — element-wise, matrix, and reduction operations now cover every arithmetic primitive the rest of the book composes — as a graph, so the framework knows how to run any of them backward.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> Round <code>0</code> (<code>current_size=5</code>, <code>next_size=3</code>): thread <code>0</code>: <code>10+20=30</code>. Thread <code>1</code>: <code>30+40=70</code>. Thread <code>2</code>: leftover, passes <code>50</code> through. Round <code>0</code> output: <code>[30, 70, 50]</code>. Round <code>1</code> (<code>current_size=3</code>, <code>next_size=2</code>): thread <code>0</code>: <code>30+70=100</code>. Thread <code>1</code>: leftover, passes <code>50</code> through. Round <code>1</code> output: <code>[100, 50]</code>. Round <code>2</code> (<code>next_size=1</code>): thread <code>0</code>: <code>100+50=150</code>. Final sum: <code>150</code>. Direct check: <code>10+20+30+40+50=150</code> — matches exactly.</p>
+<p><strong>2.</strong> Round <code>0</code>: thread <code>0</code> compares <code>4</code> (index <code>0</code>) vs <code>12</code> (index <code>1</code>) — <code>12</code> wins, index <code>1</code>. Thread <code>1</code> compares <code>7</code> (index <code>2</code>) vs <code>12</code> (index <code>3</code>) — <code>12</code> wins, index <code>3</code>. Thread <code>2</code>: leftover, passes <code>3</code>/index <code>4</code> through. Round <code>0</code>: values <code>[12, 12, 3]</code>, indices <code>[1, 3, 4]</code>. Round <code>1</code>: thread <code>0</code> compares <code>12</code> (index <code>1</code>) vs <code>12</code> (index <code>3</code>) — a genuine tie. <code>left &gt;= right</code> evaluates <code>12 &gt;= 12</code>, which is <code>True</code>, so <code>left</code> wins: the result is index <code>1</code>, not index <code>3</code>. Thread <code>1</code>: leftover, passes <code>3</code>/index <code>4</code> through. Round <code>1</code>: values <code>[12, 3]</code>, indices <code>[1, 4]</code>. Round <code>2</code>: <code>12</code> (index <code>1</code>) beats <code>3</code> — final index <code>1</code>. The <code>&gt;=</code> (rather than strict <code>&gt;</code>) means ties are broken in favor of the <em>earlier</em>-encountered operand in each individual comparison — here, the value that started at index <code>1</code> — not the later one.</p>
+<p><strong>3.</strong> <code>l2_norm([6,8]) = √(36+64) = √100 = 10.0</code>. Since <code>10.0 &gt; 3.0</code>, clipping fires: <code>scale = 3.0/10.0 = 0.3</code>. Clipped vector: <code>[6×0.3, 8×0.3] = [1.8, 2.4]</code>. Verification: <code>√(1.8² + 2.4²) = √(3.24 + 5.76) = √9.0 = 3.0</code> — exactly <code>max_norm</code>.</p>
+<p><strong>4.</strong> Mean: <code>(1+1+1+1+5+5+5+5)/8 = 24/8 = 3</code>. Squared deviations: <code>(1-3)²=4</code> (four times), <code>(5-3)²=4</code> (four times) — every single deviation is <code>4</code>. Mean of those: <code>32/8 = 4</code> — the variance. Standard deviation: <code>√4 = 2</code>.</p>
+<p><strong>5.</strong> They would need to check whether an actual <code>ctx.enqueue_function[sum_reduce_kernel](...)</code> call (or equivalent) executes inside the loop and whether <code>ctx.synchronize()</code> (or the framework's equivalent barrier) runs before <code>current = scratch</code> takes effect — neither of which appears in the version of <code>tensor_sum</code> shown in this chapter, where that step is a comment. Confirming genuine population would mean checking, at minimum: that a kernel launch call exists at all: that it targets <code>scratch</code> as its output and the current round's data as input; that a synchronization point exists before the next round reads from <code>scratch</code>; and, ultimately, printing or inspecting <code>scratch</code>'s contents after one round to confirm they match <code>sum_reduce_kernel</code>'s expected pairwise sums rather than the buffer's original, uninitialized contents.</p>
 
 
 
