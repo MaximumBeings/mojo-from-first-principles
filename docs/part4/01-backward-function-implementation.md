@@ -8,8 +8,8 @@
 - `AddOp` and `MulOp`'s exact backward rules, why `MulOp`'s local derivative is fundamentally *the other operand's value*, and a genuine open question about tensor aliasing that this chapter's own `AddOp.backward` raises but can't fully answer until Chapter 17
 - Why `ExpOp` reads the cached forward `output` instead of recomputing `e^x` — and why `GraphNode` had to store `output` at all, back in Chapter 15, for that shortcut to even be possible
 - `MatMulOp`'s backward rule, `grad_output @ Bᵀ` and `Aᵀ @ grad_output`, derived from index-summation first principles rather than only asserted, and verified with real numbers on *both* gradients this chapter's running matrix example produces
-- The rest of the registry a working framework actually needs: `SubOp`/`DivOp`/`PowOp`/`LogOp`/`SqrtOp` alongside `Add`/`Mul`, five activation and trigonometric gradients (`ReluOp`, `SigmoidOp`, `TanhOp`, `SinOp`, `CosOp`) each derived from its own local derivative, and backward rules for the two shapes of operation Parts 2 hasn't differentiated yet — reductions (`SumOp`, tying back into Chapter 14.2's argmax tracking for `MaxOp`) and shape changes (`ReshapeOp`, `TransposeOp`)
-- The implicit function theorem as an escape hatch for differentiating through an iterative numerical solver — a bisection search — without ever unrolling or unrolling-and-differentiating a single one of its steps
+- The rest of the registry a working framework actually needs: `SubOp`/`DivOp`/`PowOp`/`LogOp`/`SqrtOp` alongside `Add`/`Mul`, five activation and trigonometric gradients (`ReluOp`, `SigmoidOp`, `TanhOp`, `SinOp`, `CosOp`) each derived from its own local derivative, and backward rules for the two shapes of operation Part 2 hasn't differentiated yet — reductions (`SumOp`, tying back into Chapter 14.2's argmax tracking for `MaxOp`) and shape changes (`ReshapeOp`, `TransposeOp`)
+- The implicit function theorem as an escape hatch for differentiating through an iterative numerical solver — a bisection search — without ever unrolling and differentiating a single one of its steps
 
 **What you need to know first:**
 
@@ -63,11 +63,12 @@ Section 15.4's `topological_backward_order` says: visit `add(z,x)→w` first, th
 
 ## 16.2 Element-wise Operation Gradients `[FOUNDATIONAL]`
 
+<a id="72-element-wise-operation-gradients"></a>
+
 ### Intuition
 
 `AddOp` and `MulOp` are Sections 16.1's two routes made concrete. `Add`'s local derivative is `1` for both inputs — a sensitivity that passes straight through unchanged, which is exactly what "direct" meant in Route 2. `Mul`'s local derivative is *the other operand's value* — which is exactly why `Differentiable.backward` was written, back in Chapter 15, to receive `inputs` and not merely `grad_output`.
 
-<a id="72-element-wise-operation-gradients"></a>
 ### Background
 
 ```mojo
@@ -219,7 +220,7 @@ Shape check: `M` was `[3,2]`, and `dL/dM` is also `[3,2]` — both gradients pas
 
 ### Intuition
 
-The registry so far only holds `AddOp`, `MulOp`, and `ExpOp` — enough to run the running example, but nowhere near enough to build anything else in this book. `SubOp`, `DivOp`, `PowOp`, `LogOp`, and `SqrtOp` complete the basic arithmetic vocabulary the same way `Add` and `Mul` did: derive the local derivative from the forward formula, write it as a `Differentiable`, and check it against real numbers.
+The registry so far only holds `AddOp`, `MulOp`, `ExpOp`, and `MatMulOp` — enough to run the running example and one matrix product, but nowhere near enough to build anything else in this book. `SubOp`, `DivOp`, `PowOp`, `LogOp`, and `SqrtOp` complete the basic arithmetic vocabulary the same way `Add` and `Mul` did: derive the local derivative from the forward formula, write it as a `Differentiable`, and check it against real numbers.
 
 ### Background
 
@@ -276,7 +277,7 @@ struct SqrtOp(Differentiable):
 
 ### Worked Example 16.4.1 — `SubOp` and `DivOp`, by hand
 
-`a = 8.0, b = 5.0`. `c = a - b = 3.0`. With an upstream seed of `1.0`: `SubOp.backward` returns `[1.0, -1.0]` — `a` receives the seed unchanged, `b` receives its negation. Now `c = a / b = 1.6`. `DivOp.backward`: `grad_a = 1.0 / b = 1.0 / 5.0 = 0.2`; `grad_b = -1.0 × a / b² = -8.0 / 25.0 = -0.32`. Check `grad_b` against a finite-difference nudge: `8.0 / 5.001 ≈ 1.59968`, and `(1.59968 - 1.6) / 0.001 = -0.32` — matching exactly.
+`a = 8.0, b = 5.0`. `c = a - b = 3.0`. With an upstream seed of `1.0`: `SubOp.backward` returns `[1.0, -1.0]` — `a` receives the seed unchanged, `b` receives its negation. Now `c = a / b = 1.6`. `DivOp.backward`: `grad_a = 1.0 / b = 1.0 / 5.0 = 0.2`; `grad_b = -1.0 × a / b² = -8.0 / 25.0 = -0.32`. Check `grad_b` against a finite-difference nudge: `8.0 / 5.001 ≈ 1.5996801`, and `(1.5996801 - 1.6) / 0.001 ≈ -0.31994` — matching the analytic `-0.32` to four digits, with the remainder being the ordinary one-sided finite-difference error that shrinks as the nudge does.
 
 ### Worked Example 16.4.2 — `PowOp` and `LogOp`, by hand
 
@@ -331,7 +332,7 @@ struct CosOp(Differentiable):
         return List[Tensor](elementwise_mul(grad_output, neg_sin))
 ```
 
-`SigmoidOp` and `TanhOp` both read `output`, the same `ExpOp`/`SqrtOp` pattern from Sections 16.2 and 16.4 — `σ(x)(1-σ(x))` and `1-\tanh^2(x)` are both cheaper to compute from the already-known output than by re-evaluating `sigmoid`/`tanh` from `x` a second time. `SinOp` and `CosOp` are the opposite case: `cos(x)` isn't recoverable from `sin(x)`'s output alone (the sign of `cos` isn't determined by the value of `sin` at a single point), so both read `inputs[0]` instead.
+`SigmoidOp` and `TanhOp` both read `output`, the same `ExpOp`/`SqrtOp` pattern from Sections 16.2 and 16.4 — `σ(x)(1-σ(x))` and `1-tanh²(x)` are both cheaper to compute from the already-known output than by re-evaluating `sigmoid`/`tanh` from `x` a second time. `SinOp` and `CosOp` are the opposite case: `cos(x)` isn't recoverable from `sin(x)`'s output alone (the sign of `cos` isn't determined by the value of `sin` at a single point), so both read `inputs[0]` instead.
 
 ### Worked Example 16.5.1 — `ReluOp` on a mixed-sign vector
 
@@ -374,6 +375,7 @@ struct MaxOp(Differentiable):
         return List[Tensor](grad_x)
 
 struct ReshapeOp(Differentiable):
+    var target_shape: TensorShape                          # the only per-call state any op here carries
     fn forward(self, inputs: List[Tensor]) -> Tensor:
         return reshape(inputs[0], self.target_shape)      # Chapter 13.3
     fn backward(self, grad_output: Tensor, inputs: List[Tensor], output: Tensor) -> List[Tensor]:
@@ -392,6 +394,8 @@ struct TransposeOp(Differentiable):
 
 `MaxOp`'s backward rule is the one genuinely new shape in this chapter: every other backward rule so far touches *every* input position. `MaxOp`'s touches exactly one — `output.winning_index`, the very index `max_reduce_kernel` was built in Chapter 14.2 specifically to carry alongside the maximum value, for exactly this moment. Without that index, there would be no way to know which of the input positions deserves the incoming gradient at all.
 
+These last two structs are also the first place the `Differentiable` trait's fixed `(grad_output, inputs, output)` signature stops being quite enough on its own. `MaxOp.backward` needs a value — the winning index — that Chapter 14.2's kernel writes into a *parallel* buffer, not into the output tensor's data, so `output.winning_index` is shorthand for "the node kept that index buffer alive alongside the maximum." `ReshapeOp` has the same problem one step earlier: its *forward* needs a target shape that isn't derivable from `inputs` at all, which is why it's the only struct in this chapter's registry that declares a field of its own. Everything else here is stateless — one instance can serve every call — and it's worth noticing exactly where that stops being true, because Section 16.8's single-instance-per-name registry is built on the assumption that it mostly is.
+
 ### Worked Example 16.6.1 — `SumOp`, broadcasting the gradient back out
 
 `x = [1, 4, 9, 16]` (Chapter 14.1's own running example). Forward: `sum(x) = 30`. With an upstream gradient of `grad_output = 1.0` (this sum feeding directly into a scalar loss), `SumOp.backward` broadcasts that single `1.0` back out to every position: `grad_x = [1.0, 1.0, 1.0, 1.0]`. This is the exact mirror image of what made the forward reduction lossy: every input position contributed equally to the sum, so every input position receives an equal share of the gradient flowing back.
@@ -400,17 +404,45 @@ struct TransposeOp(Differentiable):
 
 `x = [3, 7, 2, 9]` (Chapter 14.2's own running example, where the maximum `9` was traced to original index `3`). With `grad_output = 1.0`, `MaxOp.backward` produces `grad_x = [0.0, 0.0, 0.0, 1.0]` — every position *except* index `3` receives exactly zero, and index `3` receives the full incoming gradient unchanged. Compare this to `SumOp`'s result on a same-length input: sum spreads gradient everywhere equally; max routes all of it through a single winner, precisely because only that one input position actually determined the output's value.
 
+```
+[COMMON TRAP]  What "the winning index" means when two inputs tie
+
+`x = [3, 7, 2, 9]` has exactly one maximum, which is what makes
+Worked Example 16.6.2 tidy. `x = [1, 5, 3, 5]` does not. Chapter
+14.2's kernel still returns a single index for it -- its comparison is
+`if left >= right`, so the earlier of two equal values wins every
+round -- and `MaxOp.backward` therefore hands the entire incoming
+gradient to index 1 and exactly zero to index 3, even though the two
+positions are indistinguishable to the forward pass.
+
+That is a defensible choice, not a correct one, because max has no
+derivative at a tie in the first place: nudging either 5 upward raises
+the maximum, so both one-sided derivatives are 1, and any convex
+combination of the two is a valid subgradient. Picking one winner
+gives (1, 0); splitting evenly gives (0.5, 0.5); both sum to 1, which
+is the property that actually matters -- the total gradient leaving
+the node has to equal the total arriving. The failure mode worth
+watching for is an implementation that builds its mask by comparing
+every element against the maximum value rather than carrying an index
+forward. That mask marks BOTH tied positions, and multiplying the
+incoming gradient by it hands each of them the full amount, so 1.0
+arriving at the node leaves as 2.0 -- gradient invented out of a tie.
+Deriving the index during the reduction, the way Chapter 14.2 does,
+avoids the question by construction.
+```
+
 ### Worked Example 16.6.3 — `ReshapeOp` and `TransposeOp`, undoing exactly what forward did
 
 Reuse Chapter 13.3's `[2,6]`-to-`[3,4]` reshape: twelve values, `[0,1,...,11]`, reshaped from a `2×6` view to a `3×4` view with zero data movement. If a `grad_output` of shape `[3,4]` arrives at this node during backward, `ReshapeOp.backward` reshapes it right back to `[2,6]` — the same twelve gradient values, just re-sliced into the original grid, since reshape never moved a single value in the first place. Reuse Chapter 13.2's transpose example: `A = [[1,2,3],[4,5,6]]` (2×3) transposes to `Aᵀ` (3×2). A `grad_output` of shape `[3,2]` arriving at this node gets transposed back to `[2,3]` by `TransposeOp.backward` — transpose applied twice returns every value to its original position, which is exactly why "transpose the gradient" is the correct and complete backward rule, with no further correction needed.
 
 ## 16.7 Custom Function Framework `[FOUNDATIONAL]`
 
+<a id="74-custom-function-framework"></a>
+
 ### Intuition
 
 Not every operation belongs in the core registry as a hand-differentiated forward/backward pair over a closed-form expression. Some values come from an *iterative* numerical procedure — a solver that runs a loop and converges toward an answer rather than computing one in a single formula — and differentiating through every step of that loop would be both wasteful and numerically noisy. The **implicit function theorem** is the escape hatch: treat the solver's output as *defined implicitly* by an equation it satisfies at convergence, and differentiate that equation instead of the solver's control flow.
 
-<a id="74-custom-function-framework"></a>
 ### Background
 
 Consider solving `x² = 2` for `x` with a numerical bisection search rather than `sqrt` — a stand-in, at small scale, for the bond-pricing bisection Part 7 actually differentiates through. Bisection between `a=1` and `b=2`: midpoint `1.5² = 2.25` (too big, move `b` to `1.5`); midpoint `1.25² = 1.5625` (too small, move `a` to `1.25`); midpoint `1.375² = 1.890625`; continuing this halves the bracket every step and converges toward `x ≈ 1.41421` (`√2`). The solver defines `x` implicitly by `f(x, c) = x² - c = 0`, where `c` is the constant being solved against (`c=2` here). The implicit function theorem says:
@@ -440,11 +472,15 @@ fn sqrt_via_bisection_backward(grad_output: Tensor, inputs: List[Tensor], output
 
 ### Worked Example 16.7.1 — Checking the implicit-function gradient against finite differences
 
-At the converged solution `x ≈ 1.41421`, `dx/dc = 1 / (2 × 1.41421) = 1 / 2.82842 ≈ 0.35355`. Check this directly against a finite-difference nudge of `c`, the same way earlier chapters checked local derivatives: bisecting `x² = 2.001` instead of `x² = 2` converges to `√2.001 ≈ 1.414568`. The finite-difference slope is `(1.414568 - 1.41421) / 0.001 ≈ 0.358` — close to the implicit-function answer of `0.35355`, with the small remaining gap being ordinary finite-difference approximation error, the same kind the neural-network-layers chapter's `gradient_check` tolerates, not a discrepancy in the calculus. The entire multi-step bisection loop collapses, for gradient purposes, into one multiplication by `1/(2x)` — exactly the pattern the z-spread bisection in Part 7 reuses: the forward pass runs the numerical solver as ordinary control flow, and one hand-derived `backward_fn` plugs the whole iterative procedure into the graph as a single differentiable op.
+At the converged solution `x ≈ 1.4142136`, `dx/dc = 1 / (2 × 1.4142136) = 1 / 2.8284272 ≈ 0.3535534`. Check this directly against a finite-difference nudge of `c`, the same way earlier chapters checked local derivatives: bisecting `x² = 2.001` instead of `x² = 2` converges to `√2.001 ≈ 1.4145671`. The finite-difference slope is `(1.4145671 - 1.4142136) / 0.001 = 0.3535` — agreeing with the implicit-function answer of `0.35355` to four digits, the remaining gap being the ordinary one-sided finite-difference error the neural-network-layers chapter's `gradient_check` tolerates, not a discrepancy in the calculus.
+
+The digit count in that check is not incidental, and it is the easiest way to talk yourself out of a gradient rule that was right all along. Both bisection results have to be carried to eight significant figures to get four good ones out, because the difference being measured is roughly `0.00035` — four decimal places below the values it is computed from, every one of which the subtraction cancels away. Round `√2` to `1.41421` first and the subtraction gives `0.000358` instead of `0.0003535`, a slope of `0.358` that misses the analytic answer by more than one percent; every bit of that error came from the rounding, none of it from the finite difference. A gradient check that disagrees in the third digit is far more often a truncated intermediate than a wrong derivative.
+
+The entire multi-step bisection loop collapses, for gradient purposes, into one multiplication by `1/(2x)` — exactly the pattern the z-spread bisection in Part 7 reuses: the forward pass runs the numerical solver as ordinary control flow, and one hand-derived `backward_fn` plugs the whole iterative procedure into the graph as a single differentiable op.
 
 ## 16.8 Reference Implementations
 
-Sections 16.2 through 16.7 derived and checked eighteen backward rules one at a time, each next to the forward operation and worked example it belongs with. None of this chapter's Mojo has been compiled or run — like the rest of this book's newly-written material, it is presented as source, not as a captured session — so, unlike Chapter 13.5's reference implementations (which reproduce a real, previously-executed driver's output), there is no console log to reproduce here honestly. What follows instead is what those eighteen structs look like assembled into one registry, the same way `cutile_autograd_engine.py` keeps every one of its registered operations in a single module rather than scattered across per-operation files: every `Differentiable` implementation this chapter wrote, in the order it was derived, followed by the `OpRegistry` wiring that makes all eighteen available to `chain_rule_step` under the names Chapter 17's reverse pass looks them up by.
+Sections 16.2 through 16.6 derived and checked eighteen backward rules one at a time, each next to the forward operation and worked example it belongs with, and Section 16.7 added a nineteenth `Differentiable` that isn't a fixed rule at all — `CustomFunction`, which carries whatever backward its constructor was handed. None of this chapter's Mojo has been compiled or run — like the rest of this book's newly-written material, it is presented as source, not as a captured session — so, unlike Chapter 13.5's reference implementations (which reproduce a real, previously-executed driver's output), there is no console log to reproduce here honestly. What follows instead is what those structs look like assembled into one place, the same way `cutile_autograd_engine.py` keeps every one of its registered operations in a single module rather than scattered across per-operation files: every `Differentiable` implementation this chapter wrote, in the order it was derived, followed by the `OpRegistry` wiring that makes the eighteen named ops available to `chain_rule_step` under the names Chapter 17's reverse pass looks them up by.
 
 ```mojo
 trait Differentiable:
@@ -601,6 +637,7 @@ struct MaxOp(Differentiable):
         return List[Tensor](grad_x)
 
 struct ReshapeOp(Differentiable):
+    var target_shape: TensorShape                          # the only per-call state any op here carries
     fn forward(self, inputs: List[Tensor]) -> Tensor:
         return reshape(inputs[0], self.target_shape)      # Chapter 13.3
     fn backward(self, grad_output: Tensor, inputs: List[Tensor], output: Tensor) -> List[Tensor]:
@@ -639,12 +676,12 @@ fn sqrt_via_bisection_backward(grad_output: Tensor, inputs: List[Tensor], output
 # ---- OpRegistry expects and Chapter 17's reverse pass looks up by name ----
 
 fn build_op_registry() -> OpRegistry:
-    """Every backward rule this chapter derived, registered under the
-    name chain_rule_step dispatches on -- eighteen entries covering
-    arithmetic, activations, matrix multiplication, reductions, shape
-    changes, and one implicit-function-theorem escape hatch, the same
-    breadth cutile_autograd_engine.py's 74-operation table covers for
-    its own (larger) surface area."""
+    """Every named backward rule this chapter derived, registered under
+    the name chain_rule_step dispatches on -- eighteen entries covering
+    arithmetic, activations, matrix multiplication, reductions, and
+    shape changes. CustomFunction is deliberately absent: it isn't one
+    rule, it's a slot for a caller-supplied one, so it gets constructed
+    per use rather than registered once under a fixed name."""
     var registry = OpRegistry()
     registry.register("add", AddOp())
     registry.register("sub", SubOp())
@@ -662,20 +699,38 @@ fn build_op_registry() -> OpRegistry:
     registry.register("matmul", MatMulOp())
     registry.register("sum", SumOp())
     registry.register("max", MaxOp())
-    registry.register("reshape", ReshapeOp())
+    # ReshapeOp is the one entry carrying per-call state (Section 16.6).
+    # Only its backward is ever reached through the registry, and that
+    # reads inputs[0].shape rather than this field, so the placeholder
+    # is harmless here -- a real forward reshape constructs its own
+    # ReshapeOp with the actual target shape.
+    registry.register("reshape", ReshapeOp(TensorShape()))
     registry.register("transpose", TransposeOp())
     return registry
+
+
+fn chain_rule_step(
+    op_name: String,
+    grad_output: Tensor,
+    inputs: List[Tensor],
+    output: Tensor,
+) -> List[Tensor]:
+    """Dispatch to the registered backward for this op. The caller
+    (Chapter 17) adds each result into the corresponding input's
+    accumulated .grad."""
+    var op = registry.get(op_name)
+    return op.backward(grad_output, inputs, output)
 ```
 
 ### Expected Output
 
-There is no captured run to reproduce here. Every struct above is reproduced exactly as it was first derived earlier in this chapter — nothing was changed to make the consolidated version compile any more or less than the individual sections already did — so this section adds no new claims about behavior, only a single place to see the whole registry at once. The worked examples throughout Sections 16.2 through 16.7 remain the source of truth for what each `backward` actually computes on real numbers; treat this section as an index into them, not as a substitute for them.
+There is no captured run to reproduce here, and no output block below this heading, because there is nothing honest to put in one. Every struct above is reproduced exactly as it was first derived earlier in this chapter — nothing was quietly adjusted to make the consolidated version compile any more or less than the individual sections already did — so this section makes no new claims about behavior. The only material that appears here and nowhere else is the wiring: `build_op_registry`, which is the piece Chapter 17's reverse pass assumes has already run, and `chain_rule_step` from Section 16.1, repeated at the bottom so the dispatch path is visible end to end in one place. The worked examples throughout Sections 16.2 through 16.7 remain the source of truth for what each `backward` actually computes on real numbers; treat this section as the assembled file, and those as its test suite.
 
 ## Chapter Summary
 
 The multivariable chain rule is nothing more than summing a value's contribution along every path it takes to reach the output — traced concretely on `x`'s two routes into `w`, matching `∂w/∂x = 5` three separate ways. `AddOp` passes its incoming gradient through unchanged to both inputs (though, as this chapter flagged and left open for Chapter 17, it does so by handing out the *same* underlying Tensor value twice, not two independent ones); `MulOp` scales the incoming gradient by whichever input it *isn't* computing the gradient for, which is exactly why `backward` needs `inputs` at all. `ExpOp` demonstrated the other half of `GraphNode`'s design: some backward rules need the forward `output`, not just the forward arguments, to avoid recomputing an identical value a second time. `MatMulOp`'s backward rule, `grad_output @ Bᵀ` and `Aᵀ @ grad_output`, isn't just asserted in this chapter — it's derived from the same index-summation form Chapter 13.1 used for the forward pass, then verified with real numbers on both `dL/dX` (`[[3,7,11],[3,7,11]]`) and `dL/dM` (`[[5,5],[7,7],[9,9]]`), each checked against its own operand's shape.
 
-The registry doesn't stop at those five operations, and neither does this chapter. Section 16.4 filled in the rest of the element-wise arithmetic a real framework needs — `SubOp` (`da=1, db=-1`), `DivOp` (`da=1/b, db=-a/b²`), `PowOp` (`da=b·a^(b-1)`, reusing `output` for `db=output·ln(a)` the same way `ExpOp` does), `LogOp` (`da=1/x`), and `SqrtOp` (`da=1/(2·output)`, another `output`-reusing rule) — each checked against a finite-difference nudge the same way this book has checked every local derivative since Part 2. Section 16.5 derived five activation and trigonometric gradients from their own local derivatives: `ReluOp`'s gradient is a hard `0`/`1` mask on where the input was positive, `SigmoidOp` and `TanhOp` both reuse their cached `output` (`output·(1-output)` and `1-output²` respectively) the way `ExpOp` first modeled, and `SinOp`/`CosOp` differentiate into each other with a 90°phase relationship. Section 16.6 covered the two shapes of operation Part 2 computes but doesn't yet differentiate: `SumOp` broadcasts its scalar gradient back out to every element that was summed, `MaxOp` routes the entire incoming gradient through the single winning index Chapter 14.2 already tracks and zeros every other entry, and `ReshapeOp`/`TransposeOp` simply undo, on the gradient, exactly the shape operation they applied on the forward pass. Finally, the implicit function theorem showed that a value produced by an iterative solver — bisection, standing in for the bond-pricing solver Part 7 differentiates through — doesn't need its loop unrolled and differentiated step by step; treating the converged answer as implicitly defined by the equation it satisfies collapses the entire gradient into one closed-form expression, verified here against a finite-difference check the same way every local derivative earlier in this book was checked. Between Sections 16.2 through 16.7, the registry now covers the same 74-operation breadth a production autograd engine needs, not just the five operations required to make one worked example run end to end — and Section 16.8 assembles all eighteen of this chapter's `Differentiable` implementations into the single consolidated registry a real build would actually wire up, the same way `cutile_autograd_engine.py` keeps its full operation table in one module.
+The registry doesn't stop at those four operations, and neither does this chapter. Section 16.4 filled in the rest of the element-wise arithmetic a real framework needs — `SubOp` (`da=1, db=-1`), `DivOp` (`da=1/b, db=-a/b²`), `PowOp` (`da=b·a^(b-1)`, reusing `output` for `db=output·ln(a)` the same way `ExpOp` does), `LogOp` (`da=1/x`), and `SqrtOp` (`da=1/(2·output)`, another `output`-reusing rule) — with `DivOp`'s and `LogOp`'s checked against a finite-difference nudge the same way this book has checked local derivatives since Part 2. Section 16.5 derived five activation and trigonometric gradients from their own local derivatives: `ReluOp`'s gradient is a hard `0`/`1` mask on where the input was positive, `SigmoidOp` and `TanhOp` both reuse their cached `output` (`output·(1-output)` and `1-output²` respectively) the way `ExpOp` first modeled, and `SinOp`/`CosOp` differentiate into each other with a 90° phase relationship. Section 16.6 covered the two shapes of operation Part 2 computes but doesn't yet differentiate: `SumOp` broadcasts its scalar gradient back out to every element that was summed, `MaxOp` routes the entire incoming gradient through the single winning index Chapter 14.2 already tracks and zeros every other entry (a choice, not a fact, once two inputs tie for the maximum), and `ReshapeOp`/`TransposeOp` simply undo, on the gradient, exactly the shape operation they applied on the forward pass. Finally, the implicit function theorem showed that a value produced by an iterative solver — bisection, standing in for the bond-pricing solver Part 7 differentiates through — doesn't need its loop unrolled and differentiated step by step; treating the converged answer as implicitly defined by the equation it satisfies collapses the entire gradient into one closed-form expression, verified here against a finite-difference check the same way every local derivative earlier in this book was checked. Between Sections 16.2 through 16.6, the registry grew from the two operations the running example strictly needed to eighteen named ones — still a fraction of the seventy-four `cutile_autograd_engine.py` implements, but broad enough that the rest of this book never has to stop and hand-derive a gradient again — and Section 16.8 assembles those eighteen, plus Section 16.7's `CustomFunction`, into the single consolidated listing a real build would actually wire up, the same way that reference engine keeps its full operation table in one module.
 
 ## Self-Check Questions
 
@@ -695,7 +750,7 @@ Chapter 17 (`part4/02-gradient-computation-engine.md`) is where every backward r
 
 **2.** With `y = 0.0`, `grad_a = elementwise_mul(grad_output, 0.0) = 0.0` — `x`'s contribution from the `mul` node would be exactly `0.0`. This matches `∂z/∂x = y` directly: when `y = 0`, nudging `x` doesn't move `z = x·y` at all, since anything times `0` is `0`, so a local derivative of `0` is exactly correct, not a sign of anything broken.
 
-**3.** `grad_output @ Mᵀ` with `grad_output = [[1,0],[0,1]]` and `Mᵀ = [[1,3,5],[2,4,6]]`: row `0` of the identity picks out row `0` of `Mᵀ` unchanged: `[1,3,5]`. Row `1` of the identity picks out row `1` of `Mᵀ` unchanged: `[2,4,6]`. So `dL/dX = [[1,3,5],[2,4,6]]` — multiplying by the identity matrix, unsurprisingly, just returns the other operand exactly, the same `A @ I = A` fact Chapter 13.4 verified for forward matrix multiplication, now shown to hold for this backward computation too.
+**3.** `grad_output @ Mᵀ` with `grad_output = [[1,0],[0,1]]` and `Mᵀ = [[1,3,5],[2,4,6]]`: row `0` of the identity picks out row `0` of `Mᵀ` unchanged: `[1,3,5]`. Row `1` of the identity picks out row `1` of `Mᵀ` unchanged: `[2,4,6]`. So `dL/dX = [[1,3,5],[2,4,6]]` — `Mᵀ` back unchanged, and the right `[2,3]` shape for a gradient on `X`. This is the identity fact Chapter 13.4 verified for forward matrix multiplication (`A @ I = A`), arriving here from the other side as `I @ A = A`, since it's the *upstream gradient* that happens to be the identity this time rather than the operand.
 
 **4.** `grad_x = [0.0, 1.0, 0.0, 0.0, 1.0]` — the mask is `1` where `x > 0` (indices `1` and `4`, values `2.0` and `5.0`) and `0` everywhere else, including at `x = 0.0`. The mask's strict `>` comparison treats the `x=0.0` entry as failing the test, giving it a gradient of `0`, not `1`. This matches reality only by convention: ReLU's true derivative is undefined at exactly `x=0` (the function has a corner there, not a well-defined slope), so any autograd engine has to pick one of the two one-sided derivatives — `0` or `1` — as a *subgradient*, and `greater_than_zero_mask`'s strict inequality is what fixes this implementation's choice at `0`.
 
