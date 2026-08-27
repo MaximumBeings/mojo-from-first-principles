@@ -12,6 +12,8 @@
         <meta name="author" content="Oluwaseyi Awoga">
       
       
+        <link rel="canonical" href="https://maximumbeings.github.io/mojo-from-first-principles/part4/02-gradient-computation-engine/">
+      
       
         <link rel="prev" href="../01-backward-function-implementation/">
       
@@ -192,6 +194,18 @@
 </div>
       
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MaximumBeings/mojo-from-first-principles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MaximumBeings/mojo-from-first-principles
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -457,6 +471,18 @@
     </a>
     Mojo From First Principles
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MaximumBeings/mojo-from-first-principles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MaximumBeings/mojo-from-first-principles
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -1322,10 +1348,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#81-reverse-mode-ad-implementation" class="md-nav__link">
+  <a href="#81-one-gradient-slot-per-value" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.1 Reverse-mode AD Implementation
+        8.1 One gradient slot per value
       
     </span>
   </a>
@@ -1333,10 +1359,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#82-gradient-accumulation-strategies" class="md-nav__link">
+  <a href="#82-reverse-mode-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.2 Gradient Accumulation Strategies
+        8.2 Reverse-mode execution
       
     </span>
   </a>
@@ -1344,10 +1370,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#83-graph-traversal-and-execution" class="md-nav__link">
+  <a href="#83-accumulation-is-required-for-branches" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.3 Graph Traversal and Execution
+        8.3 Accumulation is required for branches
       
     </span>
   </a>
@@ -1355,10 +1381,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#84-memory-optimization-for-gradients" class="md-nav__link">
+  <a href="#84-lifetime-and-memory-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.4 Memory Optimization for Gradients
+        8.4 Lifetime and memory policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-verification-before-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 Verification before optimization
       
     </span>
   </a>
@@ -1840,10 +1877,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#81-reverse-mode-ad-implementation" class="md-nav__link">
+  <a href="#81-one-gradient-slot-per-value" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.1 Reverse-mode AD Implementation
+        8.1 One gradient slot per value
       
     </span>
   </a>
@@ -1851,10 +1888,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#82-gradient-accumulation-strategies" class="md-nav__link">
+  <a href="#82-reverse-mode-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.2 Gradient Accumulation Strategies
+        8.2 Reverse-mode execution
       
     </span>
   </a>
@@ -1862,10 +1899,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#83-graph-traversal-and-execution" class="md-nav__link">
+  <a href="#83-accumulation-is-required-for-branches" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.3 Graph Traversal and Execution
+        8.3 Accumulation is required for branches
       
     </span>
   </a>
@@ -1873,10 +1910,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#84-memory-optimization-for-gradients" class="md-nav__link">
+  <a href="#84-lifetime-and-memory-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8.4 Memory Optimization for Gradients
+        8.4 Lifetime and memory policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-verification-before-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 Verification before optimization
       
     </span>
   </a>
@@ -1899,62 +1947,67 @@
                   
 
 
+  
+  
+
 
 <h1 id="chapter-8-gradient-computation-engine">Chapter 8: Gradient Computation Engine<a class="headerlink" href="#chapter-8-gradient-computation-engine" title="Permanent link">&para;</a></h1>
-<h2 id="81-reverse-mode-ad-implementation">8.1 Reverse-mode AD Implementation<a class="headerlink" href="#81-reverse-mode-ad-implementation" title="Permanent link">&para;</a></h2>
-<p>This is the function everything in Parts 1 through 4 has been building toward — the one a user actually calls, conventionally named <code>backward()</code>, that turns a scalar loss into gradients on every parameter that fed into it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">graph</span><span class="p">:</span><span class="w"> </span><span class="n">ComputationGraph</span><span class="p">,</span><span class="w"> </span><span class="n">loss</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Reverse-mode automatic differentiation from a scalar loss.&quot;&quot;&quot;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">debug_assert</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;backward() requires a scalar&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="c1"># Seed: dL/dL = 1</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">loss</span><span class="o">.</span><span class="n">grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">topological_backward_order</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="w">   </span><span class="c1"># Chapter 6.4</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">node_idx</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">order</span><span class="p">:</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_idx</span><span class="p">]</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">is_zero</span><span class="p">():</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">            </span><span class="k">continue</span><span class="w">    </span><span class="c1"># this output was never used downstream -- nothing flows back</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">input_grads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chain_rule_step</span><span class="p">(</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">            </span><span class="n">node</span><span class="o">.</span><span class="n">op_name</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">grad</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">output</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="p">)</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">inputs</span><span class="p">)):</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">            </span><span class="n">accumulate_gradient</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">input_grads</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w">   </span><span class="c1"># Section 8.2</span>
+<p>The backward engine combines three ideas already established: seed the selected scalar output with 1, visit recorded nodes in reverse topological order, and add every local contribution into the corresponding input's gradient slot. The tape owns those slots, so aliases and repeated uses cannot split a gradient across copied objects.</p>
+<h2 id="81-one-gradient-slot-per-value">8.1 One gradient slot per value<a class="headerlink" href="#81-one-gradient-slot-per-value" title="Permanent link">&para;</a></h2>
+<p>Gradients are indexed exactly like values. Extending the tape with a parallel list makes the invariant mechanical: <code>values[i]</code> and <code>grads[i]</code> always describe the same differentiable quantity.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Add this field to Tape:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">#     var grads: List[Float32]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">append_value</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">requires_grad</span><span class="p">:</span><span class="w"> </span><span class="n">Bool</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ValueId</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">tape</span><span class="o">.</span><span class="n">requires_grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">requires_grad</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span>
 </code></pre></div>
-<p>Two details make this correct rather than merely plausible. First, the seed gradient: <code>dL/dL = 1</code> is not a convention, it's the base case the chain rule needs to bottom out on — every other gradient in the graph is ultimately <code>1</code> multiplied by a chain of local derivatives. Second, the <code>is_zero()</code> skip: in a graph where one branch feeds the loss and a sibling branch feeds only a diagnostic printout, the diagnostic branch's node never receives a gradient and correctly contributes nothing — this is what makes it safe to compute expensive-but-unused forward values without breaking gradient correctness elsewhere.</p>
-<h2 id="82-gradient-accumulation-strategies">8.2 Gradient Accumulation Strategies<a class="headerlink" href="#82-gradient-accumulation-strategies" title="Permanent link">&para;</a></h2>
-<p>A tensor used more than once in a forward pass — the classic case is a shared embedding or a residual connection where <code>y = f(x) + x</code> — receives <em>two</em> incoming gradients during backward, one from each use, and they must be <strong>added</strong>, not overwritten. This is one of the two or three most common autograd bugs in every framework that implements it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">accumulate_gradient</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tensor</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">incoming_grad</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">):</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">tensor</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">is_none</span><span class="p">():</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="n">tensor</span><span class="o">.</span><span class="n">grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">incoming_grad</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">tensor</span><span class="o">.</span><span class="n">grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elementwise_add</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">grad</span><span class="p">,</span><span class="w"> </span><span class="n">incoming_grad</span><span class="p">)</span><span class="w">   </span><span class="c1"># Chapter 3 -- accumulate, don&#39;t replace</span>
+<p><strong>Manual worked example.</strong> After appending <code>x=3</code>, <code>y=4</code>, <code>z=12</code>, and <code>w=15</code>, the three parallel lists have length four and <code>grads=[0,0,0,0]</code>. Value ID 0 means <code>x</code> everywhere. There is no separate <code>node.grad</code>, so seeding or accumulating a gradient cannot update one object while backward reads another.</p>
+<h2 id="82-reverse-mode-execution">8.2 Reverse-mode execution<a class="headerlink" href="#82-reverse-mode-execution" title="Permanent link">&para;</a></h2>
+<p>Backward must reject a non-scalar output unless the caller supplies an explicit vector-Jacobian seed. For the scalar path taught here, <code>dL/dL=1</code> is the unique natural seed.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">loss</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="p">)):</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="p">[</span><span class="n">loss</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">node_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">node_index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="n">node_index</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="n">ref</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_index</span><span class="p">]</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">upstream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">output</span><span class="p">]</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">upstream</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">            </span><span class="k">continue</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">local_backward</span><span class="p">(</span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">tape</span><span class="p">,</span><span class="w"> </span><span class="n">upstream</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">]:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">            </span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">local</span><span class="o">.</span><span class="n">left</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">]:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">            </span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">local</span><span class="o">.</span><span class="n">right</span>
 </code></pre></div>
-<p>The residual case makes the necessity concrete: in <code>y = f(x) + x</code>, <code>x</code> is an input to both <code>AddOp</code> and whatever produced <code>f(x)</code>. <code>AddOp.backward</code> passes <code>grad_output</code> straight through to <em>both</em> of its inputs (Section 7.2), so <code>x</code> receives one gradient contribution directly from the addition and a second, separately-computed contribution routed back through <code>f</code>. <code>accumulate_gradient</code> summing them is precisely <code>dL/dx = dL/dy · (∂y/∂x)_direct + dL/dy · (∂y/∂x)_through_f</code> — the multivariate chain rule's sum-over-paths rule, implemented as a running total instead of a symbolic sum.</p>
-<p>Before starting a new backward pass, every parameter's accumulated gradient from the <em>previous</em> step must be reset to zero — otherwise gradients silently accumulate across training steps, a bug that manifests as loss curves that look almost-but-not-quite right:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">zero_grad</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]):</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">params</span><span class="p">:</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<p><strong>Manual worked example.</strong> Seed <code>grads[3]=1</code>. Visit ADD <code>(2,0→3)</code>: add 1 to slots 2 and 0, producing <code>[1,0,1,1]</code>. Visit MUL <code>(0,1→2)</code>: its upstream is slot 2's 1, so add <code>1×4=4</code> to slot 0 and <code>1×3=3</code> to slot 1. The final list is <code>[5,3,1,1]</code>; the leaf answers are <code>dx=5</code>, <code>dy=3</code>.</p>
+<h2 id="83-accumulation-is-required-for-branches">8.3 Accumulation is required for branches<a class="headerlink" href="#83-accumulation-is-required-for-branches" title="Permanent link">&para;</a></h2>
+<p>Assignment is wrong when a value is used more than once. The <code>+=</code> operations above are the implementation of the multivariable chain rule's sum over paths.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">accumulate</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">,</span><span class="w"> </span><span class="n">contribution</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">[</span><span class="n">value</span><span class="p">]:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="n">tape</span><span class="o">.</span><span class="n">grads</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">contribution</span>
 </code></pre></div>
-<h2 id="83-graph-traversal-and-execution">8.3 Graph Traversal and Execution<a class="headerlink" href="#83-graph-traversal-and-execution" title="Permanent link">&para;</a></h2>
-<p>Section 8.1's <code>backward()</code> already showed the traversal itself; what's worth calling out separately is what happens to the graph <em>after</em> backward finishes. In this framework, as in eager-mode PyTorch, the graph is single-use: it was built implicitly during forward (Chapter 6.3), consumed once during backward, and then discarded — the next forward pass builds a fresh one. This is a deliberate simplicity trade-off: a persistent, reusable graph (the kind a compiled/static-graph framework builds) enables graph-level optimization passes, but a rebuild-every-step graph is dramatically easier to reason about and, combined with the <a href="../../part1/06-memory-management-system/#22-arena-based-memory-allocation">Arena allocator</a> from Chapter 2, just as cheap in practice: <code>arena.reset()</code> at the top of the next <code>forward()</code> call reclaims every node from the discarded graph in O(1).</p>
-<h2 id="84-memory-optimization-for-gradients">8.4 Memory Optimization for Gradients<a class="headerlink" href="#84-memory-optimization-for-gradients" title="Permanent link">&para;</a></h2>
-<p>Two optimizations matter once this engine runs on real workloads rather than toy examples. First, <strong>gradient-only-where-needed</strong>: a node whose entire input subtree has <code>requires_grad = False</code> was already excluded from the graph in Chapter 6.3, so no gradient memory is ever allocated for it — the cheapest optimization is the one where nothing happens at all. Second, <strong>saved-tensor pruning</strong>: a node only needs to keep an input alive for backward if that specific op's backward rule reads it. <code>AddOp.backward</code> (Section 7.2) never touches <code>inputs</code> at all, so a node recording an addition can drop its references to both inputs immediately after forward and rely purely on <code>grad_output</code> passed down later — freeing that memory before backward even starts, rather than holding it for the graph's entire lifetime:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">GraphNode</span><span class="p">:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">op_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">saved_inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]</span><span class="w">   </span><span class="c1"># only populated if this op&#39;s backward needs them</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">grad</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">fn</span><span class="w"> </span><span class="nf">needs_input_for_backward</span><span class="p">(</span><span class="n">op_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Bool</span><span class="p">:</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="c1"># AddOp: grad(a) = grad(b) = grad_output, no input needed.</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="c1"># MulOp, MatMulOp: backward reads the *other* input (Section 7.2, 7.3).</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">op_name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;add&quot;</span>
+<p><strong>Manual worked example.</strong> The ADD node contributes 1 to <code>x</code>; the MUL node later contributes 4 to the same ID. After the first call, slot 0 is 1. After the second, it is 5. Replacing <code>+=</code> with <code>=</code> would leave 4 and fail the centered finite-difference check <code>(w(3.001)-w(2.999))/0.002=5</code>.</p>
+<h2 id="84-lifetime-and-memory-policy">8.4 Lifetime and memory policy<a class="headerlink" href="#84-lifetime-and-memory-policy" title="Permanent link">&para;</a></h2>
+<p>An eager tape is single-use by default: clear its nodes after backward unless the caller explicitly requests retention. Tensor implementations should save only values required by a local derivative, but they must never discard the IDs needed to route gradients.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">release_graph</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">retain_graph</span><span class="p">:</span><span class="w"> </span><span class="n">Bool</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">retain_graph</span><span class="p">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="n">tape</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div>
-<p>This is the same shape of trade-off PyTorch calls "checkpointing" taken to its logical per-op conclusion: don't pay memory for a value nothing will read again.</p>
-<p>Parts 1 through 4 now form a complete, working autograd engine: tensors with proper memory management, the arithmetic operations on them, a graph that records how they combine, and a backward pass that turns that graph into gradients. Part 5 makes all of it fast by moving the hot paths onto the GPU.</p>
+<p><strong>Manual worked example.</strong> A forward pass with two nodes retains two node records through backward. Calling <code>release_graph(tape, False)</code> changes the node count from 2 to 0 while leaving the four computed values and gradients available for inspection. Calling backward again now has no path to the leaves, which is why a second backward requires a new forward pass or <code>retain_graph=True</code>.</p>
+<h2 id="85-verification-before-optimization">8.5 Verification before optimization<a class="headerlink" href="#85-verification-before-optimization" title="Permanent link">&para;</a></h2>
+<p>Every new local rule should pass both an analytic spot check and a centered finite-difference check before receiving a SIMD or GPU implementation. Use a relative error denominator that remains stable near zero.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">relative_error</span><span class="p">(</span><span class="n">analytic</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">numeric</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">analytic</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">numeric</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">analytic</span><span class="p">),</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">numeric</span><span class="p">)))</span>
+</code></pre></div>
+<p><strong>Manual worked example.</strong> For <code>w=x*y+x</code>, analytic <code>dx=5</code>. With <code>h=0.001</code>, the numeric derivative is <code>(15.005-14.995)/0.002=5</code>. The numerator is 0 and the denominator is 5, so relative error is 0. For a near-zero derivative such as <code>1e-9</code> versus 0, the denominator clamps to 1 and reports the meaningful absolute-scale error <code>1e-9</code> rather than exploding.</p>
+<p>The scalar tape now works end to end without the aliasing bug of a separate node gradient. A tensor engine replaces <code>Float32</code> values and gradients with graph-owned tensor buffers, but keeps the same value IDs, reverse traversal, accumulation rule, and verification discipline.</p>
 
 
 

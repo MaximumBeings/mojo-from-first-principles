@@ -12,6 +12,8 @@
         <meta name="author" content="Oluwaseyi Awoga">
       
       
+        <link rel="canonical" href="https://maximumbeings.github.io/mojo-from-first-principles/part5/01-gpu-kernel-implementation/">
+      
       
         <link rel="prev" href="../../part4/02-gradient-computation-engine/">
       
@@ -192,6 +194,18 @@
 </div>
       
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MaximumBeings/mojo-from-first-principles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MaximumBeings/mojo-from-first-principles
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -457,6 +471,18 @@
     </a>
     Mojo From First Principles
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MaximumBeings/mojo-from-first-principles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MaximumBeings/mojo-from-first-principles
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -1409,10 +1435,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#91-cuda-style-kernel-design" class="md-nav__link">
+  <a href="#91-one-thread-one-element" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.1 CUDA-style Kernel Design
+        9.1 One thread, one element
       
     </span>
   </a>
@@ -1420,10 +1446,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#92-memory-coalescing-optimization" class="md-nav__link">
+  <a href="#92-launch-geometry-covers-the-tail" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.2 Memory Coalescing Optimization
+        9.2 Launch geometry covers the tail
       
     </span>
   </a>
@@ -1431,10 +1457,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#93-shared-memory-utilization" class="md-nav__link">
+  <a href="#93-coalescing-is-a-layout-property" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.3 Shared Memory Utilization
+        9.3 Coalescing is a layout property
       
     </span>
   </a>
@@ -1442,10 +1468,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#94-warp-level-primitives" class="md-nav__link">
+  <a href="#94-shared-memory-and-barriers-require-block-wide-reasoning" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.4 Warp-level Primitives
+        9.4 Shared memory and barriers require block-wide reasoning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95-warp-primitives-are-an-optimization-not-a-starting-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 Warp primitives are an optimization, not a starting point
       
     </span>
   </a>
@@ -1840,10 +1877,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#91-cuda-style-kernel-design" class="md-nav__link">
+  <a href="#91-one-thread-one-element" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.1 CUDA-style Kernel Design
+        9.1 One thread, one element
       
     </span>
   </a>
@@ -1851,10 +1888,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#92-memory-coalescing-optimization" class="md-nav__link">
+  <a href="#92-launch-geometry-covers-the-tail" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.2 Memory Coalescing Optimization
+        9.2 Launch geometry covers the tail
       
     </span>
   </a>
@@ -1862,10 +1899,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#93-shared-memory-utilization" class="md-nav__link">
+  <a href="#93-coalescing-is-a-layout-property" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.3 Shared Memory Utilization
+        9.3 Coalescing is a layout property
       
     </span>
   </a>
@@ -1873,10 +1910,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#94-warp-level-primitives" class="md-nav__link">
+  <a href="#94-shared-memory-and-barriers-require-block-wide-reasoning" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9.4 Warp-level Primitives
+        9.4 Shared memory and barriers require block-wide reasoning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95-warp-primitives-are-an-optimization-not-a-starting-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 Warp primitives are an optimization, not a starting point
       
     </span>
   </a>
@@ -1899,110 +1947,76 @@
                   
 
 
+  
+  
+
 
 <h1 id="chapter-9-gpu-kernel-implementation">Chapter 9: GPU Kernel Implementation<a class="headerlink" href="#chapter-9-gpu-kernel-implementation" title="Permanent link">&para;</a></h1>
-<p>Part 0.4 introduced the GPU execution model in the abstract — grids, blocks, threads, and the memory hierarchy. Part 5 puts real workloads on it: the CUDA-style kernels that back every tensor operation from Part 2, written to actually earn the speedup the hardware promises rather than merely compile for it.</p>
-<h2 id="91-cuda-style-kernel-design">9.1 CUDA-style Kernel Design<a class="headerlink" href="#91-cuda-style-kernel-design" title="Permanent link">&para;</a></h2>
-<p>The thread hierarchy from Part 0.4 maps directly onto every kernel in this framework: a <strong>grid</strong> of <strong>blocks</strong>, each block a fixed number of <strong>threads</strong>, and every thread computing exactly one output element (or a small tile of them, in the more advanced kernels below).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># GPU Programming Concepts, concretely:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">#   Grid:   collection of thread blocks</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">#   Block:  collection of threads (up to 1024)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">#   Thread: one execution unit</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">#</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">#   Global memory:  large, slow, visible to every thread</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">#   Shared memory:  fast, scoped to one block</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">#   Local memory:   private per-thread</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">#</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">#   Kernel: the function that runs on the GPU</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1">#   Host:   the CPU code that launches it</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">#   Device: the GPU executing it</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.host</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">DeviceContext</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.id</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">block_dim</span><span class="p">,</span><span class="w"> </span><span class="n">block_idx</span><span class="p">,</span><span class="w"> </span><span class="n">thread_idx</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="kn">from</span><span class="w"> </span><span class="nn">memory</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">UnsafePointer</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="k">fn</span><span class="w"> </span><span class="nf">generic_elementwise_kernel</span><span class="p">(</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">):</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;The template every Chapter 3 kernel follows: compute a global</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="s2">    thread index, bounds-check it, do one unit of work.&quot;&quot;&quot;</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<p>GPU acceleration is not “run the CPU loop somewhere else.” A host allocates device buffers and launches a grid; thousands of device threads each compute a global index and own a small slice of the work. The examples in this chapter target Mojo 1.0's portable <code>std.gpu</code> API rather than CUDA-only names or an approximate wrapper.</p>
+<h2 id="91-one-thread-one-element">9.1 One thread, one element<a class="headerlink" href="#91-one-thread-one-element" title="Permanent link">&para;</a></h2>
+<p>The safest first kernel maps one global thread index to one output element and guards the tail. Mojo 1.0 forbids host-sized <code>Int</code> and <code>UInt</code> as GPU kernel arguments, so lengths crossing the host/device boundary use a fixed-width integer.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">global_idx</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">scale_kernel</span><span class="p">(</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">scale</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int32</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">global_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scale</span>
 </code></pre></div>
-<p>The launch configuration is the other half of "CUDA-style": pick a block size (256 is a common default — large enough to hide memory latency, small enough that many blocks fit per streaming multiprocessor), then compute how many blocks cover the whole tensor:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">launch_elementwise</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">                       </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">alias</span><span class="w"> </span><span class="nv">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">num_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">generic_elementwise_kernel</span><span class="p">](</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="n">grid_dim</span><span class="o">=</span><span class="p">(</span><span class="n">num_blocks</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="n">block_dim</span><span class="o">=</span><span class="p">(</span><span class="n">THREADS_PER_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p">)</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+<p><strong>Manual worked example.</strong> For five inputs <code>[1,2,3,4,5]</code>, scale 2, and a block of eight threads, global indices 0–4 write <code>[2,4,6,8,10]</code>. Threads 5–7 fail <code>i&lt;5</code> and write nothing. Without the guard, those three threads would access memory past the allocation.</p>
+<h2 id="92-launch-geometry-covers-the-tail">9.2 Launch geometry covers the tail<a class="headerlink" href="#92-launch-geometry-covers-the-tail" title="Permanent link">&para;</a></h2>
+<p>The host uses <code>DeviceContext</code>, allocates a <code>DeviceBuffer</code>, and launches with the current single-function form <code>enqueue_function[kernel]</code>. Ceiling division chooses enough blocks to cover every element.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu.host</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">DeviceContext</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">launch_scale</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int32</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">block_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">grid_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">Int</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">block_size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">block_size</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">scale_kernel</span><span class="p">](</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="n">grid_dim</span><span class="o">=</span><span class="n">grid_size</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="n">block_dim</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p">)</span>
 </code></pre></div>
-<h2 id="92-memory-coalescing-optimization">9.2 Memory Coalescing Optimization<a class="headerlink" href="#92-memory-coalescing-optimization" title="Permanent link">&para;</a></h2>
-<p>A warp of GPU threads reading 32 consecutive <code>Float32</code>s in one transaction is dramatically faster than the same warp reading 32 scattered addresses — this is memory coalescing, and it is the single biggest reason Part 1's tensor layout decisions (Struct-of-Arrays over Array-of-Structs, from Part 0.3) matter for performance rather than just style.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Array of Structs (AoS) -- poor coalescing</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">#   Memory: [face,maturity,rate,spread][face,maturity,rate,spread]...</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">#   A kernel reading every bond&#39;s `rate` jumps 4 fields between reads.</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">#</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Struct of Arrays (SoA) -- optimal coalescing</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1">#   Memory: face:[f0,f1,f2,...]  maturity:[m0,m1,m2,...]  rate:[r0,r1,...]</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1">#   A kernel reading every bond&#39;s `rate` reads one contiguous array.</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_from_soa_kernel</span><span class="p">(</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">rate</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w">      </span><span class="c1"># contiguous: coalesced read</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w">    </span><span class="c1"># contiguous: coalesced read</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="n">num_items</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">):</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_items</span><span class="p">:</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rate</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<p><strong>Manual worked example.</strong> With <code>size=1,000</code> and <code>block_size=256</code>, <code>(1000+255)//256=4</code> blocks launch 1,024 threads. The first 1,000 process data and the last 24 take the guarded exit. Three blocks would launch only 768 threads and leave 232 outputs untouched.</p>
+<h2 id="93-coalescing-is-a-layout-property">9.3 Coalescing is a layout property<a class="headerlink" href="#93-coalescing-is-a-layout-property" title="Permanent link">&para;</a></h2>
+<p>Adjacent threads should access adjacent addresses. A structure-of-arrays layout makes thread <code>i</code> and thread <code>i+1</code> read neighboring rates, whereas an array of bond structs inserts the other fields between those reads.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">global_idx</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">discount_kernel</span><span class="p">(</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">present_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">face</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">rate</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">years</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int32</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">):</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">global_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="n">present_value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">face</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">rate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">years</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </code></pre></div>
-<p>This is not a hypothetical: it's the exact struct that prices a bond portfolio in <a href="../../part7/01-quantitative-finance-examples/">Part 7</a>, where switching from an AoS <code>Bond</code> struct to <code>ZeroCouponBondSystemSoA</code> is measured directly by comparing memory stride — 32 bytes between the same field in adjacent AoS records versus 4 bytes in SoA, an 8× reduction:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Memory layout comparison:
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  AoS stride between same attributes: 32 bytes
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  SoA stride between adjacent elements: 4 bytes
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  Coalescing improvement: ~8x better
+<p><strong>Manual worked example.</strong> Threads 0–3 read <code>rate[0]</code> through <code>rate[3]</code>, four consecutive <code>Float32</code> values occupying 16 consecutive bytes. For faces <code>[100,100]</code>, rates <code>[0.05,0.06]</code>, and years <code>[1,2]</code>, the writes are <code>100e^-0.05≈95.1229</code> and <code>100e^-0.12≈88.6920</code>.</p>
+<h2 id="94-shared-memory-and-barriers-require-block-wide-reasoning">9.4 Shared memory and barriers require block-wide reasoning<a class="headerlink" href="#94-shared-memory-and-barriers-require-block-wide-reasoning" title="Permanent link">&para;</a></h2>
+<p>Shared memory is useful when threads in one block reuse a tile. Every participating thread writes its element, all threads reach <code>barrier()</code>, and only then may any thread consume neighbors' elements. Mojo's higher-level <code>TileTensor</code> is preferred for production tiling because it carries layout information and composes with device buffers; raw shared-memory code is reserved for kernels whose access pattern cannot be expressed clearly at the tile level.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.gpu.sync</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">barrier</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">two_phase_block_step</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tile</span><span class="p">,</span><span class="w"> </span><span class="n">local_i</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">tile</span><span class="p">[</span><span class="n">local_i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">barrier</span><span class="p">()</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tile</span><span class="p">[</span><span class="n">local_i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tile</span><span class="p">[</span><span class="n">local_i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
 </code></pre></div>
-<h2 id="93-shared-memory-utilization">9.3 Shared Memory Utilization<a class="headerlink" href="#93-shared-memory-utilization" title="Permanent link">&para;</a></h2>
-<p>Global memory bandwidth is the bottleneck for most of the kernels above, but any kernel where multiple threads <em>reuse</em> the same input values — a 2D convolution being the clearest example — benefits from staging that input into a block's shared memory once, rather than every thread re-reading it from global memory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@gpu_kernel</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mojo_conv2d_kernel</span><span class="p">(</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">input_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">input_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">kernel</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">kernel_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">kernel_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">DTypePointer</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">],</span><span class="w"> </span><span class="n">output_h</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">):</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">y</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="p">()</span><span class="o">.</span><span class="n">x</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_h</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">output_w</span><span class="p">:</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="k">return</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">k_r</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_h</span><span class="p">):</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">k_c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">kernel_w</span><span class="p">):</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">in_row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_r</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">in_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_col</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">            </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">in_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">input_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">in_col</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel</span><span class="p">[</span><span class="n">k_r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">kernel_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k_c</span><span class="p">]</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="n">output</span><span class="p">[</span><span class="n">out_row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output_w</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">out_col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">sum</span>
+<p><strong>Manual worked example.</strong> Suppose four threads write <code>[2,4,6,8]</code> into a tile and threads 0–2 then add a right neighbor. After the barrier their results are <code>[2+4,4+6,6+8]=[6,10,14]</code>. Without the barrier, thread 0 could read slot 1 before thread 1 writes 4, making the result schedule-dependent. A real kernel must also ensure the final thread does not read past the tile.</p>
+<h2 id="95-warp-primitives-are-an-optimization-not-a-starting-point">9.5 Warp primitives are an optimization, not a starting point<a class="headerlink" href="#95-warp-primitives-are-an-optimization-not-a-starting-point" title="Permanent link">&para;</a></h2>
+<p>Warp shuffles and reductions can remove shared-memory traffic, but warp size and supported primitives vary by accelerator. Establish correctness with a portable block reduction, benchmark it, and specialize only the measured bottleneck behind a tested dispatch path.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reduction_round</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span><span class="w"> </span><span class="n">active</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">half</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">half</span><span class="p">):</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">half</span><span class="p">]</span>
 </code></pre></div>
-<p>As written, neighboring output threads redundantly re-read overlapping input patches straight from global memory — a <code>3×3</code> kernel means each input element is read up to 9 times. The shared-memory version each block cooperatively loads once — every thread copies one element of its block's input tile (plus a kernel-sized halo of neighbors) into a <code>__shared__</code>-equivalent buffer, synchronizes, then every thread's convolution reads exclusively from that fast on-chip memory instead of re-hitting global memory nine times over.</p>
-<p>Padding the input before convolving (rather than shrinking the output, as the unpadded kernel above does) trades a small amount of extra memory for output that matches the input's spatial size — the standard "same" convolution used throughout Part 6's neural network layers:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mojo_conv2d_padded</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">GPUTensor</span><span class="p">,</span><span class="w"> </span><span class="n">kernel</span><span class="p">:</span><span class="w"> </span><span class="n">GPUTensor</span><span class="p">,</span><span class="w"> </span><span class="n">padding</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">GPUTensor</span><span class="p">:</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="c1"># Pad input on all sides by `padding` zeros, then run the same</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1"># kernel loop as above against the padded buffer -- output_h/w</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="c1"># now equal input_h/w instead of shrinking by (kernel_size - 1).</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pad_tensor</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">padding</span><span class="p">)</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mojo_conv2d_basic</span><span class="p">(</span><span class="n">padded</span><span class="p">,</span><span class="w"> </span><span class="n">kernel</span><span class="p">)</span>
-</code></pre></div>
-<h2 id="94-warp-level-primitives">9.4 Warp-level Primitives<a class="headerlink" href="#94-warp-level-primitives" title="Permanent link">&para;</a></h2>
-<p>The reduction kernels from <a href="../../part2/03-reduction-operations/">Chapter 5</a> are written generically over thread count, but on real hardware the last few rounds of a tree reduction — once the active thread count drops to 32 or fewer — execute within a single warp, where every thread runs in lockstep. Warp-level shuffle instructions let those final rounds exchange values directly between registers instead of round-tripping through shared or global memory, collapsing the last <code>log2(32) = 5</code> reduction rounds into a handful of register-to-register operations. The framework's <code>sum_reduce_kernel</code> is written the portable way (through memory, at every level) specifically so it's correct on any GPU generation; a warp-shuffle specialization is the natural next optimization once profiling (Chapter 10) shows the reduction tail is actually a bottleneck.</p>
-<p>Chapter 10 turns from kernel <em>design</em> to kernel <em>measurement</em> — SIMD vectorization on the CPU side, loop fusion, compile-time specialization, and the benchmarking harness used to tell whether any of these optimizations actually helped.</p>
+<p><strong>Manual worked example.</strong> Start with <code>[1,2,3,4,5,6,7,8]</code>. The first round adds opposite halves and leaves <code>[6,8,10,12]</code>; the next leaves <code>[16,20]</code>; the final leaves <code>[36]</code>. Since <code>1+2+...+8=36</code>, the tree is correct before any warp-specific rewrite is attempted.</p>
+<p>The production sequence is now explicit: prove the scalar result, map work to guarded global indices, use graph-owned device buffers, verify host/device copies, then optimize layout, tiling, and warp communication in that order.</p>
 
 
 

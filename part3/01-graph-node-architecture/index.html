@@ -12,6 +12,8 @@
         <meta name="author" content="Oluwaseyi Awoga">
       
       
+        <link rel="canonical" href="https://maximumbeings.github.io/mojo-from-first-principles/part3/01-graph-node-architecture/">
+      
       
         <link rel="prev" href="../../part2/03-reduction-operations/">
       
@@ -192,6 +194,18 @@
 </div>
       
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MaximumBeings/mojo-from-first-principles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MaximumBeings/mojo-from-first-principles
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -457,6 +471,18 @@
     </a>
     Mojo From First Principles
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MaximumBeings/mojo-from-first-principles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MaximumBeings/mojo-from-first-principles
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -1207,10 +1233,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#61-function-registration-system" class="md-nav__link">
+  <a href="#61-a-node-records-dataflow-not-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.1 Function Registration System
+        6.1 A node records dataflow, not values
       
     </span>
   </a>
@@ -1218,10 +1244,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#62-gradient-function-traits" class="md-nav__link">
+  <a href="#62-the-tape-owns-values-and-gradient-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.2 Gradient Function Traits
+        6.2 The tape owns values and gradient policy
       
     </span>
   </a>
@@ -1229,10 +1255,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#63-graph-construction-during-forward-pass" class="md-nav__link">
+  <a href="#63-forward-operations-append-both-a-value-and-a-node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.3 Graph Construction During Forward Pass
+        6.3 Forward operations append both a value and a node
       
     </span>
   </a>
@@ -1240,10 +1266,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#64-topological-sorting-implementation" class="md-nav__link">
+  <a href="#64-reverse-insertion-order-is-a-topological-order" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.4 Topological Sorting Implementation
+        6.4 Reverse insertion order is a topological order
       
     </span>
   </a>
@@ -1840,10 +1866,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#61-function-registration-system" class="md-nav__link">
+  <a href="#61-a-node-records-dataflow-not-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.1 Function Registration System
+        6.1 A node records dataflow, not values
       
     </span>
   </a>
@@ -1851,10 +1877,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#62-gradient-function-traits" class="md-nav__link">
+  <a href="#62-the-tape-owns-values-and-gradient-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.2 Gradient Function Traits
+        6.2 The tape owns values and gradient policy
       
     </span>
   </a>
@@ -1862,10 +1888,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#63-graph-construction-during-forward-pass" class="md-nav__link">
+  <a href="#63-forward-operations-append-both-a-value-and-a-node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.3 Graph Construction During Forward Pass
+        6.3 Forward operations append both a value and a node
       
     </span>
   </a>
@@ -1873,10 +1899,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#64-topological-sorting-implementation" class="md-nav__link">
+  <a href="#64-reverse-insertion-order-is-a-topological-order" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.4 Topological Sorting Implementation
+        6.4 Reverse insertion order is a topological order
       
     </span>
   </a>
@@ -1899,82 +1925,90 @@
                   
 
 
+  
+  
+
 
 <h1 id="chapter-6-graph-node-architecture">Chapter 6: Graph Node Architecture<a class="headerlink" href="#chapter-6-graph-node-architecture" title="Permanent link">&para;</a></h1>
-<p>Parts 1 and 2 built tensors and the operations on them, but every operation so far has been a dead end — call <code>elementwise_mul_kernel</code>, get a result, and the framework immediately forgets how that result was produced. Reverse-mode automatic differentiation needs the opposite: it needs to replay every operation <em>backward</em>, so each <code>Tensor</code> that requires gradients has to grow a record of what created it. That record is the computational graph, and this chapter is where the tensor library from Parts 1–2 becomes an autograd framework.</p>
-<h2 id="61-function-registration-system">6.1 Function Registration System<a class="headerlink" href="#61-function-registration-system" title="Permanent link">&para;</a></h2>
-<p>Every differentiable operation registers a forward implementation and the corresponding backward (gradient) implementation together, as a pair, so the graph can never end up with a forward op it doesn't know how to differentiate:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">trait</span><span class="w"> </span><span class="n n-Struct">Differentiable</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Every op the graph can record implements both directions.&quot;&quot;&quot;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span><span class="w"> </span><span class="o">...</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span><span class="w"> </span><span class="o">...</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">OpRegistry</span><span class="p">:</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Maps an op name to its registered Differentiable implementation.&quot;&quot;&quot;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">_ops</span><span class="p">:</span><span class="w"> </span><span class="n">Dict</span><span class="p">[</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Differentiable</span><span class="p">]</span>
+<p>Automatic differentiation needs two kinds of state: numerical values from the forward pass and a record of how those values were produced. This chapter deliberately starts with scalar <code>Float32</code> values. Removing tensor shape and allocation details makes the graph algorithm visible; Chapters 7–8 then extend the same value-ID design to gradients, and Parts 5–6 replace each scalar primitive with a tensor kernel.</p>
+<div class="admonition note">
+<p class="admonition-title">Mojo 1.0 design choice</p>
+<p>The tape stores integer value IDs, not <code>Tensor</code> values inside graph nodes. This avoids self-referential ownership, makes shared subexpressions explicit, and ensures that every use of a value reaches the same gradient slot. Operations use an enum-like tag rather than a heterogeneous <code>Dict[String, Differentiable]</code>, because a bare trait name is not a runtime trait object in Mojo.</p>
+</div>
+<h2 id="61-a-node-records-dataflow-not-values">6.1 A node records dataflow, not values<a class="headerlink" href="#61-a-node-records-dataflow-not-values" title="Permanent link">&para;</a></h2>
+<p>A node only needs to answer three questions: which operation ran, which earlier values were its inputs, and which value did it create? The tape owns the actual numbers in one list. This separation is the central invariant of the design.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">alias</span><span class="w"> </span><span class="nv">ValueId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nd">@fieldwise_init</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">Node</span><span class="p">(</span><span class="nb">Copyable</span><span class="p">,</span><span class="w"> </span><span class="nb">Movable</span><span class="p">):</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">op</span><span class="p">:</span><span class="w"> </span><span class="n">OpKind</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">left</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">right</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">output</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">register</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">op</span><span class="p">:</span><span class="w"> </span><span class="n">Differentiable</span><span class="p">):</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">_ops</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">op</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Differentiable</span><span class="p">:</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="n">debug_assert</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_ops</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Unregistered op: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_ops</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nd">@fieldwise_init</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">OpKind</span><span class="p">(</span><span class="nb">Copyable</span><span class="p">,</span><span class="w"> </span><span class="nb">Movable</span><span class="p">,</span><span class="w"> </span><span class="n">Equatable</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">tag</span><span class="p">:</span><span class="w"> </span><span class="nb">UInt8</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">ADD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Self</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">MUL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Self</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
-<p><code>elementwise_mul_kernel</code> from <a href="../../part2/01-element-wise-operations/#32-multiplication-and-division">Chapter 3</a> is the <code>forward</code> half of a <code>MulOp</code>; its <code>backward</code> returns <code>[grad_output * b, grad_output * a]</code> — the two local-derivative rules derived in that chapter, applied to the tensor now flowing backward through the graph instead of a hand-computed scalar.</p>
-<h2 id="62-gradient-function-traits">6.2 Gradient Function Traits<a class="headerlink" href="#62-gradient-function-traits" title="Permanent link">&para;</a></h2>
-<p>Each node in the graph stores exactly enough to run its op's <code>backward</code> later: the op itself, references to its input tensors (kept alive by the <code>RefCountedBuffer</code> sharing from <a href="../../part1/06-memory-management-system/#21-reference-counting-implementation">Chapter 2</a>), and the output it produced.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">GraphNode</span><span class="p">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">op_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]</span><span class="w">        </span><span class="c1"># shares buffers, doesn&#39;t copy</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">grad</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="w">                </span><span class="c1"># accumulated upstream gradient, filled during backward</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">requires_grad</span><span class="p">:</span><span class="w"> </span><span class="n">Bool</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">op_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">):</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">op_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">op_name</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputs</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">output</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">True</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<p><strong>Manual worked example.</strong> Number the leaves <code>x=3</code> and <code>y=4</code> as values 0 and 1. Multiplication creates value 2, so its node is <code>(MUL, 0, 1, 2)</code>. Addition reuses <code>x</code> and creates value 3, so its node is <code>(ADD, 2, 0, 3)</code>. Both references to <code>x</code> contain the same ID, 0; there is exactly one future gradient slot for <code>x</code>.</p>
+<h2 id="62-the-tape-owns-values-and-gradient-policy">6.2 The tape owns values and gradient policy<a class="headerlink" href="#62-the-tape-owns-values-and-gradient-policy" title="Permanent link">&para;</a></h2>
+<p>The tape is an append-only record during the forward pass. Each new value gets parallel entries for its number and whether it requires a gradient. Parallel arrays are intentionally plain here: for value ID <code>i</code>, all metadata lives at index <code>i</code>, so identity never depends on pointer aliasing or accidental copies.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">Tape</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">values</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">requires_grad</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Bool</span><span class="p">]</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">nodes</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Node</span><span class="p">]</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]()</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Bool</span><span class="p">]()</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Node</span><span class="p">]()</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">leaf</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">requires_grad</span><span class="p">:</span><span class="w"> </span><span class="n">Bool</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ValueId</span><span class="p">:</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">requires_grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">requires_grad</span><span class="p">)</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span>
 </code></pre></div>
-<p>The one field worth pausing on is <code>requires_grad</code>. A tensor loaded from a data file (Section 1.3.3) or a fixed hyperparameter never needs a graph node at all — building one would waste memory and, worse, keep the whole upstream subgraph alive for no reason. The framework checks <code>requires_grad</code> before recording, so constant inputs are invisible to the graph exactly the way <code>torch.no_grad()</code> or JAX's <code>stop_gradient</code> behave.</p>
-<h2 id="63-graph-construction-during-forward-pass">6.3 Graph Construction During Forward Pass<a class="headerlink" href="#63-graph-construction-during-forward-pass" title="Permanent link">&para;</a></h2>
-<p>The graph is built implicitly, one node per operation, as the forward pass executes — there's no separate "trace" step:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">ComputationGraph</span><span class="p">:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">nodes</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">GraphNode</span><span class="p">]</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">op_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">needs_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">False</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">                </span><span class="n">needs_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">True</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">needs_grad</span><span class="p">:</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">output</span><span class="w">          </span><span class="c1"># constant-folded: no node created</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GraphNode</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">)</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="n">output</span><span class="o">.</span><span class="n">requires_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">True</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="n">output</span><span class="o">.</span><span class="n">grad_fn_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span><span class="w">   </span><span class="c1"># output remembers who made it</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">output</span>
+<p><strong>Manual worked example.</strong> <code>x = tape.leaf(3, True)</code> returns 0 and <code>y = tape.leaf(4, True)</code> returns 1. The lists become <code>values=[3,4]</code> and <code>requires_grad=[True,True]</code>. If <code>y</code> were a constant, only the second Boolean would change; the forward number would remain available, but backward would not accumulate into its slot.</p>
+<h2 id="63-forward-operations-append-both-a-value-and-a-node">6.3 Forward operations append both a value and a node<a class="headerlink" href="#63-forward-operations-append-both-a-value-and-a-node" title="Permanent link">&para;</a></h2>
+<p>An operation first computes its result, then records the dependency. If neither input needs a gradient, it keeps the result but omits the node. That is dead-history elimination, not constant folding: the arithmetic still ran, but no backward work is retained.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">record_binary</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">mut</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">op</span><span class="p">:</span><span class="w"> </span><span class="n">OpKind</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ValueId</span><span class="p">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">needs_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">tape</span><span class="o">.</span><span class="n">requires_grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">needs_grad</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">needs_grad</span><span class="p">:</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="n">tape</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">))</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">output</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">mul</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ValueId</span><span class="p">:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">record_binary</span><span class="p">(</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="n">tape</span><span class="p">,</span><span class="w"> </span><span class="n">OpKind</span><span class="o">.</span><span class="n">MUL</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="p">)</span>
 <a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="k">fn</span><span class="w"> </span><span class="nf">mul</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">graph</span><span class="p">:</span><span class="w"> </span><span class="n">ComputationGraph</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w">              </span><span class="c1"># Chapter 3&#39;s kernel</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">graph</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="s2">&quot;mul&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">),</span><span class="w"> </span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">:</span><span class="w"> </span><span class="n">ValueId</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ValueId</span><span class="p">:</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">record_binary</span><span class="p">(</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="n">tape</span><span class="p">,</span><span class="w"> </span><span class="n">OpKind</span><span class="o">.</span><span class="n">ADD</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">,</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="p">)</span>
 </code></pre></div>
-<p>Writing <code>c = mul(graph, a, b)</code> therefore does two things in one call: it computes <code>c</code> numerically (exactly as Chapter 3 defined), and it appends a <code>GraphNode</code> recording "<code>c</code> came from multiplying <code>a</code> and <code>b</code>" — which is all the information backward needs, applied one node at a time.</p>
-<h2 id="64-topological-sorting-implementation">6.4 Topological Sorting Implementation<a class="headerlink" href="#64-topological-sorting-implementation" title="Permanent link">&para;</a></h2>
-<p>Backward must visit nodes in the reverse of the order their outputs were needed as inputs elsewhere — a node can't run backward until every node that consumed its output already has. Because <code>nodes</code> is appended to in forward-execution order, and every node's inputs were necessarily computed (and therefore appended) before it, the list is <em>already</em> topologically sorted forward-to-back. Running the list in reverse is a valid reverse-topological order with no separate sort pass required:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">topological_backward_order</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span><span class="w"> </span><span class="n">ComputationGraph</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Int</span><span class="p">]:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Forward execution order is already a valid topo-sort;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="s2">    backward just walks it in reverse.&quot;&quot;&quot;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Int</span><span class="p">]()</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="n">i</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">order</span>
+<p><strong>Manual worked example.</strong> With IDs 0 and 1 holding 3 and 4, <code>mul(tape,0,1)</code> computes <code>3×4=12</code>, appends 12 at ID 2, and records <code>(MUL,0,1,2)</code>. Then <code>add(tape,2,0)</code> computes <code>12+3=15</code>, appends 15 at ID 3, and records <code>(ADD,2,0,3)</code>. The final tape is <code>values=[3,4,12,15]</code> with two nodes.</p>
+<h2 id="64-reverse-insertion-order-is-a-topological-order">6.4 Reverse insertion order is a topological order<a class="headerlink" href="#64-reverse-insertion-order-is-a-topological-order" title="Permanent link">&para;</a></h2>
+<p>Every operation can only consume values that already exist. Therefore every producer node appears before every consumer node in this eager, append-only tape. Walking the node list from the last index to zero is a valid reverse topological traversal; no separate sorting algorithm is needed unless the framework later admits out-of-order graph construction.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reverse_node_indices</span><span class="p">(</span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Int</span><span class="p">]:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Int</span><span class="p">]()</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="n">i</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="n">order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">order</span>
 </code></pre></div>
-<p>This is the one place where recording the graph <em>as</em> the forward pass runs (rather than building an abstract graph up front, the way a static-graph framework does) pays for itself directly: order is free, because Mojo's own sequential execution already produced it.</p>
-<p>With graph construction and traversal order settled, Part 4 fills in what actually happens at each node during that reverse walk: the chain rule, gradient accumulation, and the reverse-mode AD engine itself.</p>
+<p><strong>Manual worked example.</strong> Two nodes were appended in forward order <code>[MUL, ADD]</code>. The loop starts at <code>i=2</code>, decrements before indexing, and appends 1 then 0. Backward therefore visits <code>[ADD, MUL]</code>, exactly the order required to send the loss gradient into value 2 before the multiplication node reads it.</p>
+<p>The graph now preserves identity and dataflow without relying on raw pointers, copied tensors, undeclared <code>grad_fn_index</code> fields, or a second gradient stored on each node. Chapter 7 derives the local rules; Chapter 8 adds one gradient slot per value and executes this reverse order.</p>
 
 
 
