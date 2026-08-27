@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-3-element-wise-operations" class="md-skip">
+        <a href="#chapter-12-element-wise-operations-one-thread-one-position-no-dependencies" class="md-skip">
           Skip to content
         </a>
       
@@ -1064,10 +1064,337 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#31-addition-and-subtraction" class="md-nav__link">
+  <a href="#121-addition-and-subtraction-one-thread-per-output-position-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.1 Addition and subtraction
+        12.1 Addition and Subtraction: One Thread Per Output Position [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.1 Addition and Subtraction: One Thread Per Output Position [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1211-four-threads-four-sums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.1.1 — Four threads, four sums
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1212-subtraction-same-launch-flipped-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.1.2 — Subtraction, same launch, flipped operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1213-scaling-the-launch-without-scaling-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.1.3 — Scaling the launch, without scaling the kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#122-multiplication-and-division-the-same-pattern-sharper-arithmetic-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 Multiplication and Division: The Same Pattern, Sharper Arithmetic [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2 Multiplication and Division: The Same Pattern, Sharper Arithmetic [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1221-forward-values-and-a-finite-difference-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.2.1 — Forward values and a finite-difference check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1222-divisions-two-derivatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.2.2 — Division's two derivatives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#123-power-and-exponential-functions-dedicated-kernels-for-the-two-that-recur-everywhere-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 Power and Exponential Functions: Dedicated Kernels for the Two That Recur Everywhere [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3 Power and Exponential Functions: Dedicated Kernels for the Two That Recur Everywhere [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1231-squaring-three-values-and-checking-the-derivative-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.3.1 — Squaring three values, and checking the derivative by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1232-the-derivative-that-is-the-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.3.2 — The derivative that is the function
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#124-broadcasting-the-stride-0-trick-now-inside-a-kernel-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 Broadcasting: The Stride-0 Trick, Now Inside a Kernel [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.4 Broadcasting: The Stride-0 Trick, Now Inside a Kernel [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1241-tracing-b_stride_row-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.4.1 — Tracing b_stride_row = 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1242-the-symmetric-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.4.2 — The symmetric case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#125-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-puzzle_02_vector_addmojo-section-121-captured-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: puzzle_02_vector_add.mojo — Section 12.1 (captured run)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output-for-puzzle_02_vector_addmojo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output for puzzle_02_vector_add.mojo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiplication-and-division-kernels-section-122-illustrative-uncaptured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiplication and division kernels — Section 12.2 (illustrative, uncaptured)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-and-exponential-kernels-section-123-illustrative-uncaptured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power and exponential kernels — Section 12.3 (illustrative, uncaptured)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadcast-kernel-section-124-illustrative-uncaptured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Broadcast kernel — Section 12.4 (illustrative, uncaptured)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1075,10 +1402,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#32-multiplication-and-safe-division" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.2 Multiplication and safe division
+        Self-Check Questions
       
     </span>
   </a>
@@ -1086,10 +1413,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#33-exponential-and-power-rules" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.3 Exponential and power rules
+        Where We Go Next
       
     </span>
   </a>
@@ -1097,10 +1424,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#34-broadcasting-reads-repeated-values-through-layout" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.4 Broadcasting reads repeated values through layout
+        Worked Solutions
       
     </span>
   </a>
@@ -1840,10 +2167,337 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#31-addition-and-subtraction" class="md-nav__link">
+  <a href="#121-addition-and-subtraction-one-thread-per-output-position-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.1 Addition and subtraction
+        12.1 Addition and Subtraction: One Thread Per Output Position [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.1 Addition and Subtraction: One Thread Per Output Position [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1211-four-threads-four-sums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.1.1 — Four threads, four sums
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1212-subtraction-same-launch-flipped-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.1.2 — Subtraction, same launch, flipped operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1213-scaling-the-launch-without-scaling-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.1.3 — Scaling the launch, without scaling the kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#122-multiplication-and-division-the-same-pattern-sharper-arithmetic-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 Multiplication and Division: The Same Pattern, Sharper Arithmetic [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.2 Multiplication and Division: The Same Pattern, Sharper Arithmetic [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1221-forward-values-and-a-finite-difference-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.2.1 — Forward values and a finite-difference check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1222-divisions-two-derivatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.2.2 — Division's two derivatives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#123-power-and-exponential-functions-dedicated-kernels-for-the-two-that-recur-everywhere-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 Power and Exponential Functions: Dedicated Kernels for the Two That Recur Everywhere [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.3 Power and Exponential Functions: Dedicated Kernels for the Two That Recur Everywhere [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1231-squaring-three-values-and-checking-the-derivative-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.3.1 — Squaring three values, and checking the derivative by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1232-the-derivative-that-is-the-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.3.2 — The derivative that is the function
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#124-broadcasting-the-stride-0-trick-now-inside-a-kernel-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 Broadcasting: The Stride-0 Trick, Now Inside a Kernel [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.4 Broadcasting: The Stride-0 Trick, Now Inside a Kernel [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1241-tracing-b_stride_row-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.4.1 — Tracing b_stride_row = 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1242-the-symmetric-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 12.4.2 — The symmetric case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#125-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-puzzle_02_vector_addmojo-section-121-captured-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File: puzzle_02_vector_add.mojo — Section 12.1 (captured run)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output-for-puzzle_02_vector_addmojo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output for puzzle_02_vector_add.mojo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiplication-and-division-kernels-section-122-illustrative-uncaptured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiplication and division kernels — Section 12.2 (illustrative, uncaptured)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-and-exponential-kernels-section-123-illustrative-uncaptured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power and exponential kernels — Section 12.3 (illustrative, uncaptured)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadcast-kernel-section-124-illustrative-uncaptured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Broadcast kernel — Section 12.4 (illustrative, uncaptured)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1851,10 +2505,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#32-multiplication-and-safe-division" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.2 Multiplication and safe division
+        Self-Check Questions
       
     </span>
   </a>
@@ -1862,10 +2516,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#33-exponential-and-power-rules" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.3 Exponential and power rules
+        Where We Go Next
       
     </span>
   </a>
@@ -1873,10 +2527,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#34-broadcasting-reads-repeated-values-through-layout" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.4 Broadcasting reads repeated values through layout
+        Worked Solutions
       
     </span>
   </a>
@@ -1900,54 +2554,291 @@
 
 
 
-<h1 id="chapter-3-element-wise-operations">Chapter 3: Element-wise Operations<a class="headerlink" href="#chapter-3-element-wise-operations" title="Permanent link">&para;</a></h1>
-<p>Element-wise operations preserve a tensor's logical shape and apply one scalar rule at each coordinate. A simple scalar loop is the correctness reference; Chapter 9 changes the execution mapping, not the answers.</p>
-<h2 id="31-addition-and-subtraction">3.1 Addition and subtraction<a class="headerlink" href="#31-addition-and-subtraction" title="Permanent link">&para;</a></h2>
-<p>Equal-shape addition checks element count once and visits each flat contiguous offset.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;add requires equal shapes&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">out</span>
+<h1 id="chapter-12-element-wise-operations-one-thread-one-position-no-dependencies">Chapter 12: Element-wise Operations — One Thread, One Position, No Dependencies<a class="headerlink" href="#chapter-12-element-wise-operations-one-thread-one-position-no-dependencies" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Chapter 4's whole argument was about how efficiently a warp's threads fetch the cargo they need to compute something. Element-wise operations are the simplest possible thing to do once that cargo has arrived: one thread, one output position, and nothing computed by any other thread that this one needs to wait for. It's almost too simple to dwell on — until the one place in this chapter where the launch configuration and the kernel body quietly stop agreeing with each other."</p>
+</blockquote>
+<p><strong>What you will understand by the end of this chapter:</strong></p>
+<ul>
+<li><code>vector_add_kernel</code>'s indexing formula — <code>thread_idx.x</code> alone — and precisely what breaks if you scale its launch configuration up to a production-sized vector without also updating that formula to match what every later kernel in this chapter actually uses</li>
+<li>Local derivatives for <code>+</code>, <code>-</code>, <code>×</code>, <code>÷</code>, <code>pow</code>, and <code>exp</code>, each checked against a real finite-difference nudge on the chapter's own numbers, as a first, concrete preview of the chain rule</li>
+<li>Why <code>exp</code> gets a dedicated kernel with a self-referencing derivative (<code>d/dx[eˣ] = eˣ</code>) that a later backward pass can exploit by reusing the cached forward output instead of recomputing anything</li>
+<li>The stride-0 broadcasting trick from Chapter 7.4, now applied literally inside a GPU kernel body rather than as tensor metadata — and exactly which broadcasting shapes <code>broadcast_add_kernel</code> handles versus the fully general rule Chapter 7.4 built</li>
+</ul>
+<p><strong>What you need to know first:</strong></p>
+<ul>
+<li>Chapter 4 (the host/device split, <code>thread_idx</code>/<code>block_idx</code>, and kernel launch mechanics — every kernel in this chapter is a direct instance of "one thread per output element")</li>
+<li>Chapter 7.4 (broadcasting via stride-0 dimensions, computed as pure shape logic — this chapter puts that exact mechanism to work inside a kernel for the first time)</li>
+<li>Chapter 5 (SIMD width and the CPU-side analogue of "apply the same operation to every position independently")</li>
+</ul>
+<p><a id="31-addition-and-subtraction"></a></p>
+<h2 id="121-addition-and-subtraction-one-thread-per-output-position-foundational">12.1 Addition and Subtraction: One Thread Per Output Position <code>[FOUNDATIONAL]</code><a class="headerlink" href="#121-addition-and-subtraction-one-thread-per-output-position-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>Element-wise addition is the purest case of "no thread needs anything any other thread computed": <code>C[i] = A[i] + B[i]</code> for every <code>i</code>, independently, all at once. This is essentially Puzzle 2 from the GPU-programming exercises Chapter 4 was built around, and it's worth treating as the baseline every other kernel in this chapter (and the chain-rule machinery several chapters from now) gets compared against.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">alias</span><span class="w"> </span><span class="nv">SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">alias</span><span class="w"> </span><span class="nv">BLOCKS_PER_GRID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">alias</span><span class="w"> </span><span class="nv">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SIZE</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">fn</span><span class="w"> </span><span class="nf">vector_add_kernel</span><span class="p">(</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]]</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">):</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;C[i] = A[i] + B[i] for all i -- one thread per element.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> <code>[1,2,3]+[10,20,30]=[11,22,33]</code>. The loop performs exactly those three independent additions; unequal shapes fail before any partial output is written.</p>
-<h2 id="32-multiplication-and-safe-division">3.2 Multiplication and safe division<a class="headerlink" href="#32-multiplication-and-safe-division" title="Permanent link">&para;</a></h2>
-<p>Multiplication is direct. Division needs an explicit policy for zero denominators; this framework raises rather than silently producing infinities.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">divide</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;divide requires equal shapes&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;division by zero&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">out</span>
+<h3 id="worked-example-1211-four-threads-four-sums">Worked Example 12.1.1 — Four threads, four sums<a class="headerlink" href="#worked-example-1211-four-threads-four-sums" title="Permanent link">&para;</a></h3>
+<p><code>a = [1, 2, 3, 4]</code>, <code>b = [10, 20, 30, 40]</code>. With one block of <code>SIZE = 4</code> threads, thread <code>0</code> computes <code>output[0] = a[0] + b[0] = 1 + 10 = 11</code>; thread <code>1</code> computes <code>2 + 20 = 22</code>; thread <code>2</code> computes <code>3 + 30 = 33</code>; thread <code>3</code> computes <code>4 + 40 = 44</code> — matching the recorded output <code>[11.0, 22.0, 33.0, 44.0]</code> exactly, all four computed simultaneously since none depends on any other.</p>
+<h3 id="worked-example-1212-subtraction-same-launch-flipped-operator">Worked Example 12.1.2 — Subtraction, same launch, flipped operator<a class="headerlink" href="#worked-example-1212-subtraction-same-launch-flipped-operator" title="Permanent link">&para;</a></h3>
+<p>The same launch configuration with <code>output[i] = a[i] - b[i]</code> on the same vectors gives <code>[10-1, 20-2, 30-3, 40-4] = [9, 18, 27, 36]</code> — no new kernel structure, just a different one-character arithmetic operator inside the identical per-thread body.</p>
+<h3 id="worked-example-1213-scaling-the-launch-without-scaling-the-kernel">Worked Example 12.1.3 — Scaling the launch, without scaling the kernel<a class="headerlink" href="#worked-example-1213-scaling-the-launch-without-scaling-the-kernel" title="Permanent link">&para;</a></h3>
+<p>For a production-sized, one-million-element vector, the natural move is to retile: pick <code>THREADS_PER_BLOCK = 256</code> and compute <code>BLOCKS_PER_GRID = (1_000_000 + 255) // 256 = 3907</code> blocks, with a <code>if i &lt; SIZE</code> bounds check protecting the tail block (covering global indices <code>999,936</code> through <code>1,000,191</code>, of which only <code>64</code> fall inside real data). That reasoning is correct — <em>for a kernel that computes its index as</em> <code>block_idx.x * block_dim.x + thread_idx.x</code>, the pattern every kernel from Section 12.2 onward in this chapter actually uses.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[COMMON TRAP]  vector_add_kernel&#39;s own indexing formula is not that kernel
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Look again at the kernel body above: `var i = thread_idx.x` — no `block_idx.x`
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>anywhere in it. That&#39;s correct only because this section&#39;s launch uses a
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>single block (`BLOCKS_PER_GRID = 1`), so `thread_idx.x` alone already ranges
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>over every valid index, `0` through `SIZE - 1`. Retile the launch to 3907
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>blocks of 256 threads each, as Worked Example 12.1.3 describes, *without*
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>also rewriting the kernel body to `var i = block_idx.x * block_dim.x +
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>thread_idx.x`, and every one of those 3907 blocks still computes `i` as
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>`thread_idx.x` alone — a value in `[0, 255]` in every single block,
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>regardless of which block it is. All 3907 blocks would redundantly (and
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>racily) write to `output[0]` through `output[255]` only; the other
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>999,744 positions in the buffer are never touched by any thread, in any
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>block, at any point. The bounds check `if i &lt; SIZE` doesn&#39;t catch this
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>either, since `i` never grows large enough to trip it — the bug is that `i`
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>never reflects which block is running at all. Every kernel from
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>elementwise_mul_kernel onward in this chapter uses the combined formula
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>correctly; vector_add_kernel is the one exception, and it&#39;s only safe
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>because this section never actually launches more than one block.
 </code></pre></div>
-<p><strong>Manual worked example.</strong> <code>[8,9,10]/[2,3,5]=[4,3,2]</code>. Replacing the last denominator by zero raises at index 2 rather than returning a partly trustworthy tensor.</p>
-<h2 id="33-exponential-and-power-rules">3.3 Exponential and power rules<a class="headerlink" href="#33-exponential-and-power-rules" title="Permanent link">&para;</a></h2>
-<p>Unary functions read one input and write one output at the same coordinate. Their backward rules later reuse either the input or output value.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">exp_tensor</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">out</span>
+<p><strong>Local derivative:</strong> <code>∂(a+b)/∂a = 1</code> and <code>∂(a+b)/∂b = 1</code> — a change to either input passes straight through to the output, unscaled.</p>
+<h2 id="122-multiplication-and-division-the-same-pattern-sharper-arithmetic-foundational">12.2 Multiplication and Division: The Same Pattern, Sharper Arithmetic <code>[FOUNDATIONAL]</code><a class="headerlink" href="#122-multiplication-and-division-the-same-pattern-sharper-arithmetic-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>Multiplication and division run the identical one-thread-per-element pattern Section 12.1 established — the only thing that changes is which operator sits inside the <code>if i &lt; size</code> body, and, this time, the indexing formula that actually generalizes past a single block.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_mul_kernel</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">):</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_div_kernel</span><span class="p">(</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">):</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="c1"># Division by zero produces IEEE-754 inf/nan rather than a</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">        </span><span class="c1"># trap -- a later chapter&#39;s autograd engine checks for both</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">        </span><span class="c1"># before accepting a gradient into an optimizer step.</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For <code>[0,1,2]</code>, outputs are <code>[1,e,e²]≈[1,2.71828,7.38906]</code>. Since <code>d(eˣ)/dx=eˣ</code>, these saved outputs are also the local derivatives used by Chapter 7.</p>
-<h2 id="34-broadcasting-reads-repeated-values-through-layout">3.4 Broadcasting reads repeated values through layout<a class="headerlink" href="#34-broadcasting-reads-repeated-values-through-layout" title="Permanent link">&para;</a></h2>
-<p>Broadcasting does not expand storage. A zero stride makes multiple output coordinates map to one input value; the element-wise loop uses each operand's view layout to calculate offsets.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">broadcast_add_2d</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">row</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]]:</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;expected matrix plus matching row&quot;</span><span class="p">)</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">            </span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">row</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">out</span>
+<p>Both kernels compute <code>i</code> as <code>block_idx.x * block_dim.x + thread_idx.x</code> — the general form Worked Example 12.1.3's <code>[COMMON TRAP]</code> showed <code>vector_add_kernel</code> is missing, and the form that correctly identifies a thread's global position across however many blocks a launch actually uses.</p>
+<h3 id="worked-example-1221-forward-values-and-a-finite-difference-check">Worked Example 12.2.1 — Forward values and a finite-difference check<a class="headerlink" href="#worked-example-1221-forward-values-and-a-finite-difference-check" title="Permanent link">&para;</a></h3>
+<p><code>a = [2, 3, 4]</code>, <code>b = [5, 6, 7]</code>: element-wise multiply gives <code>[2×5, 3×6, 4×7] = [10, 18, 28]</code>; element-wise divide gives <code>[2/5, 3/6, 4/7] = [0.4, 0.5, 0.571...]</code>. Checking the multiplication derivative numerically at position <code>0</code> (<code>a=2, b=5, c=10</code>): nudging <code>a</code> from <code>2</code> to <code>2.01</code> moves <code>c</code> from <code>10</code> to <code>2.01 × 5 = 10.05</code>, a change of <code>0.05</code> over a nudge of <code>0.01</code> — a slope of <code>5</code>, matching <code>∂c/∂a = b = 5</code> exactly, since <code>c = a × b</code>'s partial derivative with respect to <code>a</code> is just <code>b</code>.</p>
+<h3 id="worked-example-1222-divisions-two-derivatives">Worked Example 12.2.2 — Division's two derivatives<a class="headerlink" href="#worked-example-1222-divisions-two-derivatives" title="Permanent link">&para;</a></h3>
+<p>For <code>c = a / b</code>: <code>∂c/∂a = 1/b</code> and <code>∂c/∂b = -a/b²</code>. At position <code>0</code> (<code>a=2, b=5</code>): <code>∂c/∂a = 1/5 = 0.2</code> and <code>∂c/∂b = -2/25 = -0.08</code>. Both backward kernels a later chapter builds from these two rules are one more elementwise pass over the same-shaped buffers — no new infrastructure beyond what Section 12.1 already established, just a kernel body multiplying by whichever of these local derivatives applies to that operand.</p>
+<h2 id="123-power-and-exponential-functions-dedicated-kernels-for-the-two-that-recur-everywhere-foundational">12.3 Power and Exponential Functions: Dedicated Kernels for the Two That Recur Everywhere <code>[FOUNDATIONAL]</code><a class="headerlink" href="#123-power-and-exponential-functions-dedicated-kernels-for-the-two-that-recur-everywhere-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p><code>pow</code> and <code>exp</code> show up in essentially every loss function and activation function later in this book, which is why they get their own dedicated kernels here rather than being routed through a generic "apply this scalar function" abstraction — a dedicated kernel lets the compiler specialize and inline the underlying <code>exp</code>/<code>pow</code> intrinsic directly, instead of dispatching through a function pointer or a branch on which operation was requested.</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_pow_kernel</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">base</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">exponent</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">):</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">math_pow</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">exponent</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_exp_kernel</span><span class="p">(</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">):</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Add row <code>[10,20,30]</code> to <code>[[1,2,3],[4,5,6]]</code>. Row 0 becomes <code>[11,22,33]</code>; row 1 becomes <code>[14,25,36]</code>. The three row values are read twice but stored once.</p>
-<p>These scalar references define both forward behavior and the local derivatives introduced in Chapter 7.</p>
+<h3 id="worked-example-1231-squaring-three-values-and-checking-the-derivative-by-hand">Worked Example 12.3.1 — Squaring three values, and checking the derivative by hand<a class="headerlink" href="#worked-example-1231-squaring-three-values-and-checking-the-derivative-by-hand" title="Permanent link">&para;</a></h3>
+<p><code>x = [1, 2, 3]</code>: <code>pow(x, 2)</code> gives <code>[1, 4, 9]</code>. Checking the derivative at <code>x=2</code>: <code>d/dx[xⁿ] = n·x^(n-1)</code>, so with <code>n=2</code> that's <code>2×2 = 4</code>. A finite-difference check confirms it: <code>pow(2.01, 2) = 4.0401</code>, and <code>(4.0401 - 4.0) / 0.01 = 4.01 ≈ 4</code> — the small residual above <code>4</code> is exactly the expected error of a finite forward-difference approximation, not a discrepancy in the calculus.</p>
+<h3 id="worked-example-1232-the-derivative-that-is-the-function">Worked Example 12.3.2 — The derivative that is the function<a class="headerlink" href="#worked-example-1232-the-derivative-that-is-the-function" title="Permanent link">&para;</a></h3>
+<p><code>exp(x)</code> on the same input gives <code>[e¹, e², e³] ≈ [2.71828, 7.38906, 20.0855]</code>. Its derivative, <code>d/dx[eˣ] = eˣ</code>, is the function itself — at <code>x=2</code> that's <code>e² ≈ 7.38906</code>, exactly the forward value already computed for that position, not a separately-derived number. This self-referencing property is exactly why a later chapter's <code>ExpOp.backward</code> reads the <em>cached</em> forward output during the backward pass rather than recomputing <code>exp(x)</code> a second time — the forward pass already computed the one number the backward pass needs.</p>
+<h2 id="124-broadcasting-the-stride-0-trick-now-inside-a-kernel-foundational">12.4 Broadcasting: The Stride-0 Trick, Now Inside a Kernel <code>[FOUNDATIONAL]</code><a class="headerlink" href="#124-broadcasting-the-stride-0-trick-now-inside-a-kernel-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Every operation so far in this chapter assumed both inputs were the same shape. Broadcasting is what lets <code>Tensor[2, 3] + Tensor[1, 3]</code> work anyway, by treating the smaller tensor's missing dimension as if it were silently repeated — and Section 7.4 already built the shape-level machinery for deciding <em>when</em> that's legal and what the resulting strides should be. This section is where that machinery gets consumed: not as tensor metadata computed once ahead of time, but as a literal stride value read by every single GPU thread, every time it computes its own input address.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>A = 1  2  3        B = 10  20  30
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    4  5  6
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">broadcast_add_kernel</span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">a_stride_row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">b_stride_row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w">   </span><span class="c1"># 0 if that operand is broadcast along rows</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">rows</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">):</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cols</span><span class="p">:</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">a_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a_stride_row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">b_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b_stride_row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a_val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b_val</span>
+</code></pre></div>
+<p>Setting a tensor's stride to <code>0</code> along a dimension — Section 7.4's <code>BroadcastSpec</code> computing exactly this value ahead of the kernel launch — means "don't advance the memory address at all as this dimension's index increases," which is precisely "keep re-reading the same values." This kernel is a deliberately narrower instrument than Section 7.4's general rule, though: it only ever broadcasts along the row dimension, via one <code>_stride_row</code> parameter per operand, rather than handling an arbitrary number of dimensions each independently aligned from the right the way <code>BroadcastSpec</code> does. It's the 2-D specialization of that general rule, not a reimplementation of the whole thing.</p>
+<h3 id="worked-example-1241-tracing-b_stride_row-0">Worked Example 12.4.1 — Tracing <code>b_stride_row = 0</code><a class="headerlink" href="#worked-example-1241-tracing-b_stride_row-0" title="Permanent link">&para;</a></h3>
+<p><code>A</code> is <code>2×3</code>, <code>B</code> is a single row of 3 values meant to add to every row of <code>A</code>. With <code>b_stride_row = 0</code>: for row <code>0</code>, the kernel reads <code>b[0×0 + col] = b[col]</code>; for row <code>1</code>, it reads <code>b[1×0 + col] = b[col]</code> — the <em>same</em> address both times, <code>B</code>'s one and only row, read twice. <code>A</code>'s stride is unmodified (a normal, non-zero row stride), so each row of <code>A</code> still reads its own distinct data. The result: <code>[[1+10, 2+20, 3+30], [4+10, 5+20, 6+30]] = [[11, 22, 33], [14, 25, 36]]</code>, with <code>B</code> never copied — no extra memory traffic beyond what a same-shaped add would already cost, which is the entire point of doing broadcasting at the stride level instead of the copy level.</p>
+<h3 id="worked-example-1242-the-symmetric-case">Worked Example 12.4.2 — The symmetric case<a class="headerlink" href="#worked-example-1242-the-symmetric-case" title="Permanent link">&para;</a></h3>
+<p><code>a_stride_row = 0</code> (with <code>b_stride_row</code> left at its normal nonzero value) produces the mirror image: every row of the output grid re-reads row <code>0</code> of <code>A</code> while <code>B</code> supplies a genuinely different row each time — a virtual broadcast of <code>A</code> down <code>B</code>'s shape instead of the other way around. Nothing about the kernel body needs to know in advance which operand is the one being broadcast; both <code>a_stride_row</code> and <code>b_stride_row</code> are ordinary parameters, and whichever one the caller sets to <code>0</code> is the one that gets silently repeated.</p>
+<h2 id="125-reference-implementations">12.5 Reference Implementations<a class="headerlink" href="#125-reference-implementations" title="Permanent link">&para;</a></h2>
+<p>Only Section 12.1's kernel was ever compiled and run as a standalone file with captured console output — every other kernel in this chapter (multiplication, division, power, exponential, broadcasting) is presented in the original source as an annotated snippet with hand-traced values in the surrounding prose, the same style Chapter 11 used throughout. The one real captured run and the four illustrative snippets are both reproduced verbatim below, exactly as they appear in the source.</p>
+<h3 id="file-puzzle_02_vector_addmojo-section-121-captured-run">File: <code>puzzle_02_vector_add.mojo</code> — Section 12.1 (captured run)<a class="headerlink" href="#file-puzzle_02_vector_addmojo-section-121-captured-run" title="Permanent link">&para;</a></h3>
+<p><strong>Run:</strong> <code>pixi run mojo puzzle_02_vector_add.mojo</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.host</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">DeviceContext</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.id</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">block_dim</span><span class="p">,</span><span class="w"> </span><span class="n">block_idx</span><span class="p">,</span><span class="w"> </span><span class="n">thread_idx</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">memory</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">UnsafePointer</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">alias</span><span class="w"> </span><span class="nv">SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">alias</span><span class="w"> </span><span class="nv">BLOCKS_PER_GRID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">alias</span><span class="w"> </span><span class="nv">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SIZE</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">alias</span><span class="w"> </span><span class="nv">dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">fn</span><span class="w"> </span><span class="nf">vector_add_kernel</span><span class="p">(</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]]</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">):</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;C[i] = A[i] + B[i] for all i -- one thread per element.&quot;&quot;&quot;</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">SIZE</span><span class="p">:</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Element-wise vector addition ===&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">    </span><span class="k">with</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ctx</span><span class="p">:</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">vector_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">SIZE</span><span class="p">)</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">vector_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">SIZE</span><span class="p">)</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">output_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">SIZE</span><span class="p">)</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">SIZE</span><span class="p">):</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">            </span><span class="n">vector_a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">          </span><span class="c1"># [1, 2, 3, 4]</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="w">            </span><span class="n">vector_b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">((</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w">   </span><span class="c1"># [10, 20, 30, 40]</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">vector_add_kernel</span><span class="p">](</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="w">            </span><span class="n">output_data</span><span class="p">,</span><span class="w"> </span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span>
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="w">            </span><span class="n">grid_dim</span><span class="o">=</span><span class="p">(</span><span class="n">BLOCKS_PER_GRID</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="w">            </span><span class="n">block_dim</span><span class="o">=</span><span class="p">(</span><span class="n">THREADS_PER_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="w">        </span><span class="p">)</span>
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="w">        </span><span class="n">ctx</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+<a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>
+<a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a><span class="w">        </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Output vector (a + b):&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">SIZE</span><span class="p">):</span>
+<a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a><span class="w">            </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;output[&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;] =&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">output_data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a>
+<a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a><span class="w">        </span><span class="n">vector_a</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a><span class="w">        </span><span class="n">vector_b</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a><span class="w">        </span><span class="n">output_data</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="expected-output-for-puzzle_02_vector_addmojo">Expected Output for <code>puzzle_02_vector_add.mojo</code><a class="headerlink" href="#expected-output-for-puzzle_02_vector_addmojo" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>=== Element-wise vector addition ===
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Output vector (a + b):
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>output[ 0 ] = 11.0
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>output[ 1 ] = 22.0
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>output[ 2 ] = 33.0
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>output[ 3 ] = 44.0
+</code></pre></div>
+<h3 id="multiplication-and-division-kernels-section-122-illustrative-uncaptured">Multiplication and division kernels — Section 12.2 (illustrative, uncaptured)<a class="headerlink" href="#multiplication-and-division-kernels-section-122-illustrative-uncaptured" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_mul_kernel</span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">):</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_div_kernel</span><span class="p">(</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="p">):</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">        </span><span class="c1"># Division by zero produces IEEE-754 inf/nan rather than a</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">        </span><span class="c1"># trap -- a later chapter&#39;s autograd engine checks for both</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">        </span><span class="c1"># before accepting a gradient into an optimizer step.</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="power-and-exponential-kernels-section-123-illustrative-uncaptured">Power and exponential kernels — Section 12.3 (illustrative, uncaptured)<a class="headerlink" href="#power-and-exponential-kernels-section-123-illustrative-uncaptured" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">exp</span><span class="p">,</span><span class="w"> </span><span class="nb">pow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">math_pow</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_pow_kernel</span><span class="p">(</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="n">base</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="n">exponent</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">):</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">math_pow</span><span class="p">(</span><span class="n">base</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">exponent</span><span class="p">)</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="k">fn</span><span class="w"> </span><span class="nf">elementwise_exp_kernel</span><span class="p">(</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="p">):</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="nb">input</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div>
+<h3 id="broadcast-kernel-section-124-illustrative-uncaptured">Broadcast kernel — Section 12.4 (illustrative, uncaptured)<a class="headerlink" href="#broadcast-kernel-section-124-illustrative-uncaptured" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">broadcast_add_kernel</span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="n">a_stride_row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">b_stride_row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w">   </span><span class="c1"># 0 if that operand is broadcast along rows</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="n">rows</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">):</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">y</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cols</span><span class="p">:</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">a_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a_stride_row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">b_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b_stride_row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a_val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b_val</span>
+</code></pre></div>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>Every kernel in this chapter shares one structure: one thread, one output position, no dependency on any other thread's result — the property that makes element-wise operations both the highest-frequency operation in a training loop and the easiest to parallelize. <code>vector_add_kernel</code> computes that structure correctly for a single block (<code>thread_idx.x</code> alone is a valid global index when there's only one block), but this chapter traced exactly what breaks if that kernel's launch configuration is scaled up to a production-sized vector without also updating its indexing formula to the combined <code>block_idx.x * block_dim.x + thread_idx.x</code> form every later kernel in the chapter actually uses — every block would redundantly write to the same first <code>THREADS_PER_BLOCK</code> output positions, leaving the rest of the buffer untouched. Multiplication, division, power, and exponential all follow the same one-thread-per-element shape, each paired with a local derivative checked against a real finite-difference nudge on the chapter's own numbers — <code>∂c/∂a = b</code> for multiplication, <code>∂c/∂a = 1/b</code> and <code>∂c/∂b = -a/b²</code> for division, <code>n·x^(n-1)</code> for power, and the self-referencing <code>eˣ</code> for exponential, whose backward pass can reuse a cached forward value instead of recomputing anything. Broadcasting closed the chapter by taking Chapter 7.4's stride-0 mechanism — computed there as pure shape metadata — and applying it literally inside a kernel body for the first time: <code>b_stride_row = 0</code> makes every row of the output grid re-read the exact same row of <code>B</code>, with zero extra memory traffic and zero copying, though <code>broadcast_add_kernel</code> only ever broadcasts along rows, a narrower case than Chapter 7.4's fully general, arbitrary-dimension rule.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>vector_add_kernel</code> is launched with <code>BLOCKS_PER_GRID = 2</code> and <code>THREADS_PER_BLOCK = 4</code> for an 8-element vector, with <code>SIZE</code> updated to <code>8</code>, but the kernel body is left completely unchanged. Which output positions actually get written, and which ones never get touched by any thread?</li>
+<li>Using <code>∂c/∂b = -a/b²</code> for <code>c = a/b</code>, compute the local derivative with respect to <code>b</code> at <code>a=4, b=2</code>, and verify it with a finite-difference nudge (<code>b</code> from <code>2</code> to <code>2.01</code>) the way Worked Example 12.2.1 checked multiplication.</li>
+<li><code>pow(x, 3)</code> is applied to <code>x = 2</code>. Using <code>d/dx[xⁿ] = n·x^(n-1)</code>, what is the exact derivative at that point, and what finite-difference nudge and result would confirm it the way Worked Example 12.3.1 did for <code>n=2</code>?</li>
+<li><code>broadcast_add_kernel</code> is called with <code>a_stride_row</code> set to <code>A</code>'s normal (nonzero) row stride and <code>b_stride_row</code> set to <code>0</code>, on a <code>3×4</code> <code>A</code> and a <code>1×4</code> <code>B</code>. Write out, for each of the three rows, which literal element of <code>B</code> gets added to <code>A[row, 2]</code>.</li>
+<li>Why does <code>elementwise_exp_kernel</code>'s corresponding backward pass not need to call <code>exp()</code> a second time, when <code>elementwise_pow_kernel</code>'s backward pass (computing <code>n·x^(n-1)</code>) generally does need to re-touch <code>x</code> and recompute a power?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>Chapter 13 (<code>part2/02-matrix-operations.md</code>) moves from per-element operations to operations that mix elements across a whole row or column — matrix multiplication, transpose, and the general tensor contraction both generalize from — the first place in this book where one output position genuinely depends on more than one input position at once.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> With <code>BLOCKS_PER_GRID = 2</code> and <code>THREADS_PER_BLOCK = 4</code>, <code>thread_idx.x</code> ranges over <code>0, 1, 2, 3</code> in <em>both</em> blocks (block index isn't part of the formula at all). Block <code>0</code>'s four threads compute <code>output[0]</code> through <code>output[3]</code>; block <code>1</code>'s four threads also compute <code>i = 0, 1, 2, 3</code> and write to the exact same <code>output[0]</code> through <code>output[3]</code> — a redundant, racing rewrite of the same four positions. <code>output[4]</code> through <code>output[7]</code> are never written by any thread in either block, even though <code>SIZE = 8</code> and the bounds check <code>if i &lt; SIZE</code> would happily allow indices up to <code>7</code> — nothing in the kernel ever produces an <code>i</code> value of <code>4</code> or higher, because <code>thread_idx.x</code> alone tops out at <code>3</code> regardless of which block is running.</p>
+<p><strong>2.</strong> <code>∂c/∂b = -a/b²</code> at <code>a=4, b=2</code>: <code>-4/4 = -1</code>. Finite-difference check: <code>c = a/b = 4/2 = 2.0</code> at <code>b=2</code>; at <code>b=2.01</code>, <code>c = 4/2.01 ≈ 1.99005</code>. The change in <code>c</code> is <code>1.99005 - 2.0 = -0.00995</code> over a nudge of <code>0.01</code>, giving a slope of approximately <code>-0.995 ≈ -1</code> — matching <code>∂c/∂b = -1</code> (the small residual is the expected finite-difference approximation error, the same pattern Worked Example 12.3.1 saw for <code>pow</code>).</p>
+<p><strong>3.</strong> <code>d/dx[x³] = 3x²</code>; at <code>x=2</code>, that's <code>3×4 = 12</code>. A finite-difference check nudges <code>x</code> from <code>2</code> to <code>2.01</code>: <code>pow(2.01, 3) = 8.120601</code>, and <code>pow(2, 3) = 8.0</code>, so <code>(8.120601 - 8.0)/0.01 = 12.0601 ≈ 12</code> — confirming the derivative, with the small residual above <code>12</code> again being the expected forward-difference approximation error rather than a discrepancy.</p>
+<p><strong>4.</strong> With <code>b_stride_row = 0</code>, every row reads <code>b[row × 0 + col] = b[col]</code> — the same single row of <code>B</code> regardless of <code>row</code>. For column <code>2</code> specifically, every one of the three rows (<code>row = 0</code>, <code>row = 1</code>, <code>row = 2</code>) adds the exact same element, <code>B[0, 2]</code> — the third value in <code>B</code>'s one and only row — to <code>A[row, 2]</code>. Which row of <code>A</code> is involved changes; which element of <code>B</code> is read does not.</p>
+<p><strong>5.</strong> <code>exp</code>'s derivative is <code>eˣ</code> itself — the <em>same value</em> the forward pass already computed and, per this chapter's Worked Example 12.3.2, cached as <code>output</code>. The backward pass can multiply the incoming gradient by that cached value directly, with no further computation needed to obtain <code>eˣ</code>. <code>pow(x, n)</code>'s derivative, <code>n·x^(n-1)</code>, is a <em>different</em> value from the forward result (<code>xⁿ</code>) for any <code>n ≠ 1</code> — computing it requires re-reading <code>x</code> (not <code>output</code>) and evaluating a new power, <code>x^(n-1)</code>, that was never computed during the forward pass at all, so there's no cached value the backward pass could reuse in its place.</p>
 
 
 
