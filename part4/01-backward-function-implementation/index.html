@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-7-backward-function-implementation" class="md-skip">
+        <a href="#chapter-16-backward-function-implementation-the-chain-rule-one-node-at-a-time" class="md-skip">
           Skip to content
         </a>
       
@@ -1294,10 +1294,243 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#71-the-chain-rule-is-message-passing" class="md-nav__link">
+  <a href="#161-chain-rule-implementation-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.1 The chain rule is message passing
+        16.1 Chain Rule Implementation [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.1 Chain Rule Implementation [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1611-reconciling-two-routes-into-one-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.1.1 — Reconciling two routes into one number
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162-element-wise-operation-gradients-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 Element-wise Operation Gradients [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.2 Element-wise Operation Gradients [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1621-addop-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.2.1 — AddOp, by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1622-mulop-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.2.2 — MulOp, by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1623-expop-and-the-case-that-needs-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.2.3 — ExpOp, and the case that needs output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#163-matrix-operation-gradients-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 Matrix Operation Gradients [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.3 Matrix Operation Gradients [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1631-dldx-with-real-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.3.1 — dL/dX, with real numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1632-dldm-completing-the-pair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.3.2 — dL/dM, completing the pair
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#164-custom-function-framework-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 Custom Function Framework [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.4 Custom Function Framework [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1641-checking-the-implicit-function-gradient-against-finite-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.4.1 — Checking the implicit-function gradient against finite differences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1305,10 +1538,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#72-element-wise-tensor-rules-preserve-shape" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.2 Element-wise tensor rules preserve shape
+        Self-Check Questions
       
     </span>
   </a>
@@ -1316,10 +1549,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#73-matrix-multiplication-uses-transposed-contractions" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.3 Matrix multiplication uses transposed contractions
+        Where We Go Next
       
     </span>
   </a>
@@ -1327,10 +1560,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#74-custom-operations-need-an-explicit-mathematical-contract" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.4 Custom operations need an explicit mathematical contract
+        Worked Solutions
       
     </span>
   </a>
@@ -1840,10 +2073,243 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#71-the-chain-rule-is-message-passing" class="md-nav__link">
+  <a href="#161-chain-rule-implementation-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.1 The chain rule is message passing
+        16.1 Chain Rule Implementation [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.1 Chain Rule Implementation [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1611-reconciling-two-routes-into-one-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.1.1 — Reconciling two routes into one number
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162-element-wise-operation-gradients-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 Element-wise Operation Gradients [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.2 Element-wise Operation Gradients [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1621-addop-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.2.1 — AddOp, by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1622-mulop-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.2.2 — MulOp, by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1623-expop-and-the-case-that-needs-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.2.3 — ExpOp, and the case that needs output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#163-matrix-operation-gradients-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 Matrix Operation Gradients [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.3 Matrix Operation Gradients [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1631-dldx-with-real-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.3.1 — dL/dX, with real numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1632-dldm-completing-the-pair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.3.2 — dL/dM, completing the pair
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#164-custom-function-framework-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 Custom Function Framework [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.4 Custom Function Framework [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1641-checking-the-implicit-function-gradient-against-finite-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 16.4.1 — Checking the implicit-function gradient against finite differences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1851,10 +2317,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#72-element-wise-tensor-rules-preserve-shape" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.2 Element-wise tensor rules preserve shape
+        Self-Check Questions
       
     </span>
   </a>
@@ -1862,10 +2328,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#73-matrix-multiplication-uses-transposed-contractions" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.3 Matrix multiplication uses transposed contractions
+        Where We Go Next
       
     </span>
   </a>
@@ -1873,10 +2339,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#74-custom-operations-need-an-explicit-mathematical-contract" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.4 Custom operations need an explicit mathematical contract
+        Worked Solutions
       
     </span>
   </a>
@@ -1900,56 +2366,203 @@
 
 
 
-<h1 id="chapter-7-backward-function-implementation">Chapter 7: Backward Function Implementation<a class="headerlink" href="#chapter-7-backward-function-implementation" title="Permanent link">&para;</a></h1>
-<p>Reverse-mode automatic differentiation separates a global problem into local ones. Each node receives the derivative of the loss with respect to its output, multiplies by its own local derivatives, and returns one contribution for each input. This chapter derives those rules numerically before encoding them.</p>
-<h2 id="71-the-chain-rule-is-message-passing">7.1 The chain rule is message passing<a class="headerlink" href="#71-the-chain-rule-is-message-passing" title="Permanent link">&para;</a></h2>
-<p>For <code>w=x*y+x</code> at <code>x=3</code>, <code>y=4</code>, the value <code>x</code> reaches <code>w</code> through two paths. Through multiplication it contributes <code>y×1=4</code>; through addition it contributes 1. Reverse mode sends those two messages backward and adds them at value ID 0.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@fieldwise_init</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">InputGrads</span><span class="p">(</span><span class="nb">Copyable</span><span class="p">,</span><span class="w"> </span><span class="nb">Movable</span><span class="p">):</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">left</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">right</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">local_backward</span><span class="p">(</span><span class="n">node</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="p">,</span><span class="w"> </span><span class="n">tape</span><span class="p">:</span><span class="w"> </span><span class="n">Tape</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">InputGrads</span><span class="p">:</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">op</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OpKind</span><span class="o">.</span><span class="n">ADD</span><span class="p">:</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">InputGrads</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">)</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">op</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OpKind</span><span class="o">.</span><span class="n">MUL</span><span class="p">:</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">InputGrads</span><span class="p">(</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">            </span><span class="n">grad_output</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">],</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">            </span><span class="n">grad_output</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tape</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">],</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="p">)</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="n">debug_assert</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;unknown operation&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">InputGrads</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<h1 id="chapter-16-backward-function-implementation-the-chain-rule-one-node-at-a-time">Chapter 16: Backward Function Implementation — The Chain Rule, One Node at a Time<a class="headerlink" href="#chapter-16-backward-function-implementation-the-chain-rule-one-node-at-a-time" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Chapter 15 ended with a graph for <code>w = x*y + x</code> and a to-do list for backward: visit <code>add(z,x)→w</code> first, then <code>mul(x,y)→z</code>. This chapter works out, by hand, exactly what happens at each stop on that list — and only afterward writes the Mojo that automates it."</p>
+</blockquote>
+<p><strong>What you will understand by the end of this chapter:</strong></p>
+<ul>
+<li>The multivariable chain rule as literally "sum the contribution from every path" — traced on <code>x</code>'s two separate routes into <code>w</code>, reaching the same <code>∂w/∂x = 5</code> Chapter 15 got from plain calculus</li>
+<li><code>AddOp</code> and <code>MulOp</code>'s exact backward rules, why <code>MulOp</code>'s local derivative is fundamentally <em>the other operand's value</em>, and a genuine open question about tensor aliasing that this chapter's own <code>AddOp.backward</code> raises but can't fully answer until Chapter 17</li>
+<li>Why <code>ExpOp</code> reads the cached forward <code>output</code> instead of recomputing <code>e^x</code> — and why <code>GraphNode</code> had to store <code>output</code> at all, back in Chapter 15, for that shortcut to even be possible</li>
+<li><code>MatMulOp</code>'s backward rule, <code>grad_output @ Bᵀ</code> and <code>Aᵀ @ grad_output</code>, derived from index-summation first principles rather than only asserted, and verified with real numbers on <em>both</em> gradients this chapter's running matrix example produces</li>
+<li>The implicit function theorem as an escape hatch for differentiating through an iterative numerical solver — a bisection search — without ever unrolling or unrolling-and-differentiating a single one of its steps</li>
+</ul>
+<p><strong>What you need to know first:</strong></p>
+<ul>
+<li>Chapter 15 (the <code>Differentiable</code> trait's <code>backward</code> signature, <code>GraphNode</code>'s <code>inputs</code>/<code>output</code> fields, and <code>topological_backward_order</code>'s <code>[1, 0]</code> to-do list — this chapter is entirely about what happens at each stop on that list)</li>
+<li>Chapter 13.1 (matrix multiplication and the <code>X (2×3) @ M (3×2)</code> running example this chapter's <code>MatMulOp</code> backward reuses directly)</li>
+<li>Chapter 12 (<code>elementwise_add</code>, <code>elementwise_mul</code>, and <code>elementwise_exp</code> — the kernels <code>AddOp</code>, <code>MulOp</code>, and <code>ExpOp</code> wrap in their <code>forward</code> methods)</li>
+</ul>
+<h2 id="161-chain-rule-implementation-foundational">16.1 Chain Rule Implementation <code>[FOUNDATIONAL]</code><a class="headerlink" href="#161-chain-rule-implementation-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>Chapter 15 posed the question by pure calculus: if <code>x</code> moves by a tiny amount, how much does <code>w</code> move? <code>w = xy + x</code>, so <code>∂w/∂x = y + 1 = 5</code>. What that one-line answer hides is that <code>x</code> doesn't reach <code>w</code> by one route — it reaches it by two, and the multivariable chain rule's actual content is nothing more sophisticated than "trace every route separately, then add up what each one contributes."</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>        ┌── (Route 1: through the multiply) ──┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        │                                      ▼
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   x ───┼────────────────────────────────▶ [ mul ] ──▶ z ──▶ [ add ] ──▶ w
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        │                                                       ▲
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        └── (Route 2: directly) ───────────────────────────────┘
 </code></pre></div>
-<p><strong>Manual worked example.</strong> The final ADD receives <code>grad_output=1</code>; it returns <code>(1,1)</code>, one contribution for <code>z</code> and one for <code>x</code>. The earlier MUL then receives <code>z.grad=1</code>; with stored inputs 3 and 4 it returns <code>(1×4,1×3)=(4,3)</code>. Accumulating by value ID yields <code>x.grad=1+4=5</code> and <code>y.grad=3</code>.</p>
-<h2 id="72-element-wise-tensor-rules-preserve-shape">7.2 Element-wise tensor rules preserve shape<a class="headerlink" href="#72-element-wise-tensor-rules-preserve-shape" title="Permanent link">&para;</a></h2>
-<p>The scalar arithmetic lifts element by element to tensors. Addition passes the upstream gradient to both operands; multiplication scales it by the opposite operand. Broadcasting adds one extra requirement: reduce a broadcast operand's gradient back to its original shape.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_backward</span><span class="p">(</span><span class="n">grad_out</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tuple</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">]:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="n">sum_to_shape</span><span class="p">(</span><span class="n">grad_out</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="n">sum_to_shape</span><span class="p">(</span><span class="n">grad_out</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p">)</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">mul_backward</span><span class="p">(</span><span class="n">grad_out</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tuple</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">]:</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="n">sum_to_shape</span><span class="p">(</span><span class="n">grad_out</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="n">sum_to_shape</span><span class="p">(</span><span class="n">grad_out</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">)</span>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p><strong>Route 1 — through the multiply.</strong> <code>x</code> feeds into <code>z = x*y</code>. If <code>x</code> increases by a small <code>Δx</code>, <code>z</code> increases by approximately <code>Δx · y</code>, since <code>∂z/∂x = y = 4</code>. That change in <code>z</code> then feeds into <code>w = z + x</code>, where <code>∂w/∂z = 1</code>, so it passes straight through unchanged: <code>w</code> moves by <code>Δx · y · 1 = 4·Δx</code>.</p>
+<p><strong>Route 2 — directly.</strong> <code>x</code> <em>also</em> feeds straight into the addition <code>w = z + x</code>, independent of <code>z</code>. That contributes an additional <code>∂w/∂x|_{direct} = 1</code>, so <code>w</code> moves by another <code>1·Δx</code>.</p>
+<p><strong>Total.</strong> Both routes act on <code>w</code> simultaneously, so their contributions add: <code>w</code> moves by <code>(4 + 1)·Δx = 5·Δx</code> — exactly <code>∂w/∂x = 5</code>, now arrived at by summing contributions along every path from <code>x</code> to <code>w</code> rather than by symbolic differentiation of the whole expression at once. This <em>sum-over-paths</em> rule is the entire content of the multivariable chain rule, and it is also, not coincidentally, exactly what the reverse graph traversal in Chapter 17 computes — one path's contribution per visit to a node that uses <code>x</code>, summed as they arrive.</p>
+<p>In code, "the sensitivity flowing into a node, converted into a sensitivity for each of its inputs" is one dispatch call:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">chain_rule_step</span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">op_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Dispatch to the registered backward for this op. The caller</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="s2">    (Chapter 17) adds each result into the corresponding input&#39;s</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="s2">    accumulated .grad.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">registry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">op_name</span><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">op</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Let <code>a=[[1,2,3],[4,5,6]]</code> and broadcast <code>b=[10,20,30]</code> across two rows. If <code>grad_out</code> is all ones, <code>dL/da</code> is a 2×3 matrix of ones. For <code>b</code>, the two broadcast uses add columnwise: <code>[1+1,1+1,1+1]=[2,2,2]</code>. Returning <code>grad_out</code> unchanged for <code>b</code> would have the wrong shape and miss that accumulation.</p>
-<h2 id="73-matrix-multiplication-uses-transposed-contractions">7.3 Matrix multiplication uses transposed contractions<a class="headerlink" href="#73-matrix-multiplication-uses-transposed-contractions" title="Permanent link">&para;</a></h2>
-<p>For <code>Y=A@B</code>, perturbations obey <code>dY=dA@B + A@dB</code>. Matching each term against the upstream matrix <code>G=dL/dY</code> gives <code>dL/dA=G@Bᵀ</code> and <code>dL/dB=Aᵀ@G</code>. Shape checks are part of the derivation, not an afterthought.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">matmul_backward</span><span class="p">(</span><span class="n">grad_out</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tuple</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">]:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">matmul</span><span class="p">(</span><span class="n">grad_out</span><span class="p">,</span><span class="w"> </span><span class="n">transpose</span><span class="p">(</span><span class="n">b</span><span class="p">)),</span><span class="w"> </span><span class="n">matmul</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">grad_out</span><span class="p">))</span>
+<h3 id="worked-example-1611-reconciling-two-routes-into-one-number">Worked Example 16.1.1 — Reconciling two routes into one number<a class="headerlink" href="#worked-example-1611-reconciling-two-routes-into-one-number" title="Permanent link">&para;</a></h3>
+<p>Section 15.4's <code>topological_backward_order</code> says: visit <code>add(z,x)→w</code> first, then <code>mul(x,y)→z</code>. Visiting <code>add</code> first is exactly what makes Route 2's contribution (the <em>direct</em> <code>1·Δx</code>) available immediately, and visiting <code>mul</code> second is what makes Route 1's contribution (the <code>4·Δx</code> that had to flow <em>through</em> <code>z</code> first) available only after <code>z</code>'s own sensitivity is already known. Neither route can be skipped, and neither can run before the node that produces it — which is precisely why the visiting order from Chapter 15 isn't optional bookkeeping, it's a dependency the arithmetic itself imposes.</p>
+<h2 id="162-element-wise-operation-gradients-foundational">16.2 Element-wise Operation Gradients <code>[FOUNDATIONAL]</code><a class="headerlink" href="#162-element-wise-operation-gradients-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p><code>AddOp</code> and <code>MulOp</code> are Sections 16.1's two routes made concrete. <code>Add</code>'s local derivative is <code>1</code> for both inputs — a sensitivity that passes straight through unchanged, which is exactly what "direct" meant in Route 2. <code>Mul</code>'s local derivative is <em>the other operand's value</em> — which is exactly why <code>Differentiable.backward</code> was written, back in Chapter 15, to receive <code>inputs</code> and not merely <code>grad_output</code>.</p>
+<p><a id="72-element-wise-operation-gradients"></a></p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">AddOp</span><span class="p">(</span><span class="n">Differentiable</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">elementwise_add</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="c1"># d(a+b)/da = 1, d(a+b)/db = 1 -- gradient passes through unchanged</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">MulOp</span><span class="p">(</span><span class="n">Differentiable</span><span class="p">):</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="c1"># d(a*b)/da = b, d(a*b)/db = a</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">grad_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">grad_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">grad_a</span><span class="p">,</span><span class="w"> </span><span class="n">grad_b</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Use <code>A=[[1,2,3],[4,5,6]]</code>, <code>B=[[1,2],[3,4],[5,6]]</code>, and <code>G=[[1,1],[1,1]]</code>. Then <code>G@Bᵀ=[[3,7,11],[3,7,11]]</code>, matching A's 2×3 shape. Also <code>Aᵀ@G=[[5,5],[7,7],[9,9]]</code>, matching B's 3×2 shape. Nudging <code>A[0,0]</code> changes the first-row outputs by B's first row <code>[1,2]</code>, so their summed loss changes at rate <code>1+2=3</code>, exactly <code>dA[0,0]</code>.</p>
-<h2 id="74-custom-operations-need-an-explicit-mathematical-contract">7.4 Custom operations need an explicit mathematical contract<a class="headerlink" href="#74-custom-operations-need-an-explicit-mathematical-contract" title="Permanent link">&para;</a></h2>
-<p>A numerical solver may contain many iterations that are poor graph nodes. Treat it as one operation only when its backward rule is derived from the equation the solver satisfies and its domain assumptions are checked.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">sqrt_solve_backward</span><span class="p">(</span><span class="n">solution</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">debug_assert</span><span class="p">(</span><span class="n">solution</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sqrt derivative requires a positive solution&quot;</span><span class="p">)</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">grad_output</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">solution</span><span class="p">)</span>
+<h3 id="worked-example-1621-addop-by-hand">Worked Example 16.2.1 — <code>AddOp</code>, by hand<a class="headerlink" href="#worked-example-1621-addop-by-hand" title="Permanent link">&para;</a></h3>
+<p><code>w = z + x</code>. Backward starts by being handed the sensitivity of the <em>final</em> output with respect to <code>w</code> itself — the <em>seed</em> — which is <code>1.0</code> by definition (<code>w</code> is exactly as sensitive to itself as it is to itself). <code>∂w/∂z = 1</code> and <code>∂w/∂x = 1</code>, so both of <code>AddOp</code>'s inputs simply receive a copy of whatever sensitivity arrived: with a seed of <code>1.0</code>, <code>AddOp.backward</code> returns <code>[1.0, 1.0]</code> — the first <code>1.0</code> is <code>z</code>'s incoming gradient, the second is <code>x</code>'s <em>first</em> contribution, Route 2 from Section 16.1. Hold onto that <code>x: 1.0</code> — Chapter 17 adds a second contribution to it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[COMMON TRAP]  AddOp.backward hands out the same gradient tensor twice
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>`return List[Tensor](grad_output, grad_output)` places two copies of
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>the SAME Tensor struct value into the returned list -- not two
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>independently allocated gradient tensors. Tensor, established in
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Chapter 6.3, wraps a raw UnsafePointer for its own data buffer;
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>copying a Tensor struct value copies that pointer, not the memory it
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>points to. So &quot;z&#39;s incoming gradient&quot; and &quot;x&#39;s first contribution&quot;
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>from this single AddOp.backward call are, at the byte level, the same
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>allocation viewed through two separate Tensor values.
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Whether this is actually safe depends entirely on what Chapter 17&#39;s
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>accumulate_gradient does with each contribution next. If it
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>accumulates by producing a NEW tensor (elementwise_add building a
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>fresh buffer) and reassigning .grad to that new value, there is no
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>problem: z.grad and x.grad simply start out pointing at the same
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>memory and diverge the moment either one is reassigned to something
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>new. If it instead accumulates by mutating a gradient buffer in
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>place -- x.grad&#39;s underlying memory updated directly, not replaced --
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>then updating x&#39;s gradient with MulOp&#39;s second contribution would
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>silently corrupt z&#39;s gradient too, since both currently point at
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>identical memory. This chapter&#39;s own numbers don&#39;t reveal which case
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>applies; it&#39;s worth watching for directly in Chapter 17&#39;s
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>accumulate_gradient implementation.
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Bisection solves <code>x²-c=0</code> for <code>c=2</code>, giving <code>x≈1.41421356</code>. Implicit differentiation gives <code>dx/dc=1/(2x)≈0.353553</code>. A centered check with <code>h=0.001</code> gives <code>(sqrt(2.001)-sqrt(1.999))/0.002≈0.353553</code>, agreeing to six decimals. Centering matters: the previous one-sided, rounded check exaggerated the error.</p>
-<p>These rules are pure local mathematics. Chapter 8 supplies the global machinery that chooses the right rule, walks nodes in reverse, and sums contributions into the unique gradient slot for each value ID.</p>
+<h3 id="worked-example-1622-mulop-by-hand">Worked Example 16.2.2 — <code>MulOp</code>, by hand<a class="headerlink" href="#worked-example-1622-mulop-by-hand" title="Permanent link">&para;</a></h3>
+<p><code>z = x*y</code>. <code>∂z/∂x = y = 4</code> and <code>∂z/∂y = x = 3</code> — each input's local derivative is <em>the other</em> input's value, which is exactly why <code>backward</code> is passed <code>inputs</code> and not just <code>grad_output</code>. <code>MulOp</code> receives <code>z</code>'s gradient from the step above (<code>1.0</code>, since <code>∂w/∂z=1</code>), and multiplies it by each local derivative: <code>x</code> receives <code>1.0 × 4 = 4.0</code>, <code>y</code> receives <code>1.0 × 3 = 3.0</code>.</p>
+<p>Add <code>x</code>'s two contributions from the two nodes — <code>1.0</code> from <code>AddOp</code> and <code>4.0</code> from <code>MulOp</code> — and the total is <code>5.0</code>. That is <code>x.grad</code>, and it is exactly <code>∂w/∂x = 5</code>, computed three different ways now: by plain calculus (Chapter 15), by tracing paths (Section 16.1), and now by literally running the two registered backward functions in order and adding what they hand back. <code>y</code> only appears in one node, so <code>y.grad = 3.0</code> directly, with no accumulation needed at all.</p>
+<h3 id="worked-example-1623-expop-and-the-case-that-needs-output">Worked Example 16.2.3 — <code>ExpOp</code>, and the case that needs <code>output</code><a class="headerlink" href="#worked-example-1623-expop-and-the-case-that-needs-output" title="Permanent link">&para;</a></h3>
+<p>Neither <code>AddOp</code> nor <code>MulOp</code> needs the node's <em>output</em>, only its inputs — but some ops do, and it's worth seeing one before Chapter 17 explains why that matters for memory. Take <code>u = exp(x)</code> at <code>x = 1.0</code>. Forward: <code>u = e¹ ≈ 2.71828</code>. The derivative of <code>exp</code> is famously itself: <code>du/dx = eˣ = u ≈ 2.71828</code>. With an upstream seed of <code>1.0</code>, <code>ExpOp.backward</code> returns <code>1.0 × 2.71828 = 2.71828</code> — and it gets that <code>2.71828</code> by reading <code>output</code>, the value forward already computed, rather than recomputing <code>exp(1.0)</code> a second time:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">ExpOp</span><span class="p">(</span><span class="n">Differentiable</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">elementwise_exp</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="c1"># d(e^x)/dx = e^x = output -- reuse the cached forward result</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">))</span>
+</code></pre></div>
+<p>This is exactly why <code>GraphNode</code> in Chapter 15 stores <code>output</code> alongside <code>inputs</code> — <code>ExpOp</code> is proof that a backward rule can legitimately need the forward answer, not just the forward arguments, and a <code>GraphNode</code> that only kept <code>inputs</code> would make <code>ExpOp</code>'s shortcut impossible to write at all.</p>
+<h2 id="163-matrix-operation-gradients-foundational">16.3 Matrix Operation Gradients <code>[FOUNDATIONAL]</code><a class="headerlink" href="#163-matrix-operation-gradients-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>Matrix multiplication's backward rule isn't a restatement of a forward formula the way <code>Add</code> and <code>Mul</code>'s were — every output entry of <code>Y = X @ M</code> depends on an entire row of <code>X</code> and an entire column of <code>M</code> (Chapter 13.1), so a single output's sensitivity has to be redistributed back across many input entries at once, not just one. The rule turns out to have a clean closed form, and it's worth deriving <em>why</em> before simply trusting it.</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<p>Write the forward pass in index form, the same way Chapter 13.1 did: <code>Y[i,j] = Σ_k X[i,k]·M[k,j]</code>. The chain rule says <code>∂L/∂X[i,k]</code> sums the contribution of <code>X[i,k]</code> through <em>every</em> output entry it participates in — and <code>X[i,k]</code> appears in <code>Y[i,j]</code> for every <code>j</code>, since it's row <code>i</code> of <code>X</code> that feeds every column of the output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>∂L/∂X[i,k] = Σ_j (∂L/∂Y[i,j] · ∂Y[i,j]/∂X[i,k])
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>           = Σ_j (∂L/∂Y[i,j] · M[k,j])
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>           = (∂L/∂Y @ Mᵀ)[i,k]
+</code></pre></div>
+<p>The middle step uses <code>∂Y[i,j]/∂X[i,k] = M[k,j]</code> directly from the forward formula — <code>X[i,k]</code> only ever multiplies <code>M[k,j]</code> inside the sum that produces <code>Y[i,j]</code>. The final step is just recognizing that "sum over <code>j</code> of <code>∂L/∂Y[i,j]</code> times <code>M[k,j]</code>" is precisely what a matrix product against <code>Mᵀ</code> computes, entry by entry. The symmetric derivation for <code>M</code> gives <code>∂L/∂M[k,j] = Σ_i (∂L/∂Y[i,j] · X[i,k]) = (Xᵀ @ ∂L/∂Y)[k,j]</code>. In code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">MatMulOp</span><span class="p">(</span><span class="n">Differentiable</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">matrix_multiply</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w">   </span><span class="c1"># Chapter 13</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">grad_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix_multiply</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">transpose</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">grad_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix_multiply</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="n">grad_output</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">grad_a</span><span class="p">,</span><span class="w"> </span><span class="n">grad_b</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="worked-example-1631-dldx-with-real-numbers">Worked Example 16.3.1 — <code>dL/dX</code>, with real numbers<a class="headerlink" href="#worked-example-1631-dldx-with-real-numbers" title="Permanent link">&para;</a></h3>
+<p>Reuse Chapter 13.1's exact running example: <code>X (2×3) @ M (3×2) = Y</code>, where</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Y = X @ M =  22  28
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>             49  64
+</code></pre></div>
+<p>Suppose <code>Y</code> feeds into a loss whose gradient with respect to every entry of <code>Y</code> happens to be <code>1</code> — <code>grad_output</code> is a <code>2×2</code> matrix of ones, the simplest possible upstream signal. <code>Mᵀ</code> (transposing the <code>3×2</code> <code>M</code>) is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Mᵀ = 1  3  5
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>     2  4  6
+</code></pre></div>
+<p><code>grad_output @ Mᵀ</code> — a <code>2×2</code> matrix of ones times the <code>2×3</code> <code>Mᵀ</code> above — gives a <code>2×3</code> result where every entry is just the <em>column sum</em> of <code>Mᵀ</code>, because multiplying by a row of ones sums the column it's dotted against:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dL/dX = (1·1+1·2)  (1·3+1·4)  (1·5+1·6)     3   7  11
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>        (1·1+1·2)  (1·3+1·4)  (1·5+1·6)  =  3   7  11
+</code></pre></div>
+<p>Check the shape before trusting the arithmetic: <code>X</code> was <code>[2,3]</code>, and <code>dL/dX</code> is also <code>[2,3]</code> — a gradient with the wrong shape is a wrong gradient before a single number is even checked, and this shape-matching test is the cheapest sanity check for any new backward rule added to the registry.</p>
+<h3 id="worked-example-1632-dldm-completing-the-pair">Worked Example 16.3.2 — <code>dL/dM</code>, completing the pair<a class="headerlink" href="#worked-example-1632-dldm-completing-the-pair" title="Permanent link">&para;</a></h3>
+<p>The same <code>grad_output</code> also has to produce a gradient for <code>M</code>, using <code>∂L/∂M = Xᵀ @ ∂L/∂Y</code>. <code>Xᵀ</code> (transposing the <code>2×3</code> <code>X</code>) is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Xᵀ = 1  4
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>     2  5
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>     3  6
+</code></pre></div>
+<p><code>Xᵀ @ grad_output</code> — the <code>3×2</code> <code>Xᵀ</code> above times a <code>2×2</code> matrix of ones — gives a <code>3×2</code> result where every entry is the <em>row sum</em> of <code>Xᵀ</code>, since dotting any row of <code>Xᵀ</code> against a column of all ones just adds that row's two entries together:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>dL/dM = (1+4)  (1+4)     5  5
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>        (2+5)  (2+5)  =  7  7
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        (3+6)  (3+6)     9  9
+</code></pre></div>
+<p>Shape check: <code>M</code> was <code>[3,2]</code>, and <code>dL/dM</code> is also <code>[3,2]</code> — both gradients pass the cheap sanity check <code>MatMulOp.backward</code> needs to satisfy for <em>any</em> shapes, not just this chapter's specific <code>2×3</code> and <code>3×2</code>.</p>
+<h2 id="164-custom-function-framework-foundational">16.4 Custom Function Framework <code>[FOUNDATIONAL]</code><a class="headerlink" href="#164-custom-function-framework-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Not every operation belongs in the core registry as a hand-differentiated forward/backward pair over a closed-form expression. Some values come from an <em>iterative</em> numerical procedure — a solver that runs a loop and converges toward an answer rather than computing one in a single formula — and differentiating through every step of that loop would be both wasteful and numerically noisy. The <strong>implicit function theorem</strong> is the escape hatch: treat the solver's output as <em>defined implicitly</em> by an equation it satisfies at convergence, and differentiate that equation instead of the solver's control flow.</p>
+<p><a id="74-custom-function-framework"></a></p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<p>Consider solving <code>x² = 2</code> for <code>x</code> with a numerical bisection search rather than <code>sqrt</code> — a stand-in, at small scale, for the bond-pricing bisection Part 7 actually differentiates through. Bisection between <code>a=1</code> and <code>b=2</code>: midpoint <code>1.5² = 2.25</code> (too big, move <code>b</code> to <code>1.5</code>); midpoint <code>1.25² = 1.5625</code> (too small, move <code>a</code> to <code>1.25</code>); midpoint <code>1.375² = 1.890625</code>; continuing this halves the bracket every step and converges toward <code>x ≈ 1.41421</code> (<code>√2</code>). The solver defines <code>x</code> implicitly by <code>f(x, c) = x² - c = 0</code>, where <code>c</code> is the constant being solved against (<code>c=2</code> here). The implicit function theorem says:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>dx/dc = -(∂f/∂c) / (∂f/∂x) = -(-1) / (2x) = 1 / (2x)
+</code></pre></div>
+<p>The framework captures this as one opaque node with a closed-form backward, instead of an unrolled, differentiated bisection loop:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">CustomFunction</span><span class="p">(</span><span class="n">Differentiable</span><span class="p">):</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">forward_fn</span><span class="p">:</span><span class="w"> </span><span class="n">fn</span><span class="p">(</span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">backward_fn</span><span class="p">:</span><span class="w"> </span><span class="n">fn</span><span class="p">(</span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">forward_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">backward_fn</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">)</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="k">fn</span><span class="w"> </span><span class="nf">sqrt_via_bisection_backward</span><span class="p">(</span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="c1"># output holds the converged x; dx/dc = 1 / (2x) from the implicit function theorem</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">local_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">output</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">local_grad</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="worked-example-1641-checking-the-implicit-function-gradient-against-finite-differences">Worked Example 16.4.1 — Checking the implicit-function gradient against finite differences<a class="headerlink" href="#worked-example-1641-checking-the-implicit-function-gradient-against-finite-differences" title="Permanent link">&para;</a></h3>
+<p>At the converged solution <code>x ≈ 1.41421</code>, <code>dx/dc = 1 / (2 × 1.41421) = 1 / 2.82842 ≈ 0.35355</code>. Check this directly against a finite-difference nudge of <code>c</code>, the same way earlier chapters checked local derivatives: bisecting <code>x² = 2.001</code> instead of <code>x² = 2</code> converges to <code>√2.001 ≈ 1.414568</code>. The finite-difference slope is <code>(1.414568 - 1.41421) / 0.001 ≈ 0.358</code> — close to the implicit-function answer of <code>0.35355</code>, with the small remaining gap being ordinary finite-difference approximation error, the same kind the neural-network-layers chapter's <code>gradient_check</code> tolerates, not a discrepancy in the calculus. The entire multi-step bisection loop collapses, for gradient purposes, into one multiplication by <code>1/(2x)</code> — exactly the pattern the z-spread bisection in Part 7 reuses: the forward pass runs the numerical solver as ordinary control flow, and one hand-derived <code>backward_fn</code> plugs the whole iterative procedure into the graph as a single differentiable op.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>The multivariable chain rule is nothing more than summing a value's contribution along every path it takes to reach the output — traced concretely on <code>x</code>'s two routes into <code>w</code>, matching <code>∂w/∂x = 5</code> three separate ways. <code>AddOp</code> passes its incoming gradient through unchanged to both inputs (though, as this chapter flagged and left open for Chapter 17, it does so by handing out the <em>same</em> underlying Tensor value twice, not two independent ones); <code>MulOp</code> scales the incoming gradient by whichever input it <em>isn't</em> computing the gradient for, which is exactly why <code>backward</code> needs <code>inputs</code> at all. <code>ExpOp</code> demonstrated the other half of <code>GraphNode</code>'s design: some backward rules need the forward <code>output</code>, not just the forward arguments, to avoid recomputing an identical value a second time. <code>MatMulOp</code>'s backward rule, <code>grad_output @ Bᵀ</code> and <code>Aᵀ @ grad_output</code>, isn't just asserted in this chapter — it's derived from the same index-summation form Chapter 13.1 used for the forward pass, then verified with real numbers on both <code>dL/dX</code> (<code>[[3,7,11],[3,7,11]]</code>) and <code>dL/dM</code> (<code>[[5,5],[7,7],[9,9]]</code>), each checked against its own operand's shape. Finally, the implicit function theorem showed that a value produced by an iterative solver — bisection, standing in for the bond-pricing solver Part 7 differentiates through — doesn't need its loop unrolled and differentiated step by step; treating the converged answer as implicitly defined by the equation it satisfies collapses the entire gradient into one closed-form expression, verified here against a finite-difference check the same way every local derivative earlier in this book was checked.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>For <code>w = x*y + x</code> with <code>x=5.0, y=2.0</code> (the numbers from Chapter 15's Self-Check Question 1), trace both backward steps: what does <code>AddOp.backward</code> return, what does <code>MulOp.backward</code> return, and what is the final <code>x.grad</code>?</li>
+<li><code>MulOp.backward</code> computes <code>grad_a = elementwise_mul(grad_output, inputs[1])</code>. If <code>inputs[1]</code> (i.e. <code>y</code>) were <code>0.0</code> instead of <code>4.0</code>, what would <code>x</code>'s contribution from this node be, and does that match what <code>∂z/∂x = y</code> predicts when <code>y = 0</code>?</li>
+<li>Using the same index-summation derivation Section 16.3 used for <code>∂L/∂X</code>, and given <code>grad_output</code> is <em>not</em> a matrix of all ones but instead <code>[[1, 0], [0, 1]]</code> (the 2×2 identity), compute <code>dL/dX = grad_output @ Mᵀ</code> for this chapter's running <code>M</code>. (Recall <code>Mᵀ = [[1,3,5],[2,4,6]]</code>.)</li>
+<li><code>ExpOp.backward</code> reads <code>output</code> rather than recomputing <code>elementwise_exp(inputs[0])</code>. Suppose <code>GraphNode</code> had never stored <code>output</code> at all — only <code>inputs</code>. Could <code>ExpOp.backward</code> still be written correctly? At what cost?</li>
+<li>In the bisection example, if the target were <code>x² = 9</code> instead of <code>x² = 2</code> (converging to <code>x = 3</code>), what would <code>dx/dc</code> be at convergence, using the same implicit-function formula <code>dx/dc = 1/(2x)</code>?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>Chapter 17 (<code>part4/02-gradient-computation-engine.md</code>) is where every backward rule this chapter derived actually gets <em>run</em>: seeding <code>w.grad = 1.0</code>, walking <code>[add, mul]</code> — the reverse order Chapter 15 established — calling <code>chain_rule_step</code> at each stop, and accumulating <code>x</code>'s two contributions (<code>1.0</code> from <code>AddOp</code>, <code>4.0</code> from <code>MulOp</code>) into a final <code>x.grad = 5.0</code>. It's also where this chapter's open question about <code>AddOp.backward</code> returning one aliased Tensor twice finally gets an answer, in whichever direction <code>accumulate_gradient</code> actually implements it.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> <code>AddOp.backward</code> (seed <code>1.0</code>) returns <code>[1.0, 1.0]</code> — <code>z</code>'s gradient and <code>x</code>'s first contribution. <code>MulOp.backward</code>, receiving <code>z</code>'s gradient of <code>1.0</code> and <code>inputs = [x=5.0, y=2.0]</code>, computes <code>grad_x = 1.0 × y = 1.0 × 2.0 = 2.0</code> and <code>grad_y = 1.0 × x = 1.0 × 5.0 = 5.0</code>. Final <code>x.grad = 1.0 (from AddOp) + 2.0 (from MulOp) = 3.0</code>; <code>y.grad = 5.0</code> directly. Cross-check with calculus: <code>∂w/∂x = y+1 = 2+1 = 3</code> and <code>∂w/∂y = x = 5</code> — both match.</p>
+<p><strong>2.</strong> With <code>y = 0.0</code>, <code>grad_a = elementwise_mul(grad_output, 0.0) = 0.0</code> — <code>x</code>'s contribution from the <code>mul</code> node would be exactly <code>0.0</code>. This matches <code>∂z/∂x = y</code> directly: when <code>y = 0</code>, nudging <code>x</code> doesn't move <code>z = x·y</code> at all, since anything times <code>0</code> is <code>0</code>, so a local derivative of <code>0</code> is exactly correct, not a sign of anything broken.</p>
+<p><strong>3.</strong> <code>grad_output @ Mᵀ</code> with <code>grad_output = [[1,0],[0,1]]</code> and <code>Mᵀ = [[1,3,5],[2,4,6]]</code>: row <code>0</code> of the identity picks out row <code>0</code> of <code>Mᵀ</code> unchanged: <code>[1,3,5]</code>. Row <code>1</code> of the identity picks out row <code>1</code> of <code>Mᵀ</code> unchanged: <code>[2,4,6]</code>. So <code>dL/dX = [[1,3,5],[2,4,6]]</code> — multiplying by the identity matrix, unsurprisingly, just returns the other operand exactly, the same <code>A @ I = A</code> fact Chapter 13.4 verified for forward matrix multiplication, now shown to hold for this backward computation too.</p>
+<p><strong>4.</strong> No — not correctly, not without extra cost. <code>d(eˣ)/dx = eˣ</code>, and the <em>only</em> two values available would be <code>grad_output</code> and <code>inputs[0]</code> (the original <code>x</code>, not <code>eˣ</code>). <code>ExpOp.backward</code> would have to recompute <code>elementwise_exp(inputs[0])</code> from scratch inside <code>backward</code> — a second, redundant evaluation of <code>exp</code> for every single backward pass, doubling the exponential evaluations this op ever needs to perform, purely because the forward result wasn't kept around. <code>GraphNode</code> storing <code>output</code> is precisely what avoids paying that cost.</p>
+<p><strong>5.</strong> <code>dx/dc = 1/(2x)</code> at <code>x=3</code>: <code>1/(2×3) = 1/6 ≈ 0.16667</code>. This is a smaller sensitivity than the <code>x=√2</code> case (<code>≈0.35355</code>) because the derivative shrinks as <code>x</code> grows — the same <code>1/(2x)</code> shape that makes <code>sqrt</code>'s own derivative, <code>d(√c)/dc = 1/(2√c)</code>, flatten out for larger inputs.</p>
 
 
 
