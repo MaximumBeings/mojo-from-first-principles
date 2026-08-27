@@ -337,6 +337,357 @@ whatever the next owner writes.
 
 > `[COMMON TRAP]` The single most common `UnsafePointer` bug is calling `.free()` and then continuing to use the pointer — "use after free" — because nothing about the `heap_ptr` variable itself changes when you free it; it's still sitting there holding the same numeric address, now pointing at memory that's no longer yours. The second most common bug is the mirror image: allocating inside a loop and never freeing, which leaks a little more memory on every iteration until the program exhausts it. Chapter 2 (Memory Management) builds the reference-counted and arena-allocator patterns this book uses specifically to stop writing raw `alloc`/`free` pairs by hand for anything beyond a small, short-lived example like this one.
 
+## 1.6 Complete Runnable Code
+
+Sections 1.1–1.5 walked through this chapter's ideas as isolated snippets, each stripped down to the one concept it was illustrating. The five files below are the actual, complete, run-in-order source — each one builds on the last by adding exactly one more demo function, so you can compile and run any of them independently and watch the chapter's ideas accumulate. `05_standalone_complete.mojo` is the version that combines everything from Sections 1.1 through 1.5 into a single program; its output is reproduced in full afterward so you can check your own run against it line for line.
+
+### File: `01_basic_variables.mojo` — Section 1.1 and 1.3
+
+**Execution:** `pixi run mojo 01_basic_variables.mojo`
+
+```mojo
+from memory import UnsafePointer
+from collections import List
+
+fn basic_variables_demo():
+    """Demonstrate basic Mojo variable declaration patterns."""
+    print("=== Basic Variable Declaration ===")
+
+    # Basic numeric types
+    var x: Int = 42
+    var y: Float32 = 3.14159
+    var z: Float64 = 2.71828
+
+    print("Integer x:", x)
+    print("Float32 y:", y)
+    print("Float64 z:", z)
+
+    # Type inference
+    var a = 10        # Inferred as Int
+    var b = 5.5       # Inferred as Float64
+    var c = True      # Inferred as Bool
+
+    print("Inferred types - a:", a, "b:", b, "c:", c)
+
+    # Constants with alias
+    alias PI = 3.14159265359
+    alias MAX_SIZE = 1024
+
+    print("Constants - PI:", PI, "MAX_SIZE:", MAX_SIZE)
+
+    # Built-in math functions (no import needed)
+    var sqrt_result = pow(4.0, 0.5)  # Square root using pow
+    var abs_result = abs(-42)        # Absolute value
+    var max_result = max(10, 20)     # Maximum of two values
+    var min_result = min(10, 20)     # Minimum of two values
+
+    print("Built-in math functions:")
+    print("  sqrt(4):", sqrt_result)
+    print("  abs(-42):", abs_result)
+    print("  max(10,20):", max_result)
+    print("  min(10,20):", min_result)
+
+fn main():
+    """Main function for basic variables demonstration."""
+    basic_variables_demo()
+```
+
+### File: `02_advanced_types.mojo` — Section 1.4
+
+**Execution:** `pixi run mojo 02_advanced_types.mojo`
+
+```mojo
+fn advanced_types_demo():
+    """Demonstrate advanced Mojo type features."""
+    print("\n=== Advanced Type Features ===")
+
+    # Parametric types
+    alias dtype = DType.float32
+    var value: Scalar[dtype] = 42.0
+    print("Parametric type value:", value)
+
+    # SIMD types for vectorization
+    var simd_vec = SIMD[DType.float32, 4](1.0, 2.0, 3.0, 4.0)
+    print("SIMD vector:", simd_vec)
+
+    # Operations on SIMD vectors
+    var simd_squared = simd_vec * simd_vec
+    print("SIMD squared:", simd_squared)
+
+    # SIMD power operation using built-in pow
+    var simd_cubed = pow(simd_vec, 3.0)
+    print("SIMD cubed:", simd_cubed)
+
+    # List collection
+    var numbers = List[Int]()
+    numbers.append(1)
+    numbers.append(2)
+    numbers.append(3)
+    print("List size:", len(numbers))
+    print("List elements:", numbers[0], numbers[1], numbers[2])
+
+fn main():
+    """Main function for advanced types demonstration."""
+    advanced_types_demo()
+```
+
+### File: `03_memory_patterns.mojo` — adds Section 1.5
+
+**Execution:** `pixi run mojo 03_memory_patterns.mojo`
+
+```mojo
+from memory import UnsafePointer
+from collections import List
+
+fn basic_variables_demo():
+    """Demonstrate basic Mojo variable declaration patterns."""
+    print("=== Basic Variable Declaration ===")
+    var x: Int = 42
+    var y: Float32 = 3.14159
+    var z: Float64 = 2.71828
+    print("Integer x:", x)
+    print("Float32 y:", y)
+    print("Float64 z:", z)
+    var a = 10        # Inferred as Int
+    var b = 5.5       # Inferred as Float64
+    var c = True      # Inferred as Bool
+    print("Inferred types - a:", a, "b:", b, "c:", c)
+    alias PI = 3.14159265359
+    alias MAX_SIZE = 1024
+    print("Constants - PI:", PI, "MAX_SIZE:", MAX_SIZE)
+    var sqrt_result = pow(4.0, 0.5)
+    var abs_result = abs(-42)
+    var max_result = max(10, 20)
+    var min_result = min(10, 20)
+    print("Built-in math functions:")
+    print("  sqrt(4):", sqrt_result)
+    print("  abs(-42):", abs_result)
+    print("  max(10,20):", max_result)
+    print("  min(10,20):", min_result)
+
+fn advanced_types_demo():
+    """Demonstrate advanced Mojo type features."""
+    print("\n=== Advanced Type Features ===")
+    alias dtype = DType.float32
+    var value: Scalar[dtype] = 42.0
+    print("Parametric type value:", value)
+    var simd_vec = SIMD[DType.float32, 4](1.0, 2.0, 3.0, 4.0)
+    print("SIMD vector:", simd_vec)
+    var simd_squared = simd_vec * simd_vec
+    print("SIMD squared:", simd_squared)
+    var simd_cubed = pow(simd_vec, 3.0)
+    print("SIMD cubed:", simd_cubed)
+    var numbers = List[Int]()
+    numbers.append(1)
+    numbers.append(2)
+    numbers.append(3)
+    print("List size:", len(numbers))
+    print("List elements:", numbers[0], numbers[1], numbers[2])
+
+fn memory_patterns_demo():
+    """Demonstrate memory management patterns in Mojo."""
+    print("\n=== Memory Management Patterns ===")
+
+    # Heap allocation with UnsafePointer
+    var size = 5
+    var heap_ptr = UnsafePointer[Int].alloc(size)
+
+    # Initialize heap memory
+    for i in range(size):
+        heap_ptr[i] = i * i
+
+    print("Heap values:")
+    for i in range(size):
+        var i_str: String = String(i)
+        var value_str: String = String(heap_ptr[i])
+        var message: String = "  heap_ptr[" + i_str + "] = " + value_str
+        print(message)
+
+    # Manual cleanup (RAII pattern will automate this later)
+    heap_ptr.free()
+
+    print("Memory management demo completed")
+
+fn main():
+    """Complete demonstration of all basic Mojo patterns."""
+    basic_variables_demo()
+    advanced_types_demo()
+    memory_patterns_demo()
+```
+
+### File: `04_complete_basics.mojo` — same three demos, trimmed prints
+
+**Execution:** `pixi run mojo 04_complete_basics.mojo`
+
+```mojo
+from memory import UnsafePointer
+from collections import List
+
+fn basic_variables_demo():
+    """Demonstrate basic Mojo variable declaration patterns."""
+    print("=== Basic Variable Declaration ===")
+    var x: Int = 42
+    var y: Float32 = 3.14159
+    var z: Float64 = 2.71828
+    print("Integer x:", x)
+    print("Float32 y:", y)
+    print("Float64 z:", z)
+    var a = 10        # Inferred as Int
+    var b = 5.5       # Inferred as Float64
+    var c = True      # Inferred as Bool
+    print("Inferred types - a:", a, "b:", b, "c:", c)
+    alias PI = 3.14159265359
+    alias MAX_SIZE = 1024
+    print("Constants - PI:", PI, "MAX_SIZE:", MAX_SIZE)
+
+fn advanced_types_demo():
+    """Demonstrate advanced Mojo type features."""
+    print("\n=== Advanced Type Features ===")
+    alias dtype = DType.float32
+    var value: Scalar[dtype] = 42.0
+    print("Parametric type value:", value)
+    var simd_vec = SIMD[DType.float32, 4](1.0, 2.0, 3.0, 4.0)
+    print("SIMD vector:", simd_vec)
+    var simd_squared = simd_vec * simd_vec
+    print("SIMD squared:", simd_squared)
+    var numbers = List[Int]()
+    numbers.append(1)
+    numbers.append(2)
+    numbers.append(3)
+    print("List size:", len(numbers))
+    print("List elements:", numbers[0], numbers[1], numbers[2])
+
+fn memory_patterns_demo():
+    """Demonstrate memory management patterns in Mojo."""
+    print("=== Memory Management Patterns ===")
+    var size = 5
+    var heap_ptr = UnsafePointer[Int].alloc(size)
+    for i in range(size):
+        heap_ptr[i] = i * i
+    print("Heap values:")
+    for i in range(size):
+        print("  heap_ptr[", i, "] =", heap_ptr[i])
+    heap_ptr.free()
+    print("Memory management demo completed")
+
+fn main():
+    """Complete demonstration of all basic Mojo patterns."""
+    basic_variables_demo()
+    advanced_types_demo()
+    memory_patterns_demo()
+```
+
+### File: `05_standalone_complete.mojo` — the full chapter, one program
+
+**Execution:** `pixi run mojo 05_standalone_complete.mojo`
+
+```mojo
+from memory import UnsafePointer
+from collections import List
+
+fn basic_variables_demo():
+    """Demonstrate basic Mojo variable declaration patterns."""
+    print("=== Basic Variable Declaration ===")
+    var x: Int = 42
+    var y: Float32 = 3.14159
+    var z: Float64 = 2.71828
+    print("Integer x:", x)
+    print("Float32 y:", y)
+    print("Float64 z:", z)
+    var a = 10        # Inferred as Int
+    var b = 5.5       # Inferred as Float64
+    var c = True      # Inferred as Bool
+    print("Inferred types - a:", a, "b:", b, "c:", c)
+    alias PI = 3.14159265359
+    alias MAX_SIZE = 1024
+    print("Constants - PI:", PI, "MAX_SIZE:", MAX_SIZE)
+    var sqrt_result = pow(4.0, 0.5)  # Square root using pow
+    var abs_result = abs(-42)        # Absolute value
+    var max_result = max(10, 20)     # Maximum of two values
+    var min_result = min(10, 20)     # Minimum of two values
+    print("Built-in math functions:")
+    print("  sqrt(4):", sqrt_result)
+    print("  abs(-42):", abs_result)
+    print("  max(10,20):", max_result)
+    print("  min(10,20):", min_result)
+
+fn advanced_types_demo():
+    """Demonstrate advanced Mojo type features."""
+    print("\n=== Advanced Type Features ===")
+    alias dtype = DType.float32
+    var value: Scalar[dtype] = 42.0
+    print("Parametric type value:", value)
+    var simd_vec = SIMD[DType.float32, 4](1.0, 2.0, 3.0, 4.0)
+    print("SIMD vector:", simd_vec)
+    var simd_squared = simd_vec * simd_vec
+    print("SIMD squared:", simd_squared)
+    var simd_cubed = pow(simd_vec, 3.0)  # SIMD power operation using built-in pow
+    print("SIMD cubed:", simd_cubed)
+    var numbers = List[Int]()
+    numbers.append(1)
+    numbers.append(2)
+    numbers.append(3)
+    print("List size:", len(numbers))
+    print("List elements:", numbers[0], numbers[1], numbers[2])
+
+fn memory_patterns_demo():
+    """Demonstrate memory management patterns in Mojo."""
+    print("\n=== Memory Management Patterns ===")
+    var size = 5
+    var heap_ptr = UnsafePointer[Int].alloc(size)
+    for i in range(size):
+        heap_ptr[i] = i * i
+    print("Heap values:")
+    for i in range(size):
+        var i_str: String = String(i)
+        var value_str: String = String(heap_ptr[i])
+        var message: String = "  heap_ptr[" + i_str + "] = " + value_str
+        print(message)
+    heap_ptr.free()
+    print("Memory management demo completed")
+
+fn main():
+    """Complete demonstration of all basic Mojo patterns."""
+    basic_variables_demo()
+    advanced_types_demo()
+    memory_patterns_demo()
+```
+
+### Expected Output for `05_standalone_complete.mojo`
+
+```
+=== Basic Variable Declaration ===
+Integer x: 42
+Float32 y: 3.14159
+Float64 z: 2.71828
+Inferred types - a: 10 b: 5.5 c: True
+Constants - PI: 3.14159265359 MAX_SIZE: 1024
+Built-in math functions:
+  sqrt(4): 2.0
+  abs(-42): 42
+  max(10,20): 20
+  min(10,20): 10
+
+=== Advanced Type Features ===
+Parametric type value: 42.0
+SIMD vector: [1.0, 2.0, 3.0, 4.0]
+SIMD squared: [1.0, 4.0, 9.0, 16.0]
+SIMD cubed: [1.0, 8.0, 27.0, 64.0]
+List size: 3
+List elements: 1 2 3
+
+=== Memory Management Patterns ===
+Heap values:
+  heap_ptr[0] = 0
+  heap_ptr[1] = 1
+  heap_ptr[2] = 4
+  heap_ptr[3] = 9
+  heap_ptr[4] = 16
+Memory management demo completed
+```
+
+Every number in that output was independently hand-traced earlier in this chapter: the SIMD squares and cubes in Section 1.4, the heap values `0, 1, 4, 9, 16` in Section 1.5. If your own run of `05_standalone_complete.mojo` produces anything different, that mismatch — not this book — is telling you something real about your toolchain.
+
 ## Chapter Summary
 
 A type is a compile-time promise about what a region of memory means, and Mojo, like C and C++, resolves every variable's type before the program runs — whether you write the type explicitly (`var x: Int = 42`) or let the compiler infer it from the initializer (`var a = 10`), the result is identical: a fixed type, checked once, at compile time, never rechecked while the program runs. This is the fundamental difference from Python, where a name has no type of its own and simply points at whichever object it was last assigned, with the type tag living on the object and being checked on every use. `alias` sits one level further toward the compiler than `var`: an `alias` value is substituted directly into the compiled code and has no runtime memory location at all, unlike a `var`, which always occupies a real, readable, writable slot. `SIMD[DType, width]` extends the same static-typing discipline to vector hardware, making "operate on four numbers at once" a property of the type itself rather than something bolted on through library calls or hand-written CPU intrinsics. And heap memory obtained via `UnsafePointer` restores full manual control — the same control (and the same risks: leaks, use-after-free, double-free) that C's `malloc`/`free` and C++'s `new`/`delete` have always required, deliberately not hidden behind the automatic reference counting that makes every Python object effortless to allocate and forget about.
