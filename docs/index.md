@@ -3,7 +3,7 @@
 **Building a GPU-Native Automatic Differentiation Framework, One Layer at a Time**
 
 !!! warning "This book is under active development"
-    Chapters are being rewritten one at a time into a fuller format — intuition, technical background, and hand-worked numeric examples ahead of every block of code. Finished so far: **Chapter 1 (Variables and Types)**, **Chapter 2 (Struct Design Patterns)**, and **Chapter 3 (Memory Layout Strategies)**. Everything else is still in its original, denser draft form and will be revised in the same style, chapter by chapter.
+    Chapters are being rewritten one at a time into a fuller format — intuition, technical background, and hand-worked numeric examples ahead of every block of code. Finished so far: **Chapter 1 (Variables and Types)**, **Chapter 2 (Struct Design Patterns)**, **Chapter 3 (Memory Layout Strategies)**, and **Chapter 4 (GPU Programming Introduction)**. Everything else is still in its original, denser draft form and will be revised in the same style, chapter by chapter.
 
 > "The gap between writing a training loop that runs and understanding every allocation, stride, and gradient it touches is exactly the size of this book."
 
