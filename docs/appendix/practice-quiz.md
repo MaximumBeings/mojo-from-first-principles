@@ -1,65 +1,93 @@
 # Appendix B: Practice Quiz
 
-Use these questions as retrieval practice. Work each numerical answer on paper before opening the explanation; the point is to reconstruct the invariant, not recognize a phrase.
+Test your recall of Part 0's GPU-programming and SIMD-matrix material. Answers are collapsed — click to reveal.
 
-## Foundations
+## Multiple Choice
 
-These questions check Mojo 1.0 syntax, ownership, shape, and layout.
+**1. What is the execution command to run the Mojo GPU demo?**
 
-1. Which keyword declares all functions in Mojo 1.0?
-2. Why must a GPU kernel length argument use `Int32` or another fixed-width type instead of `Int`?
-3. What are the row-major strides for shape `[2,3,4]`?
-4. What flat offset corresponds to coordinate `[1,2,3]` for those strides?
-5. What stride represents a broadcast axis that rereads one physical value?
+A) `pixi run mojo build mojo_gpu_demo.mojo`
+B) `pixi run mojo mojo_gpu_demo.mojo`
+C) `python mojo_gpu_demo.mojo`
+D) `mojo compile mojo_gpu_demo.mojo`
 
-??? success "Answers"
-    1. `def`.
-    2. Host and device platform-sized integers may have different widths; a fixed width makes the ABI unambiguous.
-    3. `[12,4,1]`.
-    4. `1×12+2×4+3=23`.
-    5. Zero.
+??? success "Answer"
+    **B) `pixi run mojo mojo_gpu_demo.mojo`**
 
-## Autograd
+    This compiles and runs the file in one command. Option A only builds an executable without running it; C and D use syntax that doesn't apply to Mojo.
 
-These questions check graph identity, reverse traversal, and gradient accumulation.
+**2. In the GPU basics demo, what are the expected results for `result[0:5]`?**
 
-1. For `w=x*y+x` at `x=3`, `y=4`, what are `dw/dx` and `dw/dy`?
-2. Why does the tape store value IDs instead of copied tensor values inside nodes?
-3. Why must gradient updates use `+=` rather than assignment?
-4. Can the first-order tape in Chapters 6–8 compute second derivatives as written?
+A) `[0.0, 3.0, 6.0, 9.0, 12.0]`
+B) `[1.0, 2.0, 3.0, 4.0, 5.0]`
+C) `[0.0, 2.0, 4.0, 6.0, 8.0]`
+D) `[0.0, 1.0, 4.0, 9.0, 16.0]`
 
-??? success "Answers"
-    1. `dw/dx=y+1=5`; `dw/dy=x=3`.
-    2. Repeated uses then route to one value and one gradient slot, independent of copying or pointer aliasing.
-    3. A value can reach the loss along multiple paths; the multivariable chain rule sums their contributions.
-    4. No. Backward operations must themselves be recorded, or the framework needs forward-over-reverse support.
+??? success "Answer"
+    **A) `[0.0, 3.0, 6.0, 9.0, 12.0]`**
 
-## Numerics and performance
+    With `a[i] = i` and `b[i] = i * 2`, `result[i] = i + i*2 = i*3`, giving `[0, 3, 6, 9, 12]` for the first five elements — see [Chapter 12.1](../part2/01-element-wise-operations.md#31-addition-and-subtraction).
 
-These questions check stable reductions, launch geometry, and benchmark interpretation.
+**3. What matrix size is used in the SIMD matrix operations demo?**
 
-1. How many 256-thread blocks cover 1,000 elements, and how many threads take the tail guard?
-2. A length-10 loop uses SIMD width 4. How many elements are vectorized and how many are scalar tail work?
-3. Why is `mean(x²)-mean(x)²` risky for variance?
-4. Why is unsynchronized host enqueue time not a GPU kernel benchmark?
+A) 32 × 32
+B) 64 × 64
+C) 128 × 128
+D) 1000 × 1000
 
-??? success "Answers"
-    1. Four blocks launch 1,024 threads; 24 are outside the logical range.
-    2. Eight vectorized elements and two tail elements.
-    3. Subtracting two large, nearly equal values can lose the small variance to cancellation; Welford's algorithm is more stable.
-    4. Enqueue is asynchronous and may finish long before device work completes; time device events or synchronized boundaries.
+??? success "Answer"
+    **B) 64 × 64** — `var size = 64`, chosen as a balance between demonstrating the concept and keeping demo runtime short. See [Chapter 4.1](../part2/02-matrix-operations.md#41-matrix-multiplication).
 
-## Finance
+## True / False
 
-These questions check signs, units, and independent financial calculations.
+**4. The `Matrix` struct automatically manages GPU memory allocation.**
 
-1. A continuously compounded zero has price `P=F·exp(-yT)`. What is `dP/dy`?
-2. If price is 90.48 and maturity is 2 years, what is positive DV01 approximately?
-3. Why is calibrated spread sensitivity to market price negative?
-4. What information must accompany a Monte Carlo price?
+??? success "Answer"
+    **FALSE.** `Matrix` uses `UnsafePointer[Float32].alloc()`, which allocates CPU memory. This demo's matrix operations are CPU-side SIMD; the GPU-memory-management story is [Chapter 2.3](../part1/06-memory-management-system.md#23-gpu-memory-management).
 
-??? success "Answers"
-    1. `-T·P`.
-    2. `T·P×10⁻⁴=2×90.48×0.0001≈$0.01810`.
-    3. Higher price requires less discounting, hence a lower spread.
-    4. At minimum: path count, seed/stream policy, estimator, standard error or confidence interval, model parameters, and implementation version.
+**5. Matrix transpose swaps rows and columns: `output[j][i] = input[i][j]`.**
+
+??? success "Answer"
+    **TRUE.** `matrix_transpose_simd` implements exactly this by writing `output.set(j + k, i, row_vals[k])`. See [Chapter 4.2](../part2/02-matrix-operations.md#42-transpose-operations).
+
+**6. The demo verifies correctness by comparing scalar and SIMD matrix multiplication results.**
+
+??? success "Answer"
+    **TRUE.** `scalar_matrix_multiply` and `simd_matrix_multiply[4]` run on the same inputs and are compared element-by-element with a `0.001` tolerance — the same "check against a known-correct baseline" pattern used for every optimized kernel in this book, including [gradient checking](../part6/02-advanced-features.md#124-debugging-and-profiling-tools) in Chapter 12.
+
+## Fill in the Blank
+
+**7. The `Matrix` struct uses `UnsafePointer[_______]` for memory allocation.**
+
+??? success "Answer"
+    **`Float32`** — `UnsafePointer[Float32].alloc(rows * cols)`.
+
+**8. According to the sample results, what is the value at position `[1,0]` in the result matrix?**
+
+??? success "Answer"
+    **`64.0`** — the second row of the sample output is `[64.0, 65.0, 66.0, 67.0]`, so `[1,0] = 64.0` (matrix `A` filled with sequential values, multiplied by an identity `B`). See the [expected output](../part2/02-matrix-operations.md#41-matrix-multiplication) in Chapter 4.1.
+
+**9. The SIMD matrix multiplication uses a compile-time parameter called `_______` to determine vector width.**
+
+??? success "Answer"
+    **`simd_width`** — `fn simd_matrix_multiply[simd_width: Int](...)`, resolved at compile time per [Chapter 10.3](../part5/02-performance-optimization.md#103-compile-time-optimizations).
+
+**10. Matrix B in the demo is initialized as an `_______` matrix using `fill_identity()`.**
+
+??? success "Answer"
+    **identity** — multiplying any matrix `A` by an identity matrix returns `A` unchanged, which is exactly why it's used to verify the multiplication implementation.
+
+## Answer Key
+
+| # | Type | Answer |
+|---|---|---|
+| 1 | Multiple Choice | B |
+| 2 | Multiple Choice | A |
+| 3 | Multiple Choice | B |
+| 4 | True/False | FALSE |
+| 5 | True/False | TRUE |
+| 6 | True/False | TRUE |
+| 7 | Fill in the Blank | Float32 |
+| 8 | Fill in the Blank | 64.0 |
+| 9 | Fill in the Blank | simd_width |
+| 10 | Fill in the Blank | identity |
