@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-4-matrix-operations" class="md-skip">
+        <a href="#chapter-13-matrix-operations-when-one-output-depends-on-more-than-one-input" class="md-skip">
           Skip to content
         </a>
       
@@ -1092,10 +1092,293 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#41-matrix-multiplication" class="md-nav__link">
+  <a href="#131-matrix-multiplication-tensor-contraction-in-two-dimensions-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.1 Matrix multiplication
+        13.1 Matrix Multiplication: Tensor Contraction in Two Dimensions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 Matrix Multiplication: Tensor Contraction in Two Dimensions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1311-the-full-contraction-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.1.1 — The full contraction, by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1312-the-simd-dot-product-lane-by-lane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.1.2 — The SIMD dot product, lane by lane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1313-multiplication-counts-at-three-scales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.1.3 — Multiplication counts at three scales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#132-transpose-operations-rearranging-indices-not-values-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 Transpose Operations: Rearranging Indices, Not Values [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.2 Transpose Operations: Rearranging Indices, Not Values [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1321-transposing-a-23-matrix-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.2.1 — Transposing a 2×3 matrix by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1322-the-simd-scatter-traced-write-by-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.2.2 — The SIMD scatter, traced write by write
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#133-reshaping-and-view-operations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 Reshaping and View Operations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3 Reshaping and View Operations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1331-a-free-reshape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.3.1 — A free reshape
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1332-why-a-non-contiguous-reshape-cant-take-the-same-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.3.2 — Why a non-contiguous reshape can't take the same shortcut
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#134-advanced-linear-algebra-structure-aware-multiplication-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 Advanced Linear Algebra: Structure-Aware Multiplication [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4 Advanced Linear Algebra: Structure-Aware Multiplication [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1341-counting-the-saving-at-n-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.4.1 — Counting the saving at n = 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1342-solving-a-triangular-system-by-forward-substitution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.4.2 — Solving a triangular system by forward substitution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#135-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1103,10 +1386,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#42-transpose-changes-the-coordinate-mapping" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.2 Transpose changes the coordinate mapping
+        Self-Check Questions
       
     </span>
   </a>
@@ -1114,10 +1397,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#43-reshape-is-metadata-only-only-for-contiguous-storage" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.3 Reshape is metadata-only only for contiguous storage
+        Where We Go Next
       
     </span>
   </a>
@@ -1125,10 +1408,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#44-linear-solves-beat-explicit-inverses" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.4 Linear solves beat explicit inverses
+        Worked Solutions
       
     </span>
   </a>
@@ -1840,10 +2123,293 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#41-matrix-multiplication" class="md-nav__link">
+  <a href="#131-matrix-multiplication-tensor-contraction-in-two-dimensions-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.1 Matrix multiplication
+        13.1 Matrix Multiplication: Tensor Contraction in Two Dimensions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 Matrix Multiplication: Tensor Contraction in Two Dimensions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1311-the-full-contraction-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.1.1 — The full contraction, by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1312-the-simd-dot-product-lane-by-lane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.1.2 — The SIMD dot product, lane by lane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1313-multiplication-counts-at-three-scales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.1.3 — Multiplication counts at three scales
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#132-transpose-operations-rearranging-indices-not-values-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 Transpose Operations: Rearranging Indices, Not Values [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.2 Transpose Operations: Rearranging Indices, Not Values [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1321-transposing-a-23-matrix-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.2.1 — Transposing a 2×3 matrix by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1322-the-simd-scatter-traced-write-by-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.2.2 — The SIMD scatter, traced write by write
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#133-reshaping-and-view-operations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 Reshaping and View Operations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3 Reshaping and View Operations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1331-a-free-reshape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.3.1 — A free reshape
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1332-why-a-non-contiguous-reshape-cant-take-the-same-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.3.2 — Why a non-contiguous reshape can't take the same shortcut
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#134-advanced-linear-algebra-structure-aware-multiplication-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 Advanced Linear Algebra: Structure-Aware Multiplication [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4 Advanced Linear Algebra: Structure-Aware Multiplication [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1341-counting-the-saving-at-n-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.4.1 — Counting the saving at n = 5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1342-solving-a-triangular-system-by-forward-substitution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 13.4.2 — Solving a triangular system by forward substitution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#135-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1851,10 +2417,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#42-transpose-changes-the-coordinate-mapping" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.2 Transpose changes the coordinate mapping
+        Self-Check Questions
       
     </span>
   </a>
@@ -1862,10 +2428,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#43-reshape-is-metadata-only-only-for-contiguous-storage" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.3 Reshape is metadata-only only for contiguous storage
+        Where We Go Next
       
     </span>
   </a>
@@ -1873,10 +2439,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#44-linear-solves-beat-explicit-inverses" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4.4 Linear solves beat explicit inverses
+        Worked Solutions
       
     </span>
   </a>
@@ -1900,55 +2466,348 @@
 
 
 
-<h1 id="chapter-4-matrix-operations">Chapter 4: Matrix Operations<a class="headerlink" href="#chapter-4-matrix-operations" title="Permanent link">&para;</a></h1>
-<p>Matrix operations combine coordinates rather than treating them independently. The reference algorithms keep shapes and index arithmetic explicit; SIMD, tiling, and vendor kernels are interchangeable optimizations only after these answers are verified.</p>
-<h2 id="41-matrix-multiplication">4.1 Matrix multiplication<a class="headerlink" href="#41-matrix-multiplication" title="Permanent link">&para;</a></h2>
-<p>For <code>C=A@B</code>, A's column count must equal B's row count. Each output is one dot product between a row of A and a column of B.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">k</span><span class="p">:</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;matmul contraction dimensions differ&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">(</span><span class="n">Shape</span><span class="p">([</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">]))</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">                </span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">p</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">p</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">out</span>
+<h1 id="chapter-13-matrix-operations-when-one-output-depends-on-more-than-one-input">Chapter 13: Matrix Operations — When One Output Depends on More Than One Input<a class="headerlink" href="#chapter-13-matrix-operations-when-one-output-depends-on-more-than-one-input" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Every kernel in the last chapter answered its question by looking at exactly one input position — thread <code>i</code> read <code>a[i]</code> and <code>b[i]</code> and nothing else existed as far as it was concerned. Matrix multiplication is the first place in this book where that stops being true. Computing a single output element means reading an entire row and an entire column, multiplying them together position by position, and the moment the shapes stop lining up, the loop keeps running anyway — it just reads whatever happens to be sitting in memory next and calls that the answer."</p>
+</blockquote>
+<p><strong>What you will understand by the end of this chapter:</strong></p>
+<ul>
+<li>The tensor-contraction rule that matrix multiplication is a special case of, worked out completely by hand on one running example (<code>X</code> (2×3) times <code>M</code> (3×2)) that every subsequent worked example in this chapter checks its own answer against</li>
+<li>Exactly how <code>simd_matrix_multiply</code>'s blocking-plus-remainder loop reduces to the identical scalar triple sum — traced lane by lane, for a vector width that divides the contraction dimension evenly and one that doesn't</li>
+<li>Why neither <code>scalar_matrix_multiply</code> nor <code>simd_matrix_multiply</code> ever checks that <code>a.cols == b.rows</code>, and precisely what ends up in <code>result</code> when that invariant is silently violated</li>
+<li>The difference between a reshape that's free (same buffer, new strides, zero bytes moved) and one that requires an actual copy — traced concretely on <code>A</code>'s own transpose, including what a <em>naive</em> reshape of that transpose would wrongly produce if the framework didn't check for contiguity first</li>
+<li>Why multiplying by a diagonal or identity tensor from Chapter 9 does asymptotically less work than the general path, counted exactly rather than asserted — and how the same accounting extends to solving a triangular system without ever forming a matrix inverse</li>
+</ul>
+<p><strong>What you need to know first:</strong></p>
+<ul>
+<li>Chapter 6 (<code>TensorShape</code> and <code>TensorStrides</code> — the linear-index formula <code>Matrix.get</code> below reimplements for exactly two dimensions, with a hand-rolled <code>row * cols + col</code> in place of the general dot-product-with-strides version)</li>
+<li>Chapter 7.1 and 7.2 (stride math and zero-copy views — Section 13.3's "reshape is free" argument is the same "recompute strides, touch no data" idea Chapter 7 built, applied to a concrete pair of shapes)</li>
+<li>Chapter 9 (the <code>IdentityTensor</code>, <code>DiagonalTensor</code>, and triangular structures Section 13.4 dispatches to instead of paying for the general <code>O(n³)</code> path)</li>
+<li>Chapter 5 (SIMD width and the main-loop-plus-remainder shape — <code>simd_matrix_multiply</code> and <code>matrix_transpose_simd</code> both reuse that exact shape unchanged, just with a dot product and a scatter-write in place of Chapter 5's simpler per-element work)</li>
+</ul>
+<p><a id="41-matrix-multiplication"></a></p>
+<h2 id="131-matrix-multiplication-tensor-contraction-in-two-dimensions-foundational">13.1 Matrix Multiplication: Tensor Contraction in Two Dimensions <code>[FOUNDATIONAL]</code><a class="headerlink" href="#131-matrix-multiplication-tensor-contraction-in-two-dimensions-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>Element-wise addition, Chapter 12's whole subject, never needed to know a shape beyond "how many positions are there" — every output position was a pure function of the <em>one</em> input position sitting at the same address. Matrix multiplication breaks that immediately: <code>Y(i,j)</code> needs an entire row of <code>X</code> and an entire column of <code>M</code>, and it needs them to line up — the row's third entry paired with the column's third entry, not its first. That pairing-and-summing operation has a name outside of matrices entirely: <strong>tensor contraction</strong>. A contraction takes two tensors, a shared "contracted" dimension between them, and produces one tensor whose shape is everything <em>except</em> that shared dimension, with every remaining position computed by summing products over every value the contracted dimension can take. Ordinary 2-D matrix multiplication is what a contraction looks like when both tensors happen to be rank 2 and exactly one dimension from each is contracted — a special case now, but the exact same machinery a later chapter's batched, higher-rank operations reuse without any new rule.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>X (2×3):                    M (3×2):
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>┌         ┐                 ┌     ┐
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│ 1  2  3 │  ← row 0        │ 1 2 │  ← row 0 (contracts with X col 0)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│ 4  5  6 │  ← row 1        │ 3 4 │  ← row 1 (contracts with X col 1)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└         ┘                 │ 5 6 │  ← row 2 (contracts with X col 2)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                             └     ┘
 </code></pre></div>
-<p><strong>Manual worked example.</strong> <code>[[1,2],[3,4]] @ [[5,6],[7,8]]</code> gives <code>[[1×5+2×7,1×6+2×8],[3×5+4×7,3×6+4×8]]=[[19,22],[43,50]]</code>.</p>
-<h2 id="42-transpose-changes-the-coordinate-mapping">4.2 Transpose changes the coordinate mapping<a class="headerlink" href="#42-transpose-changes-the-coordinate-mapping" title="Permanent link">&para;</a></h2>
-<p>A materialized transpose swaps axes and copies <code>A[i,j]</code> to <code>out[j,i]</code>. A view can instead swap shape and strides without copying, as Section 1.2 showed.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">transpose_2d</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">(</span><span class="n">Shape</span><span class="p">([</span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">]))</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="n">out</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">j</span><span class="p">]</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">out</span>
+<p>Contracting <code>X</code>'s dimension 1 (size 3) against <code>M</code>'s dimension 0 (size 3) — the two dimensions have to agree in size, since every value on one side needs a matching value on the other to multiply against — leaves <code>X</code>'s dimension 0 (size 2) and <code>M</code>'s dimension 1 (size 2) as the output's shape: <code>{2, 2}</code>. Every output position is one full dot product:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Y(i,j) = X(i,0)·M(0,j) + X(i,1)·M(1,j) + X(i,2)·M(2,j)
 </code></pre></div>
-<p><strong>Manual worked example.</strong> <code>[[1,2,3],[4,5,6]]</code> becomes <code>[[1,4],[2,5],[3,6]]</code>. Source <code>(1,2)</code> is 6 and maps to destination <code>(2,1)</code>, flat destination offset <code>2×2+1=5</code>.</p>
-<h2 id="43-reshape-is-metadata-only-only-for-contiguous-storage">4.3 Reshape is metadata-only only for contiguous storage<a class="headerlink" href="#43-reshape-is-metadata-only-only-for-contiguous-storage" title="Permanent link">&para;</a></h2>
-<p>Reshape preserves the flat element order and requires equal element counts. A non-contiguous view must first be materialized in the requested logical order.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reshape_contiguous</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">tensor</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">new_shape</span><span class="p">:</span><span class="w"> </span><span class="n">Shape</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">new_shape</span><span class="o">.</span><span class="n">numel</span><span class="p">():</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;reshape changes element count&quot;</span><span class="p">)</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_shape</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">tensor</span><span class="o">.</span><span class="n">strides</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row_major_strides</span><span class="p">(</span><span class="n">new_shape</span><span class="p">)</span>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>Two implementations of that same triple sum appear in this section: a scalar baseline that is the ground truth every faster version gets checked against, and a SIMD-vectorized version that packs several of the sum's terms into one vector instruction.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">Matrix</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">data</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">rows</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">cols</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rows</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="fm">__del__</span><span class="p">(</span><span class="n">owned</span><span class="w"> </span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w">     </span><span class="c1"># row-major, from Chapter 3</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">):</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">fill_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">                </span><span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="k">fn</span><span class="w"> </span><span class="nf">scalar_matrix_multiply</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">):</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Classic O(n^3): the baseline SIMD and GPU versions are checked against.&quot;&quot;&quot;</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">                </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">            </span><span class="n">result</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="nb">sum</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Flat <code>[0,1,2,3,4,5]</code> reshaped from <code>[2,3]</code> to <code>[3,2]</code> reads <code>[[0,1],[2,3],[4,5]]</code>. Both shapes contain six elements; <code>[4,2]</code> would require eight and raises.</p>
-<h2 id="44-linear-solves-beat-explicit-inverses">4.4 Linear solves beat explicit inverses<a class="headerlink" href="#44-linear-solves-beat-explicit-inverses" title="Permanent link">&para;</a></h2>
-<p>To solve <code>Ax=b</code>, factor or eliminate directly. Forming <code>A⁻¹</code> usually performs more work and amplifies rounding error. The 2×2 case makes the distinction concrete.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">solve_2x2</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">y0</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">y1</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tuple</span><span class="p">[</span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="nb">Float64</span><span class="p">]:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">det</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">det</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e-12</span><span class="p">:</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;singular matrix&quot;</span><span class="p">)</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">((</span><span class="n">d</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">det</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">det</span><span class="p">)</span>
+<p><code>Matrix.get</code>'s <code>row * self.cols + col</code> is Chapter 6's linear-index formula specialized to exactly two dimensions — no general stride array, because a plain 2-D matrix only ever needs one stride (<code>cols</code>) and an implicit second stride of <code>1</code>. <code>scalar_matrix_multiply</code> is nothing more than the contraction formula above, written as three nested loops: the outer two pick an output position <code>(i, j)</code>, the innermost walks the contracted dimension and accumulates.</p>
+<p>The SIMD version restructures only the innermost loop — it still computes exactly the same sum, just several terms at a time:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">simd_matrix_multiply</span><span class="p">[</span><span class="n">simd_width</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">simd_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">simd_width</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">simd_width</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">vector_sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">                </span><span class="k">var</span><span class="w"> </span><span class="nv">a_vals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">                </span><span class="k">var</span><span class="w"> </span><span class="nv">b_vals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">                    </span><span class="n">a_vals</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">)</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">                    </span><span class="n">b_vals</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">                </span><span class="n">vector_sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a_vals</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b_vals</span><span class="w">   </span><span class="c1"># single SIMD FMA</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">                </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">vector_sum</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span><span class="w">  </span><span class="c1"># remainder, scalar</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">                </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">            </span><span class="n">result</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="nb">sum</span><span class="p">)</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Solve <code>[[2,1],[1,3]]x=[5,7]</code>. Determinant is <code>2×3-1×1=5</code>; <code>x0=(3×5-1×7)/5=8/5=1.6</code>, <code>x1=(-1×5+2×7)/5=9/5=1.8</code>. Substitution gives <code>[2×1.6+1.8,1.6+3×1.8]=[5,7]</code>.</p>
-<p>The backward rule for matmul in Chapter 7 is built from these same transpose and contraction operations.</p>
+<p>This is exactly Chapter 5's main-loop-plus-remainder shape, transplanted into the innermost dimension of a dot product instead of a flat vector: <code>simd_count</code> rounds <code>a.cols</code> down to the nearest multiple of <code>simd_width</code>, the main loop packs <code>simd_width</code> values from <code>a</code>'s row and <code>b</code>'s column into two SIMD registers and multiplies them in one instruction, and whatever doesn't divide evenly falls through to the scalar remainder loop at the bottom — the same tail-handling logic Chapter 5 traced for a flat vector, now handling the leftover terms of one dot product.</p>
+<table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Multiply-adds per output element</th>
+<th>Vector instructions per output element (width <code>w</code>)</th>
+<th>Checked against</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scalar_matrix_multiply</code></td>
+<td><code>a.cols</code></td>
+<td>0 — fully scalar</td>
+<td>the definition of matrix multiplication itself</td>
+</tr>
+<tr>
+<td><code>simd_matrix_multiply[w]</code></td>
+<td><code>a.cols</code> (identical total work)</td>
+<td><code>a.cols // w</code> fused multiplies, plus <code>a.cols % w</code> scalar remainder terms</td>
+<td><code>scalar_matrix_multiply</code>'s output, element-by-element, within a <code>0.001</code> tolerance</td>
+</tr>
+<tr>
+<td>A GPU tiled kernel</td>
+<td><code>a.cols</code>, split across threads/blocks instead of SIMD lanes</td>
+<td>—</td>
+<td>not introduced until Part 5's kernel-implementation chapter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="worked-example-1311-the-full-contraction-by-hand">Worked Example 13.1.1 — The full contraction, by hand<a class="headerlink" href="#worked-example-1311-the-full-contraction-by-hand" title="Permanent link">&para;</a></h3>
+<p>For <code>i=0, j=0</code>: <code>Y(0,0) = 1·1 + 2·3 + 3·5 = 1 + 6 + 15 = 22</code>. For <code>i=0, j=1</code>: <code>Y(0,1) = 1·2 + 2·4 + 3·6 = 2 + 8 + 18 = 28</code>. For <code>i=1, j=0</code>: <code>Y(1,0) = 4·1 + 5·3 + 6·5 = 4 + 15 + 30 = 49</code>. For <code>i=1, j=1</code>: <code>Y(1,1) = 4·2 + 5·4 + 6·6 = 8 + 20 + 36 = 64</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Y (2×2):
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>┌         ┐
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│ 22  28  │
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│ 49  64  │
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>└         ┘
+</code></pre></div>
+<p>Every one of these four values is what <code>scalar_matrix_multiply(X, M, Y)</code> computes, and every other implementation in this chapter — SIMD, and eventually GPU — exists purely to reach this same answer faster.</p>
+<h3 id="worked-example-1312-the-simd-dot-product-lane-by-lane">Worked Example 13.1.2 — The SIMD dot product, lane by lane<a class="headerlink" href="#worked-example-1312-the-simd-dot-product-lane-by-lane" title="Permanent link">&para;</a></h3>
+<p>Trace <code>simd_matrix_multiply[2]</code> (<code>simd_width = 2</code>) computing <code>Y(0,0)</code> on the same <code>X</code> and <code>M</code>. <code>a.cols = 3</code>, so <code>simd_count = (3 // 2) * 2 = 2</code> — the contraction dimension does <em>not</em> divide evenly by <code>2</code>, which is exactly what makes the remainder loop worth watching here.</p>
+<p>The main loop runs once, at <code>k = 0</code>: <code>a_vals = [X.get(0,0), X.get(0,1)] = [1, 2]</code>, <code>b_vals = [M.get(0,0), M.get(1,0)] = [1, 3]</code>. The single SIMD instruction <code>vector_sum += a_vals * b_vals</code> computes <code>[1×1, 2×3] = [1, 6]</code> in one shot, so <code>vector_sum = [1, 6]</code> — there is no second main-loop iteration, since <code>k = 2</code> is not less than <code>simd_count = 2</code>. Summing the two lanes: <code>sum = 1 + 6 = 7</code>.</p>
+<p>The remainder loop then runs for <code>k</code> in <code>range(2, 3)</code> — just <code>k = 2</code>: <code>sum += X.get(0,2) * M.get(2,0) = 3 × 5 = 15</code>. Final total: <code>sum = 7 + 15 = 22</code> — exactly <code>Y(0,0)</code> from Worked Example 13.1.1, reached by one vectorized multiply covering two of the three terms and one scalar multiply covering the third.</p>
+<p>A second trace, <code>Y(1,1)</code>, confirms the pattern rather than being a coincidence of the first: <code>a_vals = [X.get(1,0), X.get(1,1)] = [4, 5]</code>, <code>b_vals = [M.get(0,1), M.get(1,1)] = [2, 4]</code>, so <code>vector_sum = [4×2, 5×4] = [8, 20]</code>, lane sum <code>= 28</code>. Remainder: <code>X.get(1,2) × M.get(2,1) = 6 × 6 = 36</code>. Total: <code>28 + 36 = 64</code> — <code>Y(1,1)</code>, again matching the scalar answer exactly. Every output position in this chapter's example takes the identical two-vectorized-plus-one-scalar shape, because every position shares the same <code>a.cols = 3</code> contraction length.</p>
+<h3 id="worked-example-1313-multiplication-counts-at-three-scales">Worked Example 13.1.3 — Multiplication counts at three scales<a class="headerlink" href="#worked-example-1313-multiplication-counts-at-three-scales" title="Permanent link">&para;</a></h3>
+<p>The contraction formula performs exactly <code>a.cols</code> multiplications per output position, and there are <code>a.rows × b.cols</code> output positions, so the total scalar multiply count is <code>a.rows × a.cols × b.cols</code>. For this chapter's running <code>2×3</code> by <code>3×2</code> example: <code>2 × 3 × 2 = 12</code> multiplications total — four output positions, three each. For a square <code>n×n</code> by <code>n×n</code> case, that's <code>n × n × n = n³</code>: at <code>n = 3</code>, <code>27</code> multiplications, the exact figure Section 13.4 below uses as its own baseline. At <code>n = 64</code> — the size of this chapter's one captured test run — the same formula gives <code>64³ = 262{,}144</code> multiplications, none of which changes what <code>simd_matrix_multiply</code> computes, only how many vector instructions it takes to compute it: at <code>simd_width = 4</code>, roughly a quarter as many fused-multiply instructions as <code>scalar_matrix_multiply</code> would issue, for the identical <code>262{,}144</code> total multiply-adds.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[COMMON TRAP]  Neither multiply function ever checks a.cols == b.rows
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>scalar_matrix_multiply and simd_matrix_multiply both use a.cols as the
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>number of terms to sum, and both call b.get(k, j) for every k up to
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>a.cols - 1. Nothing in either function compares a.cols against b.rows
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>first. If a caller passes an `a` that is 2x3 and a `b` that is only 2x2
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>(so b.rows = 2, not 3), the loop still runs k = 0, 1, 2 regardless,
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>because it never looked at b.rows at all. b.get(2, j) then evaluates
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>b.data[2 * b.cols + j] -- an index built entirely from b&#39;s own row-major
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>formula, with no awareness that row 2 doesn&#39;t logically exist for a
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>2-row matrix. If b&#39;s underlying buffer happens to be large enough, this
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>silently reads whatever value sits past b&#39;s intended data (often the
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>start of some unrelated allocation) and folds it into the sum as if it
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>were a legitimate matrix entry -- no crash, no exception, just a wrong
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>number in `result` that looks exactly as valid as a correct one. If
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>b&#39;s buffer is not large enough, it&#39;s an out-of-bounds read instead,
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>which may or may not fault depending on what else happens to be mapped
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>nearby. Either way, the failure mode is silent-wrong-answer-or-maybe-a-
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>crash, never &quot;an error message telling you the shapes don&#39;t match&quot; --
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>that check simply does not exist in this code, unlike e.g. NumPy, which
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>raises immediately on a shape mismatch.
+</code></pre></div>
+<h2 id="132-transpose-operations-rearranging-indices-not-values-foundational">13.2 Transpose Operations: Rearranging Indices, Not Values <code>[FOUNDATIONAL]</code><a class="headerlink" href="#132-transpose-operations-rearranging-indices-not-values-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>Transpose is the first operation in this book that changes <em>nothing</em> about any value and <em>everything</em> about where that value lives. <code>output[j][i] = input[i][j]</code> swaps which index means "row" and which means "column" — every number in the matrix survives untouched, only its address changes. That makes transpose a pure memory-movement problem: there is no arithmetic to get wrong, only an access pattern to get efficient, which is exactly the kind of problem Chapter 3's bus-utilization argument and Chapter 5's SIMD loads/stores were built to address.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">matrix_transpose_simd</span><span class="p">[</span><span class="n">simd_width</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">](</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">simd_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">simd_width</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">simd_width</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">row_vals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">                </span><span class="n">row_vals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">                </span><span class="n">output</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">row_vals</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w">   </span><span class="c1"># scatter into columns</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span><span class="w">      </span><span class="c1"># remainder</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">            </span><span class="n">output</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">))</span>
+</code></pre></div>
+<p>The access pattern is deliberately asymmetric: <code>input.get(i, j+k)</code> reads <code>simd_width</code> <em>consecutive</em> values from one row of <code>input</code> — a single, cheap, sequential SIMD load, exactly the pattern the SoA argument in Chapter 3 favors — and then <code>output.set(j+k, i, ...)</code> writes those same values to <code>simd_width</code> <em>different rows</em> of <code>output</code>, one row apart each time, which is a scatter rather than a sequential store. Reading fast and writing scattered (rather than the other way around) is a deliberate choice: sequential reads are the cheaper resource to protect, since a strided or scattered <em>read</em> would otherwise waste part of every cache line fetched.</p>
+<h3 id="worked-example-1321-transposing-a-23-matrix-by-hand">Worked Example 13.2.1 — Transposing a 2×3 matrix by hand<a class="headerlink" href="#worked-example-1321-transposing-a-23-matrix-by-hand" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>      1  2  3
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>A =
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>      4  5  6
+</code></pre></div>
+<p>transposes to the 3×2 matrix formed by turning <code>A</code>'s rows into columns:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>       1  4
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Aᵀ =   2  5
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>       3  6
+</code></pre></div>
+<p>Spot-check one element rather than trusting the picture: <code>A[0,2] = 3</code>. Transposing swaps the two indices, so that value should land at <code>Aᵀ[2,0]</code> — and it does: <code>3</code>. Every element in the matrix obeys the identical rule, <code>Aᵀ[j,i] = A[i,j]</code>, with no value ever recomputed, only relocated.</p>
+<h3 id="worked-example-1322-the-simd-scatter-traced-write-by-write">Worked Example 13.2.2 — The SIMD scatter, traced write by write<a class="headerlink" href="#worked-example-1322-the-simd-scatter-traced-write-by-write" title="Permanent link">&para;</a></h3>
+<p>Run <code>matrix_transpose_simd[2]</code> on the same <code>2×3</code> <code>A</code>. <code>input.cols = 3</code>, <code>simd_width = 2</code>, so <code>simd_count = (3 // 2) × 2 = 2</code> — again a contraction-style dimension that doesn't divide evenly, so both the vectorized loop and the remainder loop fire.</p>
+<p>For <code>i = 0</code> (row <code>[1, 2, 3]</code>): the main loop's only iteration is <code>j = 0</code>. <code>row_vals = [A.get(0,0), A.get(0,1)] = [1, 2]</code>, loaded as one sequential pair. The scatter then writes <code>output.set(0, 0, 1)</code> and <code>output.set(1, 0, 2)</code> — two separate rows of <code>output</code>, one write apart. The remainder loop handles <code>j = 2</code>: <code>output.set(2, 0, A.get(0,2)) = output.set(2, 0, 3)</code>.</p>
+<p>For <code>i = 1</code> (row <code>[4, 5, 6]</code>): main loop <code>j = 0</code>: <code>row_vals = [4, 5]</code>, scattered to <code>output.set(0, 1, 4)</code> and <code>output.set(1, 1, 5)</code>. Remainder <code>j = 2</code>: <code>output.set(2, 1, 6)</code>.</p>
+<p>Collecting every write: <code>output[0] = [1, 4]</code>, <code>output[1] = [2, 5]</code>, <code>output[2] = [3, 6]</code> — exactly <code>Aᵀ</code> from Worked Example 13.2.1, assembled from one sequential 2-wide read per row plus one scalar remainder read per row, scattered into six individual column writes total.</p>
+<h2 id="133-reshaping-and-view-operations-foundational">13.3 Reshaping and View Operations <code>[FOUNDATIONAL]</code><a class="headerlink" href="#133-reshaping-and-view-operations-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>Reshape asks a deceptively simple question: can these same bytes be read as a different shape without moving any of them? The answer is yes exactly when the data is <em>contiguous</em> in the new shape's row-major order — and the honest, sometimes-surprising answer is no otherwise, in which case "reshape" secretly becomes "copy."</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<p>Reshape recomputes only the <code>TensorShape</code> and <code>TensorStrides</code> metadata built in Chapter 6 and Chapter 7.1, and returns a new <code>TensorView</code> sharing the <em>original</em> <code>RefCountedBuffer</code> from Chapter 11.1 — no allocation, no data movement, just new arithmetic for turning a coordinate into an offset. That's only valid when the requested shape is a genuine re-slicing of the same flat sequence of values in the same order; a non-contiguous view (one already produced by a transpose, a stride-0 broadcast, or a slice) has no stride pattern that can make reshape's cheap trick work, and the framework falls back to <code>matrix_transpose_simd</code>-style data movement — a real copy — via the same contiguity check <code>TensorView.is_contiguous()</code> performs before every reshape.</p>
+<h3 id="worked-example-1331-a-free-reshape">Worked Example 13.3.1 — A free reshape<a class="headerlink" href="#worked-example-1331-a-free-reshape" title="Permanent link">&para;</a></h3>
+<p>Take twelve values <code>[0, 1, 2, ..., 11]</code> sitting in one contiguous run of memory. Viewed as shape <code>[2, 6]</code> (row-major, Chapter 3), that memory reads as:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>0  1  2  3  4  5
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>6  7  8  9 10 11
+</code></pre></div>
+<p>Reshaping to <code>[3, 4]</code> re-slices the <em>exact same twelve bytes</em> into a different grid, with zero data movement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a> 0  1  2  3
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a> 4  5  6  7
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a> 8  9 10 11
+</code></pre></div>
+<p>Both are valid readings of one flat sequence because <code>2×6 = 3×4 = 12</code> and the underlying memory is one contiguous run — reshape only recomputes the row stride (<code>6</code> becomes <code>4</code>) and hands back a view of the same buffer.</p>
+<h3 id="worked-example-1332-why-a-non-contiguous-reshape-cant-take-the-same-shortcut">Worked Example 13.3.2 — Why a non-contiguous reshape can't take the same shortcut<a class="headerlink" href="#worked-example-1332-why-a-non-contiguous-reshape-cant-take-the-same-shortcut" title="Permanent link">&para;</a></h3>
+<p><code>Aᵀ</code> from Section 13.2 is stored in memory, element by element, as <code>[1, 4, 2, 5, 3, 6]</code> — the order <code>matrix_transpose_simd</code>'s scatter writes actually produced. Suppose reshape ignored the contiguity check and simply reinterpreted those six values as shape <code>[2, 3]</code> using ordinary row-major strides, the same shortcut Worked Example 13.3.1 used legitimately: row <code>0</code> would be the first three stored values, <code>[1, 4, 2]</code>, and row <code>1</code> would be the last three, <code>[5, 3, 6]</code>. Compare that to the real <code>A = [[1, 2, 3], [4, 5, 6]]</code> this data supposedly represents — they don't match in a single position past the first. The naive reshape isn't slightly wrong, it's wrong everywhere except <code>[0,0]</code>, because <code>Aᵀ</code>'s storage order was never <code>A</code>'s row-major order to begin with; it was written column-by-column by the transpose's scatter. This is precisely why <code>is_contiguous()</code> has to run <em>before</em> reshape takes the free path: the free path is only correct when the requested shape's row-major reading of the buffer matches what's actually stored, and a transposed buffer's storage order simply isn't that.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[COMMON TRAP]  A reshape that succeeds is still a view, not a copy
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Even a legitimate, contiguous reshape -- like [2,6] to [3,4] in Worked
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Example 13.3.1 -- returns a TensorView sharing the original
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>RefCountedBuffer, not an independent copy. Writing through the reshaped
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>view therefore writes through to the original tensor as well, and vice
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>versa, exactly as Chapter 7.2&#39;s zero-copy views intended. Code that
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>expects reshape to behave like a snapshot -- safe to mutate without
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>touching the tensor it came from -- will corrupt the original tensor&#39;s
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>data instead. When an independent copy is actually needed, that has to
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>be requested explicitly; reshape&#39;s entire reason to exist is to *avoid*
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>copying whenever the shapes allow it.
+</code></pre></div>
+<h2 id="134-advanced-linear-algebra-structure-aware-multiplication-foundational">13.4 Advanced Linear Algebra: Structure-Aware Multiplication <code>[FOUNDATIONAL]</code><a class="headerlink" href="#134-advanced-linear-algebra-structure-aware-multiplication-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Section 13.1's <code>O(n³)</code> cost assumes nothing about either matrix beyond its shape. The specialized tensor types from Chapter 9 exist specifically because assuming nothing is often wasteful — a matrix with known internal structure (all zeros except the diagonal, all zeros below the diagonal, or a single scale factor on the diagonal) can skip almost every multiplication the general path would blindly perform, simply by knowing in advance which terms are guaranteed to be zero and never computing them at all.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<p>The saving is easiest to see by counting multiplications directly, the same accounting Worked Example 13.1.3 used for the general case. A general <code>3×3</code> matrix <code>A</code> times a general <code>3×3</code> matrix costs <code>27</code> scalar multiplications — Section 13.1's triple loop, <code>3</code> output rows times <code>3</code> output columns times <code>3</code> terms summed per entry. Now make the second matrix a <code>DiagonalTensor</code>, <code>D = diag(2, 5, 10)</code> — <code>2, 5, 10</code> on the diagonal, <code>0</code> everywhere else. Multiplying <code>A</code> by <code>D</code> just scales <code>A</code>'s columns: column <code>0</code> of the result is column <code>0</code> of <code>A</code> times <code>2</code>, column <code>1</code> is column <code>1</code> of <code>A</code> times <code>5</code>, column <code>2</code> is column <code>2</code> of <code>A</code> times <code>10</code>. That's <code>9</code> multiplications total — one per entry of <code>A</code>, since each entry is scaled by exactly one diagonal value — not <code>27</code>. A <code>DiagonalTensor</code> dispatches to this column-scaling code instead of the general matmul path because the framework tracks tensor <em>kind</em>, not just shape; the <code>3×</code> saving here becomes an <code>n</code>-times saving (<code>O(n)</code> instead of <code>O(n²)</code> multiplications, since the general path's <code>O(n³)</code> drops one full factor of <code>n</code>) as the matrix grows.</p>
+<p>Push the idea to its limit with the identity matrix — <code>diag(1, 1, 1)</code>, Chapter 9's <code>IdentityTensor</code> — and every scale factor is <code>1</code>, so multiplying by it returns the other operand completely unchanged, in <code>O(1)</code>: zero multiplications needed at all, which is exactly the verification trick Worked Example 13.1.1's real captured test used to check that <code>A @ I = A</code> on a full <code>64×64</code> matrix.</p>
+<p>Triangular tensors from the same chapter back <strong>forward and backward substitution</strong> — the standard way to solve <code>Ax = b</code> without ever forming a numerically unstable matrix inverse. This is illustrative rather than book source code, since no runnable forward-substitution function appears in this chapter's own material, but the arithmetic is worth working through by hand because Part 7's bond-pricing chapter leans on exactly this technique to solve for a discount curve that reprices a whole set of instruments simultaneously.</p>
+<h3 id="worked-example-1341-counting-the-saving-at-n-5">Worked Example 13.4.1 — Counting the saving at n = 5<a class="headerlink" href="#worked-example-1341-counting-the-saving-at-n-5" title="Permanent link">&para;</a></h3>
+<p>Using the same accounting on a larger case: a general <code>5×5</code> by <code>5×5</code> multiplication costs <code>5³ = 125</code> scalar multiplications. Dispatching to the diagonal path instead costs <code>1</code> multiplication per entry of the <code>5×5</code> operand — <code>25</code> total. The ratio is <code>125 / 25 = 5</code>, matching the <code>n</code>-times pattern exactly: at <code>n = 3</code> the saving was <code>3×</code> (<code>27</code> vs <code>9</code>), and at <code>n = 5</code> it's <code>5×</code> (<code>125</code> vs <code>25</code>) — the general path's cost grows as <code>n³</code> while the diagonal path's grows only as <code>n²</code>, so the ratio between them is always exactly <code>n</code>.</p>
+<h3 id="worked-example-1342-solving-a-triangular-system-by-forward-substitution">Worked Example 13.4.2 — Solving a triangular system by forward substitution<a class="headerlink" href="#worked-example-1342-solving-a-triangular-system-by-forward-substitution" title="Permanent link">&para;</a></h3>
+<p>Take a small lower-triangular system <code>Lx = b</code> with <code>L = [[2, 0], [3, 4]]</code> and <code>b = [6, 23]</code>. Forward substitution solves the <em>first</em> row first, since it only involves one unknown: <code>2·x₀ = 6</code>, so <code>x₀ = 3</code>. The second row now has only one unknown left, because <code>x₀</code> is already known: <code>3·x₀ + 4·x₁ = 23</code>, so <code>4·x₁ = 23 - 3×3 = 23 - 9 = 14</code>, giving <code>x₁ = 3.5</code>. Checking the full system: <code>L @ [3, 3.5] = [2×3 + 0×3.5, 3×3 + 4×3.5] = [6, 9 + 14] = [6, 23]</code> — matching <code>b</code> exactly. Notice what never happened: no matrix inverse was computed, and no general <code>O(n³)</code> solve was needed — each unknown was resolved from a single equation the moment every other unknown in that equation was already known, which is only possible because <code>L</code>'s triangular structure guarantees row <code>0</code> has exactly one unknown, row <code>1</code> has at most two, and so on.</p>
+<h2 id="135-reference-implementations">13.5 Reference Implementations<a class="headerlink" href="#135-reference-implementations" title="Permanent link">&para;</a></h2>
+<p>Only one combined run of this chapter's code was ever captured with console output — a <code>64×64</code> sequential matrix <code>A</code> multiplied by a <code>64×64</code> identity matrix <code>B</code>, verifying the scalar and SIMD results against each other and against the mathematical fact that <code>A @ I = A</code>. The source material for this chapter includes the <code>Matrix</code> struct and the three functions above, and the resulting output, but not the driver/<code>main()</code> code that actually built the two <code>64×64</code> matrices and called these functions — unlike Chapters 6 through 12, where a complete file with its own <code>main()</code> was available to reproduce verbatim, this chapter's source only preserves the pieces and the result. Rather than invent a driver that was never actually part of the book's material, the functions are reproduced exactly as given below, followed by the real captured output they were verified against.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">Matrix</span><span class="p">:</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">data</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">rows</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">cols</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rows</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="fm">__del__</span><span class="p">(</span><span class="n">owned</span><span class="w"> </span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w">     </span><span class="c1"># row-major, from Chapter 3</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">):</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">fill_identity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">                </span><span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="k">fn</span><span class="w"> </span><span class="nf">scalar_matrix_multiply</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">):</span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Classic O(n^3): the baseline SIMD and GPU versions are checked against.&quot;&quot;&quot;</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="w">                </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="w">            </span><span class="n">result</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="nb">sum</span><span class="p">)</span>
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="k">fn</span><span class="w"> </span><span class="nf">simd_matrix_multiply</span><span class="p">[</span><span class="n">simd_width</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">):</span>
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span>
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">sum</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">simd_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">simd_width</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">simd_width</span>
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">vector_sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a><span class="w">                </span><span class="k">var</span><span class="w"> </span><span class="nv">a_vals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a><span class="w">                </span><span class="k">var</span><span class="w"> </span><span class="nv">b_vals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a><span class="w">                    </span><span class="n">a_vals</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">)</span>
+<a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a><span class="w">                    </span><span class="n">b_vals</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a><span class="w">                </span><span class="n">vector_sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a_vals</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b_vals</span><span class="w">   </span><span class="c1"># single SIMD FMA</span>
+<a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a>
+<a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a><span class="w">                </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">vector_sum</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+<a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span><span class="w">  </span><span class="c1"># remainder, scalar</span>
+<a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a><span class="w">                </span><span class="nb">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">)</span>
+<a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a>
+<a id="__codelineno-12-54" name="__codelineno-12-54" href="#__codelineno-12-54"></a><span class="w">            </span><span class="n">result</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="nb">sum</span><span class="p">)</span>
+<a id="__codelineno-12-55" name="__codelineno-12-55" href="#__codelineno-12-55"></a>
+<a id="__codelineno-12-56" name="__codelineno-12-56" href="#__codelineno-12-56"></a><span class="k">fn</span><span class="w"> </span><span class="nf">matrix_transpose_simd</span><span class="p">[</span><span class="n">simd_width</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">](</span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">Matrix</span><span class="p">):</span>
+<a id="__codelineno-12-57" name="__codelineno-12-57" href="#__codelineno-12-57"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<a id="__codelineno-12-58" name="__codelineno-12-58" href="#__codelineno-12-58"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">simd_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">cols</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">simd_width</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">simd_width</span>
+<a id="__codelineno-12-59" name="__codelineno-12-59" href="#__codelineno-12-59"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-12-60" name="__codelineno-12-60" href="#__codelineno-12-60"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">row_vals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">simd_width</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-12-61" name="__codelineno-12-61" href="#__codelineno-12-61"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-12-62" name="__codelineno-12-62" href="#__codelineno-12-62"></a><span class="w">                </span><span class="n">row_vals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-12-63" name="__codelineno-12-63" href="#__codelineno-12-63"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_width</span><span class="p">):</span>
+<a id="__codelineno-12-64" name="__codelineno-12-64" href="#__codelineno-12-64"></a><span class="w">                </span><span class="n">output</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">row_vals</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w">   </span><span class="c1"># scatter into columns</span>
+<a id="__codelineno-12-65" name="__codelineno-12-65" href="#__codelineno-12-65"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="o">.</span><span class="n">cols</span><span class="p">):</span><span class="w">      </span><span class="c1"># remainder</span>
+<a id="__codelineno-12-66" name="__codelineno-12-66" href="#__codelineno-12-66"></a><span class="w">            </span><span class="n">output</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
+<p>Verified against a 64×64 sequential matrix <code>A</code> multiplied by an identity matrix <code>B</code> (so the correct answer is <code>A</code> itself):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Matrix operations on 64 x 64 matrices
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Matrix A: Sequential values [0, 1, 2, ...]
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Matrix B: Identity matrix
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>1. Matrix Multiplication (A * B):
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  Scalar multiplication completed
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>  SIMD4 multiplication completed
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>  Verification: PASS
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>3. Sample Results (top-left 4x4):
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>  Original A * B (should equal A since B is identity):
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    [0.0, 1.0, 2.0, 3.0]
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    [64.0, 65.0, 66.0, 67.0]
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    [128.0, 129.0, 130.0, 131.0]
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>    [192.0, 193.0, 194.0, 195.0]
+</code></pre></div>
+<p>Transpose's verification is described in the source only as checking <code>input[i][j] == transposed[j][i]</code> over a submatrix — the same "compare against a known-correct baseline" pattern used throughout this book — but no separate captured console output for that check survives alongside this chapter's material.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>Matrix multiplication is tensor contraction restricted to two dimensions: every output position is a full dot product between a row and a column, <code>a.cols</code> multiplications each, <code>a.rows × b.cols</code> positions total — <code>12</code> multiplications for this chapter's <code>2×3</code> by <code>3×2</code> running example, <code>27</code> for a general <code>3×3</code>, and <code>262{,}144</code> for the <code>64×64</code> case this chapter's one real captured run actually exercised. <code>simd_matrix_multiply</code> computes that identical sum, just packing <code>simd_width</code> terms into one vector instruction at a time and falling through to a scalar remainder loop for whatever doesn't divide evenly — traced lane by lane in this chapter down to the exact same <code>22</code> and <code>64</code> the scalar version produces. Neither multiply function ever checks that <code>a.cols</code> equals <code>b.rows</code> before running, which means a shape mismatch doesn't raise an error — it silently reads past where a matrix's real data ends and folds whatever it finds into the answer. Transpose moves values without changing any of them, reading sequentially and scattering into distant rows; reshape avoids moving values at all when the data is already contiguous in the target shape, and falls back to a real copy when it isn't — attempting a naive reshape of a transposed buffer without that contiguity check produces the wrong matrix in every position but one. Finally, the specialized tensor types from Chapter 9 turn "assume nothing about the operand" into "exploit exactly what's known": a diagonal operand cuts multiplication counts by a factor of <code>n</code>, an identity operand cuts them to zero, and a triangular operand replaces an unstable matrix inverse with forward or backward substitution — resolving one unknown per equation, in order, the way this chapter's <code>2×2</code> worked example resolved <code>x₀ = 3</code> and then <code>x₁ = 3.5</code> without ever inverting a matrix.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li><code>simd_matrix_multiply[3]</code> is called on this chapter's running <code>X (2×3)</code> by <code>M (3×2)</code> example — that is, <code>simd_width</code> set to <code>3</code>, exactly equal to <code>a.cols</code>. What does <code>simd_count</code> evaluate to, and does the remainder loop ever execute for any output position?</li>
+<li>Trace <code>simd_matrix_multiply[2]</code> computing <code>Y(1,0)</code> on the same <code>X</code> and <code>M</code> (row <code>1</code> of <code>X</code> is <code>[4,5,6]</code>; column <code>0</code> of <code>M</code> is <code>[1,3,5]</code>). What are <code>a_vals</code>, <code>b_vals</code>, the lane sum, and the remainder contribution — and does the total match the scalar answer, <code>49</code>, from Worked Example 13.1.1?</li>
+<li><code>scalar_matrix_multiply</code> is called with <code>a</code> shaped <code>2×3</code> and <code>b</code> shaped <code>2×2</code> (so <code>a.cols = 3</code> but <code>b.rows = 2</code>). Using <code>Matrix.get</code>'s formula <code>row * self.cols + col</code>, what does <code>b.get(2, j)</code> actually evaluate to, and why does nothing in the code stop this call from proceeding?</li>
+<li>Using <code>matrix_transpose_simd[2]</code> on <code>A = [[1,2,3],[4,5,6]]</code>, which exact <code>output.set</code> calls (in order) reconstruct row <code>1</code> of <code>A</code> (<code>[4,5,6]</code>) into column <code>1</code> of <code>output</code>?</li>
+<li>A general <code>4×4</code> matrix is multiplied by a <code>4×4</code> diagonal matrix. Using the counting method from Worked Example 13.4.1, how many scalar multiplications does the general path take, how many does the diagonal-dispatch path take, and what ratio do they confirm?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>Chapter 14 (<code>part2/03-reduction-operations.md</code>) turns to the operations that collapse a tensor's dimensions instead of preserving them: sums, means, norms, and the reductions every loss function ultimately produces a single scalar through.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> <code>simd_count = (3 // 3) × 3 = 3</code>, exactly equal to <code>a.cols</code>. The remainder loop runs <code>for k in range(3, 3)</code> — an empty range — for every single output position, so it never executes at all when <code>simd_width</code> divides the contraction dimension evenly; the entire dot product is computed by one vectorized multiply per output element.</p>
+<p><strong>2.</strong> <code>a_vals = [X.get(1,0), X.get(1,1)] = [4, 5]</code>; <code>b_vals = [M.get(0,0), M.get(1,0)] = [1, 3]</code>; <code>vector_sum = [4×1, 5×3] = [4, 15]</code>, lane sum <code>= 4 + 15 = 19</code>. Remainder (<code>k=2</code>): <code>X.get(1,2) × M.get(2,0) = 6 × 5 = 30</code>. Total: <code>19 + 30 = 49</code> — matching the scalar answer for <code>Y(1,0)</code> exactly.</p>
+<p><strong>3.</strong> <code>b.get(2, j)</code> evaluates <code>b.data[2 * b.cols + j] = b.data[2×2 + j] = b.data[4 + j]</code>. For a <code>2×2</code> matrix (<code>4</code> total elements, valid indices <code>0</code>–<code>3</code>), this reads at index <code>4</code> or higher — one past the end of <code>b</code>'s allocated buffer, an out-of-bounds read. Nothing stops the call because neither <code>scalar_matrix_multiply</code> nor <code>Matrix.get</code> ever compares <code>a.cols</code> against <code>b.rows</code>; the loop bound is taken entirely from <code>a.cols</code>, with no reference to <code>b</code>'s actual dimensions at all.</p>
+<p><strong>4.</strong> Row <code>1</code> of <code>A</code> is <code>[4, 5, 6]</code>. The main loop (<code>j=0</code>, since <code>simd_count = 2</code>) loads <code>row_vals = [A.get(1,0), A.get(1,1)] = [4, 5]</code> and writes <code>output.set(0, 1, 4)</code> then <code>output.set(1, 1, 5)</code>. The remainder loop (<code>j=2</code>) writes <code>output.set(2, 1, A.get(1,2)) = output.set(2, 1, 6)</code>. In order: <code>output.set(0,1,4)</code>, <code>output.set(1,1,5)</code>, <code>output.set(2,1,6)</code> — reconstructing column <code>1</code> of the output as <code>[4, 5, 6]</code>, row <code>1</code> of <code>A</code>, exactly as transpose requires.</p>
+<p><strong>5.</strong> General path: <code>4³ = 64</code> multiplications. Diagonal-dispatch path: one multiplication per entry of the <code>4×4</code> operand — <code>16</code> total. Ratio: <code>64 / 16 = 4</code>, confirming the <code>n</code>-times pattern at <code>n = 4</code> — consistent with <code>3×</code> at <code>n=3</code> and <code>5×</code> at <code>n=5</code>.</p>
 
 
 
