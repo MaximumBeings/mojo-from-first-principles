@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-10-performance-optimization" class="md-skip">
+        <a href="#chapter-19-performance-optimization-techniques-telling-a-real-speedup-from-a-rounding-error" class="md-skip">
           Skip to content
         </a>
       
@@ -1437,10 +1437,260 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#101-simd-keeps-a-scalar-tail" class="md-nav__link">
+  <a href="#191-simd-vectorization-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.1 SIMD keeps a scalar tail
+        19.1 SIMD Vectorization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.1 SIMD Vectorization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1911-size10-width4-traced-instruction-by-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.1.1 — size=10, width=4, traced instruction by instruction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1912-size17-width8-where-the-remainder-is-nearly-a-full-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.1.2 — size=17, width=8, where the remainder is nearly a full group
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#192-loop-unrolling-and-fusion-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 Loop Unrolling and Fusion [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.2 Loop Unrolling and Fusion [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1921-unrollings-overhead-saving-with-no-change-in-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.2.1 — Unrolling's overhead saving, with no change in arithmetic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1922-fusions-memory-traffic-saving-counted-exactly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.2.2 — Fusion's memory-traffic saving, counted exactly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#193-compile-time-optimizations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 Compile-time Optimizations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.3 Compile-time Optimizations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1931-two-instantiations-two-independent-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.3.1 — Two instantiations, two independent answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#194-benchmark-framework-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.4 Benchmark Framework [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.4 Benchmark Framework [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1941-converting-a-hypothetical-timing-into-gflops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.4.1 — Converting a hypothetical timing into GFLOPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#195-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1448,10 +1698,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#102-fusion-reduces-memory-traffic" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.2 Fusion reduces memory traffic
+        Self-Check Questions
       
     </span>
   </a>
@@ -1459,10 +1709,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#103-compile-time-specialization-has-a-budget" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.3 Compile-time specialization has a budget
+        Where We Go Next
       
     </span>
   </a>
@@ -1470,21 +1720,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#104-benchmark-medians-after-warm-up" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.4 Benchmark medians after warm-up
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#105-roofline-reasoning-separates-bandwidth-and-compute-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10.5 Roofline reasoning separates bandwidth and compute limits
+        Worked Solutions
       
     </span>
   </a>
@@ -1851,10 +2090,260 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#101-simd-keeps-a-scalar-tail" class="md-nav__link">
+  <a href="#191-simd-vectorization-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.1 SIMD keeps a scalar tail
+        19.1 SIMD Vectorization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.1 SIMD Vectorization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1911-size10-width4-traced-instruction-by-instruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.1.1 — size=10, width=4, traced instruction by instruction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1912-size17-width8-where-the-remainder-is-nearly-a-full-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.1.2 — size=17, width=8, where the remainder is nearly a full group
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#192-loop-unrolling-and-fusion-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 Loop Unrolling and Fusion [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.2 Loop Unrolling and Fusion [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1921-unrollings-overhead-saving-with-no-change-in-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.2.1 — Unrolling's overhead saving, with no change in arithmetic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1922-fusions-memory-traffic-saving-counted-exactly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.2.2 — Fusion's memory-traffic saving, counted exactly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#193-compile-time-optimizations-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 Compile-time Optimizations [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.3 Compile-time Optimizations [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1931-two-instantiations-two-independent-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.3.1 — Two instantiations, two independent answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#194-benchmark-framework-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.4 Benchmark Framework [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.4 Benchmark Framework [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-1941-converting-a-hypothetical-timing-into-gflops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 19.4.1 — Converting a hypothetical timing into GFLOPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#195-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1862,10 +2351,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#102-fusion-reduces-memory-traffic" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.2 Fusion reduces memory traffic
+        Self-Check Questions
       
     </span>
   </a>
@@ -1873,10 +2362,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#103-compile-time-specialization-has-a-budget" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.3 Compile-time specialization has a budget
+        Where We Go Next
       
     </span>
   </a>
@@ -1884,21 +2373,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#104-benchmark-medians-after-warm-up" class="md-nav__link">
+  <a href="#worked-solutions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10.4 Benchmark medians after warm-up
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#105-roofline-reasoning-separates-bandwidth-and-compute-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        10.5 Roofline reasoning separates bandwidth and compute limits
+        Worked Solutions
       
     </span>
   </a>
@@ -1922,49 +2400,346 @@
 
 
 
-<h1 id="chapter-10-performance-optimization">Chapter 10: Performance Optimization<a class="headerlink" href="#chapter-10-performance-optimization" title="Permanent link">&para;</a></h1>
-<p>Optimization begins after correctness and ends with measured evidence. Use a scalar oracle, define the workload, warm up compilation and allocation, synchronize the measured device work, collect multiple samples, and report hardware and compiler versions beside the result.</p>
-<h2 id="101-simd-keeps-a-scalar-tail">10.1 SIMD keeps a scalar tail<a class="headerlink" href="#101-simd-keeps-a-scalar-tail" title="Permanent link">&para;</a></h2>
-<p>Process full vectors with the target's natural width and finish the remainder scalarly. The width changes instruction grouping but not the element-wise contract.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">std.sys.info</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">simdwidthof</span>
+<h1 id="chapter-19-performance-optimization-techniques-telling-a-real-speedup-from-a-rounding-error">Chapter 19: Performance Optimization Techniques — Telling a Real Speedup From a Rounding Error<a class="headerlink" href="#chapter-19-performance-optimization-techniques-telling-a-real-speedup-from-a-rounding-error" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Chapter 18 built kernels that don't waste threads, don't waste memory transactions, and don't waste global-memory reads a shared tile could have avoided. This chapter is about the layer above any single kernel: packing more arithmetic into fewer instructions, collapsing several kernels into one, letting the compiler bake a parameter in so thoroughly that checking it costs nothing at runtime, and — the part every other technique in this chapter is worthless without — a way to measure whether any of it actually helped."</p>
+</blockquote>
+<p><strong>What you will understand by the end of this chapter:</strong></p>
+<ul>
+<li>SIMD vectorization as a compile-time-portable main-loop-plus-remainder pattern — the exact shape Chapter 5's <code>simd_matrix_multiply</code> already used — traced on two different sizes and vector widths to see where the remainder loop does and doesn't disappear</li>
+<li>Loop unrolling and loop fusion as two genuinely different optimizations that are easy to blur together: unrolling cuts loop-control overhead without changing the arithmetic instruction count, while fusion cuts <em>memory traffic</em> by collapsing several kernels' reads and writes into one — counted exactly, not just asserted, for both</li>
+<li>Why fusing operations trades a <em>faster forward pass</em> for a backward rule that has to be hand-derived once, rather than composed for free from the individually-registered <code>MulOp</code>/<code>AddOp</code>/<code>ReluOp</code> backward rules Chapter 16 already built</li>
+<li>Compile-time specialization as the actual mechanism behind this book's "zero-cost abstractions" claim — a parametric function like <code>compile_time_specialized_dot[n]</code> compiles to a genuinely separate, independently-optimized function body per value of <code>n</code>, not one flexible function with a hidden runtime check — and the real cost that mechanism doesn't eliminate: one compiled body per distinct instantiation</li>
+<li>A benchmarking harness built around the one measurement mistake that invalidates everything else: timing a kernel's first call, before caches are warm and (for GPU work) before the device has even been given time to catch up to a host that queued work and kept running</li>
+</ul>
+<p><strong>What you need to know first:</strong></p>
+<ul>
+<li>Chapter 5 in full — <code>simdwidthof[DType]()</code>, the <code>(size // width) * width</code> main-loop-plus-remainder shape, and <code>simd_matrix_multiply</code>'s own already-flagged inefficiency (rereading a row from memory once per output cell) — this chapter's SIMD section is that same shape applied generically, and its loop-fusion section is one way to fix exactly that kind of inefficiency.</li>
+<li>Chapter 16 (the <code>Differentiable</code> trait and the registered <code>AddOp</code>/<code>MulOp</code>/<code>ReluOp</code> backward rules) — Section 19.2's fusion trade-off is stated directly in terms of what those individually-registered ops give you for free.</li>
+<li>Chapter 9 (parametric <code>fn foo[dtype: DType](...)</code> functions like <code>create_identity</code>) — a second, already-published example of the same compile-time specialization mechanism Section 19.3 covers.</li>
+<li>Chapter 18 (the convolution kernels <code>mojo_conv2d_kernel</code> and its padded variant) — Section 19.4's benchmarking example measures exactly these two kernels.</li>
+</ul>
+<h2 id="191-simd-vectorization-foundational">19.1 SIMD Vectorization <code>[FOUNDATIONAL]</code><a class="headerlink" href="#191-simd-vectorization-foundational" title="Permanent link">&para;</a></h2>
+<p><a id="101-simd-vectorization"></a></p>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>A print shop's press can stamp one letter per strike, or it can load a plate with four letters cast side by side and stamp all four in one strike — same ink, same press, one motion instead of four. A run of exactly <code>40</code> letters takes <code>10</code> four-letter strikes instead of <code>40</code> single strikes. A run of <code>42</code> letters takes <code>10</code> four-letter strikes for the first <code>40</code>, and then the operator has no choice but to fall back to two individual single-letter strikes for the two that don't fill a fourth plate. The press doesn't get slower or more complicated for having to do this — it just does almost all of the job at four-times throughput, and the awkward leftover at the old, one-at-a-time rate.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>Chapter 5 already established the shape: split a loop into a vectorized main body plus a scalar remainder, where <code>simd_count = (size // width) * width</code> marks the boundary between them.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sys.info</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">simdwidthof</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">chunk_boundary</span><span class="p">[</span><span class="n">dtype</span><span class="p">:</span><span class="w"> </span><span class="nb">DType</span><span class="p">](</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Int</span><span class="p">:</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">comptime</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simdwidthof</span><span class="p">[</span><span class="n">dtype</span><span class="p">]()</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">width</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">fn</span><span class="w"> </span><span class="nf">vectorized_add</span><span class="p">[</span><span class="n">dtype</span><span class="p">:</span><span class="w"> </span><span class="nb">DType</span><span class="p">](</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="k">alias</span><span class="w"> </span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simdwidthof</span><span class="p">[</span><span class="n">dtype</span><span class="p">]()</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">simd_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">width</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">):</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">va</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="n">dtype</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">]</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">vb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="n">dtype</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">]</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="p">(</span><span class="n">va</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">vb</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">):</span><span class="w">     </span><span class="c1"># scalar remainder</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> If width is 4 and size is 10, the boundary is <code>(10//4)×4=8</code>. Two vector operations cover indices 0–7 and a scalar tail covers 8–9.</p>
-<h2 id="102-fusion-reduces-memory-traffic">10.2 Fusion reduces memory traffic<a class="headerlink" href="#102-fusion-reduces-memory-traffic" title="Permanent link">&para;</a></h2>
-<p><code>relu(a*b+c)</code> can run in one pass rather than writing multiplication and addition intermediates. Fusion changes saved-value needs, so its custom backward must be checked against the unfused graph.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">fused_scalar</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">0</span>
+<p><code>simdwidthof[dtype]()</code> reports the natural vector width for whatever CPU this compiles for — <code>4</code>, <code>8</code>, or <code>16</code> <code>Float32</code>s depending on SSE, AVX2, or AVX-512 support — so this same source, unmodified, runs at each generation's native width instead of the hardcoded <code>4</code> Chapter 5's own <code>simd_matrix_multiply[simd_width]</code> used as a worked example. The trade-off this makes explicit: a wider vector register processes more elements per instruction, but the remainder loop's <em>maximum possible size</em> also grows with the width — a <code>width=16</code> register can leave up to <code>15</code> elements to the scalar loop, versus <code>width=4</code>'s worst case of <code>3</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>Width</th>
+<th><code>simd_count</code></th>
+<th>Vector instructions</th>
+<th>Scalar remainder instructions</th>
+<th>Total instructions</th>
+<th>Scalar-only baseline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>4</td>
+<td>8</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>10</td>
+</tr>
+<tr>
+<td>16</td>
+<td>4</td>
+<td>16</td>
+<td>4</td>
+<td>0</td>
+<td>4</td>
+<td>16</td>
+</tr>
+<tr>
+<td>17</td>
+<td>8</td>
+<td>16</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+<h3 id="worked-example-1911-size10-width4-traced-instruction-by-instruction">Worked Example 19.1.1 — <code>size=10</code>, <code>width=4</code>, traced instruction by instruction<a class="headerlink" href="#worked-example-1911-size10-width4-traced-instruction-by-instruction" title="Permanent link">&para;</a></h3>
+<p><code>simd_count = (10 // 4) * 4 = 8</code>. The main loop runs twice: one instruction adds elements <code>0</code>-<code>3</code> of <code>a</code> and <code>b</code> in a single vector op, a second adds elements <code>4</code>-<code>7</code>. Elements <code>8</code> and <code>9</code> fall outside any full group of four and run through the scalar loop, one at a time. Total: <code>2</code> vector instructions plus <code>2</code> scalar instructions — <code>4</code> instructions replacing what a pure scalar loop would have needed <code>10</code> separate additions to do.</p>
+<h3 id="worked-example-1912-size17-width8-where-the-remainder-is-nearly-a-full-group">Worked Example 19.1.2 — <code>size=17</code>, <code>width=8</code>, where the remainder is nearly a full group<a class="headerlink" href="#worked-example-1912-size17-width8-where-the-remainder-is-nearly-a-full-group" title="Permanent link">&para;</a></h3>
+<p><code>simd_count = (17 // 8) * 8 = 16</code>. The main loop runs twice (elements <code>0</code>-<code>7</code>, then <code>8</code>-<code>15</code>), and exactly <em>one</em> element, index <code>16</code>, falls to the scalar remainder. Total: <code>2</code> vector instructions plus <code>1</code> scalar instruction — <code>3</code> instructions total against a <code>17</code>-instruction scalar baseline, a better ratio than Worked Example 19.1.1's despite the remainder being nonzero in both cases, because <code>17</code>'s one leftover element is a much smaller fraction of <code>17</code> than <code>10</code>'s two leftover elements are of <code>10</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[COMMON TRAP]  Assuming one dtype&#39;s natural width applies to every dtype
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>simdwidthof[DType.float32]() and simdwidthof[DType.float64]() are NOT
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>guaranteed to return the same number on the same hardware. A 256-bit
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>AVX2 register holds eight 4-byte float32 values but only four 8-byte
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>float64 values -- the register&#39;s total BIT width is fixed, so the
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>natural element width is inversely proportional to each element&#39;s
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>size. A vectorized_add[DType.float64] instantiation compiled and
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>tuned around an assumed width of 8 (copied from a float32 benchmark)
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>would silently process half as many elements per instruction as
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>intended, on the same physical register. This is exactly why
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>vectorized_add reads simdwidthof[dtype]() as a compile-time parameter
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>of ITS OWN dtype rather than hardcoding a width borrowed from testing
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>a different one.
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For <code>a=2</code>, <code>b=-3</code>, <code>c=7</code>, the fused intermediate is <code>2×-3+7=1</code>, so output is 1. For <code>c=5</code>, intermediate is -1 and ReLU returns 0. The fused and three-operation references must agree in both branches.</p>
-<h2 id="103-compile-time-specialization-has-a-budget">10.3 Compile-time specialization has a budget<a class="headerlink" href="#103-compile-time-specialization-has-a-budget" title="Permanent link">&para;</a></h2>
-<p>Parameters such as SIMD width and small tile shape can remove dynamic checks. Specializing every dynamic dimension causes code-size growth and longer compilation, so specialize only a small measured set.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">dot_fixed</span><span class="p">[</span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">reduce_add</span><span class="p">()</span>
+<h2 id="192-loop-unrolling-and-fusion-foundational">19.2 Loop Unrolling and Fusion <code>[FOUNDATIONAL]</code><a class="headerlink" href="#192-loop-unrolling-and-fusion-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>Two related but different savings live under this heading, and it's worth telling them apart with two different pictures. <strong>Unrolling</strong>: an inspector checking a conveyor belt one item at a time re-aims, refocuses, and re-decides "is this the last item?" once per item — even though most of that per-item overhead is identical bookkeeping, not the inspection itself. Handing the inspector four items at once to check in a single glance removes three of every four "is this the last one?" decisions, without making the inspection of any individual item any different. <strong>Fusion</strong>: three separate quality-control stations, each requiring the part to be set down on a table, inspected, and picked back up before moving to the next station, versus one station where the inspector holds the part in their hands through all three checks and only sets it down once, at the very end.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<p><strong>Unrolling</strong> trades loop-control overhead (the increment, the bounds comparison, the branch) for a bigger loop body doing more work per iteration — it does not change how many arithmetic operations are performed, only how many times the loop's own bookkeeping runs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">unrolled_add</span><span class="p">(</span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">                 </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">alias</span><span class="w"> </span><span class="nv">UNROLL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">unrolled_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">UNROLL</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">UNROLL</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">unrolled_count</span><span class="p">,</span><span class="w"> </span><span class="n">UNROLL</span><span class="p">):</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">     </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">unrolled_count</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">):</span><span class="w">     </span><span class="c1"># remainder, one at a time</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Width 4 with <code>[1,2,3,4]</code> and <code>[5,6,7,8]</code> produces products <code>[5,12,21,32]</code> and sum 70. Width is absent from runtime inputs because it is baked into the specialization.</p>
-<h2 id="104-benchmark-medians-after-warm-up">10.4 Benchmark medians after warm-up<a class="headerlink" href="#104-benchmark-medians-after-warm-up" title="Permanent link">&para;</a></h2>
-<p>First-call compilation and cache effects do not belong in steady-state kernel time. Warm up, synchronize, take repeated samples, and report the median plus a dispersion measure.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>for 5 warm-ups: run workload
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>synchronize
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>for 30 samples:
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    record start event
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    run workload
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    record stop event
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    synchronize stop event
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>report median, p10, p90
+<p>This is the identical <code>(size // N) * N</code> main-loop-plus-remainder shape Section 19.1's SIMD code uses — but where SIMD's main loop issues <em>one</em> vector instruction covering <code>width</code> elements, unrolling's main loop still issues <code>UNROLL</code> separate scalar instructions; it has simply moved <code>UNROLL</code> of them inside one loop iteration instead of spreading them across <code>UNROLL</code> iterations. The two techniques solve different problems and are frequently combined — an unrolled loop whose body is itself a SIMD load/add/store gets both the reduced loop overhead and the reduced arithmetic-instruction count at once.</p>
+<p><strong>Fusion</strong> combines multiple kernels' worth of work into one kernel body, and its saving is countable directly in memory operations, not just instructions. <code>y = relu(a * b + c)</code> written as three separate kernels reads <code>a</code> and <code>b</code> (multiply), writes an intermediate; reads that intermediate and <code>c</code> (add), writes a second intermediate; reads that second intermediate (relu), writes <code>y</code> — five tensor-sized reads and three tensor-sized writes, eight memory operations total. Fused into one kernel, the same computation reads <code>a</code>, <code>b</code>, and <code>c</code> exactly once each and writes <code>y</code> exactly once — four memory operations, with the multiply, add, and relu happening in a register between the reads and the one write:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">fused_mul_add_relu_kernel</span><span class="p">(</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">c</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">):</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w">   </span><span class="c1"># relu, inline</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Samples <code>[0.98,1.00,1.01,1.02,4.50]</code> ms have median 1.01 ms; mean is 1.702 ms because one interruption dominates it. Reporting the median and range makes that outlier visible without letting it define typical performance.</p>
-<h2 id="105-roofline-reasoning-separates-bandwidth-and-compute-limits">10.5 Roofline reasoning separates bandwidth and compute limits<a class="headerlink" href="#105-roofline-reasoning-separates-bandwidth-and-compute-limits" title="Permanent link">&para;</a></h2>
-<p>Arithmetic intensity is operations per byte transferred. Compare it with hardware's compute-to-bandwidth ratio before spending time on instruction-level tuning.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">arithmetic_intensity</span><span class="p">(</span><span class="n">flops</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">bytes_moved</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">flops</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">bytes_moved</span>
+<h3 id="worked-example-1921-unrollings-overhead-saving-with-no-change-in-arithmetic">Worked Example 19.2.1 — Unrolling's overhead saving, with no change in arithmetic<a class="headerlink" href="#worked-example-1921-unrollings-overhead-saving-with-no-change-in-arithmetic" title="Permanent link">&para;</a></h3>
+<p>For <code>size = 1000</code> and <code>UNROLL = 4</code>: <code>unrolled_count = (1000 // 4) * 4 = 1000</code> — this size divides evenly, so there is no remainder at all. The unrolled loop runs <code>250</code> iterations, each doing <code>4</code> additions in its body, for <code>1000</code> additions total — the <em>same</em> <code>1000</code> additions a plain scalar loop would perform. What changed is the loop-control overhead: a plain loop increments, compares, and branches <code>1000</code> times; this unrolled loop does so <code>250</code> times, a <code>4×</code> reduction in control overhead for zero change in arithmetic work.</p>
+<h3 id="worked-example-1922-fusions-memory-traffic-saving-counted-exactly">Worked Example 19.2.2 — Fusion's memory-traffic saving, counted exactly<a class="headerlink" href="#worked-example-1922-fusions-memory-traffic-saving-counted-exactly" title="Permanent link">&para;</a></h3>
+<p>For a tensor of any size <code>N</code>, the unfused three-kernel version of <code>relu(a*b+c)</code> performs <code>5</code> tensor-sized reads and <code>3</code> tensor-sized writes (<code>8</code> total memory operations, as counted above); the fused single-kernel version performs <code>3</code> reads and <code>1</code> write (<code>4</code> total) — exactly half the memory traffic, independent of <code>N</code>. The cost isn't free: Chapter 16 registered <code>AddOp</code>, <code>MulOp</code>, and <code>ReluOp</code> as three separate <code>Differentiable</code> implementations specifically so their backward rules compose automatically through <code>chain_rule_step</code> — <code>fused_mul_add_relu_kernel</code> has no such registry entry, and differentiating through it requires hand-deriving one combined backward rule for the whole fused expression (computed once, then reused, rather than assembled for free from three already-registered pieces). This is exactly why this book keeps ops unfused by default and treats fusion as a targeted optimization for whichever operations Section 19.4's benchmarks actually show to be hot, not a blanket policy.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[COMMON TRAP]  Fusing an op without registering a matching backward rule
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>A kernel that fuses forward computation but is dropped into the graph
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>under one of the ALREADY-registered op names (say, calling
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>chain_rule_step(&quot;mul&quot;, ...) on a node that actually ran the fused
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>multiply-add-relu) would run MulOp&#39;s backward rule -- which only knows
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>how to differentiate a plain multiplication -- against a node whose
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>forward pass did three operations, not one. The gradient it returns
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>would be a plausible-looking Tensor of the right shape, silently wrong
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>in value, with nothing about the shape mismatch to catch it. A fused
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>op needs its OWN registered Differentiable entry with a backward rule
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>derived for the whole fused expression -- reusing an existing op&#39;s
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>name for a kernel that no longer matches what that name&#39;s backward
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>rule assumes is exactly how a correct-looking forward pass ends up
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>paired with an incorrect gradient.
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Vector add performs one add while reading two Float32 values and writing one: 1 flop over 12 bytes, or about 0.083 flop/byte. That is strongly bandwidth-bound; reducing memory traffic matters more than shaving one arithmetic instruction.</p>
-<p>No benchmark numbers are hard-coded in this chapter because credible results require the runnable source, input size, Mojo version, optimization flags, device, and measurement command.</p>
+<h2 id="193-compile-time-optimizations-foundational">19.3 Compile-time Optimizations <code>[FOUNDATIONAL]</code><a class="headerlink" href="#193-compile-time-optimizations-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>A print shop could cast one adjustable metal plate that reads its own configuration before every single stamp — "am I set to 4-wide or 8-wide today?" — paying that small check on every strike, forever. Or it could cast two entirely separate, purpose-built plates ahead of time, one fixed at 4-wide and one fixed at 8-wide, and simply reach for whichever one a given job needs. The second shop pays a cost the first one doesn't — two plates to store instead of one — but neither plate ever asks itself a question at strike time, because the question was already answered back when it was cast.</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<p>Mojo's parametric functions — <code>fn foo[width: Int](...)</code>, seen throughout Chapters 5 and 9 — are resolved at compile time, not runtime. <code>compile_time_specialized_dot[4]</code> and <code>compile_time_specialized_dot[8]</code> are two fully separate, independently-optimized machine-code bodies, with no runtime branch on the vector width anywhere in either compiled output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compile_time_specialized_dot</span><span class="p">[</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;`n` is baked into the generated code -- no runtime loop-bound</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="s2">    check, no dynamic dispatch on vector width.&quot;&quot;&quot;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">reduce_add</span><span class="p">()</span>
+</code></pre></div>
+<p>This is the concrete mechanism behind this book's "zero-cost abstractions" claim, and it isn't a new idea introduced here — Chapter 5's <code>simd_matrix_multiply[simd_width]</code> and Chapter 9's <code>create_identity[dtype]</code> are both already-published examples of the exact same thing: a generic-looking function that the compiler turns into as many separate, fully specialized bodies as the program actually instantiates, none of which pay a runtime cost for the genericity the source code appears to have.</p>
+<h3 id="worked-example-1931-two-instantiations-two-independent-answers">Worked Example 19.3.1 — Two instantiations, two independent answers<a class="headerlink" href="#worked-example-1931-two-instantiations-two-independent-answers" title="Permanent link">&para;</a></h3>
+<p><code>compile_time_specialized_dot[4]</code> called with <code>a = [1, 2, 3, 4]</code> and <code>b = [5, 6, 7, 8]</code>: <code>1·5 + 2·6 + 3·7 + 4·8 = 5 + 12 + 21 + 32 = 70</code>. <code>compile_time_specialized_dot[2]</code> called with <code>a = [2, 3]</code> and <code>b = [4, 5]</code>: <code>2·4 + 3·5 = 8 + 15 = 23</code>. These aren't two calls to one function with a runtime-varying length — <code>n=4</code> and <code>n=2</code> select two <em>different, separately-compiled</em> functions, each hardcoded to its own vector width, the way <code>compile_time_specialized_dot[4]</code>'s generated code has no code path at all for handling a 2-wide input, and vice versa.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[COMMON TRAP]  Zero runtime cost is not zero cost
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Every distinct value of n a program actually instantiates
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>compile_time_specialized_dot with produces its OWN compiled function
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>body. A program that calls this function at n=2, n=4, n=8, and n=16
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>somewhere in its source compiles four separate machine-code bodies,
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>not one generic body handling four cases -- the same &quot;code bloat&quot;
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>trade-off C++ template instantiation has always made. The cost compile-
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>time specialization eliminates is a RUNTIME one (a branch or a
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>dictionary lookup on which width to use); it does not eliminate cost
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>altogether, it moves the cost to compile time (longer builds) and to
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>binary size (more distinct function bodies shipped) instead.
+</code></pre></div>
+<h2 id="194-benchmark-framework-foundational">19.4 Benchmark Framework <code>[FOUNDATIONAL]</code><a class="headerlink" href="#194-benchmark-framework-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Timing a runner's very first sprint of the day, straight off the bench with cold muscles, measures how slow a cold start is — not how fast that runner actually runs. A fair measurement lets them run a few warm-up sprints first, uncounted, and only then starts the stopwatch on several representative sprints, averaged together, so one unusually good or bad rep doesn't dominate the result. GPU work has an extra wrinkle a runner doesn't: the host can <em>launch</em> a kernel and immediately move on to launching the next line of code, well before the device has actually finished — timing the host's launch loop alone measures how fast the host can hand off work, not how fast the device does it, unless the host is made to wait for the device to actually catch up first.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">now</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">Benchmark</span><span class="p">:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">device_available</span><span class="p">:</span><span class="w"> </span><span class="n">Bool</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">time_function</span><span class="p">[</span><span class="n">func</span><span class="p">:</span><span class="w"> </span><span class="n">fn</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kc">None</span><span class="p">](</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">warmup_runs</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">benchmark_runs</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">warmup_runs</span><span class="p">):</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">            </span><span class="n">func</span><span class="p">()</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">device_available</span><span class="p">:</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">            </span><span class="n">gpu_synchronize</span><span class="p">()</span><span class="w">      </span><span class="c1"># drain the queue before the clock starts</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">benchmark_runs</span><span class="p">):</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">            </span><span class="n">func</span><span class="p">()</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">device_available</span><span class="p">:</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">            </span><span class="n">gpu_synchronize</span><span class="p">()</span><span class="w">      </span><span class="c1"># and again before it stops</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">end_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">avg_ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">benchmark_runs</span><span class="p">)</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avg_ns</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1_000_000.0</span><span class="w">   </span><span class="c1"># milliseconds</span>
+</code></pre></div>
+<p>The two <code>gpu_synchronize()</code> calls bracket the timed region for exactly the reason above: without the first one, warmup work still queued on the device could bleed into the timed region; without the second, the host's timer could stop before the device has actually finished the last of the <code>benchmark_runs</code> launches, undercounting the true elapsed time. Applied to Chapter 18's convolution kernels, throughput is reported in GFLOPS so results are comparable across problem sizes rather than only across identical ones — a <code>3×3</code>-kernel 2D convolution performs one multiply and one add per kernel tap, so <code>2</code> floating-point operations per tap, times <code>9</code> taps, times however many output positions there are:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">benchmark_convolution</span><span class="p">(</span><span class="n">bench</span><span class="p">:</span><span class="w"> </span><span class="n">Benchmark</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">basic_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w">    </span><span class="c1"># valid conv: (size-2)^2 outputs -- Chapter 18&#39;s naive/tiled kernels</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">basic_time_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bench</span><span class="o">.</span><span class="n">time_function</span><span class="p">[</span><span class="n">run_conv2d_basic_for_size_n</span><span class="p">]()</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">basic_gflops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">basic_ops</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">basic_time_ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e6</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w">               </span><span class="c1"># same-shaped conv: size^2 outputs -- Chapter 18&#39;s padded variant</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded_time_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bench</span><span class="o">.</span><span class="n">time_function</span><span class="p">[</span><span class="n">run_conv2d_padded_for_size_n</span><span class="p">]()</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded_gflops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">padded_ops</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">padded_time_ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e6</span><span class="p">)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;convolution:&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Basic convolution: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">basic_time_ms</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ms,&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">basic_gflops</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;GFLOPS&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Padded convolution:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">padded_time_ms</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ms,&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">padded_gflops</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;GFLOPS&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Note the FLOP count itself differs between the two variants, not just the timing: the unpadded ("valid") kernel produces <code>(size-2)²</code> outputs, while the padded ("same") kernel produces <code>size²</code> — more total work for the same input, which is exactly the "padding overhead" the two GFLOPS figures let a reader compare directly.</p>
+<h3 id="worked-example-1941-converting-a-hypothetical-timing-into-gflops">Worked Example 19.4.1 — Converting a hypothetical timing into GFLOPS<a class="headerlink" href="#worked-example-1941-converting-a-hypothetical-timing-into-gflops" title="Permanent link">&para;</a></h3>
+<p>No GPU run backs a real number here — this book's Mojo has never been compiled or run — but the formula itself is worth tracing on concrete numbers. For <code>size = 64</code>: <code>basic_ops = 2 × (64-2)² × 3 × 3 = 2 × 3,844 × 9 = 69,192</code>. If a run's timer <em>hypothetically</em> measured <code>basic_time_ms = 0.05</code>: <code>basic_gflops = 69,192 / (0.05 × 1,000,000) ≈ 1.384</code>. For the padded variant on the same <code>size = 64</code>: <code>padded_ops = 2 × 64² × 9 = 73,728</code> — more total operations for the same input, consistent with <code>size² &gt; (size-2)²</code>. If that run <em>hypothetically</em> measured <code>padded_time_ms = 0.06</code>: <code>padded_gflops = 73,728 / (0.06 × 1,000,000) ≈ 1.229</code>. Slightly more total work (<code>73,728</code> vs <code>69,192</code> operations) taking slightly longer (<code>0.06</code> ms vs <code>0.05</code> ms) is exactly the trade-off "padding overhead" describes — this worked example demonstrates how the formula converts a timing into a comparable throughput number, not what any particular piece of hardware would actually report.</p>
+<p>The same harness times memory bandwidth (upload or download a large buffer and divide its size by the elapsed time) and queries device properties (core count, warp size, max threads per block) using the identical warmup-then-average pattern — the numbers that explain <em>why</em> a kernel hit the throughput it did, rather than only reporting that it did.</p>
+<h2 id="195-reference-implementations">19.5 Reference Implementations<a class="headerlink" href="#195-reference-implementations" title="Permanent link">&para;</a></h2>
+<p>None of this chapter's Mojo has been compiled or run, consistent with the rest of this book's newly-composed material — there is no captured benchmark session to reproduce, and the specific millisecond and GFLOPS figures in an earlier draft of this section did not actually follow from the FLOP-counting formula given alongside them; Worked Example 19.4.1 above replaces those with an explicitly hypothetical trace of the same formula instead. What follows is every function this chapter derived, assembled in one place:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sys.info</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">simdwidthof</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">now</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># ---- 19.1: SIMD vectorization ----</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="k">fn</span><span class="w"> </span><span class="nf">vectorized_add</span><span class="p">[</span><span class="n">dtype</span><span class="p">:</span><span class="w"> </span><span class="nb">DType</span><span class="p">](</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="n">dtype</span><span class="p">]],</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="p">):</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="k">alias</span><span class="w"> </span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simdwidthof</span><span class="p">[</span><span class="n">dtype</span><span class="p">]()</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">simd_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">width</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">):</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">va</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="n">dtype</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">]</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">vb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="n">dtype</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">]</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">        </span><span class="p">(</span><span class="n">va</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">vb</span><span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">simd_count</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">):</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="c1"># ---- 19.2: loop unrolling and fusion ----</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="k">fn</span><span class="w"> </span><span class="nf">unrolled_add</span><span class="p">(</span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span><span class="w"> </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">                 </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Float32</span><span class="p">],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">    </span><span class="k">alias</span><span class="w"> </span><span class="nv">UNROLL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">unrolled_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">UNROLL</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">UNROLL</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">unrolled_count</span><span class="p">,</span><span class="w"> </span><span class="n">UNROLL</span><span class="p">):</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">     </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">unrolled_count</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">):</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="k">fn</span><span class="w"> </span><span class="nf">fused_mul_add_relu_kernel</span><span class="p">(</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="w">    </span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w">    </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="w">    </span><span class="n">c</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="p">):</span>
+<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>
+<a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>
+<a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a><span class="c1"># ---- 19.3: compile-time specialization ----</span>
+<a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>
+<a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compile_time_specialized_dot</span><span class="p">[</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">](</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">SIMD</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">reduce_add</span><span class="p">()</span>
+<a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a>
+<a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>
+<a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a><span class="c1"># ---- 19.4: benchmarking ----</span>
+<a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a>
+<a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">Benchmark</span><span class="p">:</span>
+<a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">device_available</span><span class="p">:</span><span class="w"> </span><span class="n">Bool</span>
+<a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a>
+<a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">time_function</span><span class="p">[</span><span class="n">func</span><span class="p">:</span><span class="w"> </span><span class="n">fn</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kc">None</span><span class="p">](</span>
+<a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a><span class="w">        </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">warmup_runs</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">benchmark_runs</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
+<a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a><span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">warmup_runs</span><span class="p">):</span>
+<a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a><span class="w">            </span><span class="n">func</span><span class="p">()</span>
+<a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">device_available</span><span class="p">:</span>
+<a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a><span class="w">            </span><span class="n">gpu_synchronize</span><span class="p">()</span>
+<a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">benchmark_runs</span><span class="p">):</span>
+<a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a><span class="w">            </span><span class="n">func</span><span class="p">()</span>
+<a id="__codelineno-9-70" name="__codelineno-9-70" href="#__codelineno-9-70"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">device_available</span><span class="p">:</span>
+<a id="__codelineno-9-71" name="__codelineno-9-71" href="#__codelineno-9-71"></a><span class="w">            </span><span class="n">gpu_synchronize</span><span class="p">()</span>
+<a id="__codelineno-9-72" name="__codelineno-9-72" href="#__codelineno-9-72"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">end_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">()</span>
+<a id="__codelineno-9-73" name="__codelineno-9-73" href="#__codelineno-9-73"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">avg_ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">benchmark_runs</span><span class="p">)</span>
+<a id="__codelineno-9-74" name="__codelineno-9-74" href="#__codelineno-9-74"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">avg_ns</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1_000_000.0</span>
+<a id="__codelineno-9-75" name="__codelineno-9-75" href="#__codelineno-9-75"></a>
+<a id="__codelineno-9-76" name="__codelineno-9-76" href="#__codelineno-9-76"></a><span class="k">fn</span><span class="w"> </span><span class="nf">benchmark_convolution</span><span class="p">(</span><span class="n">bench</span><span class="p">:</span><span class="w"> </span><span class="n">Benchmark</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">):</span>
+<a id="__codelineno-9-77" name="__codelineno-9-77" href="#__codelineno-9-77"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">basic_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span>
+<a id="__codelineno-9-78" name="__codelineno-9-78" href="#__codelineno-9-78"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">basic_time_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bench</span><span class="o">.</span><span class="n">time_function</span><span class="p">[</span><span class="n">run_conv2d_basic_for_size_n</span><span class="p">]()</span>
+<a id="__codelineno-9-79" name="__codelineno-9-79" href="#__codelineno-9-79"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">basic_gflops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">basic_ops</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">basic_time_ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e6</span><span class="p">)</span>
+<a id="__codelineno-9-80" name="__codelineno-9-80" href="#__codelineno-9-80"></a>
+<a id="__codelineno-9-81" name="__codelineno-9-81" href="#__codelineno-9-81"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded_ops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span>
+<a id="__codelineno-9-82" name="__codelineno-9-82" href="#__codelineno-9-82"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded_time_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bench</span><span class="o">.</span><span class="n">time_function</span><span class="p">[</span><span class="n">run_conv2d_padded_for_size_n</span><span class="p">]()</span>
+<a id="__codelineno-9-83" name="__codelineno-9-83" href="#__codelineno-9-83"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">padded_gflops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">padded_ops</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">padded_time_ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e6</span><span class="p">)</span>
+<a id="__codelineno-9-84" name="__codelineno-9-84" href="#__codelineno-9-84"></a>
+<a id="__codelineno-9-85" name="__codelineno-9-85" href="#__codelineno-9-85"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;convolution:&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-86" name="__codelineno-9-86" href="#__codelineno-9-86"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Basic convolution: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">basic_time_ms</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ms,&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">basic_gflops</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;GFLOPS&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-87" name="__codelineno-9-87" href="#__codelineno-9-87"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Padded convolution:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">padded_time_ms</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ms,&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">padded_gflops</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;GFLOPS&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
+<p>There is no captured run to reproduce here — see the note above. Worked Examples 19.1.1 through 19.4.1 remain the source of truth for what this chapter's formulas compute on concrete numbers; this section is an index into them, not a substitute for the by-hand arithmetic above.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>SIMD vectorization splits a loop into a vectorized main body plus a scalar remainder at the boundary <code>simd_count = (size // width) * width</code>, and a wider vector width doesn't just process more elements per instruction — it also widens the worst-case remainder, which is why <code>size=17, width=8</code>'s single leftover element still beats <code>size=10, width=4</code>'s two leftover elements in overall instruction count, despite both remainders being nonzero. Unrolling and fusion solve genuinely different problems that share a similar-sounding name: unrolling cuts loop-control overhead (<code>4×</code> fewer increments, comparisons, and branches for <code>UNROLL=4</code>) without touching the arithmetic instruction count at all, while fusion cuts memory traffic directly — <code>8</code> tensor-sized memory operations collapsed to <code>4</code> for <code>relu(a*b+c)</code> — at the cost of losing Chapter 16's free backward-rule composition and requiring one hand-derived gradient for the whole fused expression instead. Compile-time specialization is the concrete mechanism behind this book's zero-cost-abstraction claim: <code>compile_time_specialized_dot[n]</code> genuinely compiles to a separate, independently-optimized function body for every distinct <code>n</code> a program instantiates, eliminating the <em>runtime</em> cost of genericity entirely — while quietly relocating that cost to compile time and binary size, one compiled body per instantiation, exactly the trade-off C++ templates have always made. None of this is worth doing without a benchmarking harness built around warmup runs (so first-call cache-cold overhead doesn't dominate the measurement) and, for GPU work specifically, explicit synchronization bracketing the timed region — without it, a host that queues work and races ahead measures its own launch-loop speed, not the device's actual execution time.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>For <code>size = 33</code> and <code>width = 16</code>, compute <code>simd_count</code>, the number of vector instructions, and the number of scalar remainder instructions.</li>
+<li><code>unrolled_add</code> with <code>UNROLL = 4</code> is run on <code>size = 4,002</code>. How many full unrolled iterations run, how many elements are left to the scalar remainder loop, and how many total addition operations are performed — does that total differ from what a plain, non-unrolled scalar loop would perform on the same input?</li>
+<li>A team fuses <code>sigmoid(x @ W + b)</code> into a single kernel for forward-pass speed, then wires it into the computation graph under the existing registered name <code>"matmul"</code> so it reuses <code>MatMulOp</code>'s already-derived backward rule. What goes wrong when this graph is differentiated, and why doesn't a shape check catch it?</li>
+<li><code>compile_time_specialized_dot</code> is called at <code>n=4</code>, <code>n=8</code>, and <code>n=16</code> across a program's source. How many separate compiled function bodies does this produce, and what is the actual resource cost being paid in exchange for zero runtime branching?</li>
+<li>A benchmark measures a GPU kernel's <code>time_function</code> result <em>without</em> either <code>gpu_synchronize()</code> call. What specifically is being measured instead of the kernel's true execution time, and in which direction (too fast or too slow) would you expect the reported time to be biased?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>Part 5 has made the framework's tensor and GPU-kernel layers fast, in the same sense Chapter 18 made them correct: with numbers traced by hand rather than asserted. Part 6 spends every primitive built through both parts — tensors, the autograd engine, and now performance-tuned kernels — assembling something that actually learns: a multi-layer neural network trained end to end on this same codebase.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> <code>simd_count = (33 // 16) * 16 = 2 * 16 = 32</code>. The main loop covers elements <code>0</code>-<code>15</code> and <code>16</code>-<code>31</code> in two vector instructions. One element, index <code>32</code>, falls to the scalar remainder — <code>1</code> scalar instruction. Total: <code>2</code> vector instructions plus <code>1</code> scalar instruction.</p>
+<p><strong>2.</strong> <code>unrolled_count = (4,002 // 4) * 4 = 1,000 * 4 = 4,000</code>. That's <code>1,000</code> full unrolled iterations (each doing <code>4</code> additions), covering elements <code>0</code> through <code>3,999</code>. The remaining <code>2</code> elements (<code>4,000</code> and <code>4,001</code>) run through the scalar remainder loop one at a time. Total additions performed: <code>4,000 + 2 = 4,002</code> — identical to what a plain scalar loop over the same <code>4,002</code> elements would compute; unrolling changes only how many times the loop's own increment/compare/branch overhead runs (<code>1,000 + 2 = 1,002</code> times here, versus <code>4,002</code> times for a non-unrolled loop), not the arithmetic total.</p>
+<p><strong>3.</strong> <code>MatMulOp.backward</code> computes <code>grad_a = grad_output @ Bᵀ</code> and <code>grad_b = Aᵀ @ grad_output</code> — the correct gradient for a <em>plain</em> matrix multiplication, with no sigmoid and no bias-add anywhere in that formula. Run against a node whose forward pass actually computed <code>sigmoid(x @ W + b)</code>, this backward rule returns a gradient that completely ignores both the <code>+ b</code> and the <code>sigmoid</code>'s own local derivative (<code>output · (1-output)</code> from Chapter 16.5) — a Tensor of exactly the right shape (since <code>MatMulOp.backward</code>'s output shapes only depend on <code>x</code> and <code>W</code>'s shapes, which are unchanged), just numerically wrong by a large, silent margin. A shape check can't catch this because the bug is entirely about <em>which formula</em> ran, not about the shapes those formulas produce — <code>grad_output @ Bᵀ</code> and <code>Aᵀ @ grad_output</code> have exactly the shapes of <code>x</code> and <code>W</code> respectively, whether or not a sigmoid or a bias-add happened in between.</p>
+<p><strong>4.</strong> Three separate compiled function bodies — one each for <code>n=4</code>, <code>n=8</code>, and <code>n=16</code> — because each distinct compile-time parameter value produces its own independently-generated machine code, not one shared body with a runtime branch on <code>n</code>. The resource cost being paid is compile time (three function bodies to generate and optimize instead of one) and binary size (three compiled bodies shipped in the final program instead of one) — the runtime cost of choosing between them is what's eliminated, not cost altogether.</p>
+<p><strong>5.</strong> Without the first <code>gpu_synchronize()</code>, warmup work still queued on the device can bleed into the timed region, and without the second, the host's clock can stop before the device has actually finished the last of the <code>benchmark_runs</code> launches — in both cases, the timer is measuring how long the <em>host</em> took to issue <code>benchmark_runs</code> kernel launches, not how long the <em>device</em> took to execute them. Since launching work asynchronously is typically far faster than actually running it, the reported time would be biased too fast — understating the kernel's true execution time, potentially by a large margin if the device queue backs up well past when the host's loop finishes.</p>
 
 
 
