@@ -336,10 +336,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-create-an-isolated-stable-environment" class="md-nav__link">
+  <a href="#1-create-an-isolated-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Create an isolated stable environment
+        1. Create an isolated environment
       
     </span>
   </a>
@@ -369,10 +369,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-verify-gpu-availability" class="md-nav__link">
+  <a href="#4-run-the-books-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Verify GPU availability
+        4. Run the book's examples
       
     </span>
   </a>
@@ -380,10 +380,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-read-example-labels-accurately" class="md-nav__link">
+  <a href="#5-verify-gpu-availability" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Read example labels accurately
+        5. Verify GPU availability
       
     </span>
   </a>
@@ -395,6 +395,17 @@
     <span class="md-ellipsis">
       
         6. Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-keep-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Keep your work
       
     </span>
   </a>
@@ -1668,10 +1679,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-create-an-isolated-stable-environment" class="md-nav__link">
+  <a href="#1-create-an-isolated-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Create an isolated stable environment
+        1. Create an isolated environment
       
     </span>
   </a>
@@ -1701,10 +1712,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-verify-gpu-availability" class="md-nav__link">
+  <a href="#4-run-the-books-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Verify GPU availability
+        4. Run the book's examples
       
     </span>
   </a>
@@ -1712,10 +1723,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-read-example-labels-accurately" class="md-nav__link">
+  <a href="#5-verify-gpu-availability" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Read example labels accurately
+        5. Verify GPU availability
       
     </span>
   </a>
@@ -1727,6 +1738,17 @@
     <span class="md-ellipsis">
       
         6. Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-keep-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Keep your work
       
     </span>
   </a>
@@ -1751,56 +1773,98 @@
 
 
 <h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
-<p>This edition targets <strong>Mojo 1.0.0</strong>, released August 11, 2026. Pinning the compiler matters: Mojo is evolving quickly, and examples that used <code>fn</code>, unprefixed standard-library imports, <code>UnsafePointer[T].alloc()</code>, or host-sized <code>Int</code> GPU arguments belong to older language generations.</p>
+<p>Mojo compiles to native GPU and CPU code through MLIR/LLVM. <strong>Mojo reached 1.0 on August 11, 2026</strong> — after most of this book's example code was written — and 1.0 deprecates the <code>fn</code> function-declaration keyword in favor of <code>def</code> (same non-raising semantics, just one keyword instead of two; <code>fn</code> still compiles today with a warning, but the changelog states that warning becomes a hard compile error in the <em>next</em> release after 1.0). Most of this book's Mojo listings still declare functions with <code>fn</code>, so expect deprecation warnings when you run them against a real 1.0 toolchain until that migration pass happens — the warnings are noise, not a sign the example is wrong, but they're a real, known gap this page won't pretend doesn't exist.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>CPU chapters need only a supported Mojo host. GPU chapters additionally need a supported accelerator and toolchain. Mojo 1.0 supports Apple silicon on macOS 15+, Linux on x86-64 or ARM64, and Windows through WSL; Python 3.10–3.14 is supported. On NVIDIA, use a Turing-or-newer GPU and a current driver, or configure a compatible external <code>ptxas</code> as the official requirements describe.</p>
+<ul>
+<li>A supported host: <strong>macOS 15 (Sequoia) or later</strong> on Apple silicon with Xcode 16+; <strong>Linux</strong> on x86-64-v3 (Haswell-class, ~2013 or newer) or ARM64 (AWS Graviton2-class or newer) with glibc 2.34+ (Ubuntu 22.04 LTS or later); or <strong>Windows via WSL</strong> (no native Windows support).</li>
+<li>For the GPU chapters (Part 0.4 onward): an NVIDIA GPU with driver 580+ — Blackwell and Hopper are continuously tested, Ada Lovelace/Ampere/Turing are tested but not continuously, and pre-Turing GPUs need manual configuration — or an AMD GPU with ROCm driver 6.3.3+. The CPU-only chapters (Part 0.1–0.3, Part 6) run on any supported host with no GPU at all.</li>
+<li>Python 3.10+ (Pixi manages this for you inside the project environment; you don't need a matching system Python).</li>
+</ul>
+<p>Check what's already on the machine before installing anything:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uname<span class="w"> </span>-sm
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python3<span class="w"> </span>--version
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>mojo<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>mojo<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mojo already installed!&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mojo not found - proceed with installation&quot;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>pixi<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Pixi already installed!&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Pixi not found - proceed with installation&quot;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>nvidia-smi<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;NVIDIA GPU detected!&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No NVIDIA GPU found or driver issues&quot;</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> A suitable Apple host might print <code>Darwin arm64</code>, Python <code>3.14.x</code>, and <code>Mojo 1.0.0</code>. A Linux GPU host should print <code>Linux x86_64</code>; run <code>nvidia-smi</code> separately and confirm that the GPU and driver appear before attempting Chapter 9.</p>
-<h2 id="1-create-an-isolated-stable-environment">1. Create an isolated stable environment<a class="headerlink" href="#1-create-an-isolated-stable-environment" title="Permanent link">&para;</a></h2>
-<p>An isolated environment makes the book reproducible and prevents a later nightly compiler from silently changing behavior. The stable Python package is the shortest cross-platform route.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>venv<span class="w"> </span>.venv
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;mojo==1.0.0&quot;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>mojo<span class="w"> </span>--version
+<h2 id="1-create-an-isolated-environment">1. Create an isolated environment<a class="headerlink" href="#1-create-an-isolated-environment" title="Permanent link">&para;</a></h2>
+<p><a href="https://pixi.sh">Pixi</a> is Modular's package and environment manager for Mojo. Now that Mojo has reached 1.0, install against the <strong>stable</strong> <code>max</code> channel rather than <code>max-nightly</code> — nightly is for tracking unreleased changes, which is no longer what a book targeting a fixed release wants:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pixi.sh/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.pixi/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.pixi/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>pixi<span class="w"> </span>--version
 </code></pre></div>
-<p><strong>Manual worked example.</strong> The four state changes are: install the environment manager, create <code>.venv</code>, activate it, and place Mojo 1.0.0 inside it. The final command must begin with <code>Mojo 1.0.0</code>; if it reports a nightly or older 0.x build, stop and correct the environment before judging an example.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pixi<span class="w"> </span>init<span class="w"> </span>mojo_demo<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>-c<span class="w"> </span>https://conda.modular.com/max/<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mojo_demo
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>pixi<span class="w"> </span>add<span class="w"> </span>mojo
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>--version
+</code></pre></div>
+<p>The final command should print <code>Mojo 1.0.x</code>. This book's GPU chapters were originally built against <code>pixi add max</code> (the fuller MAX toolchain bundle, which is what wraps <code>gpu.host</code>/<code>gpu.id</code> and the rest of the accelerator API this book's GPU kernels import) rather than the plain <code>mojo</code> package shown above — if a GPU chapter's imports don't resolve after <code>pixi add mojo</code> alone, add the toolchain package too:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pixi<span class="w"> </span>add<span class="w"> </span>max
+</code></pre></div>
 <h2 id="2-compile-a-smoke-test">2. Compile a smoke test<a class="headerlink" href="#2-compile-a-smoke-test" title="Permanent link">&para;</a></h2>
-<p>Mojo 1.0 uses <code>def</code> for functions. A tiny program checks the parser, compiler, runtime loader, and terminal path before the book adds tensors or GPU code.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;def main():</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="s1">    var x = Float32(3)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="s1">    var y = Float32(4)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s1">    print(x * y + x)&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>hello.mojo
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>hello.mojo
 </code></pre></div>
-<p>Save it as <code>hello.mojo</code>, then run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mojo<span class="w"> </span>hello.mojo
-</code></pre></div>
-<p><strong>Manual worked example.</strong> The multiply runs first: <code>3×4=12</code>. Addition then reuses <code>x</code>: <code>12+3=15</code>. The program must print <code>15.0</code>, the same running value used in Chapters 6–8.</p>
+<p><code>3×4=12</code>, then <code>12+3=15</code> — the smoke test should print <code>15.0</code>. This uses <code>def</code>, already the form this page's own examples use, and already Mojo 1.0's standard going forward.</p>
 <h2 id="3-build-an-executable">3. Build an executable<a class="headerlink" href="#3-build-an-executable" title="Permanent link">&para;</a></h2>
-<p>Running a source file compiles and executes it. <code>mojo build</code> keeps the native executable, which is useful for repeatable benchmarks.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mojo<span class="w"> </span>build<span class="w"> </span>hello.mojo<span class="w"> </span>-o<span class="w"> </span>hello
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./hello
+<p>Running a source file compiles and executes it in one step; <code>mojo build</code> keeps the compiled native executable around, which matters for repeatable benchmarks where you don't want compilation time mixed into a timing measurement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>build<span class="w"> </span>hello.mojo<span class="w"> </span>-o<span class="w"> </span>hello
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>./hello
 </code></pre></div>
-<p><strong>Manual worked example.</strong> Both commands should produce the same numerical result, 15. The first creates the executable; the second runs that artifact without asking the compiler to rebuild the source.</p>
-<h2 id="4-verify-gpu-availability">4. Verify GPU availability<a class="headerlink" href="#4-verify-gpu-availability" title="Permanent link">&para;</a></h2>
-<p>GPU support is optional for Mojo itself but required for Chapter 9 onward. Verify the platform before allocating device buffers; do not infer GPU readiness merely because CPU code compiled.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># NVIDIA Linux</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>nvidia-smi
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Apple silicon</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>xcrun<span class="w"> </span>-sdk<span class="w"> </span>macosx<span class="w"> </span>metal<span class="w"> </span>--version
+<p>Both the interpreted run from Step 2 and this compiled binary should print the identical <code>15.0</code> — the build step changes <em>when</em> compilation happens, never <em>what</em> the program computes. If they ever disagree, suspect a stale build artifact or a mismatched environment before suspecting the language.</p>
+<h2 id="4-run-the-books-examples">4. Run the book's examples<a class="headerlink" href="#4-run-the-books-examples" title="Permanent link">&para;</a></h2>
+<p>Save any of this book's <code>.mojo</code> files into your project directory and run it the same way:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>mojo_gpu_demo.mojo
 </code></pre></div>
-<p><strong>Manual worked example.</strong> On NVIDIA, identify the GPU model and driver row and compare them with Mojo's current compatibility table. On Apple silicon, the Metal command must resolve from Xcode 16 or later. A missing command is an environment failure, not a kernel bug.</p>
-<h2 id="5-read-example-labels-accurately">5. Read example labels accurately<a class="headerlink" href="#5-read-example-labels-accurately" title="Permanent link">&para;</a></h2>
-<p>The book uses two kinds of code. A <strong>complete program</strong> includes imports and <code>main()</code> and can be saved as shown. An <strong>implementation excerpt</strong> focuses on one algorithm and assumes the chapter's previously introduced types. Every code block is followed by a manual trace with concrete inputs; verify that trace before optimizing or composing the code.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>concept → hand calculation → implementation → compiler/run check → optimization
+<p>Expect a deprecation warning naming <code>fn</code> on most of this book's listings, for the reason given at the top of this page — the program will still run and produce the output shown in each chapter's "Expected Output" block. Rough hardware expectations for a 1000×1000 matrix multiply, for the chapters that report one:</p>
+<table>
+<thead>
+<tr>
+<th>GPU</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T4 (16GB)</td>
+<td>~45–60 ms</td>
+</tr>
+<tr>
+<td>A10 (24GB)</td>
+<td>~25–35 ms</td>
+</tr>
+<tr>
+<td>RTX 3080</td>
+<td>~20–30 ms</td>
+</tr>
+<tr>
+<td>A100</td>
+<td>~15–25 ms</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-verify-gpu-availability">5. Verify GPU availability<a class="headerlink" href="#5-verify-gpu-availability" title="Permanent link">&para;</a></h2>
+<p>GPU support is optional for Mojo itself but required starting with Part 0.4. Confirm the platform is actually visible <em>before</em> a chapter's code tries to allocate a device buffer — a CPU-only program compiling successfully proves nothing about GPU readiness:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># NVIDIA (Linux)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>nvidia-smi
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># AMD (Linux, ROCm)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>rocm-smi
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Apple silicon</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>xcrun<span class="w"> </span>-sdk<span class="w"> </span>macosx<span class="w"> </span>metal<span class="w"> </span>--version
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For vector addition <code>[1,2]+[10,20]</code>, calculate <code>[11,22]</code> first. Run the scalar implementation and compare. Only after equality is established should SIMD width or GPU block size change. This order prevents a fast wrong answer from becoming the baseline.</p>
+<p>On NVIDIA or AMD, the GPU model and driver version should appear in the command's output — cross-check the driver version against the minimums in Prerequisites above. On Apple silicon, the Metal command needs Xcode 16 or later to resolve at all; a missing command here means an environment problem, not a bug in the kernel you're about to run.</p>
 <h2 id="6-troubleshooting">6. Troubleshooting<a class="headerlink" href="#6-troubleshooting" title="Permanent link">&para;</a></h2>
-<p>Classify failures by layer. Installation errors happen before parsing; language migration errors name syntax or APIs; GPU environment errors appear while compiling or launching device code; numerical mismatches occur only after a program runs.</p>
 <table>
 <thead>
 <tr>
@@ -1811,33 +1875,39 @@
 </thead>
 <tbody>
 <tr>
+<td><code>pixi: command not found</code></td>
+<td><code>PATH</code> not updated in this shell</td>
+<td><code>source ~/.bashrc</code></td>
+</tr>
+<tr>
 <td><code>mojo: command not found</code></td>
-<td>Environment not active</td>
-<td><code>source .venv/bin/activate</code></td>
+<td>Invoking <code>mojo</code> outside the Pixi environment</td>
+<td>Prefix every invocation with <code>pixi run</code>, e.g. <code>pixi run mojo --version</code></td>
 </tr>
 <tr>
-<td>Error at <code>fn</code></td>
-<td>Pre-1.0 source</td>
-<td>Replace declarations/function types with <code>def</code></td>
+<td><code>max</code> / <code>mojo</code> package not found</td>
+<td>Channel misconfigured, or still pointed at <code>max-nightly</code></td>
+<td><code>pixi info</code> to check the active channels; re-init against <code>https://conda.modular.com/max/</code></td>
 </tr>
 <tr>
-<td><code>UnsafePointer...alloc</code> missing</td>
-<td>Pre-1.0 allocation API</td>
-<td>Use free-standing <code>alloc[T](count)</code> or a safe owning buffer</td>
+<td>Deprecation warning naming <code>fn</code></td>
+<td>This book's code predates Mojo 1.0's <code>fn</code>→<code>def</code> unification</td>
+<td>Expected for now on most listings — see the note at the top of this page; the program still runs</td>
 </tr>
 <tr>
-<td>GPU rejects <code>Int</code> argument</td>
-<td>Mojo 1.0 device ABI rule</td>
-<td>Pass <code>Int32</code>/<code>UInt32</code>/<code>Int64</code>/<code>UInt64</code> and convert inside the kernel</td>
-</tr>
-<tr>
-<td>GPU unavailable</td>
-<td>Driver/toolchain mismatch</td>
-<td>Recheck the official platform requirements</td>
+<td>GPU not detected</td>
+<td>Driver missing, wrong generation, or WSL/GPU passthrough not configured</td>
+<td>Confirm with <code>nvidia-smi</code>/<code>rocm-smi</code> first; the CPU-only chapters work without a GPU at all</td>
 </tr>
 </tbody>
 </table>
-<p>Continue to <a href="../part0/01-variables-and-types/">Part 0: Mojo Foundations</a> once the smoke test prints 15.</p>
+<p>Continue to <a href="../part0/01-variables-and-types/">Part 0: Mojo Foundations</a> once the smoke test prints <code>15.0</code>.</p>
+<h2 id="7-keep-your-work">7. Keep your work<a class="headerlink" href="#7-keep-your-work" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>init
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git<span class="w"> </span>add<span class="w"> </span>*.mojo<span class="w"> </span>pixi.toml
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial Mojo project&quot;</span>
+</code></pre></div>
+<p>See <a href="../appendix/installation-setup/#a4-preserve-cloud-work">Appendix A</a> for the fuller version of this step — a <code>tar</code> archive and an off-instance copy, for a cloud GPU instance whose disk won't survive termination.</p>
 
 
 
