@@ -1521,10 +1521,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#a2-install-the-pinned-compiler" class="md-nav__link">
+  <a href="#a2-install-pixi-and-the-pinned-mojo-toolchain" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A.2 Install the pinned compiler
+        A.2 Install Pixi and the pinned Mojo toolchain
       
     </span>
   </a>
@@ -1635,10 +1635,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#a2-install-the-pinned-compiler" class="md-nav__link">
+  <a href="#a2-install-pixi-and-the-pinned-mojo-toolchain" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A.2 Install the pinned compiler
+        A.2 Install Pixi and the pinned Mojo toolchain
       
     </span>
   </a>
@@ -1685,38 +1685,96 @@
 
 
 <h1 id="appendix-a-installation-environment-setup">Appendix A: Installation &amp; Environment Setup<a class="headerlink" href="#appendix-a-installation-environment-setup" title="Permanent link">&para;</a></h1>
-<p>The main <a href="../../getting-started/">Getting Started</a> page establishes a local Mojo 1.0.0 environment. This appendix adds a reproducible Linux GPU path and makes each verification checkpoint explicit.</p>
+<p>The full walkthrough — with expected-output benchmarks across T4 / A10 / RTX 3080 / A100 and a troubleshooting table — lives on the <a href="../../getting-started/">Getting Started</a> page. This appendix mirrors that page's own four-stage shape (provision, install, run/build, preserve) as a compact reference, for whenever you just need the commands without the surrounding explanation.</p>
 <h2 id="a1-provision-a-linux-gpu-host">A.1 Provision a Linux GPU host<a class="headerlink" href="#a1-provision-a-linux-gpu-host" title="Permanent link">&para;</a></h2>
-<p>Choose Ubuntu 22.04 or later and a supported accelerator. Persistent storage is worth configuring before installation because cloud GPU root disks are often ephemeral.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl<span class="w"> </span>git<span class="w"> </span>build-essential<span class="w"> </span>python3<span class="w"> </span>python3-venv
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>nvidia-smi
+<ul>
+<li>An NVIDIA GPU with CUDA support (T4, A10, RTX-series, or newer) for the GPU chapters — the CPU-only chapters (Part 0.1–0.3, Part 6) run on any machine.</li>
+<li>Ubuntu 18.04+ or a similar Linux distribution.</li>
+<li>Python 3.8+ (Mojo's toolchain is distributed through the Python-based <code>pixi</code> package manager).</li>
+</ul>
+<p>Check what's already on the machine before installing anything:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mojo<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mojo already installed!&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mojo not found - proceed with installation&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pixi<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Pixi already installed!&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Pixi not found - proceed with installation&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>nvidia-smi<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;NVIDIA GPU detected!&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No NVIDIA GPU found or driver issues&quot;</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> The package commands prepare the host; they do not prove the GPU works. <code>nvidia-smi</code> must separately show a supported model and driver. Record both values so a later launch failure can be compared against the Mojo compatibility table.</p>
-<h2 id="a2-install-the-pinned-compiler">A.2 Install the pinned compiler<a class="headerlink" href="#a2-install-the-pinned-compiler" title="Permanent link">&para;</a></h2>
-<p>Use an isolated environment and pin the release used to edit this book.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>venv<span class="w"> </span>.venv
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;mojo==1.0.0&quot;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>mojo<span class="w"> </span>--version
+<p>Any of these three environments works — pick whichever is already available:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># AWS: g4dn.xlarge (1x T4, 16GB), Deep Learning AMI (Ubuntu 20.04/22.04)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>chmod<span class="w"> </span><span class="m">400</span><span class="w"> </span>your_key.pem
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>ssh<span class="w"> </span>-i<span class="w"> </span>your_key.pem<span class="w"> </span>ubuntu@&lt;EC2_PUBLIC_IP&gt;
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Lambda Cloud: A10 (24GB), Quadro RTX 6000, or A100, Ubuntu 22.04 + Lambda Stack</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>chmod<span class="w"> </span><span class="m">400</span><span class="w"> </span>your_key.pem
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>ssh<span class="w"> </span>-i<span class="w"> </span>your_key.pem<span class="w"> </span>ubuntu@&lt;INSTANCE_PUBLIC_IP&gt;
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Local Ubuntu box (any of the CPU-only chapters, or with a local NVIDIA GPU)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
 </code></pre></div>
-<p><strong>Manual worked example.</strong> The expected last line starts with <code>Mojo 1.0.0</code>. The environment is reproducible because the package version is explicit; omitting the pin lets a future release change parser or library behavior.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span>curl<span class="w"> </span>git<span class="w"> </span>unzip<span class="w"> </span>build-essential<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>libpython3-dev<span class="w"> </span>python3-pip<span class="w"> </span>pkg-config
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Confirm the OS can see the GPU before installing anything Mojo-specific --</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># a driver problem here will look like a Mojo problem later otherwise.</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>nvidia-smi
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>nvcc<span class="w"> </span>--version
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Cloud GPU disks are usually ephemeral</p>
+<p>A cloud GPU instance's root disk rarely survives termination by default (Lambda Cloud instances have no persistent storage unless you explicitly attach one). Treat everything on the instance as temporary until it's backed up — Section A.4 below covers exactly how.</p>
+</div>
+<h2 id="a2-install-pixi-and-the-pinned-mojo-toolchain">A.2 Install Pixi and the pinned Mojo toolchain<a class="headerlink" href="#a2-install-pixi-and-the-pinned-mojo-toolchain" title="Permanent link">&para;</a></h2>
+<p><a href="https://pixi.sh">Pixi</a> is Modular's package and environment manager for Mojo — it resolves the <code>max</code> (Modular Accelerated Xecution) toolchain, which bundles the Mojo compiler, against Modular's own conda channel. This is the one real, working install path this book's examples were run against; a plain <code>pip install mojo</code> is not how Mojo is distributed, and pinning by an ordinary package version number the way a pure-Python library would be pinned doesn't apply here — Pixi's lockfile is what makes an environment reproducible.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pixi.sh/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.pixi/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.pixi/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>pixi<span class="w"> </span>--version
+</code></pre></div>
+<p>Create a project against Modular's channel and add the toolchain:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pixi<span class="w"> </span>init<span class="w"> </span>mojo_demo<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>-c<span class="w"> </span>https://conda.modular.com/max-nightly/<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mojo_demo
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>pixi<span class="w"> </span>add<span class="w"> </span>max
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>--version
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Smoke test</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;def main(): print(&quot;Hello, Mojo!&quot;)&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>hello.mojo
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>hello.mojo
+</code></pre></div>
+<p>No <code>pixi login</code> step is required — this flow pulls the toolchain directly from the <code>max-nightly</code> channel. If <code>pixi run mojo --version</code> doesn't print a version string, <code>pixi info</code> will show whether the <code>max-nightly</code> channel actually resolved.</p>
 <h2 id="a3-run-and-build">A.3 Run and build<a class="headerlink" href="#a3-run-and-build" title="Permanent link">&para;</a></h2>
-<p>Interpretation and ahead-of-time building should agree on the same deterministic smoke test.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mojo<span class="w"> </span>hello.mojo
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>mojo<span class="w"> </span>build<span class="w"> </span>hello.mojo<span class="w"> </span>-o<span class="w"> </span>hello
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>./hello
+<p>Any <code>.mojo</code> file in this book runs the same way, whether it's a single interpreted run or an ahead-of-time compiled binary — both should produce identical output on the same input, which is itself a useful smoke test:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Interpreted run</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>&lt;filename&gt;.mojo
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Compile to a standalone executable, then run the binary directly</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>build<span class="w"> </span>&lt;filename&gt;.mojo<span class="w"> </span>-o<span class="w"> </span>&lt;output_name&gt;
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>./&lt;output_name&gt;
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For the <code>x*y+x</code> smoke test in Getting Started, both runs print 15. A mismatch means the two commands are resolving different environments or artifacts; fix that before benchmarking.</p>
+<p>If the interpreted run and the compiled binary ever disagree on the same file, that's a signal to check for a stale build artifact or a mismatched environment before trusting either result. Mojo's pipeline is source → MLIR → optimization passes (vectorization, loop fusion) → LLVM IR → native code, which is why the compiled path can be faster but should never be <em>different</em> — it's the same optimizations applied ahead of time instead of at the point of running <code>mojo &lt;file&gt;.mojo</code> directly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>mojo<span class="w"> </span>--version<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>pixi<span class="w"> </span>run<span class="w"> </span>mojo<span class="w"> </span>--help
+</code></pre></div>
 <h2 id="a4-preserve-cloud-work">A.4 Preserve cloud work<a class="headerlink" href="#a4-preserve-cloud-work" title="Permanent link">&para;</a></h2>
-<p>Treat an unattached instance disk as disposable. Commit source and environment metadata, then copy any uncommitted results before termination.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Save Mojo 1.0 work&quot;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>tar<span class="w"> </span>-czf<span class="w"> </span>mojo-work.tar.gz<span class="w"> </span>.
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>scp<span class="w"> </span>mojo-work.tar.gz<span class="w"> </span>&lt;local-destination&gt;
+<p>Treat a cloud instance's disk as temporary, whether or not the provider advertises persistence: commit source and environment metadata, then copy any uncommitted results off the instance before terminating it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 1. Commit everything version-controllable</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Save Mojo work&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># 2. Archive the whole project directory, including files git doesn&#39;t track</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>tar<span class="w"> </span>-czf<span class="w"> </span>mojo-work.tar.gz<span class="w"> </span>.
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># 3. Copy the archive to a machine that will still exist tomorrow</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>scp<span class="w"> </span>-i<span class="w"> </span>your_key.pem<span class="w"> </span>mojo-work.tar.gz<span class="w"> </span>you@your-local-machine:~/backups/
 </code></pre></div>
-<p><strong>Manual worked example.</strong> <code>git status</code> should be clean after the commit. The archive provides a second recovery path; list it with <code>tar -tzf mojo-work.tar.gz</code> and confirm that source and environment files are present before terminating the instance.</p>
+<p>Verify both copies before terminating the instance, not after:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>status<span class="w">              </span><span class="c1"># should report no pending changes</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>tar<span class="w"> </span>-tzf<span class="w"> </span>mojo-work.tar.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20<span class="w">   </span><span class="c1"># confirm source and config files are actually inside</span>
+</code></pre></div>
+<p><code>git status</code> showing a clean tree only proves the <em>tracked</em> files are safe — build artifacts, datasets, and anything covered by <code>.gitignore</code> still need the <code>tar</code> step. Running both checks before terminating, rather than trusting that the commands above "should have worked," is the same discipline this book applies to every other claimed result: verify, don't assume.</p>
+<p>See <a href="../../getting-started/">Getting Started</a> for the expected-output benchmarks across T4 / A10 / RTX 3080 / A100, and its troubleshooting table for common <code>pixi</code>/<code>mojo</code> errors.</p>
 
 
 
