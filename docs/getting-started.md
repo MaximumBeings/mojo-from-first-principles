@@ -1,97 +1,127 @@
 # Getting Started
 
-This edition targets **Mojo 1.0.0**, released August 11, 2026. Pinning the compiler matters: Mojo is evolving quickly, and examples that used `fn`, unprefixed standard-library imports, `UnsafePointer[T].alloc()`, or host-sized `Int` GPU arguments belong to older language generations.
+Mojo compiles to native GPU and CPU code through MLIR/LLVM. **Mojo reached 1.0 on August 11, 2026** — after most of this book's example code was written — and 1.0 deprecates the `fn` function-declaration keyword in favor of `def` (same non-raising semantics, just one keyword instead of two; `fn` still compiles today with a warning, but the changelog states that warning becomes a hard compile error in the *next* release after 1.0). Most of this book's Mojo listings still declare functions with `fn`, so expect deprecation warnings when you run them against a real 1.0 toolchain until that migration pass happens — the warnings are noise, not a sign the example is wrong, but they're a real, known gap this page won't pretend doesn't exist.
 
 ## Prerequisites
 
-CPU chapters need only a supported Mojo host. GPU chapters additionally need a supported accelerator and toolchain. Mojo 1.0 supports Apple silicon on macOS 15+, Linux on x86-64 or ARM64, and Windows through WSL; Python 3.10–3.14 is supported. On NVIDIA, use a Turing-or-newer GPU and a current driver, or configure a compatible external `ptxas` as the official requirements describe.
+- A supported host: **macOS 15 (Sequoia) or later** on Apple silicon with Xcode 16+; **Linux** on x86-64-v3 (Haswell-class, ~2013 or newer) or ARM64 (AWS Graviton2-class or newer) with glibc 2.34+ (Ubuntu 22.04 LTS or later); or **Windows via WSL** (no native Windows support).
+- For the GPU chapters (Part 0.4 onward): an NVIDIA GPU with driver 580+ — Blackwell and Hopper are continuously tested, Ada Lovelace/Ampere/Turing are tested but not continuously, and pre-Turing GPUs need manual configuration — or an AMD GPU with ROCm driver 6.3.3+. The CPU-only chapters (Part 0.1–0.3, Part 6) run on any supported host with no GPU at all.
+- Python 3.10+ (Pixi manages this for you inside the project environment; you don't need a matching system Python).
+
+Check what's already on the machine before installing anything:
 
 ```bash
 uname -sm
 python3 --version
-mojo --version 2>/dev/null || true
+mojo --version 2>/dev/null && echo "Mojo already installed!" || echo "Mojo not found - proceed with installation"
+pixi --version 2>/dev/null && echo "Pixi already installed!" || echo "Pixi not found - proceed with installation"
+nvidia-smi 2>/dev/null && echo "NVIDIA GPU detected!" || echo "No NVIDIA GPU found or driver issues"
 ```
 
-**Manual worked example.** A suitable Apple host might print `Darwin arm64`, Python `3.14.x`, and `Mojo 1.0.0`. A Linux GPU host should print `Linux x86_64`; run `nvidia-smi` separately and confirm that the GPU and driver appear before attempting Chapter 9.
+## 1. Create an isolated environment
 
-## 1. Create an isolated stable environment
-
-An isolated environment makes the book reproducible and prevents a later nightly compiler from silently changing behavior. The stable Python package is the shortest cross-platform route.
+[Pixi](https://pixi.sh) is Modular's package and environment manager for Mojo. Now that Mojo has reached 1.0, install against the **stable** `max` channel rather than `max-nightly` — nightly is for tracking unreleased changes, which is no longer what a book targeting a fixed release wants:
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-uv venv .venv
-source .venv/bin/activate
-uv pip install "mojo==1.0.0"
-mojo --version
+curl -fsSL https://pixi.sh/install.sh | sh
+export PATH="$HOME/.pixi/bin:$PATH"
+echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+pixi --version
 ```
 
-**Manual worked example.** The four state changes are: install the environment manager, create `.venv`, activate it, and place Mojo 1.0.0 inside it. The final command must begin with `Mojo 1.0.0`; if it reports a nightly or older 0.x build, stop and correct the environment before judging an example.
+```bash
+pixi init mojo_demo \
+  -c https://conda.modular.com/max/ \
+  -c conda-forge \
+  && cd mojo_demo
+
+pixi add mojo
+pixi run mojo --version
+```
+
+The final command should print `Mojo 1.0.x`. This book's GPU chapters were originally built against `pixi add max` (the fuller MAX toolchain bundle, which is what wraps `gpu.host`/`gpu.id` and the rest of the accelerator API this book's GPU kernels import) rather than the plain `mojo` package shown above — if a GPU chapter's imports don't resolve after `pixi add mojo` alone, add the toolchain package too:
+
+```bash
+pixi add max
+```
 
 ## 2. Compile a smoke test
 
-Mojo 1.0 uses `def` for functions. A tiny program checks the parser, compiler, runtime loader, and terminal path before the book adds tensors or GPU code.
-
-```mojo
-def main():
+```bash
+echo 'def main():
     var x = Float32(3)
     var y = Float32(4)
-    print(x * y + x)
+    print(x * y + x)' > hello.mojo
+
+pixi run mojo hello.mojo
 ```
 
-Save it as `hello.mojo`, then run:
-
-```bash
-mojo hello.mojo
-```
-
-**Manual worked example.** The multiply runs first: `3×4=12`. Addition then reuses `x`: `12+3=15`. The program must print `15.0`, the same running value used in Chapters 6–8.
+`3×4=12`, then `12+3=15` — the smoke test should print `15.0`. This uses `def`, already the form this page's own examples use, and already Mojo 1.0's standard going forward.
 
 ## 3. Build an executable
 
-Running a source file compiles and executes it. `mojo build` keeps the native executable, which is useful for repeatable benchmarks.
+Running a source file compiles and executes it in one step; `mojo build` keeps the compiled native executable around, which matters for repeatable benchmarks where you don't want compilation time mixed into a timing measurement:
 
 ```bash
-mojo build hello.mojo -o hello
+pixi run mojo build hello.mojo -o hello
 ./hello
 ```
 
-**Manual worked example.** Both commands should produce the same numerical result, 15. The first creates the executable; the second runs that artifact without asking the compiler to rebuild the source.
+Both the interpreted run from Step 2 and this compiled binary should print the identical `15.0` — the build step changes *when* compilation happens, never *what* the program computes. If they ever disagree, suspect a stale build artifact or a mismatched environment before suspecting the language.
 
-## 4. Verify GPU availability
+## 4. Run the book's examples
 
-GPU support is optional for Mojo itself but required for Chapter 9 onward. Verify the platform before allocating device buffers; do not infer GPU readiness merely because CPU code compiled.
+Save any of this book's `.mojo` files into your project directory and run it the same way:
 
 ```bash
-# NVIDIA Linux
+pixi run mojo mojo_gpu_demo.mojo
+```
+
+Expect a deprecation warning naming `fn` on most of this book's listings, for the reason given at the top of this page — the program will still run and produce the output shown in each chapter's "Expected Output" block. Rough hardware expectations for a 1000×1000 matrix multiply, for the chapters that report one:
+
+| GPU | Time |
+|---|---|
+| T4 (16GB) | ~45–60 ms |
+| A10 (24GB) | ~25–35 ms |
+| RTX 3080 | ~20–30 ms |
+| A100 | ~15–25 ms |
+
+## 5. Verify GPU availability
+
+GPU support is optional for Mojo itself but required starting with Part 0.4. Confirm the platform is actually visible *before* a chapter's code tries to allocate a device buffer — a CPU-only program compiling successfully proves nothing about GPU readiness:
+
+```bash
+# NVIDIA (Linux)
 nvidia-smi
+
+# AMD (Linux, ROCm)
+rocm-smi
 
 # Apple silicon
 xcrun -sdk macosx metal --version
 ```
 
-**Manual worked example.** On NVIDIA, identify the GPU model and driver row and compare them with Mojo's current compatibility table. On Apple silicon, the Metal command must resolve from Xcode 16 or later. A missing command is an environment failure, not a kernel bug.
-
-## 5. Read example labels accurately
-
-The book uses two kinds of code. A **complete program** includes imports and `main()` and can be saved as shown. An **implementation excerpt** focuses on one algorithm and assumes the chapter's previously introduced types. Every code block is followed by a manual trace with concrete inputs; verify that trace before optimizing or composing the code.
-
-```text
-concept → hand calculation → implementation → compiler/run check → optimization
-```
-
-**Manual worked example.** For vector addition `[1,2]+[10,20]`, calculate `[11,22]` first. Run the scalar implementation and compare. Only after equality is established should SIMD width or GPU block size change. This order prevents a fast wrong answer from becoming the baseline.
+On NVIDIA or AMD, the GPU model and driver version should appear in the command's output — cross-check the driver version against the minimums in Prerequisites above. On Apple silicon, the Metal command needs Xcode 16 or later to resolve at all; a missing command here means an environment problem, not a bug in the kernel you're about to run.
 
 ## 6. Troubleshooting
 
-Classify failures by layer. Installation errors happen before parsing; language migration errors name syntax or APIs; GPU environment errors appear while compiling or launching device code; numerical mismatches occur only after a program runs.
-
 | Symptom | Likely cause | Action |
 |---|---|---|
-| `mojo: command not found` | Environment not active | `source .venv/bin/activate` |
-| Error at `fn` | Pre-1.0 source | Replace declarations/function types with `def` |
-| `UnsafePointer...alloc` missing | Pre-1.0 allocation API | Use free-standing `alloc[T](count)` or a safe owning buffer |
-| GPU rejects `Int` argument | Mojo 1.0 device ABI rule | Pass `Int32`/`UInt32`/`Int64`/`UInt64` and convert inside the kernel |
-| GPU unavailable | Driver/toolchain mismatch | Recheck the official platform requirements |
+| `pixi: command not found` | `PATH` not updated in this shell | `source ~/.bashrc` |
+| `mojo: command not found` | Invoking `mojo` outside the Pixi environment | Prefix every invocation with `pixi run`, e.g. `pixi run mojo --version` |
+| `max` / `mojo` package not found | Channel misconfigured, or still pointed at `max-nightly` | `pixi info` to check the active channels; re-init against `https://conda.modular.com/max/` |
+| Deprecation warning naming `fn` | This book's code predates Mojo 1.0's `fn`→`def` unification | Expected for now on most listings — see the note at the top of this page; the program still runs |
+| GPU not detected | Driver missing, wrong generation, or WSL/GPU passthrough not configured | Confirm with `nvidia-smi`/`rocm-smi` first; the CPU-only chapters work without a GPU at all |
 
-Continue to [Part 0: Mojo Foundations](part0/01-variables-and-types.md) once the smoke test prints 15.
+Continue to [Part 0: Mojo Foundations](part0/01-variables-and-types.md) once the smoke test prints `15.0`.
+
+## 7. Keep your work
+
+```bash
+git init
+git add *.mojo pixi.toml
+git commit -m "Initial Mojo project"
+```
+
+See [Appendix A](appendix/installation-setup.md#a4-preserve-cloud-work) for the fuller version of this step — a `tar` archive and an off-instance copy, for a cloud GPU instance whose disk won't survive termination.
