@@ -27,7 +27,7 @@
     
     
       
-        <title>13. Quantitative Finance Examples - Mojo From First Principles — Under Development</title>
+        <title>22. Quantitative Finance Examples - Mojo From First Principles</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-13-quantitative-finance-examples" class="md-skip">
+        <a href="#chapter-22-quantitative-finance-examples-where-a-wrong-gradient-costs-real-money" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Mojo From First Principles — Under Development" class="md-header__button md-logo" aria-label="Mojo From First Principles — Under Development" data-md-component="logo">
+    <a href="../.." title="Mojo From First Principles" class="md-header__button md-logo" aria-label="Mojo From First Principles" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m6 20 4.16-12.09L9.34 6H8V4h2c.42 0 .78.26.93.63L16.66 18H18v2h-2c-.43 0-.79-.27-.93-.64l-3.74-8.71L8.12 20z"/></svg>
@@ -108,13 +108,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Mojo From First Principles — Under Development
+            Mojo From First Principles
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              13. Quantitative Finance Examples
+              22. Quantitative Finance Examples
             
           </span>
         </div>
@@ -220,13 +220,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Mojo From First Principles — Under Development" class="md-nav__button md-logo" aria-label="Mojo From First Principles — Under Development" data-md-component="logo">
+    <a href="../.." title="Mojo From First Principles" class="md-nav__button md-logo" aria-label="Mojo From First Principles" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m6 20 4.16-12.09L9.34 6H8V4h2c.42 0 .78.26.93.63L16.66 18H18v2h-2c-.43 0-.79-.27-.93-.64l-3.74-8.71L8.12 20z"/></svg>
 
     </a>
-    Mojo From First Principles — Under Development
+    Mojo From First Principles
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -1377,7 +1377,7 @@
   <span class="md-ellipsis">
     
   
-    13. Quantitative Finance Examples
+    22. Quantitative Finance Examples
   
 
     
@@ -1395,7 +1395,7 @@
   <span class="md-ellipsis">
     
   
-    13. Quantitative Finance Examples
+    22. Quantitative Finance Examples
   
 
     
@@ -1421,22 +1421,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#131-bond-pricing-with-automatic-differentiation" class="md-nav__link">
+  <a href="#what-you-will-understand-by-the-end-of-this-chapter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.1 Bond Pricing with Automatic Differentiation
+        What you will understand by the end of this chapter
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="13.1 Bond Pricing with Automatic Differentiation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need-to-know-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need to know first
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#221-bond-pricing-with-automatic-differentiation-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.1 Bond Pricing with Automatic Differentiation [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.1 Bond Pricing with Automatic Differentiation [FOUNDATIONAL]">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-computing-bond-prices" class="md-nav__link">
+  <a href="#intuition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Computing Bond Prices
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2211-three-real-bonds-priced-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.1.1 — Three real bonds, priced by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2212-dv01-from-backward-not-from-a-second-pricing-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.1.2 — DV01 from backward(), not from a second pricing run
       
     </span>
   </a>
@@ -1460,16 +1515,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#132-credit-spread-and-risk-analytics" class="md-nav__link">
+  <a href="#222-credit-spread-and-risk-analytics-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.2 Credit Spread and Risk Analytics
+        22.2 Credit Spread and Risk Analytics [FOUNDATIONAL]
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="13.2 Credit Spread and Risk Analytics">
+    <nav class="md-nav" aria-label="22.2 Credit Spread and Risk Analytics [FOUNDATIONAL]">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2221-solving-a-real-bonds-z-spread-verified-to-seven-decimal-places" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.2.1 — Solving a real bond's z-spread, verified to seven decimal places
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#expected-output_1" class="md-nav__link">
@@ -1488,10 +1576,149 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#133-portfolio-optimization" class="md-nav__link">
+  <a href="#223-portfolio-optimization-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.3 Portfolio Optimization
+        22.3 Portfolio Optimization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.3 Portfolio Optimization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2231-a-clean-three-bond-portfolio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.3.1 — A clean three-bond portfolio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2232-the-same-math-on-section-221s-actual-bonds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.3.2 — The same math, on Section 22.1's actual bonds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#224-monte-carlo-simulations-with-gradients-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.4 Monte Carlo Simulations with Gradients [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.4 Monte Carlo Simulations with Gradients [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2241-five-paths-one-call-option-priced-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.4.1 — Five paths, one call option, priced by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#225-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1499,10 +1726,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#134-monte-carlo-simulations-with-gradients" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.4 Monte Carlo Simulations with Gradients
+        Self-Check Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-we-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where We Go Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Solutions
       
     </span>
   </a>
@@ -1669,22 +1918,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#131-bond-pricing-with-automatic-differentiation" class="md-nav__link">
+  <a href="#what-you-will-understand-by-the-end-of-this-chapter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.1 Bond Pricing with Automatic Differentiation
+        What you will understand by the end of this chapter
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="13.1 Bond Pricing with Automatic Differentiation">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need-to-know-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What you need to know first
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#221-bond-pricing-with-automatic-differentiation-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.1 Bond Pricing with Automatic Differentiation [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.1 Bond Pricing with Automatic Differentiation [FOUNDATIONAL]">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-computing-bond-prices" class="md-nav__link">
+  <a href="#intuition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Computing Bond Prices
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2211-three-real-bonds-priced-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.1.1 — Three real bonds, priced by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2212-dv01-from-backward-not-from-a-second-pricing-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.1.2 — DV01 from backward(), not from a second pricing run
       
     </span>
   </a>
@@ -1708,16 +2012,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#132-credit-spread-and-risk-analytics" class="md-nav__link">
+  <a href="#222-credit-spread-and-risk-analytics-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.2 Credit Spread and Risk Analytics
+        22.2 Credit Spread and Risk Analytics [FOUNDATIONAL]
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="13.2 Credit Spread and Risk Analytics">
+    <nav class="md-nav" aria-label="22.2 Credit Spread and Risk Analytics [FOUNDATIONAL]">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2221-solving-a-real-bonds-z-spread-verified-to-seven-decimal-places" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.2.1 — Solving a real bond's z-spread, verified to seven decimal places
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#expected-output_1" class="md-nav__link">
@@ -1736,10 +2073,149 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#133-portfolio-optimization" class="md-nav__link">
+  <a href="#223-portfolio-optimization-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.3 Portfolio Optimization
+        22.3 Portfolio Optimization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.3 Portfolio Optimization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2231-a-clean-three-bond-portfolio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.3.1 — A clean three-bond portfolio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2232-the-same-math-on-section-221s-actual-bonds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.3.2 — The same math, on Section 22.1's actual bonds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#224-monte-carlo-simulations-with-gradients-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.4 Monte Carlo Simulations with Gradients [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.4 Monte Carlo Simulations with Gradients [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2241-five-paths-one-call-option-priced-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 22.4.1 — Five paths, one call option, priced by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#225-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1747,10 +2223,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#134-monte-carlo-simulations-with-gradients" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        13.4 Monte Carlo Simulations with Gradients
+        Self-Check Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-we-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where We Go Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Solutions
       
     </span>
   </a>
@@ -1774,12 +2272,33 @@
 
 
 
-<h1 id="chapter-13-quantitative-finance-examples">Chapter 13: Quantitative Finance Examples<a class="headerlink" href="#chapter-13-quantitative-finance-examples" title="Permanent link">&para;</a></h1>
-<p>Part 7 is where this framework earns its "Financial Computing Ready" design principle from the book's introduction. Every primitive is reused as-is: the Struct-of-Arrays layout from Part 0.3 prices a whole bond portfolio in parallel, the reduction kernels from Chapter 5 aggregate it into portfolio-level risk, the custom-function framework from Chapter 12 differentiates through a numerical solver, and the GPU kernel design from Part 5 is what makes doing this for thousands of instruments at once practical.</p>
-<h2 id="131-bond-pricing-with-automatic-differentiation">13.1 Bond Pricing with Automatic Differentiation<a class="headerlink" href="#131-bond-pricing-with-automatic-differentiation" title="Permanent link">&para;</a></h2>
-<p>A zero-coupon bond pays a single fixed amount at maturity and nothing before it, so its price is one discounting formula: <code>PV = FaceValue · e^(-yield · time)</code>. Pricing a portfolio of them is an embarrassingly parallel problem — every bond's price is independent of every other bond's — which makes it the cleanest possible demonstration of the SoA-plus-GPU-kernel pattern from Chapters 9 and 2:</p>
+<h1 id="chapter-22-quantitative-finance-examples-where-a-wrong-gradient-costs-real-money">Chapter 22: Quantitative Finance Examples — Where a Wrong Gradient Costs Real Money<a class="headerlink" href="#chapter-22-quantitative-finance-examples-where-a-wrong-gradient-costs-real-money" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"A model that merely prices an instrument is a calculator. A model that <em>differentiates</em> through pricing it is a risk desk — the difference is whether every sensitivity a trader needs comes free with the price, or has to be derived by hand, once, for every new instrument."</p>
+</blockquote>
+<h2 id="what-you-will-understand-by-the-end-of-this-chapter">What you will understand by the end of this chapter<a class="headerlink" href="#what-you-will-understand-by-the-end-of-this-chapter" title="Permanent link">&para;</a></h2>
+<ul>
+<li>How the same <code>PV = FV·e^(-yield·time)</code> formula that prices one zero-coupon bond scales into a 1,024-bond GPU portfolio through the Struct-of-Arrays pattern from Chapter 3 and Chapter 18 — and a real, confirmed bug in how that portfolio's total gets summed that silently drops 87.5% of the book from the reported number.</li>
+<li>Why a coupon-paying bond's z-spread has no closed-form solution and has to be found by bisection instead — verified in this chapter to seven decimal places against a real captured run, not an invented one.</li>
+<li>Why portfolio duration is nothing more than a weighted average, and how this book's registered ops turn "how much does this rebalancing hurt if rates rise" into an ordinary gradient instead of a hand-derived formula for every new portfolio.</li>
+<li>Why Monte Carlo pricing needs many simulated paths rather than one, and why running the simulation as a single graph node turns every option Greek into one <code>backward()</code> call instead of one full re-simulation per sensitivity.</li>
+<li>Why "differentiable" and "auditable" turn out to be the same requirement once real money is involved — illustrated by this chapter's own two independently-confirmed bugs, found the same way every other bug in this book was found: by checking a claimed number against the code that supposedly produced it.</li>
+</ul>
+<h2 id="what-you-need-to-know-first">What you need to know first<a class="headerlink" href="#what-you-need-to-know-first" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Exponentials and their gradient rule: Chapter 12.3 (Power and Exponential Functions) for <code>exp</code>, and <code>ExpOp.backward</code>'s output-reuse trick from Chapter 16.2 — the bond pricing formula's derivative is that exact rule applied to a discount factor instead of an activation.</li>
+<li>Struct-of-Arrays memory layout from Chapter 3.3, and Chapter 18.2's memory-coalescing analysis of this exact eight-field <code>ZeroCouponBondSystemSoA</code> struct.</li>
+<li>The multi-round reduction pattern from Chapter 14.1 — specifically the <code>while current_size &gt; 1</code> requirement, because this chapter's own kernel usage is what happens when that requirement is skipped.</li>
+<li><code>backward()</code> from Chapter 17, and the implicit-function-theorem <code>CustomFunction</code> pattern from Chapter 21.1 — the z-spread solver reuses it verbatim on the same bond.</li>
+<li><code>tensor_mean</code> from Chapter 14.1 and ordinary elementwise ops from Chapter 12 — Monte Carlo pricing is built from nothing more exotic than those two.</li>
+</ul>
+<h2 id="221-bond-pricing-with-automatic-differentiation-foundational">22.1 Bond Pricing with Automatic Differentiation <code>[FOUNDATIONAL]</code><a class="headerlink" href="#221-bond-pricing-with-automatic-differentiation-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>A zero-coupon bond is the simplest possible IOU: pay less today for a promise to receive a fixed, larger amount on a fixed future date, with nothing in between. The gap between what you pay and what you're promised is rent — paid partly for the pure inconvenience of waiting (the risk-free rate) and partly as compensation for the chance the promise doesn't get kept (credit spread). <code>PV = FV·e^(-yield·time)</code> is just that rent, applied continuously: the longer the wait or the shakier the promise, the more today's price shrinks relative to the payoff at the end.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>Pricing one bond is one exponential. Pricing a portfolio of a thousand of them is a thousand <em>independent</em> exponentials — every bond's price depends on nothing but its own four numbers — which is exactly the embarrassingly-parallel shape a GPU kernel wants, and exactly why this struct is Struct-of-Arrays (Chapter 3.3) rather than one record per bond: a kernel that reads every bond's <code>risk_free_rate</code> wants those values contiguous, not scattered one field into each of a thousand separate records, and Chapter 18.2 already measured that difference on this exact struct as an <code>8×</code> reduction in memory transactions.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">ZeroCouponBondSystemSoA</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;SoA layout (Chapter 9.2): one contiguous array per field,</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;SoA layout (Chapter 3.3): one contiguous array per field,</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="s2">    not one struct per bond -- coalesced reads across the whole portfolio.&quot;&quot;&quot;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">face_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">time_to_maturity</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
@@ -1791,7 +2310,6 @@
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">portfolio_weight</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">num_bonds</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span>
 </code></pre></div>
-<h3 id="step-1-computing-bond-prices">Step 1: Computing Bond Prices<a class="headerlink" href="#step-1-computing-bond-prices" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_bond_prices_kernel</span><span class="p">(</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">present_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">yield_to_maturity</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
@@ -1812,7 +2330,7 @@
 <a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">        </span><span class="c1"># there&#39;s only one cash flow, so it&#39;s also the *only* cash flow&#39;s weighted time.</span>
 <a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">        </span><span class="n">duration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time_to_maturity</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 </code></pre></div>
-<p>Aggregating 1,024 bonds into a total portfolio value is the tree-reduction pattern from <a href="../../part2/03-reduction-operations/#51-sum-and-mean-reductions">Chapter 5.1</a>, applied to <code>present_value</code> instead of a loss:</p>
+<p>Aggregating a portfolio into a total value is the tree-reduction pattern from <a href="../../part2/03-reduction-operations/#51-sum-and-mean-reductions">Chapter 14.1</a>, applied to <code>present_value</code> instead of a loss:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">var</span><span class="w"> </span><span class="nv">num_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">NUM_BONDS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">compute_bond_prices_kernel</span><span class="p">](</span><span class="o">...</span><span class="p">)</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">ctx</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
@@ -1820,92 +2338,202 @@
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">sum_reduce_kernel</span><span class="p">](</span><span class="n">partial_sums</span><span class="p">,</span><span class="w"> </span><span class="n">bond_system</span><span class="o">.</span><span class="n">present_value</span><span class="p">,</span><span class="w"> </span><span class="n">NUM_BONDS</span><span class="p">,</span><span class="w"> </span><span class="o">...</span><span class="p">)</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">var</span><span class="w"> </span><span class="nv">total_portfolio_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_sum</span><span class="p">(</span><span class="n">partial_sums</span><span class="p">,</span><span class="w"> </span><span class="n">reduction_threads</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>=== STRUCT OF ARRAYS (SoA) ZERO COUPON BOND SYSTEM ===
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Number of bonds: 1024
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Threads per block: 64
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>=== MEMORY LAYOUT COMPARISON ===
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Struct of Arrays (SoA) - This implementation:
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  Memory: face:[f0,f1,f2...] maturity:[m0,m1,m2...] ...
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  Access: Coalesced, optimal bandwidth
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>=== COMPUTING BOND PRICES ===
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Total Portfolio Value: $ 847213.5
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>=== FINANCIAL ANALYSIS ===
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>Portfolio Analytics:
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  Weighted Average Yield: 3.51 %
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>  Weighted Average Maturity: 14.87 years
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>  Portfolio Duration: 14.87 years
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>  Interest Rate Risk: 1% rate increase -&gt; ~14.87 % price decline
+<h3 id="worked-example-2211-three-real-bonds-priced-by-hand">Worked Example 22.1.1 — Three real bonds, priced by hand<a class="headerlink" href="#worked-example-2211-three-real-bonds-priced-by-hand" title="Permanent link">&para;</a></h3>
+<p>The book's own bond-generation logic (<code>face_choices = [1000.0, 5000.0, 10000.0]</code> cycling by index, <code>time_to_maturity = 0.25 + (i mod 120)×0.25</code>, <code>risk_free_rate = 0.02 + (i mod 31)×0.001</code>, <code>credit_spread = 0.001 + (i mod 30)×0.001</code>) is fully deterministic — no randomness anywhere — so its first three bonds can be priced by hand and checked against exactly what the kernel would compute:</p>
+<table>
+<thead>
+<tr>
+<th>Bond</th>
+<th>Face</th>
+<th>Maturity</th>
+<th>Risk-free</th>
+<th>Spread</th>
+<th>Yield</th>
+<th>Discount factor <code>e^(-yield·t)</code></th>
+<th>Present Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>\$1,000</td>
+<td>0.25 yr</td>
+<td>2.0%</td>
+<td>0.10%</td>
+<td>2.10%</td>
+<td><code>e^(-0.00525) ≈ 0.994764</code></td>
+<td>\$994.7638</td>
+</tr>
+<tr>
+<td>1</td>
+<td>\$5,000</td>
+<td>0.50 yr</td>
+<td>2.1%</td>
+<td>0.20%</td>
+<td>2.30%</td>
+<td><code>e^(-0.01150) ≈ 0.988566</code></td>
+<td>\$4,942.8294</td>
+</tr>
+<tr>
+<td>2</td>
+<td>\$10,000</td>
+<td>0.75 yr</td>
+<td>2.2%</td>
+<td>0.30%</td>
+<td>2.50%</td>
+<td><code>e^(-0.01875) ≈ 0.981425</code></td>
+<td>\$9,814.2469</td>
+</tr>
+</tbody>
+</table>
+<p>Each row is the same one-line formula three times over with different inputs — this is what "embarrassingly parallel" means concretely: bond 1's price needs nothing from bond 0's or bond 2's.</p>
+<h3 id="worked-example-2212-dv01-from-backward-not-from-a-second-pricing-run">Worked Example 22.1.2 — DV01 from <code>backward()</code>, not from a second pricing run<a class="headerlink" href="#worked-example-2212-dv01-from-backward-not-from-a-second-pricing-run" title="Permanent link">&para;</a></h3>
+<p>Bond 2's DV01 — its dollar sensitivity to a one-basis-point rise in its own yield — is <code>d(PV)/d(yield) = -time_to_maturity × PV</code>, exactly <code>ExpOp.backward</code>'s output-reuse rule (Chapter 16.2) applied to this discount factor: <code>-0.75 × 9814.2469 ≈ -7360.6852</code> per unit of yield, or <code>-7360.6852 × 0.0001 ≈ -\$0.7361</code> per basis point. Checking that analytic formula the way every backward rule in this book has been checked — central finite difference, <code>ε=10⁻⁶</code> — gives <code>-7360.685158...</code>, matching to eight significant figures. The framework never re-prices the bond at a bumped yield to get this number; it falls straight out of the same <code>backward()</code> pass that would already be running to train a neural network, applied here to a financial input instead of an activation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[COMMON TRAP]
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>+------------------------------------------------------------------+
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>| sum_reduce_kernel (Chapter 14.1) is DESIGNED to run inside a      |
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>| `while current_size &gt; 1` loop, halving the array once per round   |
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>| until one value remains. The driver code above launches it        |
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>| exactly ONCE, with only `reduction_threads = min(THREADS_PER_     |
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>| BLOCK, NUM_BONDS // 2)` threads -- for NUM_BONDS=1024 and          |
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>| THREADS_PER_BLOCK=64, that&#39;s 64 threads, each combining ONE pair   |
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>| of adjacent bonds. 64 threads x 2 bonds per thread = 128 bonds     |
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>| actually read. The other 896 bonds -- 87.5% of the portfolio --    |
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>| are never touched, and total_portfolio_value silently reports the |
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>| sum of the first 128 bonds as if it were the whole book, with no  |
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>| error, no warning, and no size check anywhere that would catch it.|
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>+------------------------------------------------------------------+
 </code></pre></div>
-<p>Because every gradient rule in this book flows through registered ops (Chapter 7), <code>present_value</code>'s gradient with respect to <code>risk_free_rate</code> — the bond's <strong>DV01</strong>, its dollar sensitivity to a one-basis-point rate move — falls straight out of <code>backward()</code> with no separate finite-difference calculation: <code>d(PV)/d(yield) = -time_to_maturity * PV</code>, the derivative of the exponential discount factor, exactly the <code>ExpOp.backward</code> rule from <a href="../../part4/01-backward-function-implementation/#72-element-wise-operation-gradients">Chapter 7.2</a> applied to a financial input instead of a neural-network activation.</p>
-<h2 id="132-credit-spread-and-risk-analytics">13.2 Credit Spread and Risk Analytics<a class="headerlink" href="#132-credit-spread-and-risk-analytics" title="Permanent link">&para;</a></h2>
-<p>A <em>risky</em> bond (one with default risk) needs an extra yield above the risk-free curve to compensate a buyer for that risk — the <strong>Z-spread</strong>. Unlike the zero-coupon case, a coupon-paying bond's price is a sum of discounted cash flows with no closed form for the spread that reprices it to a given market price, so this is solved numerically:</p>
+<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
+<p>Independently reconstructing this portfolio's numbers from the bond-generation logic above turns up a real discrepancy worth stating plainly. Summing all 1,024 bonds correctly gives a total portfolio value of <strong>≈\$2,831,177</strong>, a weighted average yield of <strong>≈4.82%</strong>, and a weighted average maturity (equal to portfolio duration for zero-coupon bonds) of <strong>≈11.19 years</strong>. Running the reduction exactly as the code above is actually written — the single-launch, 128-bond version the <code>[COMMON TRAP]</code> above describes — gives a total of <strong>≈\$364,131</strong> and, because <code>compute_portfolio_weights_kernel</code> still divides every one of the 1,024 bonds' present values by that truncated total, portfolio weights that sum to <strong>≈7.78</strong> instead of <code>1.0</code> (a single-number sanity check that would have caught this bug immediately), a nonsensical weighted "yield" of <strong>≈37.4%</strong>, and a nonsensical weighted "maturity" of <strong>≈87.0 years</strong>. Neither of those two honestly-computed outcomes matches the numbers a previous pass of this book reported for this section (a portfolio value of \$847,213.50, a 3.51% weighted yield, and a 14.87-year weighted maturity and duration) — those figures do not reproduce from this deterministic bond data under either the correct reduction or the reduction as literally coded, which means they were never actually captured output and are corrected here rather than carried forward. This is a genuinely different situation from Section 22.2 below, where every digit <em>does</em> reproduce exactly.</p>
+<h2 id="222-credit-spread-and-risk-analytics-foundational">22.2 Credit Spread and Risk Analytics <code>[FOUNDATIONAL]</code><a class="headerlink" href="#222-credit-spread-and-risk-analytics-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>Imagine two friends each ask to borrow money and promise to pay it back in two years. One has never missed a payment in their life; the other has a spottier record. You'd lend to the first at whatever the "going rate" is — call it the risk-free rate. The second one has to offer <em>more</em> to get the same loan, because you need extra compensation for the real chance they don't pay you back in full. That extra amount, expressed as yield above the risk-free rate, is the Z-spread — and unlike the first friend's loan, there's no simple formula for exactly how much extra is enough; you have to solve for the number that makes the deal fair given the price the market is actually charging.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<p>A <em>risky</em> bond's price is a sum of several discounted cash flows, each one bent by the <em>same</em> unknown spread, so there's no algebraic way to isolate that spread the way <code>PV = FV·e^(-yield·time)</code> isolates a zero-coupon bond's yield. Bisection finds it instead: guess a spread, price the bond, compare the price to the market's actual price, and narrow the guess toward whichever half of the bracket contains the answer.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Zero-coupon yield (Section 22.1)</th>
+<th>Z-spread (this section)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cash flows</td>
+<td>One, at maturity</td>
+<td>Several, one per coupon plus principal</td>
+</tr>
+<tr>
+<td>Solvable how</td>
+<td>Closed form: rearrange <code>PV=FV·e^(-y·t)</code> for <code>y</code></td>
+<td>Numerically: bisection on the pricing formula</td>
+</tr>
+<tr>
+<td>Differentiable how</td>
+<td>Ordinary chain rule through <code>exp</code></td>
+<td>Implicit function theorem — Chapter 21.1's <code>CustomFunction</code> pattern</td>
+</tr>
+</tbody>
+</table>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">alias</span><span class="w"> </span><span class="nv">ISSUE_PRICE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">98.0</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">alias</span><span class="w"> </span><span class="nv">RISK_FREE_RATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.03</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">alias</span><span class="w"> </span><span class="nv">COUPON_RATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.03</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">alias</span><span class="w"> </span><span class="nv">NOTIONAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100.0</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">alias</span><span class="w"> </span><span class="nv">TOTAL_PAYMENTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w">     </span><span class="c1"># 2 years, quarterly</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">fn</span><span class="w"> </span><span class="nf">calculate_bond_price</span><span class="p">(</span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Market Price = sum_{n=1..N} CF_n / (1 + (r+s)/m)^(n)&quot;&quot;&quot;</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">discounted_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">payments_per_year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">TOTAL_PAYMENTS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">):</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">coupon_payment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">3.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">12.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">COUPON_RATE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">NOTIONAL</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">discount_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">RISK_FREE_RATE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">payments_per_year</span><span class="p">,</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="n">discounted_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">coupon_payment</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">discount_factor</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">final_discount_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">RISK_FREE_RATE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">payments_per_year</span><span class="p">,</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">TOTAL_PAYMENTS</span><span class="p">))</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="n">discounted_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">NOTIONAL</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">final_discount_factor</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">discounted_value</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="k">fn</span><span class="w"> </span><span class="nf">objective_function</span><span class="p">(</span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">calculate_bond_price</span><span class="p">(</span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ISSUE_PRICE</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="k">fn</span><span class="w"> </span><span class="nf">bisection_method</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">tolerance</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="nv">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="nv">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">tolerance</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">:</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">objective_function</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tolerance</span><span class="p">:</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">mid</span>
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">        </span><span class="k">elif</span><span class="w"> </span><span class="n">objective_function</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">objective_function</span><span class="p">(</span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">            </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">        </span><span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">            </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">        </span><span class="n">iterations</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">alias</span><span class="w"> </span><span class="nv">TOLERANCE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-8</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">fn</span><span class="w"> </span><span class="nf">calculate_bond_price</span><span class="p">(</span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Market Price = sum_{n=1..N} CF_n / (1 + (r+s)/m)^(n)&quot;&quot;&quot;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">discounted_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">payments_per_year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">TOTAL_PAYMENTS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">coupon_payment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">3.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">12.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">COUPON_RATE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">NOTIONAL</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">discount_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">RISK_FREE_RATE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">payments_per_year</span><span class="p">,</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">        </span><span class="n">discounted_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">coupon_payment</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">discount_factor</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">final_discount_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">RISK_FREE_RATE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">payments_per_year</span><span class="p">,</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">TOTAL_PAYMENTS</span><span class="p">))</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="n">discounted_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">NOTIONAL</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">final_discount_factor</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">discounted_value</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="k">fn</span><span class="w"> </span><span class="nf">objective_function</span><span class="p">(</span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">calculate_bond_price</span><span class="p">(</span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ISSUE_PRICE</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="k">fn</span><span class="w"> </span><span class="nf">bisection_method</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">tolerance</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="nv">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="nv">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">tolerance</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">:</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">objective_function</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tolerance</span><span class="p">:</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">mid</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">        </span><span class="k">elif</span><span class="w"> </span><span class="n">objective_function</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">objective_function</span><span class="p">(</span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">            </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">        </span><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">            </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">        </span><span class="n">iterations</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span>
+</code></pre></div>
+<h3 id="worked-example-2221-solving-a-real-bonds-z-spread-verified-to-seven-decimal-places">Worked Example 22.2.1 — Solving a real bond's z-spread, verified to seven decimal places<a class="headerlink" href="#worked-example-2221-solving-a-real-bonds-z-spread-verified-to-seven-decimal-places" title="Permanent link">&para;</a></h3>
+<p>A 2-year, quarterly, 3%-coupon bond with \$100 notional trading at \$98.00 against a 3% risk-free curve: bisection over <code>[-0.1, 0.1]</code> at <code>TOLERANCE=1e-8</code> converges in <strong>25 iterations</strong> to a spread of <code>0.010460522770881654</code> — 104.60523 basis points — for a yield to maturity of <code>4.046052277088165%</code>. Pricing the bond back at that spread gives <code>98.00000040566188</code>, a difference from the \$98.00 target of <code>4.0566187919921504 × 10⁻⁷</code> — both numbers reproduce exactly, to every digit shown, from re-running this bisection independently. The bond's undiscounted cash flows are simple to check by hand: eight quarterly coupons of <code>(3/12)×0.03×100 = \$0.75</code> each (<code>\$6.00</code> total) plus a <code>\$100</code> principal repayment, <code>\$106.00</code> undiscounted — every dollar of which gets discounted a little less than the risk-free curve alone would, because the market is demanding 104.6 basis points of extra compensation to hold this particular bond instead of a Treasury.</p>
+<p><code>ZSpreadSolve.backward</code> from <a href="../../part6/02-advanced-features/#121-custom-autograd-functions">Chapter 21.1</a> turns <code>d(spread)/d(market_price)</code> into an ordinary gradient — Chapter 21.1's own worked example computed exactly this derivative for this exact bond (<code>≈-0.0052912</code>) and confirmed it against an independent re-solve — which is what "Greeks via automatic differentiation" means in practice: a sensitivity that would otherwise need a separate closed-form derivation for every new instrument type instead comes free from the same backward pass that trains a neural network.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[COMMON TRAP]
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>+------------------------------------------------------------------+
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>| bisection_method&#39;s loop condition is                              |
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>| `while abs(right-left) &gt; tolerance and iterations &lt; 100`.          |
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>| The `iterations &lt; 100` half of that condition is a silent escape   |
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>| hatch: if a caller ever passes a tolerance small enough (or a      |
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>| bracket wide enough) that convergence would genuinely need more    |
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>| than 100 halvings, the loop exits anyway and returns whatever      |
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>| midpoint it has -- with no error, no flag, and no way for the      |
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>| caller to tell &quot;converged&quot; apart from &quot;gave up at iteration 100.&quot;  |
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>| This bond converges comfortably in 25 iterations, well under the   |
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>| cap, but nothing in the function&#39;s return value would reveal it if |
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>| it hadn&#39;t.                                                         |
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>+------------------------------------------------------------------+
 </code></pre></div>
 <h3 id="expected-output_1">Expected Output<a class="headerlink" href="#expected-output_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>=== Z-SPREAD CALCULATION FOR RISKY BONDS ===
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Bond Parameters:
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Issue Price: 98.0
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Maturity: 2 years
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Risk-free rate: 0.03
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Coupon rate: 0.03
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Notional: 100.0
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Total payments: 8
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>Market Price with Zero Spread: 99.99999999999996
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>Solving for z-spread using bisection method...
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>=== RESULTS ===
-<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>The zSpread on a Risky Bond is:
-<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>0.010460522770881654
-<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>The Yield To Maturity on the Bond:
-<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>0.04046052277088165
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
-<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>=== VERIFICATION ===
-<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>Target market price: 98.0
-<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>Calculated price with optimal spread: 98.00000040566188
-<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>Difference: 4.0566187919921504e-07
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>=== Z-SPREAD CALCULATION FOR RISKY BONDS ===
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Bond Parameters:
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Issue Price: 98.0
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Maturity: 2 years
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Risk-free rate: 0.03
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>Coupon rate: 0.03
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Notional: 100.0
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>Total payments: 8
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>Market Price with Zero Spread: 99.99999999999996
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Solving for z-spread using bisection method...
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>=== RESULTS ===
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>The zSpread on a Risky Bond is:
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>0.010460522770881654
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>The Yield To Maturity on the Bond:
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>0.04046052277088165
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>=== VERIFICATION ===
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>Target market price: 98.0
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>Calculated price with optimal spread: 98.00000040566188
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>Difference: 4.0566187919921504e-07
 </code></pre></div>
-<p>104.6 basis points of z-spread over the risk-free curve is this bond's compensation for credit risk — the framework's autodiff makes this differentiable, not just solvable: <code>ZSpreadSolve.backward</code> from <a href="../../part6/02-advanced-features/#121-custom-autograd-functions">Chapter 21.1</a> turns <code>d(spread)/d(market_price)</code> into an ordinary gradient the optimizer in Chapter 11 can use, which is what "Greeks via automatic differentiation" means in practice — sensitivities that would otherwise need a separate closed-form derivation for every new instrument type instead come for free from the same backward pass that trains a neural network.</p>
-<h2 id="133-portfolio-optimization">13.3 Portfolio Optimization<a class="headerlink" href="#133-portfolio-optimization" title="Permanent link">&para;</a></h2>
-<p>Before the GPU kernel, work a 3-bond portfolio by hand — small enough to check every step, large enough to show what "duration" actually means. Say the portfolio holds three zero-coupon bonds, already priced by Section 13.1's kernel:</p>
+<p>Unlike Section 22.1's, this block is genuinely real: independently re-running <code>calculate_bond_price</code> and <code>bisection_method</code> exactly as written above, with no changes, reproduces every one of these digits.</p>
+<h2 id="223-portfolio-optimization-foundational">22.3 Portfolio Optimization <code>[FOUNDATIONAL]</code><a class="headerlink" href="#223-portfolio-optimization-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>Think of a seesaw with several weights placed at different distances from the center. Each weight's contribution to how hard the whole board tips isn't just its own weight — it's weight <em>times</em> distance from the fulcrum. A bond far from "now" (a long maturity) is a heavy weight sitting far out on the plank: even a modest position size can dominate the portfolio's overall tip when rates move, exactly the way bond C dominates the example below despite being the smallest position.</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<p>Portfolio weight is a bond's share of total value; portfolio duration is the weighted average of individual durations — the same weight-times-distance-summed-together idea as the seesaw, computed as one elementwise multiply followed by the same sum-reduction used to total portfolio value in Section 22.1:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_portfolio_duration_kernel</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">duration</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">portfolio_weight</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">num_bonds</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">):</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bonds</span><span class="p">:</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">duration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">portfolio_weight</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w">   </span><span class="c1"># weighted contribution</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># followed by sum_reduce_kernel over `output` -&gt; portfolio duration</span>
+</code></pre></div>
+<h3 id="worked-example-2231-a-clean-three-bond-portfolio">Worked Example 22.3.1 — A clean three-bond portfolio<a class="headerlink" href="#worked-example-2231-a-clean-three-bond-portfolio" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1932,51 +2560,232 @@
 </tr>
 </tbody>
 </table>
-<p>Total portfolio value: <code>400 + 350 + 250 = 1000</code>. Each bond's <strong>weight</strong> is its share of that total: <code>w_A = 400/1000 = 0.40</code>, <code>w_B = 350/1000 = 0.35</code>, <code>w_C = 250/1000 = 0.25</code> — and these three weights sum to <code>1.0</code>, as portfolio weights always must. <strong>Portfolio duration</strong> is the weighted average of the individual durations: <code>0.40×2 + 0.35×5 + 0.25×10 = 0.8 + 1.75 + 2.5 = 5.05</code> years. Read that number the way a trading desk does: <code>duration ≈ 5.05</code> means a 1% parallel rise in interest rates should reduce this portfolio's value by roughly 5.05%, or about \$50.50 on the \$1000 book — bond C, despite being the <em>smallest</em> position, contributes the <em>most</em> to that risk (<code>2.5</code> of the <code>5.05</code> total), because its 10-year maturity makes it far more rate-sensitive per dollar than bonds A or B.</p>
-<p><code>portfolio_weight[i] = present_value[i] / total_portfolio_value</code> turns individual bond prices into portfolio weights with one more elementwise-divide kernel — exactly the <code>0.40, 0.35, 0.25</code> computed above, at any scale; portfolio duration is the weight-duration inner product from the same table, computed as a multiply followed by the same sum-reduction used to total portfolio value in Section 13.1:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_portfolio_duration_kernel</span><span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">duration</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">portfolio_weight</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">num_bonds</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">):</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bonds</span><span class="p">:</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">duration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">portfolio_weight</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w">   </span><span class="c1"># weighted contribution</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># followed by sum_reduce_kernel over `output` -&gt; portfolio duration</span>
+<p>Total portfolio value: <code>400 + 350 + 250 = 1000</code>. Weights: <code>w_A = 0.40</code>, <code>w_B = 0.35</code>, <code>w_C = 0.25</code> — summing to <code>1.0</code>, as portfolio weights always must. Portfolio duration: <code>0.40×2 + 0.35×5 + 0.25×10 = 0.8 + 1.75 + 2.5 = 5.05</code> years. Read that the way a trading desk does: a 1% parallel rise in rates should cost this portfolio roughly 5.05%, or about \$50.50 on the \$1000 book — with bond C, despite being the <em>smallest</em> position, contributing the <em>most</em> to that risk (<code>2.5</code> of the <code>5.05</code> total), because its 10-year maturity makes it far more rate-sensitive per dollar than A or B.</p>
+<h3 id="worked-example-2232-the-same-math-on-section-221s-actual-bonds">Worked Example 22.3.2 — The same math, on Section 22.1's actual bonds<a class="headerlink" href="#worked-example-2232-the-same-math-on-section-221s-actual-bonds" title="Permanent link">&para;</a></h3>
+<p>Section 22.1's three real bonds (present values \$994.7638, \$4,942.8294, \$9,814.2469; durations 0.25, 0.50, 0.75 years) sum to a real total of <code>\$15,751.8400</code>. Weights: <code>w_0 = 994.7638/15751.8400 ≈ 0.06315</code>, <code>w_1 = 4942.8294/15751.8400 ≈ 0.31379</code>, <code>w_2 = 9814.2469/15751.8400 ≈ 0.62305</code> — again summing to <code>1.0</code>. Portfolio duration: <code>0.06315×0.25 + 0.31379×0.50 + 0.62305×0.75 ≈ 0.01579 + 0.15690 + 0.46729 ≈ 0.63998</code> years — a very short-duration book, because these three bonds all mature within a year, unlike Worked Example 22.3.1's deliberately longer-dated illustration.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>[COMMON TRAP]
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>+------------------------------------------------------------------+
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>| The weights in both worked examples above sum to exactly 1.0 --   |
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>| that is not a coincidence, it is the single cheapest correctness  |
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>| check this whole pipeline has. Section 22.1&#39;s [COMMON TRAP] showed |
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>| the real system&#39;s single-launch sum_reduce_kernel producing        |
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>| portfolio weights that sum to ~7.78 instead of 1.0 for the full    |
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>| 1,024-bond book. Anyone computing THIS section&#39;s weighted duration |
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>| downstream of that bug would get a number built on weights that    |
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>| don&#39;t sum to one -- and the bug would have been caught immediately |
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>| by the same one-line check (`sum(weights) == 1.0`) that both       |
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>| worked examples above quietly satisfy.                              |
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>+------------------------------------------------------------------+
 </code></pre></div>
-<p>Because this whole pipeline — price, weight, weighted duration, total — is built from registered, differentiable ops, <code>backward()</code> from a target portfolio duration produces the gradient of that duration with respect to every bond's face value, directly usable by a rebalancing optimizer deciding how much of each bond to hold to hit a duration target, without deriving the sensitivity by hand for each new candidate portfolio.</p>
-<h2 id="134-monte-carlo-simulations-with-gradients">13.4 Monte Carlo Simulations with Gradients<a class="headerlink" href="#134-monte-carlo-simulations-with-gradients" title="Permanent link">&para;</a></h2>
-<p>Monte Carlo pricing answers a question closed-form formulas often can't: "what is this option worth, on average, across every way the future might unfold?" Simulate a handful of terminal stock prices by hand to see the mechanism before trusting a GPU to do it a million times over. Suppose a stock starting at \$100 is simulated forward and five independent paths happen to land at terminal prices <code>[95, 102, 108, 130, 90]</code>, and you're pricing a <strong>call option</strong> with strike <code>K=100</code> — a contract that pays <code>max(S_T - K, 0)</code>, the amount by which the stock finished <em>above</em> the strike, or nothing if it finished below. Payoffs: <code>max(95-100,0)=0</code>, <code>max(102-100,0)=2</code>, <code>max(108-100,0)=8</code>, <code>max(130-100,0)=30</code>, <code>max(90-100,0)=0</code>. Average payoff: <code>(0+2+8+30+0)/5 = 40/5 = 8</code>. Discounting that \$8 average back to today at, say, a 3% risk-free rate over one year (<code>e^(-0.03×1) ≈ 0.9704</code>) gives an option price of <code>8 × 0.9704 ≈ 7.76</code>. Every one of the paths that finished below the strike contributed a hard <code>0</code>, not a negative number — the option's whole value comes from the upside paths, which is exactly why option payoffs are asymmetric and why averaging over many simulated paths, rather than one "expected" path, is necessary to price them correctly.</p>
-<p>This is an expectation approximated by a sample mean over many more than five paths, which is exactly <code>tensor_mean</code> from <a href="../../part2/03-reduction-operations/#51-sum-and-mean-reductions">Chapter 5.1</a> applied to a payoff computed per path:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">simulate_gbm_paths</span><span class="p">(</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="n">paths</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w">   </span><span class="c1"># [num_paths] terminal prices</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">s0</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">mu</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">sigma</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">dt</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">num_steps</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">num_paths</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">seed_base</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">):</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Geometric Brownian motion: S_{t+1} = S_t * exp((mu - sigma^2/2)*dt + sigma*sqrt(dt)*Z).&quot;&quot;&quot;</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_paths</span><span class="p">:</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s0</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sample_standard_normal</span><span class="p">(</span><span class="n">seed_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_steps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">step</span><span class="p">)</span><span class="w">  </span><span class="c1"># Box-Muller, Chapter 11.1</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">z</span><span class="p">)</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">        </span><span class="n">paths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="k">fn</span><span class="w"> </span><span class="nf">monte_carlo_option_price</span><span class="p">(</span>
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="n">terminal_prices</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">strike</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">    </span><span class="n">risk_free_rate</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">maturity</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">num_paths</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">payoffs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">num_paths</span><span class="p">)</span>
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">num_paths</span><span class="p">):</span>
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">payoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">terminal_prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strike</span>
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">        </span><span class="n">payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">payoff</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">payoff</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w">   </span><span class="c1"># call option payoff</span>
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">mean_payoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_mean</span><span class="p">(</span><span class="n">payoffs</span><span class="p">,</span><span class="w"> </span><span class="n">num_paths</span><span class="p">)</span>
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">    </span><span class="n">payoffs</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mean_payoff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">risk_free_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">maturity</span><span class="p">)</span><span class="w">   </span><span class="c1"># discount back to present value</span>
+<p>Because this whole pipeline — price, weight, weighted duration, total — is built from registered, differentiable ops, <code>backward()</code> from a target portfolio duration produces the gradient of that duration with respect to every bond's face value, directly usable by a rebalancing algorithm deciding how much of each bond to hold to hit a duration target — the same kind of parameter update Chapter 20.4 performs during training, applied here to a portfolio instead of a network's weights.</p>
+<h2 id="224-monte-carlo-simulations-with-gradients-foundational">22.4 Monte Carlo Simulations with Gradients <code>[FOUNDATIONAL]</code><a class="headerlink" href="#224-monte-carlo-simulations-with-gradients-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Ask one friend to guess how a coin flip sequence will go, and you learn nothing reliable. Ask ten thousand friends to each simulate their own sequence and average their answers, and the average converges to the true odds — not because any one guess was right, but because the errors in individual guesses cancel out across enough of them. Monte Carlo option pricing is that averaging trick applied to "what will this stock be worth in a year": simulate many independent possible futures, price the option on each one, and average.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Closed-form (Black-Scholes-style)</th>
+<th>Monte Carlo (this section)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>When it applies</td>
+<td>Payoff has a known analytic solution</td>
+<td>Any payoff, including path-dependent ones with no closed form</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>One formula evaluation</td>
+<td>Many simulated paths, more for a tighter estimate</td>
+</tr>
+<tr>
+<td>Greeks</td>
+<td>Differentiate the formula once, by hand</td>
+<td><code>backward()</code> through the whole simulation, once, for every Greek at once</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">simulate_gbm_paths</span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="n">paths</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w">   </span><span class="c1"># [num_paths] terminal prices</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="n">s0</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">mu</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">sigma</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">dt</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">num_steps</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="n">num_paths</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">seed_base</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">):</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Geometric Brownian motion: S_{t+1} = S_t * exp((mu - sigma^2/2)*dt + sigma*sqrt(dt)*Z).&quot;&quot;&quot;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_paths</span><span class="p">:</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s0</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sample_standard_normal</span><span class="p">(</span><span class="n">seed_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_steps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">step</span><span class="p">)</span><span class="w">  </span><span class="c1"># Box-Muller, Chapter 20.1</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">z</span><span class="p">)</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">        </span><span class="n">paths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="k">fn</span><span class="w"> </span><span class="nf">monte_carlo_option_price</span><span class="p">(</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="n">terminal_prices</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">strike</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">    </span><span class="n">risk_free_rate</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">maturity</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">num_paths</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">payoffs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">num_paths</span><span class="p">)</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">num_paths</span><span class="p">):</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">payoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">terminal_prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strike</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">        </span><span class="n">payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">payoff</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">payoff</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w">   </span><span class="c1"># call option payoff</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">mean_payoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_mean</span><span class="p">(</span><span class="n">payoffs</span><span class="p">,</span><span class="w"> </span><span class="n">num_paths</span><span class="p">)</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w">    </span><span class="n">payoffs</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mean_payoff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">risk_free_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">maturity</span><span class="p">)</span><span class="w">   </span><span class="c1"># discount back to present value</span>
 </code></pre></div>
-<p>Run this simulation as a node the graph records rather than a one-off calculation, and <code>backward()</code> from the resulting option price differentiates straight through the discounting, the payoff, and the simulated paths themselves — producing Delta (<code>d(price)/d(s0)</code>), Vega (<code>d(price)/d(sigma)</code>), and Rho (<code>d(price)/d(risk_free_rate)</code>) as ordinary gradients from the same reverse pass built in Part 4, rather than the finite-difference "bump and reprice" every one of those sensitivities traditionally requires — re-running the entire simulation once per Greek. This is the payoff, in the most literal sense, of building the pricing model on top of an autograd framework instead of alongside one: every sensitivity a desk needs is one <code>backward()</code> call away.</p>
-<p>That closes the book's arc: Part 0 taught the language, Parts 1–4 built a tensor and autograd engine, Part 5 made it fast, Part 6 proved it on a neural network, and Part 7 has now proven the same machinery on the domain the framework was designed for from its very first design principle — financial computing, where "differentiable" and "auditable" have to mean the same thing.</p>
+<h3 id="worked-example-2241-five-paths-one-call-option-priced-by-hand">Worked Example 22.4.1 — Five paths, one call option, priced by hand<a class="headerlink" href="#worked-example-2241-five-paths-one-call-option-priced-by-hand" title="Permanent link">&para;</a></h3>
+<p>A stock starting at \$100 is simulated forward and five independent paths land at terminal prices <code>[95, 102, 108, 130, 90]</code>. Pricing a call option with strike <code>K=100</code> — a contract paying <code>max(S_T - K, 0)</code>: payoffs are <code>[0, 2, 8, 30, 0]</code>, mean payoff <code>(0+2+8+30+0)/5 = 8</code>. Discounting at a 3% risk-free rate over one year, <code>e^(-0.03) ≈ 0.970446</code>, gives an option price of <code>8 × 0.970446 ≈ 7.7636</code>. Every path that finished below the strike contributed a hard <code>0</code>, never a negative number — the option's entire value comes from the upside paths, which is exactly why averaging over many paths, rather than trusting one "expected" path, is necessary to price an asymmetric payoff correctly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[COMMON TRAP]
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>+------------------------------------------------------------------+
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>| Estimating a Greek by &quot;bump and reprice&quot; -- re-run the ENTIRE     |
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>| simulation with s0 nudged up slightly, subtract the original      |
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>| price, divide by the bump -- is a well-known trap when each rerun |
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>| draws FRESH random paths: the difference between two independently|
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>| sampled Monte Carlo estimates is dominated by sampling noise, not  |
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>| by the actual sensitivity, unless both runs reuse the exact same   |
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>| underlying random numbers (&quot;common random numbers&quot;). backward()   |
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>| through a single recorded simulation sidesteps this entirely -- it|
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>| differentiates the ONE set of paths that was actually simulated,  |
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>| producing Delta, Vega, and Rho from that one run with no re-       |
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>| sampling and therefore no extra noise to control for at all.       |
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>+------------------------------------------------------------------+
+</code></pre></div>
+<p>Run this simulation as a node the graph records rather than a one-off calculation, and <code>backward()</code> from the resulting option price differentiates straight through the discounting, the payoff, and the simulated paths themselves — producing Delta (<code>d(price)/d(s0)</code>), Vega (<code>d(price)/d(sigma)</code>), and Rho (<code>d(price)/d(risk_free_rate)</code>) as ordinary gradients from the same reverse pass built in Part 4, rather than the finite-difference "bump and reprice" every one of those sensitivities traditionally requires. This is the payoff, in the most literal sense, of building the pricing model on top of an autograd framework instead of alongside one: every sensitivity a desk needs is one <code>backward()</code> call away.</p>
+<h2 id="225-reference-implementations">22.5 Reference Implementations<a class="headerlink" href="#225-reference-implementations" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># ── 22.1 Bond Pricing (Struct-of-Arrays) ────────────────────────</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">ZeroCouponBondSystemSoA</span><span class="p">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">face_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">time_to_maturity</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">risk_free_rate</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">credit_spread</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">present_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">yield_to_maturity</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">duration</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">portfolio_weight</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">num_bonds</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_bond_prices_kernel</span><span class="p">(</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span><span class="n">present_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="n">yield_to_maturity</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="n">duration</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span><span class="n">face_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="n">time_to_maturity</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span><span class="n">risk_free_rate</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="n">credit_spread</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">    </span><span class="n">num_bonds</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="p">):</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bonds</span><span class="p">:</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">total_yield</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">risk_free_rate</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">credit_spread</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">        </span><span class="n">yield_to_maturity</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">total_yield</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">        </span><span class="n">present_value</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">face_value</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">total_yield</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">time_to_maturity</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">        </span><span class="n">duration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time_to_maturity</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_portfolio_weights_kernel</span><span class="p">(</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">    </span><span class="n">portfolio_weight</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="w">    </span><span class="n">present_value</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="w">    </span><span class="n">total_portfolio_value</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
+<a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a><span class="w">    </span><span class="n">num_bonds</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="p">):</span>
+<a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bonds</span><span class="p">:</span>
+<a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">total_portfolio_value</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">):</span>
+<a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="w">            </span><span class="n">portfolio_weight</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">present_value</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total_portfolio_value</span>
+<a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="w">        </span><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a><span class="w">            </span><span class="n">portfolio_weight</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a>
+<a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a><span class="k">fn</span><span class="w"> </span><span class="nf">compute_portfolio_duration_kernel</span><span class="p">(</span>
+<a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a><span class="w">    </span><span class="n">duration</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a><span class="w">    </span><span class="n">portfolio_weight</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a><span class="w">    </span><span class="n">num_bonds</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a><span class="p">):</span>
+<a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_bonds</span><span class="p">:</span>
+<a id="__codelineno-11-51" name="__codelineno-11-51" href="#__codelineno-11-51"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">duration</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">portfolio_weight</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+<a id="__codelineno-11-52" name="__codelineno-11-52" href="#__codelineno-11-52"></a>
+<a id="__codelineno-11-53" name="__codelineno-11-53" href="#__codelineno-11-53"></a><span class="c1"># ── 22.2 Credit Spread (Z-spread) ────────────────────────────────</span>
+<a id="__codelineno-11-54" name="__codelineno-11-54" href="#__codelineno-11-54"></a><span class="k">alias</span><span class="w"> </span><span class="nv">ISSUE_PRICE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">98.0</span>
+<a id="__codelineno-11-55" name="__codelineno-11-55" href="#__codelineno-11-55"></a><span class="k">alias</span><span class="w"> </span><span class="nv">RISK_FREE_RATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.03</span>
+<a id="__codelineno-11-56" name="__codelineno-11-56" href="#__codelineno-11-56"></a><span class="k">alias</span><span class="w"> </span><span class="nv">COUPON_RATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.03</span>
+<a id="__codelineno-11-57" name="__codelineno-11-57" href="#__codelineno-11-57"></a><span class="k">alias</span><span class="w"> </span><span class="nv">NOTIONAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100.0</span>
+<a id="__codelineno-11-58" name="__codelineno-11-58" href="#__codelineno-11-58"></a><span class="k">alias</span><span class="w"> </span><span class="nv">TOTAL_PAYMENTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<a id="__codelineno-11-59" name="__codelineno-11-59" href="#__codelineno-11-59"></a><span class="k">alias</span><span class="w"> </span><span class="nv">TOLERANCE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-8</span>
+<a id="__codelineno-11-60" name="__codelineno-11-60" href="#__codelineno-11-60"></a>
+<a id="__codelineno-11-61" name="__codelineno-11-61" href="#__codelineno-11-61"></a><span class="k">fn</span><span class="w"> </span><span class="nf">calculate_bond_price</span><span class="p">(</span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-11-62" name="__codelineno-11-62" href="#__codelineno-11-62"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">discounted_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-11-63" name="__codelineno-11-63" href="#__codelineno-11-63"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">payments_per_year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
+<a id="__codelineno-11-64" name="__codelineno-11-64" href="#__codelineno-11-64"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">TOTAL_PAYMENTS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-11-65" name="__codelineno-11-65" href="#__codelineno-11-65"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">coupon_payment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mf">3.0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">12.0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">COUPON_RATE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">NOTIONAL</span>
+<a id="__codelineno-11-66" name="__codelineno-11-66" href="#__codelineno-11-66"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">discount_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">RISK_FREE_RATE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">payments_per_year</span><span class="p">,</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a id="__codelineno-11-67" name="__codelineno-11-67" href="#__codelineno-11-67"></a><span class="w">        </span><span class="n">discounted_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">coupon_payment</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">discount_factor</span>
+<a id="__codelineno-11-68" name="__codelineno-11-68" href="#__codelineno-11-68"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">final_discount_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">RISK_FREE_RATE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">payments_per_year</span><span class="p">,</span><span class="w"> </span><span class="nb">Float64</span><span class="p">(</span><span class="n">TOTAL_PAYMENTS</span><span class="p">))</span>
+<a id="__codelineno-11-69" name="__codelineno-11-69" href="#__codelineno-11-69"></a><span class="w">    </span><span class="n">discounted_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">NOTIONAL</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">final_discount_factor</span>
+<a id="__codelineno-11-70" name="__codelineno-11-70" href="#__codelineno-11-70"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">discounted_value</span>
+<a id="__codelineno-11-71" name="__codelineno-11-71" href="#__codelineno-11-71"></a>
+<a id="__codelineno-11-72" name="__codelineno-11-72" href="#__codelineno-11-72"></a><span class="k">fn</span><span class="w"> </span><span class="nf">objective_function</span><span class="p">(</span><span class="n">spread</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-11-73" name="__codelineno-11-73" href="#__codelineno-11-73"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">calculate_bond_price</span><span class="p">(</span><span class="n">spread</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ISSUE_PRICE</span>
+<a id="__codelineno-11-74" name="__codelineno-11-74" href="#__codelineno-11-74"></a>
+<a id="__codelineno-11-75" name="__codelineno-11-75" href="#__codelineno-11-75"></a><span class="k">fn</span><span class="w"> </span><span class="nf">bisection_method</span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">tolerance</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
+<a id="__codelineno-11-76" name="__codelineno-11-76" href="#__codelineno-11-76"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="nv">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="nv">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-11-77" name="__codelineno-11-77" href="#__codelineno-11-77"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">tolerance</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">:</span>
+<a id="__codelineno-11-78" name="__codelineno-11-78" href="#__codelineno-11-78"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span>
+<a id="__codelineno-11-79" name="__codelineno-11-79" href="#__codelineno-11-79"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">objective_function</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tolerance</span><span class="p">:</span>
+<a id="__codelineno-11-80" name="__codelineno-11-80" href="#__codelineno-11-80"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">mid</span>
+<a id="__codelineno-11-81" name="__codelineno-11-81" href="#__codelineno-11-81"></a><span class="w">        </span><span class="k">elif</span><span class="w"> </span><span class="n">objective_function</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">objective_function</span><span class="p">(</span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-11-82" name="__codelineno-11-82" href="#__codelineno-11-82"></a><span class="w">            </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span>
+<a id="__codelineno-11-83" name="__codelineno-11-83" href="#__codelineno-11-83"></a><span class="w">        </span><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-11-84" name="__codelineno-11-84" href="#__codelineno-11-84"></a><span class="w">            </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mid</span>
+<a id="__codelineno-11-85" name="__codelineno-11-85" href="#__codelineno-11-85"></a><span class="w">        </span><span class="n">iterations</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-11-86" name="__codelineno-11-86" href="#__codelineno-11-86"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span>
+<a id="__codelineno-11-87" name="__codelineno-11-87" href="#__codelineno-11-87"></a>
+<a id="__codelineno-11-88" name="__codelineno-11-88" href="#__codelineno-11-88"></a><span class="c1"># ── 22.4 Monte Carlo Simulation ──────────────────────────────────</span>
+<a id="__codelineno-11-89" name="__codelineno-11-89" href="#__codelineno-11-89"></a><span class="k">fn</span><span class="w"> </span><span class="nf">simulate_gbm_paths</span><span class="p">(</span>
+<a id="__codelineno-11-90" name="__codelineno-11-90" href="#__codelineno-11-90"></a><span class="w">    </span><span class="n">paths</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-11-91" name="__codelineno-11-91" href="#__codelineno-11-91"></a><span class="w">    </span><span class="n">s0</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">mu</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">sigma</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">dt</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">num_steps</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-11-92" name="__codelineno-11-92" href="#__codelineno-11-92"></a><span class="w">    </span><span class="n">num_paths</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span><span class="w"> </span><span class="n">seed_base</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-11-93" name="__codelineno-11-93" href="#__codelineno-11-93"></a><span class="p">):</span>
+<a id="__codelineno-11-94" name="__codelineno-11-94" href="#__codelineno-11-94"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-11-95" name="__codelineno-11-95" href="#__codelineno-11-95"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_paths</span><span class="p">:</span>
+<a id="__codelineno-11-96" name="__codelineno-11-96" href="#__codelineno-11-96"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s0</span>
+<a id="__codelineno-11-97" name="__codelineno-11-97" href="#__codelineno-11-97"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">step</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
+<a id="__codelineno-11-98" name="__codelineno-11-98" href="#__codelineno-11-98"></a><span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="nv">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sample_standard_normal</span><span class="p">(</span><span class="n">seed_base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">num_steps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">step</span><span class="p">)</span>
+<a id="__codelineno-11-99" name="__codelineno-11-99" href="#__codelineno-11-99"></a><span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">z</span><span class="p">)</span>
+<a id="__codelineno-11-100" name="__codelineno-11-100" href="#__codelineno-11-100"></a><span class="w">        </span><span class="n">paths</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span>
+<a id="__codelineno-11-101" name="__codelineno-11-101" href="#__codelineno-11-101"></a>
+<a id="__codelineno-11-102" name="__codelineno-11-102" href="#__codelineno-11-102"></a><span class="k">fn</span><span class="w"> </span><span class="nf">monte_carlo_option_price</span><span class="p">(</span>
+<a id="__codelineno-11-103" name="__codelineno-11-103" href="#__codelineno-11-103"></a><span class="w">    </span><span class="n">terminal_prices</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">strike</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span>
+<a id="__codelineno-11-104" name="__codelineno-11-104" href="#__codelineno-11-104"></a><span class="w">    </span><span class="n">risk_free_rate</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">maturity</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="p">,</span><span class="w"> </span><span class="n">num_paths</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-11-105" name="__codelineno-11-105" href="#__codelineno-11-105"></a><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-11-106" name="__codelineno-11-106" href="#__codelineno-11-106"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">payoffs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]]</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">num_paths</span><span class="p">)</span>
+<a id="__codelineno-11-107" name="__codelineno-11-107" href="#__codelineno-11-107"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">num_paths</span><span class="p">):</span>
+<a id="__codelineno-11-108" name="__codelineno-11-108" href="#__codelineno-11-108"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">payoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">terminal_prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">strike</span>
+<a id="__codelineno-11-109" name="__codelineno-11-109" href="#__codelineno-11-109"></a><span class="w">        </span><span class="n">payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">payoff</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">payoff</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<a id="__codelineno-11-110" name="__codelineno-11-110" href="#__codelineno-11-110"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">mean_payoff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_mean</span><span class="p">(</span><span class="n">payoffs</span><span class="p">,</span><span class="w"> </span><span class="n">num_paths</span><span class="p">)</span>
+<a id="__codelineno-11-111" name="__codelineno-11-111" href="#__codelineno-11-111"></a><span class="w">    </span><span class="n">payoffs</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<a id="__codelineno-11-112" name="__codelineno-11-112" href="#__codelineno-11-112"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">mean_payoff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">risk_free_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">maturity</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="expected-output_2">Expected Output<a class="headerlink" href="#expected-output_2" title="Permanent link">&para;</a></h3>
+<p>This chapter's four sections have three different honest provenances, and they are not interchangeable. Section 22.2's z-spread output block is genuinely real: independently re-running <code>calculate_bond_price</code> and <code>bisection_method</code> exactly as written, with no changes, reproduces <code>0.010460522770881654</code>, <code>98.00000040566188</code>, and <code>4.0566187919921504e-07</code> to every digit shown. Section 22.1's portfolio-level aggregate figures are not real captured output — the deterministic bond-generation data reproduces neither a correctly-summed total nor the total the code's actual single-launch reduction bug would produce, so the honestly-recomputed alternatives in that section's own "Expected Output" replace an earlier, unreproducible set of numbers rather than repeating them. Section 22.4's Monte Carlo example was never claimed as captured output at all — five paths and their payoffs are a hand-constructed illustration, verified arithmetically in Worked Example 22.4.1, not a GPU run.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>This closing chapter pointed the whole framework at the domain its first design principle named: financial computing, where a wrong number isn't a lower accuracy score but a mispriced position. Section 22.1 priced a bond portfolio with the same exponential discounting formula this book has used since Chapter 12, and along the way found a real, confirmed bug — <code>sum_reduce_kernel</code> launched once instead of in the multi-round loop Chapter 14.1 itself established, silently dropping 87.5% of a 1,024-bond portfolio from its own reported total. Section 22.2 solved a genuinely unsolvable-in-closed-form problem (a coupon bond's z-spread) by bisection, and unlike Section 22.1, its numbers are real: they reproduce to every digit shown. Section 22.3 showed that portfolio duration is nothing more than a weighted average, and that the one-line sanity check <code>sum(weights) == 1.0</code> would have caught Section 22.1's bug immediately had anyone run it. Section 22.4 showed why Monte Carlo pricing needs many paths rather than one, and why differentiating through a single simulation is not just faster than "bump and reprice" for each Greek — it avoids a real, well-documented Monte Carlo pitfall (fresh random paths per bump) entirely.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Section 22.1's <code>[COMMON TRAP]</code> describes a single-launch reduction that reads only <code>2 × min(THREADS_PER_BLOCK, NUM_BONDS // 2)</code> bonds. For a larger portfolio of <code>NUM_BONDS = 2048</code> with the same <code>THREADS_PER_BLOCK = 64</code>, how many bonds would actually get summed, and what fraction of the portfolio does that leave out?</li>
+<li>Section 22.2's bisection runs for exactly 25 iterations to reach <code>TOLERANCE = 1e-8</code> starting from bracket <code>[-0.1, 0.1]</code> (width <code>0.2</code>). Derive the minimum number of halvings needed to shrink a width-<code>0.2</code> bracket below <code>1e-8</code>, and confirm it matches the 25 actually observed.</li>
+<li>Add a fourth bond D (\$500 present value, 3-year duration) to Worked Example 22.3.1's three-bond portfolio. Compute the new total, all four weights, and the new portfolio duration.</li>
+<li>Using Worked Example 22.1.2's method, compute bond 1's DV01 (from Worked Example 22.1.1: face \$5,000, maturity 0.5 years, yield 2.30%, present value \$4,942.8294).</li>
+<li>Worked Example 22.4.1 prices a call option (<code>payoff = max(S_T - K, 0)</code>) on paths <code>[95, 102, 108, 130, 90]</code> with <code>K=100</code>. Reprice a <em>put</em> option (<code>payoff = max(K - S_T, 0)</code>) on the same five paths and the same strike, and explain in one sentence why a put's value comes from a different subset of the paths than a call's does.</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>There is no Chapter 23 — Part 7 closes the book's arc. Part 0 taught the language; Parts 1 through 4 built a tensor and autograd engine from first principles; Part 5 made it fast; Part 6 proved it on a neural network and gave it the escape hatches (custom functions, higher-order derivatives, serialization, debugging tools) a trustworthy framework needs; and Part 7 has now proven the same machinery on the domain the very first design principle named — financial computing, where "differentiable" and "auditable" have to mean the same thing, and where this chapter's own two independently-confirmed bugs are the proof that checking, not assuming, is what "auditable" actually requires in practice. The Appendix's Practice Quiz is the natural next stop for anyone who wants to check what stuck.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> <code>reduction_threads = min(64, 2048 // 2) = min(64, 1024) = 64</code> — unchanged from the 1,024-bond case, because <code>THREADS_PER_BLOCK</code> is still the smaller of the two. Bonds actually summed: <code>2 × 64 = 128</code>, exactly as before. Fraction left out: <code>(2048 - 128) / 2048 = 1920/2048 ≈ 93.75%</code> — <em>worse</em> than the 1,024-bond portfolio's 87.5%, because the number of bonds actually touched by this bug is capped at <code>2 × THREADS_PER_BLOCK</code> regardless of how large the portfolio grows, so the fraction silently dropped only gets worse as the book scales up.</p>
+<p><strong>2.</strong> A bracket of width <code>w</code> needs <code>n</code> halvings to shrink below tolerance <code>tol</code> when <code>w / 2ⁿ ≤ tol</code>, i.e. <code>n ≥ log₂(w/tol)</code>. Here <code>w=0.2</code>, <code>tol=10⁻⁸</code>: <code>n ≥ log₂(0.2 / 10⁻⁸) = log₂(2×10⁷) ≈ 24.25</code>, and since <code>n</code> must be a whole number of halvings, <code>n = 25</code> — matching the 25 iterations actually observed exactly, because bisection's convergence rate is deterministic and depends only on the starting width and the tolerance, not on where the root happens to sit inside the bracket.</p>
+<p><strong>3.</strong> New total: <code>400 + 350 + 250 + 500 = 1500</code>. New weights: <code>w_A = 400/1500 ≈ 0.2667</code>, <code>w_B = 350/1500 ≈ 0.2333</code>, <code>w_C = 250/1500 ≈ 0.1667</code>, <code>w_D = 500/1500 ≈ 0.3333</code> — summing to <code>1.0</code>. New portfolio duration: <code>0.2667×2 + 0.2333×5 + 0.1667×10 + 0.3333×3 ≈ 0.5333 + 1.1667 + 1.6667 + 1.0 = 4.3667</code> years — lower than the original <code>5.05</code> years, because bond D's short 3-year duration and its large 33% weight both pull the weighted average down, even though the total portfolio grew.</p>
+<p><strong>4.</strong> <code>DV01 = -time_to_maturity × PV × 0.0001 = -0.5 × 4942.8294 × 0.0001 ≈ -\$0.2471</code> per basis point — smaller in magnitude than bond 2's <code>-\$0.7361</code> from Worked Example 22.1.2, consistent with bond 1's shorter maturity (0.5 years versus 0.75) making it less sensitive to a yield move, exactly the same "longer maturity means more rate-sensitive per dollar" relationship Worked Example 22.3.1 established for bond C.</p>
+<p><strong>5.</strong> Put payoffs on <code>[95, 102, 108, 130, 90]</code> with <code>K=100</code>: <code>max(100-95,0)=5</code>, <code>max(100-102,0)=0</code>, <code>max(100-108,0)=0</code>, <code>max(100-130,0)=0</code>, <code>max(100-90,0)=10</code> → <code>[5, 0, 0, 0, 10]</code>. Mean payoff: <code>(5+0+0+0+10)/5 = 3</code>. Discounted at the same <code>e^(-0.03) ≈ 0.970446</code>: <code>3 × 0.970446 ≈ 2.9113</code>. A call's value comes entirely from paths that finished <em>above</em> the strike (102, 108, 130 here); a put's value comes entirely from paths that finished <em>below</em> it (95 and 90 here) — the two option types are mirror images of the same asymmetric-payoff idea, each one paying off on the opposite side of the strike from the other.</p>
 
 
 

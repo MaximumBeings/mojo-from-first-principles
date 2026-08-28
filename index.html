@@ -25,7 +25,7 @@
     
     
       
-        <title>Mojo From First Principles — Under Development</title>
+        <title>Mojo From First Principles</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mojo-from-first-principles-under-development" class="md-skip">
+        <a href="#mojo-from-first-principles" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Mojo From First Principles — Under Development" class="md-header__button md-logo" aria-label="Mojo From First Principles — Under Development" data-md-component="logo">
+    <a href="." title="Mojo From First Principles" class="md-header__button md-logo" aria-label="Mojo From First Principles" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m6 20 4.16-12.09L9.34 6H8V4h2c.42 0 .78.26.93.63L16.66 18H18v2h-2c-.43 0-.79-.27-.93-.64l-3.74-8.71L8.12 20z"/></svg>
@@ -106,7 +106,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Mojo From First Principles — Under Development
+            Mojo From First Principles
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -218,13 +218,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Mojo From First Principles — Under Development" class="md-nav__button md-logo" aria-label="Mojo From First Principles — Under Development" data-md-component="logo">
+    <a href="." title="Mojo From First Principles" class="md-nav__button md-logo" aria-label="Mojo From First Principles" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m6 20 4.16-12.09L9.34 6H8V4h2c.42 0 .78.26.93.63L16.66 18H18v2h-2c-.43 0-.79-.27-.93-.64l-3.74-8.71L8.12 20z"/></svg>
 
     </a>
-    Mojo From First Principles — Under Development
+    Mojo From First Principles
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -1424,7 +1424,7 @@
   <span class="md-ellipsis">
     
   
-    13. Quantitative Finance Examples
+    22. Quantitative Finance Examples
   
 
     
@@ -1616,11 +1616,11 @@
 
 
 
-<h1 id="mojo-from-first-principles-under-development">Mojo From First Principles — Under Development<a class="headerlink" href="#mojo-from-first-principles-under-development" title="Permanent link">&para;</a></h1>
+<h1 id="mojo-from-first-principles">Mojo From First Principles<a class="headerlink" href="#mojo-from-first-principles" title="Permanent link">&para;</a></h1>
 <p><strong>Building a GPU-Native Automatic Differentiation Framework, One Layer at a Time</strong></p>
-<div class="admonition warning">
-<p class="admonition-title">This book is under active development</p>
-<p>Chapters are being rewritten one at a time into a fuller format — intuition, technical background, and hand-worked numeric examples ahead of every block of code. Finished so far: all of <strong>Part 0 — Mojo Foundations</strong> (Chapters 1–5: Variables and Types, Struct Design Patterns, Memory Layout Strategies, GPU Programming Introduction, and SIMD and Vectorization), plus all six chapters of <strong>Part 1 — Core Tensor Infrastructure</strong> (Chapter 6: The Tensor — shape, strides, creation, devices, and validation; Chapter 7: Memory Layout Design — strides revisited, zero-copy views, alignment/padding, and broadcasting; Chapter 8: Tensor Creation Functions — factories, random generation, and I/O; Chapter 9: Specialized Tensor Types — identity, diagonal, sparse, and triangular structures; Chapter 10: Device Abstraction Layer — a second, minimal device-discovery implementation plus device-aware memory allocation; Chapter 11: Memory Management System — shared-ownership reference counting, bump allocation, and GPU memory pooling), plus all three chapters of <strong>Part 2 — Basic Tensor Operations</strong> (Chapter 12: Element-wise Operations — addition, subtraction, multiplication, division, power, exponential, and GPU-kernel broadcasting; Chapter 13: Matrix Operations — tensor contraction and matrix multiplication traced both scalar and SIMD lane-by-lane, transpose, reshape/view semantics, and structure-aware linear algebra via Chapter 9's specialized tensors; Chapter 14: Reduction Operations — tree-reduction sum/mean, max/argmax, L2 norm and gradient clipping, and variance/standard deviation), plus the first chapter of <strong>Part 3 — Computational Graph Foundation</strong> (Chapter 15: Graph Node Architecture — the <code>Differentiable</code> trait, <code>GraphNode</code>/<code>ComputationGraph</code> recording, and topological ordering, checked against how reverse-mode automatic differentiation is implemented in production), plus both chapters of <strong>Part 4 — Automatic Differentiation Engine</strong> (Chapter 16: Backward Function Implementation — the multivariable chain rule as sum-over-paths, <code>AddOp</code>/<code>MulOp</code>/<code>ExpOp</code>'s backward rules, <code>MatMulOp</code>'s backward derived from index-summation first principles and verified on both gradients, a full registry expansion covering <code>SubOp</code>/<code>DivOp</code>/<code>PowOp</code>/<code>LogOp</code>/<code>SqrtOp</code>, the activation and trigonometric gradients <code>ReluOp</code>/<code>SigmoidOp</code>/<code>TanhOp</code>/<code>SinOp</code>/<code>CosOp</code>, the reduction and shape gradients <code>SumOp</code>/<code>MaxOp</code>/<code>ReshapeOp</code>/<code>TransposeOp</code>, and the implicit function theorem for differentiating through an iterative solver; Chapter 17: Gradient Computation Engine — the full reverse pass traced end to end, a precise gap found between <code>GraphNode.grad</code> and the fields <code>accumulate_gradient</code> actually writes (with the <code>grad_fn_index</code>-based fix), the tensor-aliasing question from Chapter 16 resolved definitively, and a broadcasting-gradient-reduction gap verified against Chapter 12.4's own numbers). Parts 1 through 4 are now fully revised and form a complete, working autograd engine with a registry of gradient rules checked against a real 74-operation reference implementation, plus all of <strong>Part 5 — GPU Acceleration and Performance</strong> (Chapter 18: GPU Kernel Implementation — ceiling-division launch configurations traced to the exact wasted thread, memory coalescing counted in actual transactions on a real eight-field bond record, a naive convolution kernel's redundant reads counted exactly and then removed with a shared-memory tile, and warp-level shuffle instructions with the one bounds-check interaction that can silently break them; Chapter 19: Performance Optimization Techniques — SIMD vectorization's main-loop-plus-remainder shape, loop unrolling and loop fusion disentangled into two genuinely different savings and counted separately, compile-time specialization as the real mechanism behind this book's zero-cost-abstraction claim, and a benchmarking harness built around the one measurement mistake — an unsynchronized GPU timer — that invalidates everything else), plus both chapters of <strong>Part 6 — Neural Network Building Blocks</strong> (Chapter 20: Neural Network Layers — He and Xavier initialization traced through an actual Box-Muller draw, a full five-layer forward/backward/update pass hand-verified two layers deep, a genuine confirmed scale-mismatch bug between this chapter's loss and its own gradient function, and the architectural fact that this network's hand-written backprop never once calls into the <code>Tensor</code>/<code>GraphNode</code> autograd engine built across Parts 3 and 4 — built from real author source with genuinely captured training output, not a fabricated one; Chapter 21: Advanced Features — the implicit function theorem turning an 18-iteration bisection solver into one differentiable graph node, verified against Part 7's own z-spread bond to within 0.3 basis points, a Hessian-vector product checked against a full 2x2 Hessian built by hand, a model-serialization format's exact byte layout traced field by field, and gradient-checking and NaN/Inf detection as two genuinely different tools for two genuinely different bugs). Part 6 is now complete; Part 7 is still in its original, denser draft form and will be revised in the same style next.</p>
+<div class="admonition success">
+<p class="admonition-title">All 22 chapters have been revised into the book's full format</p>
+<p>Every chapter — intuition, technical background, and hand-worked numeric examples ahead of every block of code, plus self-check questions with worked solutions — has now been rewritten from the original draft, one chapter at a time, in page order. <strong>Part 0 — Mojo Foundations</strong> (Chapters 1–5: Variables and Types, Struct Design Patterns, Memory Layout Strategies, GPU Programming Introduction, and SIMD and Vectorization) through <strong>Part 4 — Automatic Differentiation Engine</strong> (Chapters 16–17: Backward Function Implementation and Gradient Computation Engine) build a complete, working autograd engine with a registry of gradient rules checked against a real 74-operation reference implementation — including the multivariable chain rule as sum-over-paths, a precise gap found between <code>GraphNode.grad</code> and the fields <code>accumulate_gradient</code> actually writes, and the implicit function theorem for differentiating through an iterative solver. <strong>Part 5 — GPU Acceleration and Performance</strong> (Chapters 18–19) traces ceiling-division launch configurations to the exact wasted thread, counts memory-coalescing transactions on a real eight-field bond record, and builds a benchmarking harness around the one measurement mistake — an unsynchronized GPU timer — that invalidates everything else. <strong>Part 6 — Neural Network Building Blocks</strong> (Chapters 20–21) assembles a trained network from real author source with genuinely captured training output, finds a confirmed scale-mismatch bug between its loss and its own gradient function, and adds the escape hatches — custom autograd functions, higher-order derivatives, model serialization, gradient checking — a trustworthy framework needs. <strong>Part 7 — Financial Computing Applications</strong> (Chapter 22) points the whole framework at bond pricing, credit-spread solving, portfolio duration, and Monte Carlo option pricing, and along the way finds a real, confirmed bug of its own: a portfolio-aggregation reduction kernel launched once instead of in the multi-round loop the reduction chapter itself established, silently dropping 87.5% of a 1,024-bond portfolio from its own reported total — while the z-spread section's numbers, by contrast, reproduce to every digit against a real captured run. Every restructured chapter preserves the original runnable Mojo code in full, discloses honestly wherever a number is illustrative rather than genuinely captured output, and builds clean under <code>mkdocs build --strict</code>.</p>
 </div>
 <blockquote>
 <p>"The gap between writing a training loop that runs and understanding every allocation, stride, and gradient it touches is exactly the size of this book."</p>
@@ -1637,7 +1637,7 @@
 <div class="grid cards">
 <ul>
 <li>
-<p>:material-book-open-page-variant:{ .lg .middle } <strong>14 chapters</strong></p>
+<p>:material-book-open-page-variant:{ .lg .middle } <strong>22 chapters</strong></p>
 <p>Part 0 through Part 7, from variable declaration to Monte Carlo gradients.</p>
 </li>
 <li>
