@@ -1,4 +1,4 @@
-site_name: Mojo From First Principles — Under Development
+site_name: Mojo From First Principles
 site_description: Building a GPU-Native Automatic Differentiation Framework in Mojo, One Layer at a Time
 site_author: Oluwaseyi Awoga
 copyright: Copyright &copy; 2026 Oluwaseyi Awoga
@@ -87,7 +87,7 @@ nav:
       - "20. Neural Network Layers": part6/01-neural-network-layers.md
       - "21. Advanced Features": part6/02-advanced-features.md
   - "Part 7 — Financial Computing Applications":
-      - "13. Quantitative Finance Examples": part7/01-quantitative-finance-examples.md
+      - "22. Quantitative Finance Examples": part7/01-quantitative-finance-examples.md
   - Appendix:
       - "A. Installation & Setup": appendix/installation-setup.md
       - "B. Practice Quiz": appendix/practice-quiz.md
