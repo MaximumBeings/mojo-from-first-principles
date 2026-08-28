@@ -1,4 +1,4 @@
-# Mojo From First Principles
+# Mojo From First Principles — Under Development
 
 **Building a GPU-Native Automatic Differentiation Framework, One Layer at a Time**
 
