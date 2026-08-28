@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-12-advanced-features" class="md-skip">
+        <a href="#chapter-21-advanced-features-the-escape-hatches-a-framework-needs-to-be-trusted" class="md-skip">
           Skip to content
         </a>
       
@@ -1552,10 +1552,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#121-custom-autograd-operations" class="md-nav__link">
+  <a href="#what-you-will-understand-by-the-end-of-this-chapter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.1 Custom autograd operations
+        What you will understand by the end of this chapter
       
     </span>
   </a>
@@ -1563,10 +1563,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#122-higher-order-derivatives-require-a-differentiable-backward-graph" class="md-nav__link">
+  <a href="#what-you-need-to-know-first" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.2 Higher-order derivatives require a differentiable backward graph
+        What you need to know first
       
     </span>
   </a>
@@ -1574,10 +1574,260 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#123-serialization-is-versioned-and-transactional" class="md-nav__link">
+  <a href="#211-custom-autograd-functions-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.3 Serialization is versioned and transactional
+        21.1 Custom Autograd Functions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.1 Custom Autograd Functions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2111-the-z-spread-bonds-real-derivative-computed-and-cross-checked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.1.1 — The z-spread bond's real derivative, computed and cross-checked
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212-higher-order-derivatives-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.2 Higher-order Derivatives [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.2 Higher-order Derivatives [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2121-the-single-variable-case-checked-by-finite-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.2.1 — The single-variable case, checked by finite difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2122-a-genuine-two-variable-hessian-vector-product-verified-against-the-full-hessian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.2.2 — A genuine two-variable Hessian-vector product, verified against the full Hessian
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-model-serialization-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.3 Model Serialization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.3 Model Serialization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2131-the-exact-byte-layout-for-a-two-layer-networks-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.3.1 — The exact byte layout for a two-layer network's weights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#214-debugging-and-profiling-tools-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.4 Debugging and Profiling Tools [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.4 Debugging and Profiling Tools [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2141-gradient_check-passing-a-correct-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.4.1 — gradient_check passing a correct rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2142-gradient_check-catching-a-genuinely-wrong-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.4.2 — gradient_check catching a genuinely wrong rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#215-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1585,10 +1835,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#124-centered-gradient-checking" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.4 Centered gradient checking
+        Self-Check Questions
       
     </span>
   </a>
@@ -1596,10 +1846,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#125-profiling-preserves-synchronization-semantics" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.5 Profiling preserves synchronization semantics
+        Where We Go Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Solutions
       
     </span>
   </a>
@@ -1851,10 +2112,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#121-custom-autograd-operations" class="md-nav__link">
+  <a href="#what-you-will-understand-by-the-end-of-this-chapter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.1 Custom autograd operations
+        What you will understand by the end of this chapter
       
     </span>
   </a>
@@ -1862,10 +2123,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#122-higher-order-derivatives-require-a-differentiable-backward-graph" class="md-nav__link">
+  <a href="#what-you-need-to-know-first" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.2 Higher-order derivatives require a differentiable backward graph
+        What you need to know first
       
     </span>
   </a>
@@ -1873,10 +2134,260 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#123-serialization-is-versioned-and-transactional" class="md-nav__link">
+  <a href="#211-custom-autograd-functions-foundational" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.3 Serialization is versioned and transactional
+        21.1 Custom Autograd Functions [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.1 Custom Autograd Functions [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2111-the-z-spread-bonds-real-derivative-computed-and-cross-checked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.1.1 — The z-spread bond's real derivative, computed and cross-checked
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212-higher-order-derivatives-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.2 Higher-order Derivatives [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.2 Higher-order Derivatives [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2121-the-single-variable-case-checked-by-finite-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.2.1 — The single-variable case, checked by finite difference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2122-a-genuine-two-variable-hessian-vector-product-verified-against-the-full-hessian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.2.2 — A genuine two-variable Hessian-vector product, verified against the full Hessian
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-model-serialization-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.3 Model Serialization [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.3 Model Serialization [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2131-the-exact-byte-layout-for-a-two-layer-networks-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.3.1 — The exact byte layout for a two-layer network's weights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#214-debugging-and-profiling-tools-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.4 Debugging and Profiling Tools [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.4 Debugging and Profiling Tools [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2141-gradient_check-passing-a-correct-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.4.1 — gradient_check passing a correct rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-2142-gradient_check-catching-a-genuinely-wrong-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example 21.4.2 — gradient_check catching a genuinely wrong rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#215-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
       
     </span>
   </a>
@@ -1884,10 +2395,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#124-centered-gradient-checking" class="md-nav__link">
+  <a href="#self-check-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.4 Centered gradient checking
+        Self-Check Questions
       
     </span>
   </a>
@@ -1895,10 +2406,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#125-profiling-preserves-synchronization-semantics" class="md-nav__link">
+  <a href="#where-we-go-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.5 Profiling preserves synchronization semantics
+        Where We Go Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Solutions
       
     </span>
   </a>
@@ -1922,43 +2444,395 @@
 
 
 
-<h1 id="chapter-12-advanced-features">Chapter 12: Advanced Features<a class="headerlink" href="#chapter-12-advanced-features" title="Permanent link">&para;</a></h1>
-<p>Advanced features should extend a correct core without weakening its contracts. Custom derivatives state their mathematics, higher-order differentiation states whether backward itself is recorded, serialization validates a schema, and debugging compares analytic gradients with independent numerical evidence.</p>
-<h2 id="121-custom-autograd-operations">12.1 Custom autograd operations<a class="headerlink" href="#121-custom-autograd-operations" title="Permanent link">&para;</a></h2>
-<p>A custom operation packages a forward solver and a derived vector-Jacobian rule. Its backward contract includes every saved value and domain assumption it needs.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">implicit_root_backward</span><span class="p">(</span><span class="n">df_dx</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">df_dc</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">upstream</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">df_dx</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e-12</span><span class="p">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="k">raise</span><span class="w"> </span><span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;implicit derivative is singular&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">upstream</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">df_dc</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">df_dx</span><span class="p">)</span>
+<h1 id="chapter-21-advanced-features-the-escape-hatches-a-framework-needs-to-be-trusted">Chapter 21: Advanced Features — The Escape Hatches a Framework Needs to Be Trusted<a class="headerlink" href="#chapter-21-advanced-features-the-escape-hatches-a-framework-needs-to-be-trusted" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"A differentiation engine is not finished when it can compute a gradient. It is finished when you can check that the gradient is right, save the thing that produced it, and reach past its own machinery when the machinery doesn't fit."</p>
+</blockquote>
+<h2 id="what-you-will-understand-by-the-end-of-this-chapter">What you will understand by the end of this chapter<a class="headerlink" href="#what-you-will-understand-by-the-end-of-this-chapter" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Why an iterative solver like bisection is deliberately kept <em>out</em> of the computational graph, and how the implicit function theorem lets <code>backward()</code> differentiate through it anyway — as one opaque node with a closed-form gradient, verified against a real bond's numbers.</li>
+<li>How a second call to <code>backward()</code> — on a gradient tensor instead of a loss tensor — produces a genuine second derivative, and why a Hessian-vector product gets you one useful slice of a Hessian without ever forming the full matrix.</li>
+<li>What a trained network actually <em>is</em> on disk: a small header plus raw bytes, and the one thing this chapter's serialization format is missing that a production system could not skip.</li>
+<li>The two distinct failure modes unique to autograd code — a wrong-but-plausible gradient, and a numerically corrupted one — and the two different tools each one requires.</li>
+<li>Why every safety check in this chapter is a <em>debugging</em> tool, not a <em>production</em> one, and what that trade-off actually costs when it's forgotten.</li>
+</ul>
+<h2 id="what-you-need-to-know-first">What you need to know first<a class="headerlink" href="#what-you-need-to-know-first" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <code>Differentiable</code> trait and the <code>CustomFunction</code>/registry pattern from Chapter 16.7, including why <code>MatMulOp.backward</code> (Chapter 16.3) and <code>ExpOp.backward</code> (Chapter 16.2) look the way they do.</li>
+<li><code>backward()</code>, <code>accumulate_gradient</code>, and <code>zero_grad</code> from Chapter 17, and specifically the accumulation rule from Chapter 17.2 that makes calling <code>backward()</code> twice in a row meaningful instead of destructive.</li>
+<li><code>ComputationGraph</code> and <code>GraphNode</code> from Chapter 15 — this chapter treats a graph as something you can run <code>backward()</code> over more than once.</li>
+<li>The <code>Matrix</code> weight buffers and full training step from Chapter 20 — Section 21.3 serializes exactly those buffers.</li>
+<li>Elementwise multiplication (Chapter 12.2), matrix multiplication (Chapter 13.1), and sum reduction (Chapter 14.1) — the three ops Section 21.2's Hessian-vector product is built from, and nothing else.</li>
+</ul>
+<h2 id="211-custom-autograd-functions-foundational">21.1 Custom Autograd Functions <code>[FOUNDATIONAL]</code><a class="headerlink" href="#211-custom-autograd-functions-foundational" title="Permanent link">&para;</a></h2>
+<p><a id="121-custom-autograd-functions"></a></p>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>Every backward rule so far has been mechanical: look at the forward formula, apply calculus, write the local derivative. That works because every op so far has been a <em>closed-form</em> expression — <code>x*y</code>, <code>exp(x)</code>, a matrix product. But not every useful computation looks like that. Solving for a bond's z-spread means running bisection: guess a spread, price the bond, compare to the market price, narrow the guess, and repeat — 18 times over, for the actual bond this section prices — until the guess is close enough. There is no single formula for "the z-spread" the way there's a single formula for "the product of two numbers." There's only a <em>procedure</em>.</p>
+<p>Think of the difference the way a surveyor thinks about the height of a hill. One way to find it: measure every footstep on the way up, add the changes in elevation, and get an exact answer built entirely out of small, individually-verifiable pieces. That's what recording every arithmetic operation in a graph and differentiating through each one does — it works, but it means carrying an instrument up every single step. The other way: stand at the top, take one reading with an altimeter, and separately know the <em>rate</em> at which altitude changes with distance near that point without ever having walked the whole slope. That second reading doesn't require re-deriving anything about the climb — it requires one fact about the relationship between position and height <em>at the point you're standing</em>. The implicit function theorem is that second approach applied to a solver: instead of differentiating through the 18 footsteps bisection took to arrive at the answer, it asks one question about the relationship between the market price and the bond price <em>at the spread bisection already found</em>, and gets an exact derivative from that alone.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>A <code>CustomFunction</code> (the <code>Differentiable</code> trait applied to an op whose <code>forward</code> does <em>not</em> build more graph nodes internally) needs exactly two things: a <code>forward</code> that returns an answer by whatever means necessary, ordinary control flow included, and a <code>backward</code> that supplies a gradient without needing to know how <code>forward</code> arrived at that answer. For a solver defined by <code>f(price, spread) = 0</code> — bisection finds the <code>spread</code> that drives <code>calculate_bond_price(spread) - market_price</code> to zero — the implicit function theorem gives that gradient in closed form:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>d(spread)/d(price) = -(∂f/∂price) / (∂f/∂spread)
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For <code>f(x,c)=x²-c=0</code> at <code>c=2</code>, <code>x=sqrt(2)</code>, <code>df/dx=2x≈2.82843</code> and <code>df/dc=-1</code>. With upstream 1, the result is <code>1/2.82843≈0.353553</code>, matching the centered finite difference from Chapter 7.</p>
-<h2 id="122-higher-order-derivatives-require-a-differentiable-backward-graph">12.2 Higher-order derivatives require a differentiable backward graph<a class="headerlink" href="#122-higher-order-derivatives-require-a-differentiable-backward-graph" title="Permanent link">&para;</a></h2>
-<p>The scalar tape in Chapters 6–8 computes numerical first derivatives but does not record the operations executed by <code>local_backward</code>. Therefore it cannot truthfully promise second derivatives. Higher-order AD requires backward rules expressed in graph operations with <code>create_graph=True</code>, or a separate forward-over-reverse implementation.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>first derivative:  forward graph --reverse--&gt; gradient values
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>second derivative: backward operations must themselves form a graph
+<p><code>∂f/∂price = -1</code> always, because <code>price</code> enters the objective linearly and with a negative sign (<code>f = calculate_bond_price(spread) - price</code>). <code>∂f/∂spread</code> is <code>calculate_bond_price</code>'s own derivative with respect to spread — the bond's price sensitivity to spread, evaluated at the spread bisection already solved for. That derivative is needed anyway for other purposes (it's a close cousin of DV01), so this doesn't add work the framework wasn't already positioned to do.</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>What the graph records</th>
+<th>Backward rule needed</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unroll the solver</td>
+<td>Every arithmetic op inside every bisection iteration (≈970 ops for this chapter's 18-iteration, 8-cash-flow bond)</td>
+<td>One rule per elementary op, already in the registry</td>
+<td>O(iterations × cash flows) graph nodes, each with its own stored <code>output</code> and gradient buffer</td>
+</tr>
+<tr>
+<td><code>CustomFunction</code> (this section)</td>
+<td>One node: <code>ZSpreadSolve</code></td>
+<td>One hand-derived rule, written once</td>
+<td>O(1) graph nodes; the 18 iterations run as ordinary Mojo control flow the graph never sees</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">ZSpreadSolve</span><span class="p">(</span><span class="n">Differentiable</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">market_price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">spread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bisection_method</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="n">TOLERANCE</span><span class="p">)</span><span class="w">   </span><span class="c1"># ordinary control flow, not graph nodes</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">spread</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="c1"># Implicit function theorem: if f(price, spread) = 0 defines</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="c1"># spread(price), then d(spread)/d(price) = -(df/d_price) / (df/d_spread).</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="c1"># df/d_spread is the bond&#39;s (negative) price sensitivity -- its DV01 --</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="c1"># which is already computed as a byproduct of pricing at the solved spread.</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">df_dspread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bond_price_derivative_wrt_spread</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">df_dprice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="w">   </span><span class="c1"># price enters the objective linearly</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">d_spread_d_price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">df_dprice</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">df_dspread</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_spread_d_price</span><span class="p">))</span>
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For <code>g(x)=x³</code> at <code>x=2</code>, <code>g'=3x²=12</code> and <code>g''=6x=12</code>. A first-order tape returns the first 12 as an ordinary number. Differentiating that stored number gives zero; only a recorded computation <code>3×x×x</code> preserves the path needed to obtain the second 12.</p>
-<h2 id="123-serialization-is-versioned-and-transactional">12.3 Serialization is versioned and transactional<a class="headerlink" href="#123-serialization-is-versioned-and-transactional" title="Permanent link">&para;</a></h2>
-<p>Write a magic value, format version, dtype, rank, extents, and payload checksum. Load into temporary storage, validate everything, and publish weights only after the complete file passes.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>model header = magic | version | tensor_count
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>tensor entry = name | dtype | rank | extents | byte_count | checksum | payload
+<p>This pattern generalizes beyond finance: any iterative solver — Newton's method for an implied volatility, a fixed-point iteration for an equilibrium — plugs into the same graph the same way, as one opaque node with a closed-form backward instead of an unrolled, differentiated loop.</p>
+<h3 id="worked-example-2111-the-z-spread-bonds-real-derivative-computed-and-cross-checked">Worked Example 21.1.1 — The z-spread bond's real derivative, computed and cross-checked<a class="headerlink" href="#worked-example-2111-the-z-spread-bonds-real-derivative-computed-and-cross-checked" title="Permanent link">&para;</a></h3>
+<p>Part 7 solves this exact bond — 2-year maturity, 3% coupon paid quarterly, \$100 notional, 3% risk-free rate — for the z-spread that reprices it to a market price of \$98.00, and finds <code>spread* ≈ 0.010460523</code> (104.6 basis points). <code>bond_price_derivative_wrt_spread</code> at that solved spread — the derivative of the discounted-cash-flow sum with respect to spread — comes out to:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>∂f/∂spread ≈ -188.9937
 </code></pre></div>
-<p><strong>Manual worked example.</strong> A Float32 weight of shape <code>[2,3]</code> declares six elements and 24 payload bytes. If the entry declares 24 but only 20 bytes remain, loading fails before replacing the live model. A <code>[3,2]</code> tensor has the same byte count but still fails the expected-shape check.</p>
-<h2 id="124-centered-gradient-checking">12.4 Centered gradient checking<a class="headerlink" href="#124-centered-gradient-checking" title="Permanent link">&para;</a></h2>
-<p>Centered differences cancel first-order truncation error and are usually more accurate than a one-sided check. Compare with a scale-aware denominator and choose epsilon appropriate to dtype.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">centered_difference</span><span class="p">(</span><span class="n">f_plus</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">f_minus</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">epsilon</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">f_plus</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">f_minus</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">epsilon</span><span class="p">)</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">relative_error</span><span class="p">(</span><span class="n">analytic</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">,</span><span class="w"> </span><span class="n">numeric</span><span class="p">:</span><span class="w"> </span><span class="nb">Float64</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float64</span><span class="p">:</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">analytic</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">numeric</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">analytic</span><span class="p">),</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">numeric</span><span class="p">)))</span>
+<p>(this is exact enough to check by finite difference the way every other backward rule in this book has been: evaluating the price at <code>spread* + 10⁻⁶</code> and <code>spread* - 10⁻⁶</code> and dividing the difference by <code>2×10⁻⁶</code> gives the same <code>-188.9937</code> to five decimal places). With <code>∂f/∂price = -1.0</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>d(spread)/d(price) = -(-1.0) / (-188.9937) = -0.0052912
 </code></pre></div>
-<p><strong>Manual worked example.</strong> For <code>f(x)=x²</code> at 3 with epsilon 0.001, <code>f(3.001)=9.006001</code> and <code>f(2.999)=8.994001</code>. Difference 0.012 divided by 0.002 gives 6, exactly the analytic derivative <code>2×3</code>.</p>
-<h2 id="125-profiling-preserves-synchronization-semantics">12.5 Profiling preserves synchronization semantics<a class="headerlink" href="#125-profiling-preserves-synchronization-semantics" title="Permanent link">&para;</a></h2>
-<p>GPU timing must include an explicit completion event around the measured region; host enqueue time alone measures dispatch overhead. Warm up compilation and allocation before collecting repeated samples.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>warm up → synchronize → start event → enqueue kernels → stop event → synchronize → report median
+<p>Read that as: a \$1 <em>increase</em> in the bond's market price should make the z-spread that reprices it <em>fall</em> by about 0.0052912, i.e. roughly 52.9 basis points — a bond trading more expensively needs less compensation for credit risk to justify that price. The sign makes sense (richer price → smaller spread) and the magnitude is a small fraction of a point of spread per dollar of price, not the wildly-off value a sign error or a units mismatch (spread expressed as a percent instead of a decimal, say) would produce.</p>
+<p>That prediction can be checked without any calculus at all: re-run bisection with the market price bumped from \$98.00 to \$99.00, and it converges to a <em>new</em> spread of <code>≈0.0052000</code> — a drop of <code>0.0052605</code> from the original <code>0.010460523</code>. The <code>ZSpreadSolve.backward</code> formula predicted a drop of <code>0.0052912</code> for that same \$1 move. The two agree to within <code>0.00003</code> (about 0.3 basis points) — the small remaining gap is exactly the nonlinearity a <em>first-order</em> (linear) gradient can't capture over a \$1 move that isn't infinitesimally small, which is the same caveat that applies to every gradient in this book: it's the exact slope at a point, and only an approximation to the change over a finite step.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>                 18 iterations of bisection, ~970 recorded ops if unrolled
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   market_price ──────────────────────────────────────────────▶ spread* ≈ 0.01046
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        │                                                            │
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        │                    ZSpreadSolve (ONE graph node)           │
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        └──────────────── forward: opaque bisection ─────────────────┘
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>                           backward: d(spread)/d(price) = -0.0052912
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                           (implicit function theorem — no unrolling)
 </code></pre></div>
-<p><strong>Manual worked example.</strong> If enqueue returns in 20 microseconds but the GPU finishes 400 microseconds later, host wall time without synchronization reports roughly 20 microseconds and is wrong by 20×. Device events or synchronized boundaries measure the actual 400-microsecond region.</p>
-<p>These features are advanced because they strengthen explicit contracts, not because they add opaque magic to the framework.</p>
+<p><code>[COMMON TRAP]</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>+----------------------------------------------------------------+
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>| The implicit function theorem formula divides by df/d_spread.  |
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>| If bisection is ever called at a spread where the bond&#39;s price |
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>| is completely insensitive to spread (df/d_spread == 0 -- can&#39;t |
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>| happen for THIS monotonic bond-pricing formula, but is a real  |
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>| risk for a poorly-conditioned solver elsewhere), this backward |
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>| rule divides by zero and returns inf or NaN silently, with no  |
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>| signal that anything went wrong until Section 21.4&#39;s           |
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>| check_gradient_health happens to be watching for it.           |
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>+----------------------------------------------------------------+
+</code></pre></div></p>
+<h2 id="212-higher-order-derivatives-foundational">21.2 Higher-order Derivatives <code>[FOUNDATIONAL]</code><a class="headerlink" href="#212-higher-order-derivatives-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>A first derivative answers "how does the output change as the input changes." A second derivative answers the next natural question: "how does <em>that rate of change itself</em> change?" A speedometer reading is a first derivative of position; whether your foot is currently pressing the accelerator or the brake is information about the <em>second</em> derivative — it tells you whether that speedometer reading is about to go up or down, which the speedometer alone can't say. Curvature-aware optimizers and bond convexity (Part 7 treats duration, a first derivative of price with respect to yield, and convexity, its second derivative, as two different and both useful numbers) both need exactly this: not just the slope, but whether the slope is currently steepening or flattening.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<p>Take <code>g(x) = x³</code> at <code>x = 2</code>: <code>g(2) = 8</code>. The first derivative is <code>g'(x) = 3x²</code>, so <code>g'(2) = 3×4 = 12</code> — the function is currently increasing at a rate of 12 units of output per unit of input. The second derivative is <code>g''(x) = 6x</code>, so <code>g''(2) = 12</code> as well (a coincidence of this particular function's numbers at this particular point, not a general rule) — meaning that rate of increase is itself growing by 12 for every unit <code>x</code> moves.</p>
+<p>Chapter 17's <code>backward()</code> populates <code>.grad</code> tensors, but those <code>.grad</code> tensors are themselves ordinary <code>Tensor</code>s built from the same registered, differentiable ops (<code>elementwise_mul</code> from Chapter 12.2, <code>matrix_multiply</code> from Chapter 13.1, <code>tensor_sum</code> from Chapter 14.1) as the forward pass — so a graph built by differentiating those ops is itself differentiable, and nothing stops calling <code>backward()</code> a second time with a gradient tensor as the new "loss," producing exactly this second derivative. For a function of several variables, the full grid of second partial derivatives is called the <strong>Hessian</strong>; a <strong>Hessian-vector product</strong> (<code>H @ v</code>) gets one useful slice of it — here, with a single variable <code>x</code> and <code>v=1</code>, <code>H @ v</code> reduces to plain <code>g''(2) = 12</code> — without ever building the full grid.</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Memory</th>
+<th>Compute per Hessian-vector product</th>
+<th>Scales to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Form the full Hessian, then multiply by <code>v</code></td>
+<td>O(n²) — one entry per pair of parameters</td>
+<td>One O(n²) matrix build, then one O(n²) matrix-vector multiply</td>
+<td>Small <code>n</code> only (thousands of parameters, not millions)</td>
+</tr>
+<tr>
+<td><code>hessian_vector_product</code> (this section)</td>
+<td>O(n) — one gradient-shaped tensor</td>
+<td>Two ordinary <code>backward()</code> passes</td>
+<td>Any <code>n</code> a single <code>backward()</code> pass already handles</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">hessian_vector_product</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">graph</span><span class="p">:</span><span class="w"> </span><span class="n">ComputationGraph</span><span class="p">,</span><span class="w"> </span><span class="n">loss</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Computes H @ v where H = d^2(loss)/d(params)^2, without forming H.&quot;&quot;&quot;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">backward</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="w"> </span><span class="n">loss</span><span class="p">)</span><span class="w">                       </span><span class="c1"># first backward: params[0].grad = dL/dparams</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">grad_dot_v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">scalar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_sum</span><span class="p">(</span><span class="n">grad_dot_v</span><span class="p">,</span><span class="w"> </span><span class="n">grad_dot_v</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="w">  </span><span class="c1"># Chapter 14.1</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="n">zero_grad</span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="w">                            </span><span class="c1"># Chapter 17.2 -- without this, the second</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">backward</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="w"> </span><span class="n">scalar</span><span class="p">)</span><span class="w">                      </span><span class="c1"># backward would ADD onto the first pass&#39;s grad</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad</span><span class="w">                         </span><span class="c1"># this is H @ v</span>
+</code></pre></div>
+<h3 id="worked-example-2121-the-single-variable-case-checked-by-finite-difference">Worked Example 21.2.1 — The single-variable case, checked by finite difference<a class="headerlink" href="#worked-example-2121-the-single-variable-case-checked-by-finite-difference" title="Permanent link">&para;</a></h3>
+<p><code>g'(2)=12</code> can be verified the same way Chapter 17.2's accumulation rule was: <code>g(2.001) = 8.012006...</code>, <code>g(1.999) = 7.988006...</code>, central-difference slope <code>≈ (8.012006 - 7.988006)/0.002 = 12.0</code>. ✓</p>
+<h3 id="worked-example-2122-a-genuine-two-variable-hessian-vector-product-verified-against-the-full-hessian">Worked Example 21.2.2 — A genuine two-variable Hessian-vector product, verified against the full Hessian<a class="headerlink" href="#worked-example-2122-a-genuine-two-variable-hessian-vector-product-verified-against-the-full-hessian" title="Permanent link">&para;</a></h3>
+<p>Take <code>L(w) = w1²·w2</code> at <code>w1=2, w2=3</code>. The gradient is <code>∇L = [∂L/∂w1, ∂L/∂w2] = [2·w1·w2, w1²] = [2×2×3, 2²] = [12, 4]</code>. Choose <code>v = [1, 0]</code>.</p>
+<p><strong>Via <code>hessian_vector_product</code>:</strong> first <code>backward()</code> gives <code>params[0].grad = [12, 4]</code>. <code>grad_dot_v = [12×1, 4×0] = [12, 0]</code>. <code>scalar = tensor_sum([12, 0]) = 12</code>. That <code>12</code> is <code>2·w1·w2</code> evaluated at the current <code>w</code> — but as a <em>function of <code>w</code></em> going into the second <code>backward()</code>, it's <code>s(w) = 2·w1·w2·v1 + w1²·v2 = 2·w1·w2</code> (since <code>v2=0</code>). The second <code>backward()</code> differentiates that: <code>∂s/∂w1 = 2·w2 = 6</code>, <code>∂s/∂w2 = 2·w1 = 4</code>. So <code>hessian_vector_product</code> returns <code>[6, 4]</code>.</p>
+<p><strong>Via the full Hessian, for comparison:</strong> <code>H = [[∂²L/∂w1², ∂²L/∂w1∂w2], [∂²L/∂w2∂w1, ∂²L/∂w2²]] = [[2·w2, 2·w1], [2·w1, 0]] = [[6, 4], [4, 0]]</code>. <code>H @ v</code> with <code>v=[1,0]</code> takes just the first column: <code>[6, 4]</code>.</p>
+<p>Both routes agree exactly — <code>[6, 4]</code> — and the <code>hessian_vector_product</code> route never built the <code>2×2</code> matrix <code>H</code> at all, only two ordinary gradient-shaped vectors. For a network with a million parameters, that's the difference between two vectors of a million floats each and a matrix of a trillion floats that will never fit in memory.</p>
+<p><code>[COMMON TRAP]</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>+----------------------------------------------------------------+
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>| Skipping zero_grad(params) between the two backward() calls is |
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>| the single most common mistake here. Chapter 17.2 established  |
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>| that accumulate_gradient ADDS rather than overwrites -- exactly |
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>| the behavior a shared weight needs during ONE backward pass.   |
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>| Across TWO separate backward passes for TWO different purposes |
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>| (the actual loss gradient, then the Hessian-vector product),   |
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>| that same addition silently sums the first backward&#39;s gradient |
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>| into the second&#39;s result, corrupting Hv with an extra copy of  |
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>| dL/dparams that has nothing to do with curvature.               |
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>+----------------------------------------------------------------+
+</code></pre></div></p>
+<h2 id="213-model-serialization-foundational">21.3 Model Serialization <code>[FOUNDATIONAL]</code><a class="headerlink" href="#213-model-serialization-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>Think of packing a moving truck. If you just throw furniture into the truck loose, unloading it means guessing what each piece is by looking at it. If instead you box each piece and write its dimensions and contents on the box before sealing it, unloading is mechanical: read the label, know exactly what's inside and how big it should be, unpack in the same order it was packed. A trained network's weights are the furniture; the header this section writes before each weight buffer is the label.</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<p>A trained network is just a set of <code>Matrix</code> weight buffers — the same <code>Matrix</code> struct Chapter 20 trains — so serialization reuses the raw memory interface from Section 8.3 to write each one to disk with a small header describing its shape:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">save_model</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">weights</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]):</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="n">f</span><span class="o">.</span><span class="n">write_int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">))</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">weights</span><span class="p">:</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">write_int</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">write_int</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">.</span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sizeof</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]())</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="k">fn</span><span class="w"> </span><span class="nf">load_model</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]:</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="o">.</span><span class="n">read_int</span><span class="p">()</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">weights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]()</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="o">.</span><span class="n">read_int</span><span class="p">()</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="o">.</span><span class="n">read_int</span><span class="p">()</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Matrix</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="o">.</span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sizeof</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]())</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">        </span><span class="n">weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">weights</span>
+</code></pre></div>
+<p>Loading strictly mirrors the write order — count, then (rows, cols, bytes) per matrix, read in exactly the sequence they were written — and validates shapes against the architecture it's about to populate before copying a single byte. A shape mismatch here is a configuration bug, and failing loudly at load time beats corrupting a network with misaligned weights.</p>
+<table>
+<thead>
+<tr>
+<th>Format choice</th>
+<th>What it buys</th>
+<th>What it costs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raw header + raw bytes (this section)</td>
+<td>Minimal code, fast to write and read, no external dependency</td>
+<td>No version field, no dtype tag, no checksum — a format change silently breaks old files</td>
+</tr>
+<tr>
+<td>A versioned, self-describing format (not shown here)</td>
+<td>Old files stay loadable after the format evolves; corruption is detected, not silently misread</td>
+<td>More code, a larger file, a format spec to maintain</td>
+</tr>
+</tbody>
+</table>
+<h3 id="worked-example-2131-the-exact-byte-layout-for-a-two-layer-networks-weights">Worked Example 21.3.1 — The exact byte layout for a two-layer network's weights<a class="headerlink" href="#worked-example-2131-the-exact-byte-layout-for-a-two-layer-networks-weights" title="Permanent link">&para;</a></h3>
+<p>Take a tiny two-layer network with <code>W1</code> shaped <code>[3, 2]</code> and <code>W2</code> shaped <code>[2, 1]</code> — 2 matrices total. Assume, as is typical for Mojo's <code>Int</code> on a 64-bit target, that <code>write_int</code> writes 8 bytes, and <code>Float32</code> is 4 bytes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Offset  Bytes  Field                         Value
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>------  -----  ----------------------------  -----
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>0       8      count                         2
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>8       8      W1.rows                       3
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>16      8      W1.cols                       2
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>24      24     W1.data  (3*2=6 floats * 4B)  [w1_00, w1_01, w1_10, ...]
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>48      8      W2.rows                       2
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>56      8      W2.cols                       1
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>64      8      W2.data  (2*1=2 floats * 4B)  [w2_00, w2_10]
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>------  -----  ----------------------------  -----
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>Total file size: 72 bytes
+</code></pre></div>
+<p><code>load_model</code> reads this back in exactly the order <code>save_model</code> wrote it — <code>count</code>, then <code>(rows, cols, data)</code> per matrix — which is the only reason a plain sequence of bytes with no field names anywhere in it can be unambiguously reconstructed into two correctly-shaped matrices: the <em>order</em> of the reads is the schema.</p>
+<p><code>[COMMON TRAP]</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>+----------------------------------------------------------------+
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>| This format has no version number and no dtype tag anywhere in |
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>| it. If a future Matrix gains a new field that needs saving, or  |
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>| a model is ever trained in Float16 instead of Float32, an OLD   |
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>| save_model file loaded with the NEW load_model reads the wrong  |
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>| number of bytes for w.data and silently reconstructs a matrix   |
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>| full of garbage -- not a crash, not an error, just numbers that |
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>| look plausible and are wrong. Production checkpoint formats     |
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>| reserve a version field in the header for exactly this reason.  |
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>+----------------------------------------------------------------+
+</code></pre></div></p>
+<h2 id="214-debugging-and-profiling-tools-foundational">21.4 Debugging and Profiling Tools <code>[FOUNDATIONAL]</code><a class="headerlink" href="#214-debugging-and-profiling-tools-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Two classes of bug are unique to autograd frameworks, and they need two different kinds of tool for the same reason a doctor needs both a second opinion and a smoke detector. A <strong>wrong gradient</strong> is a second-opinion problem: the code runs, produces a number, and that number is simply not what calculus says it should be — the only way to catch it is to independently recompute the answer by a completely different method and compare. A <strong>numerically unstable gradient</strong> is a smoke-detector problem: something is actively going wrong (a division by zero, a value overflowing <code>Float32</code>) and the fix is to notice the instant it happens, at the exact location it happens, rather than discovering the fire only after the whole building — the training run — has already burned down over 500 silent steps.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<p><strong>Gradient checking</strong> is the second opinion. It compares the analytic gradient <code>backward()</code> produced against a finite-difference approximation, using the <em>central</em> difference <code>(f(x+ε) - f(x-ε)) / (2ε)</code> rather than the cheaper forward difference <code>(f(x+ε) - f(x)) / ε</code> because the central form's error shrinks as <code>O(ε²)</code> instead of <code>O(ε)</code> — it cancels the <em>next</em> term in the Taylor expansion, not just the current one, which is why <code>ε=10⁻⁴</code> is tight enough to trust in <code>Float32</code> without also amplifying rounding error from too small a step:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">gradient_check</span><span class="p">(</span><span class="n">f</span><span class="p">:</span><span class="w"> </span><span class="n">fn</span><span class="p">(</span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">analytic_grad</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">epsilon</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-4</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Central finite difference: (f(x+eps) - f(x-eps)) / (2*eps) ~= f&#39;(x).&quot;&quot;&quot;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">max_relative_error</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">x_plus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">();</span><span class="w"> </span><span class="n">x_plus</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">epsilon</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">x_minus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">();</span><span class="w"> </span><span class="n">x_minus</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">epsilon</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">numeric_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tensor_sum_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_plus</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tensor_sum_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_minus</span><span class="p">)))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">epsilon</span><span class="p">)</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">analytic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analytic_grad</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">rel_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">numeric_grad</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">analytic</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">numeric_grad</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">analytic</span><span class="p">),</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">)</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">        </span><span class="n">max_relative_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">max_relative_error</span><span class="p">,</span><span class="w"> </span><span class="n">rel_error</span><span class="p">)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">max_relative_error</span><span class="w">   </span><span class="c1"># should be &lt; ~1e-4 for a correct backward rule</span>
+</code></pre></div>
+<p>Every backward rule added to the registry in Chapter 16 was checked this way before being trusted — <code>MatMulOp.backward</code>'s transpose-based formula (Chapter 16.3), <code>ExpOp.backward</code>'s output-reuse (Chapter 16.2), and <code>ZSpreadSolve.backward</code>'s implicit-function-theorem rule from Section 21.1 above all passed a <code>gradient_check</code> against their forward function before appearing in this book.</p>
+<p><strong>NaN/Inf detection</strong> is the smoke detector. It instruments <code>accumulate_gradient</code> (Chapter 17.2) to fail fast rather than let a corrupted gradient silently propagate through every remaining parameter:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">check_gradient_health</span><span class="p">(</span><span class="n">grad</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">node_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">):</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">        </span><span class="n">debug_assert</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;NaN gradient at &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">node_name</span><span class="p">)</span><span class="w">          </span><span class="c1"># NaN != NaN</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">        </span><span class="n">debug_assert</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e10</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Exploding gradient at &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">node_name</span><span class="p">)</span>
+</code></pre></div>
+<p>Run in debug builds during development and compiled out entirely in release builds (Mojo's <code>debug_assert</code> is a no-op when assertions are disabled), this pinpoints the <em>exact</em> op in the graph where a gradient went bad.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Catches</th>
+<th>Cost</th>
+<th>When to run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gradient_check</code></td>
+<td>A wrong-but-finite backward rule (bad math, a transposed dimension, a dropped term)</td>
+<td>O(n) forward evaluations for an n-parameter input — expensive</td>
+<td>Once, when writing or changing a backward rule</td>
+</tr>
+<tr>
+<td><code>check_gradient_health</code></td>
+<td>NaN or exploding values in an otherwise correctly-derived gradient</td>
+<td>O(1) per element, negligible</td>
+<td>Every <code>accumulate_gradient</code> call, in debug builds</td>
+</tr>
+</tbody>
+</table>
+<h3 id="worked-example-2141-gradient_check-passing-a-correct-rule">Worked Example 21.4.1 — <code>gradient_check</code> passing a correct rule<a class="headerlink" href="#worked-example-2141-gradient_check-passing-a-correct-rule" title="Permanent link">&para;</a></h3>
+<p><code>f(x) = x²</code> at <code>x=3.0</code>, analytic gradient (from <code>f'(x)=2x</code>) <code>= 6.0</code>. Central difference with <code>ε=10⁻⁴</code>: <code>f(3.0001) = 9.00060001</code>, <code>f(2.9999) = 8.99940001</code>, <code>numeric_grad = (9.00060001 - 8.99940001)/0.0002 = 6.0000000004</code>. <code>rel_error = |6.0000000004 - 6.0| / max(12.0000000004, 10⁻⁸) ≈ 3.5×10⁻¹¹</code> — far below the <code>~10⁻⁴</code> threshold. The check passes, correctly, because the rule is correct.</p>
+<h3 id="worked-example-2142-gradient_check-catching-a-genuinely-wrong-rule">Worked Example 21.4.2 — <code>gradient_check</code> catching a genuinely wrong rule<a class="headerlink" href="#worked-example-2142-gradient_check-catching-a-genuinely-wrong-rule" title="Permanent link">&para;</a></h3>
+<p>Now suppose a bug ships <code>f'(x) = x</code> instead of <code>f'(x) = 2x</code>, so <code>analytic_grad = 3.0</code> at the same <code>x=3.0</code>. The finite-difference side of the calculation is unchanged — it never looks at the (buggy) analytic code — so <code>numeric_grad</code> is still <code>≈6.0000000004</code>. <code>rel_error = |6.0000000004 - 3.0| / max(9.0000000004, 10⁻⁸) ≈ 0.3333</code> — four thousand times over the <code>~10⁻⁴</code> threshold. <code>gradient_check</code> flags this instantly, without needing a single training step to reveal that the model trained on this rule would silently converge to the wrong answer.</p>
+<p><code>[COMMON TRAP]</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>+----------------------------------------------------------------+
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>| debug_assert is a no-op in release builds. A gradient that only |
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>| goes NaN in a rare numerical corner case your debug-build test  |
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>| suite never happens to exercise -- a specific input distribution|
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>| seen only in production, say -- will sail through completely    |
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>| undetected the moment check_gradient_health&#39;s asserts are       |
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>| compiled away, because release mode is exactly when the check   |
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>| stops running at all, not just when it stops printing.          |
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>+----------------------------------------------------------------+
+</code></pre></div></p>
+<h2 id="215-reference-implementations">21.5 Reference Implementations<a class="headerlink" href="#215-reference-implementations" title="Permanent link">&para;</a></h2>
+<p>The listing below consolidates every function this chapter introduced into one file. As with the rest of this book's non-neural-network chapters, none of this Mojo code has been compiled or run — the surrounding worked examples were verified independently, in Python, against the real numbers Part 7's actual bond (Worked Example 21.1.1) and hand-derived test functions (Worked Examples 21.2.1, 21.2.2, 21.4.1, 21.4.2) produce, not by executing this file.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># ── 21.1 Custom Autograd Functions ──────────────────────────────</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">ZSpreadSolve</span><span class="p">(</span><span class="n">Differentiable</span><span class="p">):</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">market_price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">spread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bisection_method</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="n">TOLERANCE</span><span class="p">)</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">spread</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">grad_output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">]:</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">df_dspread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bond_price_derivative_wrt_spread</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">df_dprice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">d_spread_d_price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">df_dprice</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">df_dspread</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">](</span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span><span class="w"> </span><span class="n">d_spread_d_price</span><span class="p">))</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="c1"># ── 21.2 Higher-order Derivatives ───────────────────────────────</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="k">fn</span><span class="w"> </span><span class="nf">hessian_vector_product</span><span class="p">(</span><span class="n">mut</span><span class="w"> </span><span class="n">graph</span><span class="p">:</span><span class="w"> </span><span class="n">ComputationGraph</span><span class="p">,</span><span class="w"> </span><span class="n">loss</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="nb">Tensor</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">:</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Computes H @ v where H = d^2(loss)/d(params)^2, without forming H.&quot;&quot;&quot;</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="w">    </span><span class="n">backward</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="w"> </span><span class="n">loss</span><span class="p">)</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">grad_dot_v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elementwise_mul</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">scalar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tensor_sum</span><span class="p">(</span><span class="n">grad_dot_v</span><span class="p">,</span><span class="w"> </span><span class="n">grad_dot_v</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">    </span><span class="n">zero_grad</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="w">    </span><span class="n">backward</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span><span class="w"> </span><span class="n">scalar</span><span class="p">)</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="c1"># ── 21.3 Model Serialization ─────────────────────────────────────</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="k">fn</span><span class="w"> </span><span class="nf">save_model</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">weights</span><span class="p">:</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]):</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="w">    </span><span class="n">f</span><span class="o">.</span><span class="n">write_int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">))</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">weights</span><span class="p">:</span>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">write_int</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">rows</span><span class="p">)</span>
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">write_int</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">cols</span><span class="p">)</span>
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="o">.</span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sizeof</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]())</span>
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="w">    </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="k">fn</span><span class="w"> </span><span class="nf">load_model</span><span class="p">(</span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]:</span>
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="o">.</span><span class="n">read_int</span><span class="p">()</span>
+<a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">weights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">List</span><span class="p">[</span><span class="n">Matrix</span><span class="p">]()</span>
+<a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
+<a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="o">.</span><span class="n">read_int</span><span class="p">()</span>
+<a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="o">.</span><span class="n">read_int</span><span class="p">()</span>
+<a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Matrix</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span>
+<a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="w">        </span><span class="n">f</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="o">.</span><span class="n">size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sizeof</span><span class="p">[</span><span class="nb">Float32</span><span class="p">]())</span>
+<a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a><span class="w">        </span><span class="n">weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a><span class="w">    </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">weights</span>
+<a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a>
+<a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a><span class="c1"># ── 21.4 Debugging and Profiling Tools ───────────────────────────</span>
+<a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a><span class="k">fn</span><span class="w"> </span><span class="nf">gradient_check</span><span class="p">(</span><span class="n">f</span><span class="p">:</span><span class="w"> </span><span class="n">fn</span><span class="p">(</span><span class="nb">Tensor</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">analytic_grad</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">epsilon</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-4</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Float32</span><span class="p">:</span>
+<a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a><span class="w">    </span><span class="s2">&quot;&quot;&quot;Central finite difference: (f(x+eps) - f(x-eps)) / (2*eps) ~= f&#39;(x).&quot;&quot;&quot;</span>
+<a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">max_relative_error</span><span class="p">:</span><span class="w"> </span><span class="nb">Float32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+<a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">x_plus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">();</span><span class="w"> </span><span class="n">x_plus</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">epsilon</span>
+<a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">x_minus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">();</span><span class="w"> </span><span class="n">x_minus</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">epsilon</span>
+<a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">numeric_grad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tensor_sum_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_plus</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tensor_sum_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_minus</span><span class="p">)))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">2.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">epsilon</span><span class="p">)</span>
+<a id="__codelineno-14-56" name="__codelineno-14-56" href="#__codelineno-14-56"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">analytic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analytic_grad</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-14-57" name="__codelineno-14-57" href="#__codelineno-14-57"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">rel_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">numeric_grad</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">analytic</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">numeric_grad</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">analytic</span><span class="p">),</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">)</span>
+<a id="__codelineno-14-58" name="__codelineno-14-58" href="#__codelineno-14-58"></a><span class="w">        </span><span class="n">max_relative_error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">max_relative_error</span><span class="p">,</span><span class="w"> </span><span class="n">rel_error</span><span class="p">)</span>
+<a id="__codelineno-14-59" name="__codelineno-14-59" href="#__codelineno-14-59"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">max_relative_error</span>
+<a id="__codelineno-14-60" name="__codelineno-14-60" href="#__codelineno-14-60"></a>
+<a id="__codelineno-14-61" name="__codelineno-14-61" href="#__codelineno-14-61"></a><span class="k">fn</span><span class="w"> </span><span class="nf">check_gradient_health</span><span class="p">(</span><span class="n">grad</span><span class="p">:</span><span class="w"> </span><span class="nb">Tensor</span><span class="p">,</span><span class="w"> </span><span class="n">node_name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">):</span>
+<a id="__codelineno-14-62" name="__codelineno-14-62" href="#__codelineno-14-62"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+<a id="__codelineno-14-63" name="__codelineno-14-63" href="#__codelineno-14-63"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-14-64" name="__codelineno-14-64" href="#__codelineno-14-64"></a><span class="w">        </span><span class="n">debug_assert</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;NaN gradient at &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">node_name</span><span class="p">)</span>
+<a id="__codelineno-14-65" name="__codelineno-14-65" href="#__codelineno-14-65"></a><span class="w">        </span><span class="n">debug_assert</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1e10</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Exploding gradient at &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">node_name</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
+<p>No captured output accompanies this listing. <code>ZSpreadSolve</code> and <code>hessian_vector_product</code> depend on framework types (<code>Tensor</code>, <code>ComputationGraph</code>, the op registry) assembled conceptually across Parts 3 and 4 rather than compiled as one running binary in this book's source material, and <code>save_model</code>/<code>load_model</code>/<code>gradient_check</code>/<code>check_gradient_health</code> are standalone utilities never wrapped in a <code>main()</code> that prints anything. Every numeric claim made about them in this chapter — the z-spread derivative in Worked Example 21.1.1, both Hessian-vector products in Worked Examples 21.2.1 and 21.2.2, the byte layout in Worked Example 21.3.1, and both <code>gradient_check</code> traces in Worked Examples 21.4.1 and 21.4.2 — was instead verified independently in Python against the real bond-pricing formula Part 7 uses, not by running this Mojo file.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>This chapter added the four tools a framework needs once "compute a gradient" isn't the whole job anymore. Section 21.1 showed how the implicit function theorem lets a graph treat an 18-iteration bisection solver as one opaque node, verified against Part 7's real z-spread bond: a <code>-0.0052912</code> predicted change in spread per dollar of price, confirmed to within 0.3 basis points by actually re-solving the bisection. Section 21.2 showed that <code>backward()</code> is differentiable itself, so calling it a second time on a gradient tensor produces a genuine second derivative — cross-checked, for a real two-variable function, against the full Hessian it never had to build. Section 21.3 reduced a trained network to what it actually is on disk — a header and raw bytes — and named the one thing production checkpoint formats add that this one doesn't: a version field. Section 21.4 separated the two failure modes unique to autograd code — a wrong gradient, caught by an independent finite-difference recomputation, and a corrupted one, caught by a cheap per-element sanity check — and was explicit about the trade-off both share: every safety net here is a debug-build tool, silently absent the moment a release build compiles <code>debug_assert</code> away.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>In Section 21.1's worked example, <code>∂f/∂price = -1.0</code> regardless of what spread bisection finds. Why is this derivative always exactly <code>-1.0</code> and never, say, <code>-0.98</code> or <code>-1.02</code>, no matter what bond or what market price is involved?</li>
+<li>Section 21.2's <code>hessian_vector_product</code> calls <code>zero_grad(params)</code> between its two <code>backward()</code> calls. Trace through what <code>params[0].grad</code> would incorrectly equal in Worked Example 21.2.2 if that line were deleted, using the real numbers from that example.</li>
+<li>Worked Example 21.3.1 gives a 72-byte total file size assuming <code>Int</code> is 8 bytes. Recompute the total file size for the same two matrices (<code>W1</code>: <code>[3,2]</code>, <code>W2</code>: <code>[2,1]</code>) under the alternate assumption that <code>write_int</code> writes only 4 bytes instead of 8.</li>
+<li><code>gradient_check</code> uses <code>abs(numeric_grad - analytic) / max(abs(numeric_grad) + abs(analytic), 1e-8)</code> rather than plain <code>abs(numeric_grad - analytic)</code>. Using Worked Examples 21.4.1 and 21.4.2's numbers, explain concretely what would go wrong if the denominator were dropped and only the raw absolute difference were compared against a fixed threshold like <code>1e-4</code>.</li>
+<li><code>check_gradient_health</code>'s first check is <code>debug_assert(v == v, ...)</code>. Most equality checks compare a value to something else; this one compares a value to itself. Why does that specific, seemingly redundant comparison correctly detect a <code>NaN</code>, and what would <code>debug_assert(v != 0.0/0.0, ...)</code> fail to catch that this one doesn't?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>Part 7 (<code>part7/01-quantitative-finance-examples.md</code>) is where every primitive built across this book gets pointed at the problem it was designed for: the Struct-of-Arrays bond system from Section 18.2, the reduction kernels from Chapter 14, the <code>CustomFunction</code> framework from Section 21.1 above applied to the same z-spread solver this chapter differentiated through, and the GPU kernel design from Part 5 combine into a portfolio-scale pricing and risk pipeline — the chapter where "differentiable" and "financially meaningful" have to be the same property, not two separate claims.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> The objective function bisection actually solves is <code>f(price, spread) = calculate_bond_price(spread) - price</code>. <code>price</code> appears exactly once, with a coefficient of exactly <code>1</code> and a minus sign in front of it — there is no bond parameter, no spread value, and no market condition that changes that coefficient, because it comes from how the objective was <em>written</em>, not from anything about the bond being priced. <code>∂f/∂price = -1.0</code> for every bond, every spread, every market price, for the same reason <code>∂(x-5)/∂x = 1</code> regardless of what number replaces the <code>5</code>.</p>
+<p><strong>2.</strong> Without <code>zero_grad(params)</code>, the second <code>backward(graph, scalar)</code> call's <code>accumulate_gradient</code> (Chapter 17.2) <em>adds</em> onto whatever <code>params[0].grad</code> already held from the first <code>backward(graph, loss)</code> call rather than starting from zero. In Worked Example 21.2.2, the first <code>backward()</code> left <code>params[0].grad = [12, 4]</code> (the plain gradient <code>∇L</code>). The second backward, computing <code>Hv</code>, would then return <code>[12, 4] + [6, 4] = [18, 8]</code> instead of the correct <code>[6, 4]</code> — a Hessian-vector product silently contaminated with an extra, unrelated copy of the first-order gradient.</p>
+<p><strong>3.</strong> With <code>Int</code> at 4 bytes instead of 8: <code>count</code> = 4 bytes; <code>W1</code> header = <code>4+4=8</code> bytes, data unchanged at <code>6×4=24</code> bytes, subtotal <code>32</code>; <code>W2</code> header = <code>8</code> bytes, data <code>2×4=8</code> bytes, subtotal <code>16</code>. Total: <code>4 + 32 + 16 = 52</code> bytes — 20 bytes smaller than the 72-byte, 8-byte-<code>Int</code> version, with the entire difference coming from the five <code>Int</code> fields (<code>count</code> plus two <code>rows</code>/<code>cols</code> pairs) each shrinking by 4 bytes: <code>5 × 4 = 20</code>. ✓</p>
+<p><strong>4.</strong> Worked Example 21.4.1's correct rule has <code>numeric_grad ≈ analytic ≈ 6.0</code>, so the raw difference is a tiny floating-point residual, <code>~4×10⁻¹⁰</code> — comfortably under any reasonable fixed threshold either way, so the normalization doesn't matter <em>here</em>. The problem shows up at a different scale: imagine the same kind of correct rule but on a function whose gradient is legitimately huge, say <code>analytic ≈ 60000.0</code> with a <code>Float32</code>-rounding-sized absolute error of <code>0.01</code>. A fixed threshold of <code>1e-4</code> would flag <code>abs(60000.01 - 60000.0) = 0.01</code> as a "failure," even though relative to the gradient's own scale that's a difference of <code>0.01/60000 ≈ 1.7×10⁻⁷</code> — a completely healthy, correct gradient. Dividing by <code>max(abs(numeric)+abs(analytic), 1e-8)</code> makes the check scale-invariant: it asks "how big is this error <em>relative to the gradient itself</em>," which is what Worked Example 21.4.2's <code>0.3333</code> — unambiguously enormous regardless of scale — is actually measuring.</p>
+<p><strong>5.</strong> <code>NaN</code> is defined by IEEE 754 to compare unequal to <em>everything</em>, including itself — it's the one floating-point value for which <code>v == v</code> is <code>False</code>. That makes <code>v == v</code> a correct, portable NaN test without needing any NaN-specific function. <code>debug_assert(v != 0.0/0.0, ...)</code> would fail to catch this for a much more basic reason: <code>0.0/0.0</code> itself evaluates to <code>NaN</code>, and <code>v != NaN</code> is <code>True</code> for literally every value of <code>v</code>, NaN included (since NaN compares unequal to everything, even another NaN) — so that assertion can never fire regardless of what <code>v</code> holds, making it a check that always silently passes no matter what.</p>
 
 
 
