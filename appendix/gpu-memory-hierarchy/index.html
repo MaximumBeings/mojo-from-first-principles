@@ -1,0 +1,2555 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Building a GPU-Native Automatic Differentiation Framework in Mojo, One Layer at a Time">
+      
+      
+        <meta name="author" content="Oluwaseyi Awoga">
+      
+      
+      
+        <link rel="prev" href="../practice-quiz/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>C. GPU Memory Spaces and Ownership - Mojo From First Principles — Under Development</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="brown">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#appendix-c-gpu-memory-spaces-and-ownership-at-the-hardware-boundary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mojo From First Principles — Under Development" class="md-header__button md-logo" aria-label="Mojo From First Principles — Under Development" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m6 20 4.16-12.09L9.34 6H8V4h2c.42 0 .78.26.93.63L16.66 18H18v2h-2c-.43 0-.79-.27-.93-.64l-3.74-8.71L8.12 20z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mojo From First Principles — Under Development
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              C. GPU Memory Spaces and Ownership
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="brown" data-md-color-accent="brown"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="brown" data-md-color-accent="brown"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mojo From First Principles — Under Development" class="md-nav__button md-logo" aria-label="Mojo From First Principles — Under Development" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m6 20 4.16-12.09L9.34 6H8V4h2c.42 0 .78.26.93.63L16.66 18H18v2h-2c-.43 0-.79-.27-.93-.64l-3.74-8.71L8.12 20z"/></svg>
+
+    </a>
+    Mojo From First Principles — Under Development
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 0 — Mojo Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 0 — Mojo Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part0/01-variables-and-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Variables and Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part0/02-struct-design-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Struct Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part0/03-memory-layout-strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Memory Layout Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part0/04-gpu-programming-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. GPU Programming Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part0/05-simd-and-vectorization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. SIMD and Vectorization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Core Tensor Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1 — Core Tensor Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/01-core-tensor-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. The Tensor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/02-memory-layout-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Memory Layout Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/03-tensor-creation-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Tensor Creation Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/04-specialized-tensor-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Specialized Tensor Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/05-device-abstraction-layer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Device Abstraction Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part1/06-memory-management-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Memory Management System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — Basic Tensor Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 2 — Basic Tensor Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/01-element-wise-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Element-wise Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/02-matrix-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Matrix Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part2/03-reduction-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Reduction Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — Computational Graph Foundation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 3 — Computational Graph Foundation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part3/01-graph-node-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Graph Node Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4 — Automatic Differentiation Engine
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 4 — Automatic Differentiation Engine
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/01-backward-function-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Backward Function Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part4/02-gradient-computation-engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17. Gradient Computation Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5 — GPU Acceleration and Performance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 5 — GPU Acceleration and Performance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/01-gpu-kernel-implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18. GPU Kernel Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part5/02-performance-optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    19. Performance Optimization Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6 — Neural Network Building Blocks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 6 — Neural Network Building Blocks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/01-neural-network-layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20. Neural Network Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part6/02-advanced-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    21. Advanced Features
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 7 — Financial Computing Applications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 7 — Financial Computing Applications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../part7/01-quantitative-finance-examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    22. Quantitative Finance Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Appendix
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A. Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practice-quiz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    B. Practice Quiz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C. GPU Memory Spaces and Ownership
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C. GPU Memory Spaces and Ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#c1-the-addressspace-hierarchy-what-chapter-18-showed-and-what-it-left-out-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.1 The AddressSpace Hierarchy: What Chapter 18 Showed, and What It Left Out [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.1 The AddressSpace Hierarchy: What Chapter 18 Showed, and What It Left Out [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-full-hierarchy-restated-as-one-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The full hierarchy, restated as one diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c2-local-memory-and-the-register-pressure-question-this-book-cant-answer-from-here-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.2 Local Memory and the Register Pressure Question This Book Can't Answer From Here [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.2 Local Memory and the Register Pressure Question This Book Can&#39;t Answer From Here [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c21-sizing-a-per-thread-array-against-arenas-own-alignment-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.2.1 — Sizing a per-thread array against Arena's own alignment unit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c3-the-execution-hierarchy-ceiling-division-and-a-full-grid-block-warp-thread-diagram-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.3 The Execution Hierarchy, Ceiling Division, and a Full Grid → Block → Warp → Thread Diagram [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.3 The Execution Hierarchy, Ceiling Division, and a Full Grid → Block → Warp → Thread Diagram [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c31-a-ceiling-division-launch-this-book-hasnt-computed-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.3.1 — A ceiling-division launch this book hasn't computed before
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c32-the-same-launch-one-warp-lower" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.3.2 — The same launch, one warp lower
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c4-ownership-at-the-hostdevice-boundary-owned-and-why-a-devicecontext-cant-be-copied-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.4 Ownership at the Host/Device Boundary: owned, ^, and Why a DeviceContext Can't Be Copied [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.4 Ownership at the Host/Device Boundary: owned, ^, and Why a DeviceContext Can&#39;t Be Copied [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c41-why-adding-__copyinit__-here-would-be-actively-wrong-traced-against-chapter-111s-own-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.4.1 — Why adding __copyinit__ here would be actively wrong, traced against Chapter 11.1's own reasoning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c5-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-check-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Check Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-we-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where We Go Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Solutions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#c1-the-addressspace-hierarchy-what-chapter-18-showed-and-what-it-left-out-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.1 The AddressSpace Hierarchy: What Chapter 18 Showed, and What It Left Out [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.1 The AddressSpace Hierarchy: What Chapter 18 Showed, and What It Left Out [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-full-hierarchy-restated-as-one-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The full hierarchy, restated as one diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c2-local-memory-and-the-register-pressure-question-this-book-cant-answer-from-here-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.2 Local Memory and the Register Pressure Question This Book Can't Answer From Here [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.2 Local Memory and the Register Pressure Question This Book Can&#39;t Answer From Here [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c21-sizing-a-per-thread-array-against-arenas-own-alignment-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.2.1 — Sizing a per-thread array against Arena's own alignment unit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c3-the-execution-hierarchy-ceiling-division-and-a-full-grid-block-warp-thread-diagram-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.3 The Execution Hierarchy, Ceiling Division, and a Full Grid → Block → Warp → Thread Diagram [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.3 The Execution Hierarchy, Ceiling Division, and a Full Grid → Block → Warp → Thread Diagram [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c31-a-ceiling-division-launch-this-book-hasnt-computed-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.3.1 — A ceiling-division launch this book hasn't computed before
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c32-the-same-launch-one-warp-lower" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.3.2 — The same launch, one warp lower
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c4-ownership-at-the-hostdevice-boundary-owned-and-why-a-devicecontext-cant-be-copied-foundational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.4 Ownership at the Host/Device Boundary: owned, ^, and Why a DeviceContext Can't Be Copied [FOUNDATIONAL]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.4 Ownership at the Host/Device Boundary: owned, ^, and Why a DeviceContext Can&#39;t Be Copied [FOUNDATIONAL]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-c41-why-adding-__copyinit__-here-would-be-actively-wrong-traced-against-chapter-111s-own-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Example C.4.1 — Why adding __copyinit__ here would be actively wrong, traced against Chapter 11.1's own reasoning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c5-reference-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C.5 Reference Implementations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C.5 Reference Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-check-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-Check Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-we-go-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where We Go Next
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worked-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked Solutions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="appendix-c-gpu-memory-spaces-and-ownership-at-the-hardware-boundary">Appendix C: GPU Memory Spaces and Ownership at the Hardware Boundary<a class="headerlink" href="#appendix-c-gpu-memory-spaces-and-ownership-at-the-hardware-boundary" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>"Chapter 4 named three memory scopes and Chapter 18 built a real kernel in exactly one of them — shared memory, <code>stack_allocation[..., address_space = AddressSpace.SHARED]()</code> — because that was the one Chapter 18's convolution actually needed. This appendix goes back for the other two, and for the ownership question Chapter 18 quietly sidestepped every time it wrote <code>owned ctx: DeviceContext</code> without ever asking what happens if you don't."</p>
+</blockquote>
+<p><strong>What you will understand by the end of this appendix:</strong></p>
+<ul>
+<li>Mojo's <code>AddressSpace</code> enum names four memory spaces, not one — <code>GLOBAL</code>, <code>SHARED</code>, <code>CONSTANT</code>, and <code>LOCAL</code> — and this book has so far only ever written code in <code>SHARED</code>; this appendix names what the other three are for and shows the syntax <code>SHARED</code> already established extended to <code>CONSTANT</code></li>
+<li>Why this appendix, alone among this book series' three memory-architecture appendices, has the <em>least</em> direct evidence to offer for register pressure and local-memory spilling — and why that gap is itself worth stating plainly rather than papered over</li>
+<li>A full grid → block → warp → thread hierarchy diagram for Mojo's own launch syntax, with a new ceiling-division worked example that doesn't reuse any number Chapter 18 or its Self-Check already spent</li>
+<li>Why <code>DeviceContext</code> is neither Chapter 6's single-fixed-owner <code>Tensor</code> nor Chapter 11's many-owners <code>RefCountedBuffer</code>, but a third ownership shape this book has been using since Chapter 18 without ever naming it: exactly one owner, move-only, no <code>__copyinit__</code> at all</li>
+</ul>
+<p><strong>What you need to know first:</strong></p>
+<ul>
+<li>Chapter 4 in full: the thread hierarchy, the three memory scopes named in the abstract, and memory coalescing.</li>
+<li>Chapter 18.1 and 18.3: the ceiling-division launch pattern, and the one Mojo GPU memory space this book has written actual code against — <code>stack_allocation[..., address_space = AddressSpace.SHARED]()</code>.</li>
+<li>Chapter 11 in full: <code>RefCountedBuffer</code>'s shared-ownership refcounting, <code>Arena</code>'s bump-pointer allocation and 64-byte alignment arithmetic, and <code>GPUMemoryPool</code>'s size-classed free list — this appendix's Section C.4 is a direct extension of the ownership question Chapter 11.1 opens with.</li>
+<li>Chapter 2.4 (constructors, destructors, <code>owned</code>, and the <code>^</code> transfer sigil) — Section C.4 is built entirely out of vocabulary from this section.</li>
+</ul>
+<h2 id="c1-the-addressspace-hierarchy-what-chapter-18-showed-and-what-it-left-out-foundational">C.1 The <code>AddressSpace</code> Hierarchy: What Chapter 18 Showed, and What It Left Out <code>[FOUNDATIONAL]</code><a class="headerlink" href="#c1-the-addressspace-hierarchy-what-chapter-18-showed-and-what-it-left-out-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition">Intuition<a class="headerlink" href="#intuition" title="Permanent link">&para;</a></h3>
+<p>A library has exactly four kinds of shelving, even though most patrons only ever interact with two of them. The open stacks (anyone can walk up and take any book) are what every kernel argument in this book has used without ever saying so — Chapter 4 and Chapter 18's <code>output</code>, <code>input</code>, <code>rate</code>, <code>spread</code> parameters are all ordinary <code>UnsafePointer</code> values, and every one of them is, implicitly, a pointer into the GPU's large, off-chip global memory: the open stacks. The reserve shelf behind the front desk, reachable only by the one reading table nearest it (Chapter 18.3's <code>stack_allocation[..., address_space = AddressSpace.SHARED]()</code>), is the second kind this book has actually shown code for. The other two — a locked reference case holding one fixed, read-only set of volumes everyone at every table consults but nobody checks out (<code>CONSTANT</code>), and the stack of books a single reader has open on their own desk at that exact moment (<code>LOCAL</code>) — exist in the same library and are named in Mojo's own <code>AddressSpace</code> enum, but this book has never written a line of code that asks for either of them by name.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>Mojo's <code>memory</code> module defines <code>AddressSpace</code> as an enum with (at least) four members this book's own established syntax already implies the existence of, even though only one has appeared in actual code before this appendix:</p>
+<table>
+<thead>
+<tr>
+<th><code>AddressSpace</code> member</th>
+<th>What it names</th>
+<th>Established in this book?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GLOBAL</code></td>
+<td>The GPU's large, off-chip DRAM — every ordinary kernel <code>UnsafePointer</code> argument in Chapters 4 and 18 lives here, implicitly, without ever spelling <code>address_space = AddressSpace.GLOBAL</code></td>
+<td>Used implicitly since Chapter 4; never spelled out explicitly until this appendix</td>
+</tr>
+<tr>
+<td><code>SHARED</code></td>
+<td>Fast, on-chip memory scoped to one block, allocated with <code>stack_allocation[SIZE, DType, address_space = AddressSpace.SHARED]()</code></td>
+<td>Chapter 18.3, the convolution tiling kernel — the only <code>AddressSpace</code> variant this book has used in real code before now</td>
+</tr>
+<tr>
+<td><code>CONSTANT</code></td>
+<td>Small, read-only-from-the-device memory backed by a dedicated broadcast-friendly cache — this book's CUDA-book sibling's Appendix C.4 covers the identical hardware concept for <code>__constant__</code> arrays</td>
+<td>Not used anywhere before this appendix</td>
+</tr>
+<tr>
+<td><code>LOCAL</code></td>
+<td>Per-thread memory the compiler falls back to when a value that <em>should</em> live in a register doesn't fit — Section C.2 below</td>
+<td>Not used anywhere before this appendix</td>
+</tr>
+</tbody>
+</table>
+<p>The syntax for allocating <code>CONSTANT</code> memory follows the exact same <code>stack_allocation</code> call Chapter 18.3 already established for <code>SHARED</code>, with only the <code>address_space</code> parameter changed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">memory</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">,</span><span class="w"> </span><span class="n">AddressSpace</span><span class="p">,</span><span class="w"> </span><span class="n">stack_allocation</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">alias</span><span class="w"> </span><span class="nv">NUM_COEFFS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">fn</span><span class="w"> </span><span class="nf">constant_broadcast_kernel</span><span class="p">(</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">):</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">coeffs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stack_allocation</span><span class="p">[</span><span class="n">NUM_COEFFS</span><span class="p">,</span><span class="w"> </span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">address_space</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddressSpace</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">]()</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="c1"># In a real launch, `coeffs` would be populated once, before the kernel</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="c1"># runs, from a value known at launch time -- the Mojo-level analogue of</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="c1"># cudaMemcpyToSymbol into a __constant__ array. Every thread below reads</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="c1"># coeffs[0], the broadcast case this same book&#39;s CUDA sibling&#39;s</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="c1"># Appendix C.4 covers on the same underlying hardware.</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>[COMMON TRAP]</strong> This snippet is written in this book's own established idiom, exactly extending Chapter 18.3's syntax — but, exactly like Chapter 18.3 and 18.4's own code, it has not been compiled. Unlike those two sections, which reused syntax and worked-example values the chapter's own text (or its author's independently-checked reference) had already exercised, <code>AddressSpace.CONSTANT</code> is new territory this book has not written before. This appendix treats it with the same honesty Chapter 18.5 uses for its own material: presented as source, not as a captured session, and flagged as such rather than left to look verified by proximity to code that was.</p>
+<h3 id="the-full-hierarchy-restated-as-one-diagram">The full hierarchy, restated as one diagram<a class="headerlink" href="#the-full-hierarchy-restated-as-one-diagram" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>HOST (CPU)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  |
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  |  DeviceContext.enqueue_function[kernel](..., grid_dim=(...), block_dim=(...))
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  v
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>DEVICE
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  |
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  |-- GLOBAL   (AddressSpace.GLOBAL)  -- large, off-chip, every ordinary
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  |             UnsafePointer kernel argument since Chapter 4 lives here
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  |
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  |-- CONSTANT (AddressSpace.CONSTANT) -- small, read-only, broadcast-cached;
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  |             new to this appendix, same silicon this book&#39;s CUDA
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  |             sibling&#39;s Appendix C.4 names directly
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  |
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  |-- one BLOCK  (a group of threads sharing one on-chip allocation)
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  |     |-- SHARED (AddressSpace.SHARED) -- Chapter 18.3&#39;s stack_allocation;
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  |     |           visible to every thread in this block, gone once the
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>  |     |           block finishes
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>  |     |-- one THREAD
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>  |           |-- registers  (no Mojo keyword at all -- Section C.2)
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>  |           &#39;-- LOCAL (AddressSpace.LOCAL) -- per-thread fallback when a
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>  |                       value doesn&#39;t fit in registers -- Section C.2
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>  &#39;-- ... (more blocks, each with its own SHARED allocation)
+</code></pre></div>
+<p>Nothing above changes what any earlier chapter's code does. <code>GLOBAL</code> was always the address space Chapter 4's <code>output[idx] = input[idx] * 2.0</code> was reading and writing — the only thing new here is finally naming it.</p>
+<h2 id="c2-local-memory-and-the-register-pressure-question-this-book-cant-answer-from-here-foundational">C.2 Local Memory and the Register Pressure Question This Book Can't Answer From Here <code>[FOUNDATIONAL]</code><a class="headerlink" href="#c2-local-memory-and-the-register-pressure-question-this-book-cant-answer-from-here-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_1">Intuition<a class="headerlink" href="#intuition_1" title="Permanent link">&para;</a></h3>
+<p>Three chess players are each asked to play a game entirely in their head, no board. One has a small enough position that every piece fits in memory with room to spare — nothing written down. A second starts running out of working memory partway through, and begins jotting a few piece positions on a scrap of paper next to them — slower to consult than pure memory, but still fast, still at their elbow. A third has no memory at all for this purpose and has to write down the <em>entire</em> position, move by move, on a notepad across the room. All three "have registers" in the sense that this book's other two sibling appendices use that word (CUDA's real per-thread register file; Triton's compiler-implicit tile allocation), but only the first book can actually watch a real compiler decide, for a real kernel, which of these three players it's building.</p>
+<h3 id="background_1">Background<a class="headerlink" href="#background_1" title="Permanent link">&para;</a></h3>
+<p>This is the one place in this entire three-book series where the honest answer is a gap this book cannot close, and it is worth being direct about exactly why, rather than presenting a hand-traced guess as though it carried the same weight as measured evidence:</p>
+<table>
+<thead>
+<tr>
+<th>Book</th>
+<th>Register pressure evidence available</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CUDA (this series' Appendix C, Section C.2)</td>
+<td><code>nvcc -Xptxas -v</code> genuinely compiled the same kernel twice, once unconstrained and once with <code>-maxrregcount</code>, and reported real, measured spill byte counts from the actual compiler backend</td>
+</tr>
+<tr>
+<td>Triton (this series' Appendix D, Section D.1/D.4)</td>
+<td>No spill counter exists, but every kernel genuinely executes under <code>TRITON_INTERPRET=1</code> — real numeric output, even without register-level visibility</td>
+</tr>
+<tr>
+<td>Mojo (this appendix)</td>
+<td>No Mojo compiler exists in this environment at all — not "a compiler exists but reports nothing," the way Triton's interpreter has no vectorizing backend, but no compiler present, period, matching this entire book's own established methodology since Chapter 11.5 and 18.5</td>
+</tr>
+</tbody>
+</table>
+<p>Mojo, like Triton, exposes no <code>register</code> keyword and no <code>AddressSpace.REGISTER</code> — ordinary local variables inside a kernel are the only spelling for "a per-thread value," and whether any given one lives in a real hardware register or spills to <code>AddressSpace.LOCAL</code> memory is a decision Mojo's compiler backend makes, invisibly, the same way Triton's PTX-generating backend does for a <code>tl.constexpr</code>-sized block. This book cannot observe that decision the way the CUDA appendix's <code>-Xptxas -v</code> genuinely can, because there is no Mojo compiler in this sandbox to ask.</p>
+<p>What this section <em>can</em> do honestly is the arithmetic a compiler's decision would be operating on, hand-traced exactly the way the rest of this book verifies its claims:</p>
+<h3 id="worked-example-c21-sizing-a-per-thread-array-against-arenas-own-alignment-unit">Worked Example C.2.1 — Sizing a per-thread array against Arena's own alignment unit<a class="headerlink" href="#worked-example-c21-sizing-a-per-thread-array-against-arenas-own-alignment-unit" title="Permanent link">&para;</a></h3>
+<p>Chapter 11.2's <code>Arena</code> rounds every allocation up to a 64-byte boundary: <code>(offset + 63) &amp; ~63</code>. A per-thread local array of <code>64</code> <code>Float32</code> values — deliberately the same element count as this book series' CUDA sibling's own register-pressure worked example, so the two appendices' numbers can be compared directly — is <code>64 × 4 = 256</code> bytes. <code>256</code> is itself an exact multiple of <code>64</code>, so this particular size needs no alignment padding at all: a hypothetical <code>AddressSpace.LOCAL</code> allocation of this exact size would sit at a clean 4-cache-line boundary with zero waste, the same "no padding needed" case Chapter 11.2's own Self-Check already established for its <code>200 → 256</code>-byte example rounding up, not down. A smaller array of <code>40</code> <code>Float32</code> values is <code>160</code> bytes; rounding up to the next 64-byte multiple gives <code>192</code> bytes, <code>32</code> bytes of padding — comfortably inside the "at most 63 bytes" bound Chapter 11.2's own text states for <code>Arena</code>'s worst case, restated here on a genuinely different size to confirm the bound holds beyond the one example the chapter itself worked through.</p>
+<p>None of this tells you whether Mojo's real compiler would actually spill either array to <code>AddressSpace.LOCAL</code> memory or keep it entirely in registers — that depends on register pressure from the rest of the kernel, occupancy targets, and compiler heuristics this book has no way to observe. What it does tell you is the <em>cost</em> of spilling, if it happens: a spilled 64-element array costs the same 256 bytes of traffic per thread regardless of which book's compiler is doing the spilling, because that number comes from <code>sizeof[Float32]() × 64</code>, not from anything specific to CUDA, Triton, or Mojo.</p>
+<p><strong>[COMMON TRAP]</strong> It's tempting to read "no compiler available" as "therefore assume Mojo doesn't spill." That does not follow, and this book makes no such claim. GPU compilers for every one of these three languages target the same category of underlying hardware, with the same finite register file per thread; a large enough per-thread array will spill somewhere regardless of source language. The honest position, and the one this section takes, is narrower: this book cannot show you a <em>measured</em> number the way its CUDA sibling can, so it doesn't claim one.</p>
+<h2 id="c3-the-execution-hierarchy-ceiling-division-and-a-full-grid-block-warp-thread-diagram-foundational">C.3 The Execution Hierarchy, Ceiling Division, and a Full Grid → Block → Warp → Thread Diagram <code>[FOUNDATIONAL]</code><a class="headerlink" href="#c3-the-execution-hierarchy-ceiling-division-and-a-full-grid-block-warp-thread-diagram-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_2">Intuition<a class="headerlink" href="#intuition_2" title="Permanent link">&para;</a></h3>
+<p>Chapter 18.1's moving-crew analogy — fixed-size trucks, a job that doesn't divide evenly, an idle mover on the last truck rather than a dropped box — is restated here for one reason: to place it inside the <em>complete</em> chain this book's CUDA sibling names explicitly with the word "CTA" (Cooperative Thread Array) and this book has always called, correctly but only ever partially, a "block." A block is itself made of warps — fixed groups of <code>32</code> threads the hardware schedules and executes in lockstep — and Chapter 18.4's <code>WARP_SIZE = 32</code> constant and its <code>shuffle_down</code>-based reduction are, mechanically, warp-scoped operations this book has already relied on without ever drawing the full picture connecting "block" down to "warp" down to "thread."</p>
+<h3 id="background_2">Background<a class="headerlink" href="#background_2" title="Permanent link">&para;</a></h3>
+<h3 id="worked-example-c31-a-ceiling-division-launch-this-book-hasnt-computed-before">Worked Example C.3.1 — A ceiling-division launch this book hasn't computed before<a class="headerlink" href="#worked-example-c31-a-ceiling-division-launch-this-book-hasnt-computed-before" title="Permanent link">&para;</a></h3>
+<p>Chapter 18.1 traces <code>size = 1,000,000, THREADS_PER_BLOCK = 256</code>; its Self-Check traces <code>size = 5,000, THREADS_PER_BLOCK = 512</code>. Neither has touched <code>size = 50,000, THREADS_PER_BLOCK = 256</code>, computed fresh here with the identical formula:</p>
+<p><code>num_blocks = (50,000 + 255) // 256 = 50,255 // 256 = 196</code>. Total threads launched: <code>196 × 256 = 50,176</code>. Wasted: <code>50,176 − 50,000 = 176</code>. The last block is block <code>195</code>, covering global indices <code>195 × 256 = 49,920</code> through <code>50,175</code>; valid indices are <code>49,920</code> through <code>49,999</code> — <code>80</code> active threads — leaving <code>256 − 80 = 176</code> idle, matching the wasted count computed from the totals, exactly the cross-check Chapter 18's own Worked Solutions perform.</p>
+<h3 id="worked-example-c32-the-same-launch-one-warp-lower">Worked Example C.3.2 — The same launch, one warp lower<a class="headerlink" href="#worked-example-c32-the-same-launch-one-warp-lower" title="Permanent link">&para;</a></h3>
+<p>Every block above is itself <code>256 / 32 = 8</code> warps. The block containing the boundary between valid and wasted work — block <code>195</code> — has <code>80</code> active threads. <code>80 / 32 = 2.5</code>, so those <code>80</code> active threads occupy <code>3</code> full warps (<code>96</code> thread-slots), of which the third warp has only <code>80 − 64 = 16</code> threads doing real work and <code>16</code> idle — the same wasted-lane phenomenon this book series' CUDA sibling's Appendix C.6 computes directly (<code>warps_per_block()</code>), now shown to be a <em>second</em>, finer-grained instance of the exact same rounding problem Chapter 18.1's block-level ceiling division already solves at a coarser grain. A block can be "correctly sized" at the block level (block <code>195</code> is a completely ordinary block, no different from block <code>0</code>) and still contain warps that are only partially active, because block-level padding (Chapter 18.1's bounds check) and warp-level occupancy are two independent rounding problems stacked on top of each other, not the same problem solved twice.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>GRID  (ctx.enqueue_function[kernel](..., grid_dim=(196, 1, 1), block_dim=(256, 1, 1)))
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  |
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  |-- BLOCK 0            (256 threads, 8 warps, all fully active)
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  |     |-- WARP 0  (threads 0-31)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  |     |-- WARP 1  (threads 32-63)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  |     &#39;-- ... (6 more warps)
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  |
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  |-- ... (blocks 1 through 194, identical to block 0)
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  |
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  &#39;-- BLOCK 195          (256 threads launched; only 80 pass `if idx &lt; size`)
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        |-- WARP 0  (threads 0-31,  global idx 49,920-49,951  -- fully active)
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        |-- WARP 1  (threads 32-63, global idx 49,952-49,983  -- fully active)
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        &#39;-- WARP 2  (threads 64-95, global idx 49,984-50,015  -- only 16 of 32
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>                      active; the other 16 fail `idx &lt; size` and idle)
+</code></pre></div>
+<p>Warps 3 through 7 of block 195 are, in this trace, <em>entirely</em> idle — every one of their 32 threads fails the bounds check, since the last valid global index (<code>49,999</code>) falls inside warp 2's range. This is worth naming because it means Chapter 18.4's <code>warp_reduce_sum</code> — which, per that chapter's own Self-Check Question 5 and Worked Solution 5, requires every lane in a warp to still be executing when <code>shuffle_down</code> runs — would be entirely safe to call inside warps 0 and 1 of block 195 without modification, but would need the identity-value substitution Chapter 18's own Worked Solution 5 describes if called inside warp 2, and would simply have nothing to reduce in warps 3 through 7. The bounds-check-versus-shuffle interaction Chapter 18 flags as a hazard in the abstract has a concrete, fully worked address range attached to it here.</p>
+<h2 id="c4-ownership-at-the-hostdevice-boundary-owned-and-why-a-devicecontext-cant-be-copied-foundational">C.4 Ownership at the Host/Device Boundary: <code>owned</code>, <code>^</code>, and Why a <code>DeviceContext</code> Can't Be Copied <code>[FOUNDATIONAL]</code><a class="headerlink" href="#c4-ownership-at-the-hostdevice-boundary-owned-and-why-a-devicecontext-cant-be-copied-foundational" title="Permanent link">&para;</a></h2>
+<h3 id="intuition_3">Intuition<a class="headerlink" href="#intuition_3" title="Permanent link">&para;</a></h3>
+<p>Chapter 11.1 opens with two roommates who can both hold a key to the same apartment, because the landlord only cares that all keys are eventually returned — that's <code>RefCountedBuffer</code>, any number of owners, whichever one finishes last does the freeing. Chapter 6 and Chapter 10's <code>Tensor</code>/<code>MemoryBlock</code> are a stricter version of the same idea: exactly one legitimate owner, established once and never renegotiated. <code>DeviceContext</code>, which every GPU-launching function since Chapter 18.1 has taken as <code>owned ctx: DeviceContext</code> and stored via <code>self.ctx = ctx^</code>, is neither of those. It's closer to a single house key that can be <em>handed off</em> — from one hand to another, so that at every instant exactly one person holds it — but never <em>duplicated</em>, because the thing it represents (a live, open connection to one physical GPU) genuinely cannot be split into two independently valid copies without one of them being a lie about what it actually controls.</p>
+<h3 id="background_3">Background<a class="headerlink" href="#background_3" title="Permanent link">&para;</a></h3>
+<p>Chapter 18's launch functions establish the pattern without ever stopping to name the category it belongs to:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">GPUKernelLauncher</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">owned</span><span class="w"> </span><span class="n">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">):</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">^</span><span class="w">   </span><span class="c1"># moved in, not copied -- the caller&#39;s `ctx` is</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">                           </span><span class="c1"># no longer valid to use after this call</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">launch_elementwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">                           </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="k">alias</span><span class="w"> </span><span class="nv">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">num_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">generic_elementwise_kernel</span><span class="p">](</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">            </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">            </span><span class="n">grid_dim</span><span class="o">=</span><span class="p">(</span><span class="n">num_blocks</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">            </span><span class="n">block_dim</span><span class="o">=</span><span class="p">(</span><span class="n">THREADS_PER_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="p">)</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+</code></pre></div>
+<p><code>GPUKernelLauncher</code> defines no <code>__copyinit__</code> at all — not Chapter 6's <code>_owns_data</code>-flag kind, not Chapter 11.1's refcount-incrementing kind, none. That absence is the entire design: without a <code>__copyinit__</code>, Mojo simply does not allow <code>var launcher2 = launcher1</code> to compile — there is no copy constructor for it to call. The <em>only</em> way a <code>DeviceContext</code> (or anything wrapping one) moves from one place to another is the <code>^</code> transfer sigil, which Chapter 2.4 establishes and Chapter 18's own launch functions already use every time they write <code>ctx^</code>. This is the pattern's whole point: a <code>DeviceContext</code> genuinely represents one live handle onto one physical GPU's driver-level context, and letting two struct instances both believe they independently own that same handle would leave two code paths capable of calling <code>ctx.synchronize()</code> or issuing kernel launches against a resource only one of them actually still controls — not a bookkeeping inconvenience the way an extra refcount increment is, but a real double-ownership bug against a resource that has no safe way to be shared the <code>RefCountedBuffer</code> way.</p>
+<h3 id="worked-example-c41-why-adding-__copyinit__-here-would-be-actively-wrong-traced-against-chapter-111s-own-reasoning">Worked Example C.4.1 — Why adding <code>__copyinit__</code> here would be actively wrong, traced against Chapter 11.1's own reasoning<a class="headerlink" href="#worked-example-c41-why-adding-__copyinit__-here-would-be-actively-wrong-traced-against-chapter-111s-own-reasoning" title="Permanent link">&para;</a></h3>
+<p>Chapter 11.1 justifies <code>RefCountedBuffer</code>'s design with a specific claim: sharing is safe there because "whichever copy's destructor sees the count hit zero" is the one that frees the memory, and every copy up to that point is an equally valid way to read or write the shared buffer. Suppose <code>GPUKernelLauncher</code> were given a <code>__copyinit__</code> that shallow-copied <code>self.ctx</code> the naive way (<code>self.ctx = existing.ctx</code>, if such a copy were even permitted for <code>DeviceContext</code>, which it is not, precisely to prevent this): both the original and the copy would now believe they hold a valid, independent <code>DeviceContext</code>. Nothing analogous to <code>RefCountedBuffer</code>'s shared <code>_refcount</code> integer exists to coordinate between them — there is no shared counter, so neither instance has any way to know the other is still using the same physical GPU connection. If the original's <code>__del__</code> ran first and freed or closed the underlying context (the GPU-driver equivalent of <code>Arena</code>'s <code>reset()</code>, but irreversible rather than reusable), the copy would be left holding a handle to a context that no longer exists — a use-after-free at the driver level, not the buffer level, and one <code>RefCountedBuffer</code>'s entire mechanism was specifically built to prevent for ordinary heap memory. The absence of <code>__copyinit__</code> here isn't a missing feature; it's the one design Chapter 11.1's own reasoning, applied honestly to a resource with no shared-counter equivalent, rules back in as the only safe option.</p>
+<p><strong>[COMMON TRAP]</strong> It's tempting to read "no <code>__copyinit__</code>" as "this struct forgot Chapter 11's lesson about resource safety." Chapter 11.4 closes by admitting its own <code>GPUMemoryPool</code> has exactly this kind of gap — a destructor it never got, leaking every buffer it hands out. <code>GPUKernelLauncher</code>'s missing <code>__copyinit__</code> is the opposite situation: not an oversight, but a deliberate absence, because for this specific resource, the correct number of legitimate "owners at once" the way Chapter 11.1's comparison table frames it is not "exactly one" (Chapter 6), not "any number, tracked live" (<code>RefCountedBuffer</code>), but "exactly one, and never renegotiated except by an explicit, visible <code>^</code> move that invalidates the source" — a fourth ownership shape this book's own Chapter 11.1 table didn't yet have a column for.</p>
+<h2 id="c5-reference-implementations">C.5 Reference Implementations<a class="headerlink" href="#c5-reference-implementations" title="Permanent link">&para;</a></h2>
+<p>Consistent with this book's own established methodology since Chapter 11.5 and Chapter 18.5, none of this appendix's Mojo has been compiled or run — it is presented as source, hand-traced against the arithmetic and reasoning in the prose above, not as a captured session. <code>AddressSpace.CONSTANT</code> (Section C.1) and the <code>GPUKernelLauncher</code> ownership pattern (Section C.4) extend past what Chapters 11 and 18 individually verified; Section C.1's own <code>[COMMON TRAP]</code> and Section C.4's own prose say so explicitly rather than letting proximity to earlier, more established code imply a verification this appendix cannot actually provide. What follows is every snippet this appendix derived, assembled in one place:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.host</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">DeviceContext</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.id</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">block_dim</span><span class="p">,</span><span class="w"> </span><span class="n">block_idx</span><span class="p">,</span><span class="w"> </span><span class="n">thread_idx</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gpu.warp</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">shuffle_down</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">memory</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">,</span><span class="w"> </span><span class="n">AddressSpace</span><span class="p">,</span><span class="w"> </span><span class="n">stack_allocation</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># ---- C.1: constant memory, extending Chapter 18.3&#39;s stack_allocation syntax ----</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="k">alias</span><span class="w"> </span><span class="nv">NUM_COEFFS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">fn</span><span class="w"> </span><span class="nf">constant_broadcast_kernel</span><span class="p">(</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="p">):</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">coeffs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stack_allocation</span><span class="p">[</span><span class="n">NUM_COEFFS</span><span class="p">,</span><span class="w"> </span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">address_space</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AddressSpace</span><span class="o">.</span><span class="n">CONSTANT</span><span class="p">]()</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="c1"># ---- C.3: ceiling-division launch, size=50,000 worked example ----</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="k">fn</span><span class="w"> </span><span class="nf">generic_elementwise_kernel</span><span class="p">(</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">    </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">,</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="p">):</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Int</span><span class="p">(</span><span class="n">block_idx</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">block_dim</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">thread_idx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">:</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">        </span><span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">input</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">Float32</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="c1"># ---- C.4: DeviceContext ownership, move-only, no __copyinit__ ----</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="k">struct</span><span class="w"> </span><span class="n n-Struct">GPUKernelLauncher</span><span class="p">:</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="nv">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="n">out</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">owned</span><span class="w"> </span><span class="n">ctx</span><span class="p">:</span><span class="w"> </span><span class="n">DeviceContext</span><span class="p">):</span>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">^</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">launch_elementwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span>
+<a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="w">                           </span><span class="nb">input</span><span class="p">:</span><span class="w"> </span><span class="n">UnsafePointer</span><span class="p">[</span><span class="nb">Scalar</span><span class="p">[</span><span class="nb">DType</span><span class="o">.</span><span class="n">float32</span><span class="p">]],</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb">Int</span><span class="p">)</span><span class="w"> </span><span class="n">raises</span><span class="p">:</span>
+<a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="w">        </span><span class="k">alias</span><span class="w"> </span><span class="nv">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
+<a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="nv">num_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">THREADS_PER_BLOCK</span>
+<a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">enqueue_function</span><span class="p">[</span><span class="n">generic_elementwise_kernel</span><span class="p">](</span>
+<a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="w">            </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="nb">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="w">            </span><span class="n">grid_dim</span><span class="o">=</span><span class="p">(</span><span class="n">num_blocks</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="w">            </span><span class="n">block_dim</span><span class="o">=</span><span class="p">(</span><span class="n">THREADS_PER_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a><span class="w">        </span><span class="p">)</span>
+<a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a><span class="w">        </span><span class="bp">self</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="expected-output">Expected Output<a class="headerlink" href="#expected-output" title="Permanent link">&para;</a></h3>
+<p>There is no captured run to reproduce here, for the same reason Chapter 11.5 and Chapter 18.5 have none: this appendix's Worked Examples (C.2.1, C.3.1, C.3.2, C.4.1) are the source of truth for every number above, each hand-traced against the arithmetic in the prose, not against a compiled session.</p>
+<h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
+<p>Mojo's <code>AddressSpace</code> enum names four memory spaces — <code>GLOBAL</code>, <code>SHARED</code>, <code>CONSTANT</code>, <code>LOCAL</code> — of which this book had, before this appendix, only ever written real code against one (<code>SHARED</code>, Chapter 18.3); <code>GLOBAL</code> was always the implicit space behind every ordinary kernel <code>UnsafePointer</code> since Chapter 4, and <code>CONSTANT</code>'s <code>stack_allocation</code> syntax extends Chapter 18.3's own pattern directly, flagged explicitly as new, unverified-by-compilation territory rather than presented as equally established. Register pressure and local-memory spilling (<code>AddressSpace.LOCAL</code>) are the one area where this book's own no-compiler constraint is a genuine, stated limit rather than a stylistic choice — unlike its CUDA sibling's measured <code>-Xptxas -v</code> spill counts or its Triton sibling's genuinely interpreter-executed kernels, this book can only hand-trace the <em>cost</em> of a hypothetical spill (<code>64</code> <code>Float32</code> = <code>256</code> bytes, cleanly <code>Arena</code>-aligned; <code>40</code> <code>Float32</code> = <code>160</code> bytes, padded to <code>192</code>), not observe whether any real compiler backend would actually produce one. The grid → block → warp → thread hierarchy is one chain, not two independent rounding problems solved once each: a <code>50,000</code>-element, <code>256</code>-thread-per-block launch needs <code>196</code> blocks and wastes <code>176</code> threads at the block level exactly as Chapter 18.1's formula predicts, and that same launch's boundary block additionally splits unevenly at the warp level, leaving one 32-thread warp only half active and five entirely idle — a second, finer rounding effect this book's CUDA sibling names directly as CTA/warp granularity and this chapter shows arising from the exact same launch Chapter 18.1 already knew how to size. Finally, <code>DeviceContext</code>'s complete absence of a <code>__copyinit__</code> is neither an oversight nor a stricter version of Chapter 6's single-owner <code>Tensor</code> — applying Chapter 11.1's own "how many owners at once" framework honestly to a live GPU driver handle with no shared-counter equivalent to <code>RefCountedBuffer</code>'s shows that move-only, <code>^</code>-only ownership is the <em>only</em> safe design for this specific resource, a fourth ownership shape alongside the three Chapter 11.1's own comparison table already named.</p>
+<h2 id="self-check-questions">Self-Check Questions<a class="headerlink" href="#self-check-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Using <code>stack_allocation[..., address_space = AddressSpace.CONSTANT]()</code> from Section C.1, write the one-line change to <code>constant_broadcast_kernel</code> that would make every thread read a <em>different</em> <code>coeffs</code> entry instead of broadcasting <code>coeffs[0]</code> — matching the "varying" contrast this book series' CUDA sibling's Appendix C.4 draws between its own two constant-memory kernels.</li>
+<li>A per-thread local array holds <code>20</code> <code>Float64</code> values (<code>8</code> bytes each, not <code>Float32</code>'s <code>4</code>). Using Section C.2's method, compute its size in bytes and how many bytes of <code>Arena</code>-style 64-byte alignment padding it would need.</li>
+<li>For <code>size = 50,000, THREADS_PER_BLOCK = 256</code> (Worked Example C.3.1), a second, independent kernel launch uses <code>THREADS_PER_BLOCK = 128</code> instead. Compute <code>num_blocks</code>, total threads launched, and wasted threads for this second configuration.</li>
+<li>Section C.4 argues <code>GPUKernelLauncher</code> should never get a <code>__copyinit__</code>. Chapter 11.1's <code>RefCountedBuffer</code> argues the opposite for its own buffer. Name the one structural difference between the two structs that makes both arguments correct simultaneously, rather than contradictory.</li>
+<li>Worked Example C.3.2 found that block 195's warp 2 has <code>16</code> active threads and <code>16</code> idle ones. Using the same <code>size = 50,000, THREADS_PER_BLOCK = 256</code> launch, which warp index (0 through 7) within block 195 is the <em>last</em> warp to contain at least one active thread, and how many of its 32 threads are active?</li>
+</ol>
+<h2 id="where-we-go-next">Where We Go Next<a class="headerlink" href="#where-we-go-next" title="Permanent link">&para;</a></h2>
+<p>This appendix closes this book's coverage of memory the way its CUDA and Triton siblings' own final appendices close theirs: not with new operations this book's chapters will build on going forward, but with the vocabulary — <code>AddressSpace</code>'s full four-member enum, the grid/warp hierarchy underneath every launch this book has ever written, and <code>DeviceContext</code>'s move-only ownership shape — needed to read GPU-facing Mojo code this book didn't happen to need for any of its own worked examples, and to recognize which of this appendix's own claims rest on hand-traced arithmetic this book can fully verify versus which rest on Mojo API surface this environment has no compiler to check.</p>
+<h2 id="worked-solutions">Worked Solutions<a class="headerlink" href="#worked-solutions" title="Permanent link">&para;</a></h2>
+<p><strong>1.</strong> Replace <code>coeffs[0]</code> with <code>coeffs[idx % NUM_COEFFS]</code>: <code>output[idx] = input[idx] * coeffs[idx % NUM_COEFFS]</code>. Every thread now reads a different entry (wrapping every <code>8</code> threads, since <code>NUM_COEFFS = 8</code>), the same broadcast-versus-varying contrast the CUDA appendix draws between <code>constant_broadcast_kernel</code> and <code>constant_varying_kernel</code>.</p>
+<p><strong>2.</strong> <code>20 × 8 = 160</code> bytes. Rounding up to the next 64-byte multiple: <code>ceil(160/64) × 64 = 3 × 64 = 192</code> bytes, so <code>192 − 160 = 32</code> bytes of padding — coincidentally the identical byte count Section C.2's own <code>40</code>-<code>Float32</code> example produces (<code>160</code> bytes there too, by a different route: <code>40 × 4 = 160</code>), confirming the padding amount depends only on the total byte size crossing a 64-byte boundary, not on the element type or count that produced it.</p>
+<p><strong>3.</strong> <code>num_blocks = (50,000 + 127) // 128 = 50,127 // 128 = 391</code>. Total threads launched: <code>391 × 128 = 50,048</code>. Wasted: <code>50,048 − 50,000 = 48</code>. (Cross-check: the last block, block <code>390</code>, starts at global index <code>390 × 128 = 49,920</code>; valid indices run through <code>49,999</code>, so <code>80</code> threads are active and <code>128 − 80 = 48</code> are idle, matching the wasted count computed from the totals.)</p>
+<p><strong>4.</strong> <code>RefCountedBuffer</code> carries its own shared coordination mechanism — the <code>_refcount</code> integer every copy points at and can safely increment or decrement — so multiple simultaneous owners can always agree, through that shared counter, on when the last one has gone out of scope. <code>DeviceContext</code> (and anything wrapping it, like <code>GPUKernelLauncher</code>) has no equivalent shared counter, and the resource it represents — a live driver-level connection to one physical GPU — cannot be safely split the way heap memory can, because there is no way to "partially" hold a GPU context the way two <code>RefCountedBuffer</code> copies can both validly read the same buffer. The structural difference is exactly that shared-counter mechanism's presence or absence: <code>RefCountedBuffer</code> has a real, working answer to "how do multiple owners safely coordinate," and <code>GPUKernelLauncher</code> has none, which is precisely why allowing multiple owners is safe for one and unsafe for the other.</p>
+<p><strong>5.</strong> Block 195's valid global indices are <code>49,920</code> through <code>49,999</code> — <code>80</code> values. Warp boundaries within the block fall at local thread indices <code>0–31</code> (warp 0), <code>32–63</code> (warp 1), <code>64–95</code> (warp 2), <code>96–127</code> (warp 3), and so on. Local index <code>79</code> (the 80th active thread, <code>idx = 49,999</code>) falls in the range <code>64–95</code>, which is warp 2 — so warp 2 is the last warp with any active thread, matching Worked Example C.3.2's own finding, and it has <code>80 − 64 = 16</code> active threads out of its <code>32</code>. Warps 3 through 7 (local indices <code>96</code> and above) contain no valid indices at all and are entirely idle.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../practice-quiz/" class="md-footer__link md-footer__link--prev" aria-label="Previous: B. Practice Quiz">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                B. Practice Quiz
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Oluwaseyi Awoga
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/maximumbeings" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
