@@ -91,6 +91,7 @@ nav:
   - Appendix:
       - "A. Installation & Setup": appendix/installation-setup.md
       - "B. Practice Quiz": appendix/practice-quiz.md
+      - "C. GPU Memory Spaces and Ownership": appendix/gpu-memory-hierarchy.md
 
 extra:
   social:
